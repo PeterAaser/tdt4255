@@ -1,0 +1,5 @@
+vhdl isim_temp "src/defs.vhd"
+vhdl isim_temp "storage.vhd"
+vhdl isim_temp "src/tests/testutil.vhd"
+vhdl isim_temp "src/stack.vhd"
+vhdl isim_temp "src/tests/stack_tb.vhd"

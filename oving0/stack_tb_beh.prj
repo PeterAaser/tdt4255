@@ -1,0 +1,5 @@
+vhdl work "src/defs.vhd"
+vhdl work "storage.vhd"
+vhdl work "src/tests/testutil.vhd"
+vhdl work "src/stack.vhd"
+vhdl work "src/tests/stack_tb.vhd"

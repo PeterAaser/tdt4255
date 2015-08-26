@@ -1,0 +1,29 @@
+Running: /opt/Xilinx/12.4/ISE_DS/ISE/bin/lin/unwrapped/fuse -intstyle ise -incremental -lib secureip -o /home/shomec/p/peteraa/Documents/oving0/oving0/stack_tb_isim_beh.exe -prj /home/shomec/p/peteraa/Documents/oving0/oving0/stack_tb_beh.prj stack_tb 
+ISim M.81d (signature 0x141a37e9)
+Number of CPUs detected in this system: 4
+Turning on mult-threading, number of parallel sub-compilation jobs: 8 
+Determining compilation order of HDL files
+Parsing VHDL file "/home/shomec/p/peteraa/Documents/oving0/oving0/src/defs.vhd" into library work
+Parsing VHDL file "/home/shomec/p/peteraa/Documents/oving0/oving0/storage.vhd" into library work
+Parsing VHDL file "/home/shomec/p/peteraa/Documents/oving0/oving0/src/tests/testutil.vhd" into library work
+Parsing VHDL file "/home/shomec/p/peteraa/Documents/oving0/oving0/src/stack.vhd" into library work
+Parsing VHDL file "/home/shomec/p/peteraa/Documents/oving0/oving0/src/tests/stack_tb.vhd" into library work
+Starting static elaboration
+Completed static elaboration
+Fuse Memory Usage: 29604 KB
+Fuse CPU Usage: 200 ms
+Using precompiled package standard from library std
+Using precompiled package std_logic_1164 from library ieee
+Using precompiled package numeric_std from library ieee
+Compiling package defs
+Compiling package testutil
+Compiling architecture behavioral of entity storage [storage_default]
+Compiling architecture behavioural of entity stack [\stack(1024)\]
+Compiling architecture behavioural of entity stack_tb
+Time Resolution for simulation is 1ps.
+Waiting for 1 sub-compilation(s) to finish...
+Compiled 10 VHDL Units
+Built simulation executable /home/shomec/p/peteraa/Documents/oving0/oving0/stack_tb_isim_beh.exe
+Fuse Memory Usage: 78808 KB
+Fuse CPU Usage: 230 ms
+GCC CPU Usage: 500 ms
