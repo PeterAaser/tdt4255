@@ -8,7 +8,7 @@
 <!-- Copyright (c) 1995-2010 Xilinx, Inc.  All rights reserved.    -->
 
 <messages>
-<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;/home/shomec/p/peteraa/Documents/oving1/src/testbench/tb_MIPSProcessor.vhd&quot; into library work</arg>
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;/home/shomec/p/peteraa/Documents/DM kons/oving1/src/testbench/tb_ProgramCounter.vhd&quot; into library work</arg>
 </msg>
 
 </messages>

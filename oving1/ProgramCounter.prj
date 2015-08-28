@@ -1,0 +1,2 @@
+vhdl work "defs.vhd"
+vhdl work "ProgramCounter.vhd"

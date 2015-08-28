@@ -1,0 +1,4 @@
+vhdl isim_temp "defs.vhd"
+vhdl isim_temp "src/testbench/testutil.vhd"
+vhdl isim_temp "ProgramCounter.vhd"
+vhdl isim_temp "src/testbench/tb_ProgramCounter.vhd"
