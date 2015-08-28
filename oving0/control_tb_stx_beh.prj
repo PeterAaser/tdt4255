@@ -1,0 +1,4 @@
+vhdl isim_temp "src/defs.vhd"
+vhdl isim_temp "src/tests/testutil.vhd"
+vhdl isim_temp "src/control.vhd"
+vhdl isim_temp "src/tests/control_tb.vhd"

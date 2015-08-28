@@ -1,0 +1,23 @@
+xst -intstyle ise -ifn "/home/shomec/p/peteraa/Documents/oving0/oving0/RPNSystem.xst" -ofn "/home/shomec/p/peteraa/Documents/oving0/oving0/RPNSystem.syr" 
+xst -intstyle ise -ifn "/home/shomec/p/peteraa/Documents/oving0/oving0/RPNSystem.xst" -ofn "/home/shomec/p/peteraa/Documents/oving0/oving0/RPNSystem.syr" 
+xst -intstyle ise -ifn "/home/shomec/p/peteraa/Documents/oving0/oving0/RPNSystem.xst" -ofn "/home/shomec/p/peteraa/Documents/oving0/oving0/RPNSystem.syr" 
+xst -intstyle ise -ifn "/home/shomec/p/peteraa/Documents/oving0/oving0/RPNSystem.xst" -ofn "/home/shomec/p/peteraa/Documents/oving0/oving0/RPNSystem.syr" 
+netgen -intstyle ise -ar Structure -tm RPNSystem -w -dir netgen/synthesis -ofmt vhdl -sim RPNSystem.ngc RPNSystem_synthesis.vhd 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc src/framework/RPNSystem.ucf -p xc6slx16-csg324-2 RPNSystem.ngc RPNSystem.ngd  
+xst -intstyle ise -ifn "/home/shomec/p/peteraa/Documents/oving0/oving0/RPNSystem.xst" -ofn "/home/shomec/p/peteraa/Documents/oving0/oving0/RPNSystem.syr" 
+xst -intstyle ise -ifn "/home/shomec/p/peteraa/Documents/oving0/oving0/RPNSystem.xst" -ofn "/home/shomec/p/peteraa/Documents/oving0/oving0/RPNSystem.syr" 
+netgen -intstyle ise -ar Structure -tm RPNSystem -w -dir netgen/synthesis -ofmt vhdl -sim RPNSystem.ngc RPNSystem_synthesis.vhd 
+vhdtdtfi -lib work src/framework/uart/uartTx.vhd -lib work src/framework/uart/uartRx.vhd -lib work src/framework/uart/uart2BusTop_pkg.vhd -lib work src/framework/uart/baudGen.vhd -lib work src/defs.vhd -lib work storage.vhd -lib work src/framework/uart/uartTop.vhd -lib work src/framework/uart/uartParser.vhd -lib work src/stack.vhd -lib work src/framework/uart/uart2BusTop.vhd -lib work src/framework/RPNDataMem.vhd -lib work src/control.vhd -lib work src/stack_machine.vhd -lib work src/framework/InstructionBuffer.vhd -lib work src/framework/RPNSystem.vhd -prj oving0 -o RPNSystem.spl -module RPNSystem -template /opt/Xilinx/12.4/ISE_DS/ISE//data/splfile.tft -deleteonerror 
+spl2sym -intstyle ise -family spartan6 RPNSystem.spl /home/shomec/p/peteraa/Documents/oving0/oving0/RPNSystem.sym 
+xst -intstyle ise -ifn "/home/shomec/p/peteraa/Documents/oving0/oving0/RPNSystem.xst" -ofn "/home/shomec/p/peteraa/Documents/oving0/oving0/RPNSystem.syr" 
+ngdbuild -intstyle ise -dd _ngo -sd src/framework -nt timestamp -uc src/framework/RPNSystem.ucf -p xc6slx16-csg324-2 RPNSystem.ngc RPNSystem.ngd  
+map -intstyle ise -p xc6slx16-csg324-2 -w -logic_opt off -ol high -t 1 -xt 0 -register_duplication off -r 4 -global_opt off -mt off -ir off -pr off -lc off -power off -o RPNSystem_map.ncd RPNSystem.ngd RPNSystem.pcf 
+par -w -intstyle ise -ol high -mt off RPNSystem_map.ncd RPNSystem.ncd RPNSystem.pcf 
+trce -intstyle ise -v 3 -s 2 -n 3 -fastpaths -xml RPNSystem.twx RPNSystem.ncd -o RPNSystem.twr RPNSystem.pcf 
+bitgen -intstyle ise -f RPNSystem.ut RPNSystem.ncd 
+xst -intstyle ise -ifn "/home/shomec/p/peteraa/Documents/oving0/oving0/RPNSystem.xst" -ofn "/home/shomec/p/peteraa/Documents/oving0/oving0/RPNSystem.syr" 
+ngdbuild -intstyle ise -dd _ngo -sd src/framework -nt timestamp -uc src/framework/RPNSystem.ucf -p xc6slx16-csg324-2 RPNSystem.ngc RPNSystem.ngd  
+map -intstyle ise -p xc6slx16-csg324-2 -w -logic_opt off -ol high -t 1 -xt 0 -register_duplication off -r 4 -global_opt off -mt off -ir off -pr off -lc off -power off -o RPNSystem_map.ncd RPNSystem.ngd RPNSystem.pcf 
+par -w -intstyle ise -ol high -mt off RPNSystem_map.ncd RPNSystem.ncd RPNSystem.pcf 
+trce -intstyle ise -v 3 -s 2 -n 3 -fastpaths -xml RPNSystem.twx RPNSystem.ncd -o RPNSystem.twr RPNSystem.pcf 
+bitgen -intstyle ise -f RPNSystem.ut RPNSystem.ncd 

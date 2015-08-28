@@ -1,0 +1,2 @@
+vhdl isim_temp "src/defs.vhd"
+vhdl isim_temp "src/control.vhd"
