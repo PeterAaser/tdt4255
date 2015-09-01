@@ -1,1 +1,2 @@
-work	"src/InstructionDecoder.vhd"
+work	"defs.vhd"
+work	"src/PC.vhd"

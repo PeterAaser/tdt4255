@@ -4,14 +4,14 @@ Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
 Parameter TMPDIR set to /home/peter/Documents/Datateknikk/DM kons/tdt4255/oving1/xst/projnav.tmp
 
 
-Total REAL time to Xst completion: 0.00 secs
+Total REAL time to Xst completion: 1.00 secs
 Total CPU time to Xst completion: 0.05 secs
  
 --> 
 Parameter xsthdpdir set to /home/peter/Documents/Datateknikk/DM kons/tdt4255/oving1/xst
 
 
-Total REAL time to Xst completion: 0.00 secs
+Total REAL time to Xst completion: 1.00 secs
 Total CPU time to Xst completion: 0.05 secs
  
 --> 
@@ -48,12 +48,12 @@ Parsing package body <defs>.
 
 
 Total REAL time to Xst completion: 4.00 secs
-Total CPU time to Xst completion: 3.67 secs
+Total CPU time to Xst completion: 3.63 secs
  
 --> 
 
 
-Total memory usage is 303076 kilobytes
+Total memory usage is 303080 kilobytes
 
 Number of errors   :    0 (   0 filtered)
 Number of warnings :    0 (   0 filtered)

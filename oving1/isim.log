@@ -1,6 +1,5 @@
 ISim log file
-Running: /home/peter/Documents/Datateknikk/DM kons/tdt4255/oving1/tb_ProgramCounter_isim_beh.exe -intstyle ise -gui -tclbatch isim.cmd -wdb /home/peter/Documents/Datateknikk/DM kons/tdt4255/oving1/tb_ProgramCounter_isim_beh.wdb 
-INFO: There is another simulation running in the same directory. Using database file name isim1.wdb.
+Running: /media/peter/stuff/sin bin/tdt4255/oving1/tb_PC_isim_beh.exe -intstyle ise -gui -tclbatch isim.cmd -wdb /media/peter/stuff/sin bin/tdt4255/oving1/tb_PC_isim_beh.wdb 
 ISim P.20131013 (signature 0xfbc00daa)
 WARNING: A WEBPACK license was found.
 WARNING: Please use Xilinx License Configuration Manager to check out a full ISim license.
@@ -11,15 +10,206 @@ Time resolution is 1 ps
 # wave add /
 # run 1000 ns
 Simulator is doing circuit initialization process.
+at 0 ps, Instance /tb_pc/uut/ : Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
 Finished circuit initialization process.
-at 340 ns: Note: #1  :^) next addr is 0 after reset (^: (/tb_programcounter/).
-at 340 ns: Note: #2  :^) current addr did not update before clk edge(^: (/tb_programcounter/).
-at 360 ns: Note: #3  :^) current addr updated after clk edge (^: (/tb_programcounter/).
-at 400 ns: Note: #4  :^) next addr resets correctly after being driven (^: (/tb_programcounter/).
+at 12500 ps: Note: Test 1 passed (/tb_pc/).
+at 22500 ps: Note: Test 2 passed (/tb_pc/).
 
-** Failure::^) Test complete  (^:
+** Failure:Address out should increment at clock edge by default
 User(VHDL) Code Called Simulation Stop
-In process tb_ProgramCounter.vhd:stim_proc 
+In process tb_PC.vhd:stim_proc 
+ 
+INFO: Simulator is stopped.
+INFO: There is another simulation running in the same directory. Using database file name isim1.wdb.
+ISim P.20131013 (signature 0xfbc00daa)
+WARNING: A WEBPACK license was found.
+WARNING: Please use Xilinx License Configuration Manager to check out a full ISim license.
+WARNING: ISim will run in Lite mode. Please refer to the ISim documentation for more information on the differences between the Lite and the Full version.
+This is a Lite version of ISim.
+# run 1000 ns
+Simulator is doing circuit initialization process.
+at 0 ps, Instance /tb_pc/uut/ : Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+Finished circuit initialization process.
+at 12500 ps: Note: Test 1 passed (/tb_pc/).
+at 22500 ps: Note: Test 2 passed (/tb_pc/).
+
+** Failure:Address out should increment at clock edge by default
+User(VHDL) Code Called Simulation Stop
+In process tb_PC.vhd:stim_proc 
+ 
+INFO: Simulator is stopped.
+# exit 0
+ISim P.20131013 (signature 0xfbc00daa)
+WARNING: A WEBPACK license was found.
+WARNING: Please use Xilinx License Configuration Manager to check out a full ISim license.
+WARNING: ISim will run in Lite mode. Please refer to the ISim documentation for more information on the differences between the Lite and the Full version.
+This is a Lite version of ISim.
+# run 1000 ns
+Simulator is doing circuit initialization process.
+at 0 ps, Instance /tb_pc/uut/ : Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+Finished circuit initialization process.
+at 12500 ps: Note: Test 1 passed (/tb_pc/).
+at 22500 ps: Note: Test 2 passed (/tb_pc/).
+
+** Failure:Address out should increment at clock edge by default
+User(VHDL) Code Called Simulation Stop
+In process tb_PC.vhd:stim_proc 
+ 
+INFO: Simulator is stopped.
+ISim P.20131013 (signature 0xfbc00daa)
+WARNING: A WEBPACK license was found.
+WARNING: Please use Xilinx License Configuration Manager to check out a full ISim license.
+WARNING: ISim will run in Lite mode. Please refer to the ISim documentation for more information on the differences between the Lite and the Full version.
+This is a Lite version of ISim.
+# run 1000 ns
+Simulator is doing circuit initialization process.
+at 0 ps, Instance /tb_pc/uut/ : Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+Finished circuit initialization process.
+at 12500 ps: Note: Test 1 passed (/tb_pc/).
+at 22500 ps: Note: Test 2 passed (/tb_pc/).
+
+** Failure:Address out should increment at clock edge by default
+User(VHDL) Code Called Simulation Stop
+In process tb_PC.vhd:stim_proc 
+ 
+INFO: Simulator is stopped.
+ISim P.20131013 (signature 0xfbc00daa)
+WARNING: A WEBPACK license was found.
+WARNING: Please use Xilinx License Configuration Manager to check out a full ISim license.
+WARNING: ISim will run in Lite mode. Please refer to the ISim documentation for more information on the differences between the Lite and the Full version.
+This is a Lite version of ISim.
+# run 1000 ns
+Simulator is doing circuit initialization process.
+at 0 ps, Instance /tb_pc/uut/ : Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+Finished circuit initialization process.
+at 12500 ps: Note: Test 1 passed (/tb_pc/).
+at 22500 ps: Note: Test 2 passed (/tb_pc/).
+at 75 ns(1): Note: Jumpin (/tb_pc/uut/).
+at 85 ns(1): Note: Jumpin (/tb_pc/uut/).
+at 95 ns(1): Note: Jumpin (/tb_pc/uut/).
+
+** Failure:Address out should increment at clock edge by default
+User(VHDL) Code Called Simulation Stop
+In process tb_PC.vhd:stim_proc 
+ 
+INFO: Simulator is stopped.
+ISim P.20131013 (signature 0xfbc00daa)
+WARNING: A WEBPACK license was found.
+WARNING: Please use Xilinx License Configuration Manager to check out a full ISim license.
+WARNING: ISim will run in Lite mode. Please refer to the ISim documentation for more information on the differences between the Lite and the Full version.
+This is a Lite version of ISim.
+# run 1000 ns
+Simulator is doing circuit initialization process.
+at 0 ps, Instance /tb_pc/uut/ : Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+Finished circuit initialization process.
+at 12500 ps: Note: Test 1 passed (/tb_pc/).
+at 22500 ps: Note: Test 2 passed (/tb_pc/).
+at 75 ns(1): Note: Jumpin (/tb_pc/uut/).
+
+** Failure:Address out should increment at clock edge by default
+User(VHDL) Code Called Simulation Stop
+In process tb_PC.vhd:stim_proc 
+ 
+INFO: Simulator is stopped.
+ISim P.20131013 (signature 0xfbc00daa)
+WARNING: A WEBPACK license was found.
+WARNING: Please use Xilinx License Configuration Manager to check out a full ISim license.
+WARNING: ISim will run in Lite mode. Please refer to the ISim documentation for more information on the differences between the Lite and the Full version.
+This is a Lite version of ISim.
+# run 1000 ns
+Simulator is doing circuit initialization process.
+at 0 ps, Instance /tb_pc/uut/ : Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+Finished circuit initialization process.
+at 12500 ps: Note: Test 1 passed (/tb_pc/).
+at 22500 ps: Note: Test 2 passed (/tb_pc/).
+at 75 ns(1): Note: Jumpin (/tb_pc/uut/).
+at 85 ns(1): Note: Jumpin (/tb_pc/uut/).
+
+** Failure:Address out should increment at clock edge by default
+User(VHDL) Code Called Simulation Stop
+In process tb_PC.vhd:stim_proc 
+ 
+INFO: Simulator is stopped.
+ISim P.20131013 (signature 0xfbc00daa)
+WARNING: A WEBPACK license was found.
+WARNING: Please use Xilinx License Configuration Manager to check out a full ISim license.
+WARNING: ISim will run in Lite mode. Please refer to the ISim documentation for more information on the differences between the Lite and the Full version.
+This is a Lite version of ISim.
+# run 1000 ns
+Simulator is doing circuit initialization process.
+at 0 ps, Instance /tb_pc/uut/ : Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+Finished circuit initialization process.
+at 12500 ps: Note: Test 1 passed (/tb_pc/).
+at 22500 ps: Note: Test 2 passed (/tb_pc/).
+at 105 ns(1): Note: Jumpin (/tb_pc/uut/).
+
+** Failure:Address out should increment at clock edge by default
+User(VHDL) Code Called Simulation Stop
+In process tb_PC.vhd:stim_proc 
+ 
+INFO: Simulator is stopped.
+ISim P.20131013 (signature 0xfbc00daa)
+WARNING: A WEBPACK license was found.
+WARNING: Please use Xilinx License Configuration Manager to check out a full ISim license.
+WARNING: ISim will run in Lite mode. Please refer to the ISim documentation for more information on the differences between the Lite and the Full version.
+This is a Lite version of ISim.
+# run 1000 ns
+Simulator is doing circuit initialization process.
+Finished circuit initialization process.
+
+** Failure:Address out should be 0 after reset
+User(VHDL) Code Called Simulation Stop
+In process tb_PC.vhd:stim_proc 
+ 
+INFO: Simulator is stopped.
+ISim P.20131013 (signature 0xfbc00daa)
+WARNING: A WEBPACK license was found.
+WARNING: Please use Xilinx License Configuration Manager to check out a full ISim license.
+WARNING: ISim will run in Lite mode. Please refer to the ISim documentation for more information on the differences between the Lite and the Full version.
+This is a Lite version of ISim.
+# run 1000 ns
+Simulator is doing circuit initialization process.
+Finished circuit initialization process.
+at 15 ns(1), Instance /tb_pc/uut/ : Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+at 22500 ps: Note: Test 1 passed (/tb_pc/).
+
+** Failure:Address out should increment at clock edge by default
+User(VHDL) Code Called Simulation Stop
+In process tb_PC.vhd:stim_proc 
+ 
+INFO: Simulator is stopped.
+ISim P.20131013 (signature 0xfbc00daa)
+WARNING: A WEBPACK license was found.
+WARNING: Please use Xilinx License Configuration Manager to check out a full ISim license.
+WARNING: ISim will run in Lite mode. Please refer to the ISim documentation for more information on the differences between the Lite and the Full version.
+This is a Lite version of ISim.
+# run 1000 ns
+Simulator is doing circuit initialization process.
+Finished circuit initialization process.
+at 15 ns(1), Instance /tb_pc/uut/ : Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+at 22500 ps: Note: Test 1 passed (/tb_pc/).
+
+** Failure:Address out should increment at clock edge by default
+User(VHDL) Code Called Simulation Stop
+In process tb_PC.vhd:stim_proc 
+ 
+INFO: Simulator is stopped.
+ISim P.20131013 (signature 0xfbc00daa)
+WARNING: A WEBPACK license was found.
+WARNING: Please use Xilinx License Configuration Manager to check out a full ISim license.
+WARNING: ISim will run in Lite mode. Please refer to the ISim documentation for more information on the differences between the Lite and the Full version.
+This is a Lite version of ISim.
+# run 1000 ns
+Simulator is doing circuit initialization process.
+Finished circuit initialization process.
+at 15 ns(1), Instance /tb_pc/uut/ : Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+at 22500 ps: Note: Test 1 passed (/tb_pc/).
+at 32500 ps: Note: Test 2 passed (/tb_pc/).
+at 115 ns(1): Note: Jumpin (/tb_pc/uut/).
+
+** Failure:Address out should increment at clock edge by default
+User(VHDL) Code Called Simulation Stop
+In process tb_PC.vhd:stim_proc 
  
 INFO: Simulator is stopped.
 # exit 0

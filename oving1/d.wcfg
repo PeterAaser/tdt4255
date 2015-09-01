@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="/media/peter/stuff/sin bin/tdt4255/oving1/tb_PC_isim_beh.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="defs" />
+            <top_module name="numeric_std" />
+            <top_module name="std_logic_1164" />
+            <top_module name="tb_pc" />
+            <top_module name="testutil" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="15" />
+   <wvobject fp_name="/tb_pc/uut/zero" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">zero</obj_property>
+      <obj_property name="ObjectShortName">zero</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_pc/uut/clk" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_pc/uut/rst" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_pc/uut/op_target" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">op_target[25:0]</obj_property>
+      <obj_property name="ObjectShortName">op_target[25:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_pc/uut/op_immediate" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">op_immediate[15:0]</obj_property>
+      <obj_property name="ObjectShortName">op_immediate[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_pc/uut/branch" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">branch</obj_property>
+      <obj_property name="ObjectShortName">branch</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_pc/uut/zero" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">zero</obj_property>
+      <obj_property name="ObjectShortName">zero</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_pc/uut/jump" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">jump</obj_property>
+      <obj_property name="ObjectShortName">jump</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_pc/uut/address_out" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">address_out[31:0]</obj_property>
+      <obj_property name="ObjectShortName">address_out[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_pc/uut/address" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">address[31:0]</obj_property>
+      <obj_property name="ObjectShortName">address[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_pc/uut/jump_addr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">jump_addr[31:0]</obj_property>
+      <obj_property name="ObjectShortName">jump_addr[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_pc/uut/branch_addr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">branch_addr[31:0]</obj_property>
+      <obj_property name="ObjectShortName">branch_addr[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_pc/uut/branch_mux" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">branch_mux</obj_property>
+      <obj_property name="ObjectShortName">branch_mux</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_pc/uut/extended_immediate" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">extended_immediate[31:0]</obj_property>
+      <obj_property name="ObjectShortName">extended_immediate[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_pc/uut/next_addr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">next_addr[31:0]</obj_property>
+      <obj_property name="ObjectShortName">next_addr[31:0]</obj_property>
+   </wvobject>
+</wave_config>

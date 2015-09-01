@@ -1,27 +1,28 @@
-Running: /media/peter/stuff/XilinxISE/14.7/ISE_DS/ISE/bin/lin64/unwrapped/fuse -intstyle ise -incremental -lib secureip -o /home/peter/Documents/Datateknikk/DM kons/tdt4255/oving1/tb_ProgramCounter_isim_beh.exe -prj /home/peter/Documents/Datateknikk/DM kons/tdt4255/oving1/tb_ProgramCounter_beh.prj work.tb_ProgramCounter 
+Running: /media/peter/stuff/XilinxISE/14.7/ISE_DS/ISE/bin/lin64/unwrapped/fuse -relaunch -intstyle "ise" -incremental -lib "secureip" -o "/media/peter/stuff/sin bin/tdt4255/oving1/tb_PC_isim_beh.exe" -prj "/media/peter/stuff/sin bin/tdt4255/oving1/tb_PC_beh.prj" "work.tb_PC" 
 ISim P.20131013 (signature 0xfbc00daa)
 Number of CPUs detected in this system: 4
 Turning on mult-threading, number of parallel sub-compilation jobs: 8 
 Determining compilation order of HDL files
 WARNING:Simulator:1010 - One or more environment variables have been detected which affect the operation of the C compiler. These are typically not set in standard installations and are not tested by Xilinx, however they may be appropriate for your system, so the flow will attempt to continue.  If errors occur, try running fuse with the "-mt off -v 1" switches to see more information from the C compiler. The following environment variables have been detected:
-Parsing VHDL file "/home/peter/Documents/Datateknikk/DM kons/tdt4255/oving1/defs.vhd" into library work
-Parsing VHDL file "/home/peter/Documents/Datateknikk/DM kons/tdt4255/oving1/src/testbench/testutil.vhd" into library work
-Parsing VHDL file "/home/peter/Documents/Datateknikk/DM kons/tdt4255/oving1/src/PC.vhd" into library work
-Parsing VHDL file "/home/peter/Documents/Datateknikk/DM kons/tdt4255/oving1/src/testbench/tb_ProgramCounter.vhd" into library work
+Parsing VHDL file "/media/peter/stuff/sin bin/tdt4255/oving1/defs.vhd" into library work
+Parsing VHDL file "/media/peter/stuff/sin bin/tdt4255/oving1/src/testbench/testutil.vhd" into library work
+Parsing VHDL file "/media/peter/stuff/sin bin/tdt4255/oving1/src/PC.vhd" into library work
+Parsing VHDL file "/media/peter/stuff/sin bin/tdt4255/oving1/testbench/tb_PC.vhd" into library work
 Starting static elaboration
 Completed static elaboration
-Fuse Memory Usage: 95016 KB
-Fuse CPU Usage: 1220 ms
+Fuse Memory Usage: 96736 KB
+Fuse CPU Usage: 1160 ms
 Compiling package standard
 Compiling package std_logic_1164
+Compiling package numeric_std
 Compiling package defs
 Compiling package testutil
 Compiling architecture behavioral of entity ProgramCounter [programcounter_default]
-Compiling architecture behavior of entity tb_programcounter
+Compiling architecture behavior of entity tb_pc
 Time Resolution for simulation is 1ps.
-Waiting for 2 sub-compilation(s) to finish...
-Compiled 7 VHDL Units
-Built simulation executable /home/peter/Documents/Datateknikk/DM kons/tdt4255/oving1/tb_ProgramCounter_isim_beh.exe
-Fuse Memory Usage: 664872 KB
+Waiting for 1 sub-compilation(s) to finish...
+Compiled 8 VHDL Units
+Built simulation executable /media/peter/stuff/sin bin/tdt4255/oving1/tb_PC_isim_beh.exe
+Fuse Memory Usage: 672488 KB
 Fuse CPU Usage: 1260 ms
-GCC CPU Usage: 350 ms
+GCC CPU Usage: 160 ms

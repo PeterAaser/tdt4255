@@ -4,14 +4,14 @@ Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
 Parameter TMPDIR set to /home/peter/Documents/Datateknikk/DM kons/tdt4255/oving1/xst/projnav.tmp
 
 
-Total REAL time to Xst completion: 0.00 secs
+Total REAL time to Xst completion: 1.00 secs
 Total CPU time to Xst completion: 0.05 secs
  
 --> 
 Parameter xsthdpdir set to /home/peter/Documents/Datateknikk/DM kons/tdt4255/oving1/xst
 
 
-Total REAL time to Xst completion: 0.00 secs
+Total REAL time to Xst completion: 1.00 secs
 Total CPU time to Xst completion: 0.05 secs
  
 --> 
@@ -51,7 +51,7 @@ Parsing architecture <Behavioral> of entity <instructiondecode>.
 
 
 Total REAL time to Xst completion: 4.00 secs
-Total CPU time to Xst completion: 3.62 secs
+Total CPU time to Xst completion: 3.55 secs
  
 --> 
 

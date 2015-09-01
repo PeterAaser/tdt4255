@@ -1,2 +1,4 @@
+vhdl isim_temp "defs.vhd"
+vhdl isim_temp "src/testbench/testutil.vhd"
 vhdl isim_temp "src/PC.vhd"
-vhdl isim_temp "src/tb_PC.vhd"
+vhdl isim_temp "testbench/tb_PC.vhd"

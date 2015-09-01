@@ -9,13 +9,18 @@ END tb_ProgramCounter;
  
 ARCHITECTURE behavior OF tb_ProgramCounter IS 
 
-    COMPONENT ProgramCounter
-    PORT(
-         clk : IN  std_logic;
-         rst : IN  std_logic;
-         next_addr : IN  std_logic_vector(31 downto 0);
-         current_addr : OUT  std_logic_vector(31 downto 0)
-        );
+   COMPONENT ProgramCounter
+   PORT(
+      clk : in std_logic;
+      rst : in std_logic;
+      op_target : in target_t;
+      op_immediate : in immediate_t;
+      branch : in std_logic;
+      zero : in std_logic;
+      jump : in std_logic;
+      
+      address : inout address_t
+    );
     END COMPONENT;
 
    --Inputs

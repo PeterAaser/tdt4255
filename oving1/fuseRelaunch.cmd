@@ -1,1 +1,1 @@
--intstyle "ise" -incremental -lib "secureip" -o "/home/peter/Documents/Datateknikk/DM kons/tdt4255/oving1/tb_ProgramCounter_isim_beh.exe" -prj "/home/peter/Documents/Datateknikk/DM kons/tdt4255/oving1/tb_ProgramCounter_beh.prj" "work.tb_ProgramCounter" 
+-intstyle "ise" -incremental -lib "secureip" -o "/media/peter/stuff/sin bin/tdt4255/oving1/tb_PC_isim_beh.exe" -prj "/media/peter/stuff/sin bin/tdt4255/oving1/tb_PC_beh.prj" "work.tb_PC" 
