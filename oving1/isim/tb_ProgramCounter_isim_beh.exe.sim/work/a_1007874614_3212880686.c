@@ -10,7 +10,7 @@
 /*  \___\/\___\                                                    */
 /***********************************************************************/
 
-/* This file is designed for use with ISim build 0x141a37e9 */
+/* This file is designed for use with ISim build 0xfbc00daa */
 
 #define XSI_HIDE_SYMBOL_SPEC true
 #include "xsi.h"
@@ -21,10 +21,10 @@
 #include <malloc.h>
 #define alloca _alloca
 #endif
-static const char *ng0 = "/home/shomec/p/peteraa/Documents/DM kons/oving1/ProgramCounter.vhd";
+static const char *ng0 = "/home/peter/Documents/Datateknikk/DM kons/tdt4255/oving1/src/PC.vhd";
 extern char *IEEE_P_2592010699;
 
-unsigned char ieee_p_2592010699_sub_1744673427_503743352(char *, char *, unsigned int , unsigned int );
+unsigned char ieee_p_2592010699_sub_2763492388968962707_503743352(char *, char *, unsigned int , unsigned int );
 
 
 static void work_a_1007874614_3212880686_p_0(char *t0)
@@ -49,20 +49,20 @@ static void work_a_1007874614_3212880686_p_0(char *t0)
     char *t18;
 
 LAB0:    xsi_set_current_line(22, ng0);
-    t1 = (t0 + 684U);
+    t1 = (t0 + 1192U);
     t2 = *((char **)t1);
     t3 = *((unsigned char *)t2);
     t4 = (t3 == (unsigned char)3);
     if (t4 != 0)
         goto LAB2;
 
-LAB4:    t1 = (t0 + 568U);
-    t3 = ieee_p_2592010699_sub_1744673427_503743352(IEEE_P_2592010699, t1, 0U, 0U);
+LAB4:    t1 = (t0 + 992U);
+    t3 = ieee_p_2592010699_sub_2763492388968962707_503743352(IEEE_P_2592010699, t1, 0U, 0U);
     if (t3 != 0)
         goto LAB8;
 
 LAB9:
-LAB3:    t1 = (t0 + 1696);
+LAB3:    t1 = (t0 + 2984);
     *((int *)t1) = 1;
 
 LAB1:    return;
@@ -84,10 +84,10 @@ LAB7:    t7 = (t6 - 31);
     t12 = (t12 + 1);
     t13 = (1U * t12);
     memset(t10, (unsigned char)2, t13);
-    t14 = (t0 + 1740);
-    t15 = (t14 + 32U);
+    t14 = (t0 + 3064);
+    t15 = (t14 + 56U);
     t16 = *((char **)t15);
-    t17 = (t16 + 32U);
+    t17 = (t16 + 56U);
     t18 = *((char **)t17);
     memcpy(t18, t1, 32U);
     xsi_driver_first_trans_fast_port(t14);
@@ -97,12 +97,12 @@ LAB5:    t6 = 31;
     goto LAB7;
 
 LAB8:    xsi_set_current_line(25, ng0);
-    t2 = (t0 + 776U);
+    t2 = (t0 + 1352U);
     t5 = *((char **)t2);
-    t2 = (t0 + 1740);
-    t10 = (t2 + 32U);
+    t2 = (t0 + 3064);
+    t10 = (t2 + 56U);
     t14 = *((char **)t10);
-    t15 = (t14 + 32U);
+    t15 = (t14 + 56U);
     t16 = *((char **)t15);
     memcpy(t16, t5, 32U);
     xsi_driver_first_trans_fast_port(t2);

@@ -10,7 +10,7 @@
 /*  \___\/\___\                                                    */
 /***********************************************************************/
 
-/* This file is designed for use with ISim build 0x141a37e9 */
+/* This file is designed for use with ISim build 0xfbc00daa */
 
 #define XSI_HIDE_SYMBOL_SPEC true
 #include "xsi.h"
@@ -25,13 +25,13 @@
 
 
 
-void ieee_p_2592010699_sub_3130575329_503743352();
+void ieee_p_2592010699_sub_7991387870887201249_503743352();
 
-void ieee_p_2592010699_sub_3130575329_503743352();
+void ieee_p_2592010699_sub_7991387870887201249_503743352();
 
 extern void work_p_2408649327_init()
 {
 	xsi_register_didat("work_p_2408649327", "isim/tb_ProgramCounter_isim_beh.exe.sim/work/p_2408649327.didat");
-	xsi_register_resolution_function(1, 2, (void *)ieee_p_2592010699_sub_3130575329_503743352, 3);
-	xsi_register_resolution_function(2, 2, (void *)ieee_p_2592010699_sub_3130575329_503743352, 3);
+	xsi_register_resolution_function(1, 2, (void *)ieee_p_2592010699_sub_7991387870887201249_503743352, 3);
+	xsi_register_resolution_function(2, 2, (void *)ieee_p_2592010699_sub_7991387870887201249_503743352, 3);
 }

@@ -1,5 +1,5 @@
-set -tmpdir "/home/shomec/p/peteraa/Documents/DM kons/oving1/xst/projnav.tmp"
-set -xsthdpdir "/home/shomec/p/peteraa/Documents/DM kons/oving1/xst"
+set -tmpdir "/home/peter/Documents/Datateknikk/DM kons/tdt4255/oving1/xst/projnav.tmp"
+set -xsthdpdir "/home/peter/Documents/Datateknikk/DM kons/tdt4255/oving1/xst"
 run -compileonly yes
 -p xc6slx16-2-csg324
 -top ProgramCounter
@@ -49,4 +49,3 @@ run -compileonly yes
 -equivalent_register_removal YES
 -slice_utilization_ratio_maxmargin 5
 -ifn ProgramCounter.prj
--ifmt mixed

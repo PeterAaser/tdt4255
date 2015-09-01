@@ -1,0 +1,2 @@
+vhdl isim_temp "src/PC.vhd"
+vhdl isim_temp "src/tb_PC.vhd"

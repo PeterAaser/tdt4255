@@ -1,2 +1,1 @@
-work	"ProgramCounter.vhd"
-work	"defs.vhd"
+work	"src/InstructionDecoder.vhd"

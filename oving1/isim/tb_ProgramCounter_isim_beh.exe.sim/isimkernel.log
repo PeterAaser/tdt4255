@@ -2,14 +2,14 @@ Command line:
    tb_ProgramCounter_isim_beh.exe
      -simmode  gui
      -simrunnum  1
-     -socket  34030
+     -socket  37920
 
-Fri Aug 28 21:11:31 2015
+Tue Sep  1 12:58:20 2015
 
 
- Elaboration Time: 0.04 sec
+ Elaboration Time: 0.02 sec
 
- Current Memory Usage: 115.306 Meg
+ Current Memory Usage: 196.145 Meg
 
  Total Signals          : 8
  Total Nets             : 66
@@ -19,6 +19,7 @@ Fri Aug 28 21:11:31 2015
  Total Processes        : 3
  Total Traceable Variables  : 9
  Total Scalar Nets and Variables : 427
+Total Line Count : 29
 
 ** Failure::^) Test complete  (^:
 User(VHDL) Code Called Simulation Stop
@@ -26,9 +27,9 @@ In process tb_ProgramCounter.vhd:stim_proc
  
 
 
- Total Simulation Time: 0.05 sec
+ Total Simulation Time: 0.03 sec
 
- Current Memory Usage: 124.686 Meg
+ Current Memory Usage: 271.647 Meg
 
-Fri Aug 28 21:13:23 2015
+Tue Sep  1 12:58:32 2015
 

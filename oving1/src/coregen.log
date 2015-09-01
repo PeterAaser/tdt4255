@@ -1,0 +1,10 @@
+INFO:sim:172 - Generating IP...
+Applying current project options...
+Finished applying current project options.
+Resolving generic values...
+ERROR:sim:938 - Error while preparing for IP customization
+ERROR:sim - Failed to initialize IP model.
+ERROR:sim - Failed to resolve generic values.
+ERROR:sim - Failed to generate 'DualPortMem'.  Failed to resolve generic values.
+
+Wrote CGP file for project 'DualPortMem'.
