@@ -6,10 +6,10 @@ package defs is
 	subtype address_t is std_logic_vector(31 downto 0);
 	subtype instruction_t is std_logic_vector(31 downto 0);
 	
-	subtype opcode_t is std_logic_vector(6 downto 0);
-	subtype r_t is std_logic_vector(5 downto 0);
-	subtype shift_t is std_logic_vector(5 downto 0);
-	subtype func_t is std_logic_vector(5 downto 0);
+	subtype opcode_t is std_logic_vector(5 downto 0);
+	subtype r_t is std_logic_vector(4 downto 0);
+	subtype shift_t is std_logic_vector(4 downto 0);
+	subtype func_t is std_logic_vector(4 downto 0);
 	subtype immediate_t is std_logic_vector(15 downto 0);
 	subtype target_t is std_logic_vector(25 downto 0);
 	
