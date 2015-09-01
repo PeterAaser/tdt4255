@@ -1,6 +1,0 @@
-vhdl isim_temp "src/defs.vhd"
-vhdl isim_temp "src/stack.vhd"
-vhdl isim_temp "src/control.vhd"
-vhdl isim_temp "src/tests/testutil.vhd"
-vhdl isim_temp "src/stack_machine.vhd"
-vhdl isim_temp "src/tests/stack_machine_tb.vhd"

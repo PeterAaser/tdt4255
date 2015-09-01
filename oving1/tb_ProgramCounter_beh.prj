@@ -1,4 +1,0 @@
-vhdl work "defs.vhd"
-vhdl work "src/testbench/testutil.vhd"
-vhdl work "src/PC.vhd"
-vhdl work "src/testbench/tb_ProgramCounter.vhd"
