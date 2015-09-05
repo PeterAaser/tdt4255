@@ -47,11 +47,6 @@ begin
 			jump_addr(ADDRESS_WIDTH-1 downto ADDRESS_WIDTH-4) <= next_addr(ADDRESS_WIDTH-1 downto ADDRESS_WIDTH-4);
 			jump_addr(ADDRESS_WIDTH-5 downto 2) <= op_target;
 			
-			-- SIGN EXTEND BRANCH ADDR --
-			-- While data and address width is constrained, we walways assume 32 bit intructions
-			extended_immediate(15 downto 0 ) <= (others => op_immediate(15));
-			extended_immediate(31 downto 16) <= (op_immediate(15 downto 0));
-			
 			-- CALC BRANCH ADDR --
 			--branch_addr <= next_addr + to_integer(unsigned(extended_immediate))(ADDRESS_WIDTH-1 downto 0);
 			--branch_mux <= zero and branch;

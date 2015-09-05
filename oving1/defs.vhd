@@ -16,17 +16,14 @@ package defs is
 	type instruction_format_t is (R_TYPE, I_TYPE, J_TYPE);
    
    -- not all used. 
-   type func_op_t is (
-      add, sub, addu, subu, mult, div, multu, divu, mfhi, mflo, 
-      iand, ior, inor, ixor, isll, isrl, isra, islt, isltu, jr, jalr
-   );
 	
 	type ALU_op_t is (
-		add, sub, iand, ior, islt
+		add, sub, addu, subu, mult, div, multu, divu, mfhi, mflo, 
+      iand, ior, inor, ixor, isll, isrl, isra, islt, isltu, jr, jalr
 	);
 	
    function get_format ( op : opcode_t) return instruction_format_t;
-	function get_function ( func : func_t) return func_op_t;   
+	function get_function ( func : func_t) return ALU_op_t;   
   
 end package defs;
 
@@ -44,9 +41,7 @@ package body defs is
       end if;
    end get_format;
 
-   
-
-   function get_function ( func : func_t) return func_op_t is
+   function get_function ( func : func_t) return ALU_op_t is
    begin
       case func is
          when "100000" => return add;

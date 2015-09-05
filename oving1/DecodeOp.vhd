@@ -8,9 +8,8 @@ entity DecodeOp is
 
     port(
         clk : in std_logic;
-		  rst : in std_logic;
+		  reset : in std_logic;
 		  opcode : in opcode_t;
-		  func : in func_t;
         
 		  -- settings -- 
         RegDst : out std_logic;
@@ -27,14 +26,14 @@ entity DecodeOp is
 		  ControlSrc : out std_logic;
 		  
 		  -- ALU override and issue --
-		  ALUsrc : out std_logic;
+		  ALU_src : out std_logic;
 		  ALU_op : out ALU_op_t);
 		  
 end DecodeOp;
 
 architecture Behavioral of DecodeOp is
 begin
-   decode : process (clk, rst)
+   decode : process (clk, reset)
 	begin
 		
 		RegDst <= '0'; 
@@ -47,7 +46,7 @@ begin
 		RegWrite <= '0';
 		stall <= '0';
 		
-		ALUsrc <= '0';
+		ALU_src <= '0';
 		ALU_op <= add;
 		
 		-- Selects opcode module as control signal driver for select signals --
@@ -64,7 +63,7 @@ begin
 					
 					-- load store? --
 					if opcode(5) = '1' then
-						ALUsrc <= '1';
+						ALU_src <= '1';
 						ALU_op <= add;
 						
 						if opcode(3) = '0' then --store
@@ -77,7 +76,7 @@ begin
 					-- bne beq? --
 					else
 						branch <= '1';
-						ALUsrc <= '1';
+						ALU_src <= '1';
 						ALU_op <= sub;
 						if opcode(0) = '0' then -- beq --
 							zero_invert <= '0';

@@ -10,12 +10,15 @@ entity ALU is
 		clk : in std_logic;
 	
 		op_A : in signed(DATA_WIDTH - 1 downto 0);
-		op_B : in signed(DATA_WIDTH - 1 downto 0);
+		op_B_reg : in signed(DATA_WIDTH - 1 downto 0);
+		op_B_imm : in signed(DATA_WIDTH - 1 downto 0);
 		op_sel : in ALU_op_t;
 		zero_invert : in std_logic;
 		
+		ALU_src : in std_logic;
+		
 		zero : out std_logic;
-		result : buffer signed(DATA_WIDTH - 1 downto 0));
+		result : out signed(DATA_WIDTH - 1 downto 0));
 		
 end ALU;
 
@@ -25,8 +28,14 @@ begin
 
 
 	calculate_result : process(clk)
+	variable op_B : signed(DATA_WIDTH - 1 downto 0) := (DATA_WIDTH - 1 downto 0 => '0');
 	begin
 		if rising_edge(clk) then
+			if ALU_src = '1' then
+				op_B := op_B_imm;
+			else
+				op_B := op_B_reg;
+			end if;
 			case op_sel is
 				when add=>
 					result <= op_A + op_B;
@@ -36,12 +45,14 @@ begin
 					result <= op_A or op_B;
 				when iand=>
 					result <= op_A and op_B;
-				when slt=>
+				when islt=>
 					if op_A > op_B then
 						result <= to_signed(1, data_width);
 					else 
 						result <= to_signed(0, data_width);
 					end if;
+				when others=>
+					-- !!panic!!
 			end case;
 		
 		end if;

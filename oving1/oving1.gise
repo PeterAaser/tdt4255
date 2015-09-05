@@ -33,6 +33,11 @@
     <file xil_pn:fileType="FILE_XST_STX" xil_pn:name="Control.stx"/>
     <file xil_pn:fileType="FILE_SYMBOL" xil_pn:name="Control.sym" xil_pn:origination="imported"/>
     <file xil_pn:fileType="FILE_XST" xil_pn:name="Control.xst"/>
+    <file xil_pn:fileType="FILE_XST_PROJECT" xil_pn:name="Decode.prj"/>
+    <file xil_pn:fileType="FILE_SPL" xil_pn:name="Decode.spl"/>
+    <file xil_pn:fileType="FILE_XST_STX" xil_pn:name="Decode.stx"/>
+    <file xil_pn:fileType="FILE_SYMBOL" xil_pn:name="Decode.sym" xil_pn:origination="imported"/>
+    <file xil_pn:fileType="FILE_XST" xil_pn:name="Decode.xst"/>
     <file xil_pn:fileType="FILE_XST_PROJECT" xil_pn:name="DecodeFunc.prj"/>
     <file xil_pn:fileType="FILE_SPL" xil_pn:name="DecodeFunc.spl"/>
     <file xil_pn:fileType="FILE_XST_STX" xil_pn:name="DecodeFunc.stx"/>
@@ -48,8 +53,14 @@
     <file xil_pn:fileType="FILE_XST_STX" xil_pn:name="InstructionDecode.stx"/>
     <file xil_pn:fileType="FILE_XST" xil_pn:name="InstructionDecode.xst"/>
     <file xil_pn:fileType="FILE_XST_PROJECT" xil_pn:name="InstructionDecode_stx_beh.prj"/>
+    <file xil_pn:fileType="FILE_XST_PROJECT" xil_pn:name="MIPSProcessor.prj"/>
     <file xil_pn:fileType="FILE_SPL" xil_pn:name="MIPSProcessor.spl"/>
+    <file xil_pn:fileType="FILE_XST_STX" xil_pn:name="MIPSProcessor.stx"/>
     <file xil_pn:fileType="FILE_SYMBOL" xil_pn:name="MIPSProcessor.sym" xil_pn:origination="imported"/>
+    <file xil_pn:fileType="FILE_XST" xil_pn:name="MIPSProcessor.xst"/>
+    <file xil_pn:fileType="FILE_XST_PROJECT" xil_pn:name="MIPSSystem.prj"/>
+    <file xil_pn:fileType="FILE_XST_STX" xil_pn:name="MIPSSystem.stx"/>
+    <file xil_pn:fileType="FILE_XST" xil_pn:name="MIPSSystem.xst"/>
     <file xil_pn:fileType="FILE_XST_PROJECT" xil_pn:name="ProgramCounter.prj"/>
     <file xil_pn:fileType="FILE_SPL" xil_pn:name="ProgramCounter.spl"/>
     <file xil_pn:fileType="FILE_XST_STX" xil_pn:name="ProgramCounter.stx"/>
@@ -80,6 +91,9 @@
     <file xil_pn:fileType="FILE_XST_PROJECT" xil_pn:name="tb_Decode_beh.prj"/>
     <file xil_pn:branch="BehavioralSim" xil_pn:fileType="FILE_ISIM_EXE" xil_pn:name="tb_Decode_isim_beh.exe"/>
     <file xil_pn:fileType="FILE_ISIM_MISC" xil_pn:name="tb_Decode_isim_beh.wdb"/>
+    <file xil_pn:fileType="FILE_XST_PROJECT" xil_pn:name="tb_MIPSProcessor.prj"/>
+    <file xil_pn:fileType="FILE_XST_STX" xil_pn:name="tb_MIPSProcessor.stx"/>
+    <file xil_pn:fileType="FILE_XST" xil_pn:name="tb_MIPSProcessor.xst"/>
     <file xil_pn:branch="BehavioralSim" xil_pn:fileType="FILE_ISIM_EXE" xil_pn:name="tb_PC_isim_beh.exe"/>
     <file xil_pn:fileType="FILE_XST_PROJECT" xil_pn:name="tb_PC_stx_beh.prj"/>
     <file xil_pn:fileType="FILE_XST_PROJECT" xil_pn:name="tb_ProgramCounter_beh.prj"/>
@@ -108,6 +122,7 @@
       <status xil_pn:value="ReadyToRun"/>
       <status xil_pn:value="OutOfDateForInputs"/>
       <status xil_pn:value="OutOfDateForOutputs"/>
+      <status xil_pn:value="InputAdded"/>
       <status xil_pn:value="InputChanged"/>
       <status xil_pn:value="OutputChanged"/>
       <outfile xil_pn:name="ALU.vhd"/>

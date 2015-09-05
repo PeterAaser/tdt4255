@@ -2,8 +2,10 @@
 clk
 op_sel
 zero_invert
+ALU_src
 =op_A[31:0]=
-=op_B[31:0]=
+=op_B_reg[31:0]=
+=op_B_imm[31:0]=
 [Outputs]
 zero
 =result[31:0]=

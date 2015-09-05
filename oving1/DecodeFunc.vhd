@@ -8,34 +8,32 @@ use work.defs.all;
 entity DecodeFunc is
     port(
         clk : in std_logic;
-		  rst : in std_logic;
+		  reset : in std_logic;
 		  func : in func_t;
         
 		  -- settings -- 
         RegDst : out std_logic;
         Branch : out std_logic;
 		  Jump : out std_logic;
-        MemRead : out std_logic;
         MemtoReg : out std_logic;
         MemWrite : out std_logic;
-        ALUsrc : out std_logic;
         RegWrite : out std_logic;
-		  stall : out std_logic);
+		  stall : out std_logic;
+		  
+		  ALU_op : out ALU_op_t);
 		  
 end DecodeFunc;
 
 architecture Behavioral of DecodeFunc is
 begin
-	decode : process (clk, rst)
+	decode : process (clk, reset)
 	begin
 	
 		RegDst <= '0'; 
 		Branch <= '0';
 		Jump <= '0';
-		MemRead <= '0';
 		MemtoReg <= '0';
 		MemWrite <= '0';
-		ALUsrc <= '0';
 		RegWrite <= '0';
 		stall <= '0';
 	
@@ -57,6 +55,9 @@ begin
 				RegDst <= '1';
 			when others=>
 		end case;
+		
+		ALU_op <= get_function(func);
+		
 	end process;
 end Behavioral;
 

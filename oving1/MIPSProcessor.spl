@@ -1,0 +1,12 @@
+[Inputs]
+clk
+reset
+processor_enable
+=imem_data_in[31:0]=
+=dmem_data_in[31:0]=
+[Outputs]
+dmem_write_enable
+=imem_address[7:0]=
+=dmem_address[7:0]=
+=dmem_data_out[31:0]=
+[BiDir]
