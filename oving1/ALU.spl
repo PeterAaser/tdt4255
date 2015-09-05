@@ -1,0 +1,10 @@
+[Inputs]
+clk
+op_sel
+zero_invert
+=op_A[31:0]=
+=op_B[31:0]=
+[Outputs]
+zero
+=result[31:0]=
+[BiDir]

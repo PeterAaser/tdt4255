@@ -1,0 +1,15 @@
+[Inputs]
+clk
+rst
+=func[5:0]=
+[Outputs]
+RegDst
+Branch
+Jump
+MemRead
+MemtoReg
+MemWrite
+ALUsrc
+RegWrite
+stall
+[BiDir]

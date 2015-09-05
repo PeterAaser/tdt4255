@@ -3,13 +3,12 @@ use IEEE.STD_LOGIC_1164.all;
 use ieee.numeric_std.all;
 
 package defs is
-	subtype address_t is std_logic_vector(31 downto 0);
 	subtype instruction_t is std_logic_vector(31 downto 0);
 	
 	subtype opcode_t is std_logic_vector(5 downto 0);
-	subtype r_t is std_logic_vector(4 downto 0);
+	subtype reg_t is std_logic_vector(4 downto 0);
 	subtype shift_t is std_logic_vector(4 downto 0);
-	subtype func_t is std_logic_vector(4 downto 0);
+	subtype func_t is std_logic_vector(5 downto 0);
 	subtype immediate_t is std_logic_vector(15 downto 0);
 	subtype target_t is std_logic_vector(25 downto 0);
 	
@@ -21,30 +20,27 @@ package defs is
       add, sub, addu, subu, mult, div, multu, divu, mfhi, mflo, 
       iand, ior, inor, ixor, isll, isrl, isra, islt, isltu, jr, jalr
    );
-	   
+	
+	type ALU_op_t is (
+		add, sub, iand, ior, islt
+	);
+	
    function get_format ( op : opcode_t) return instruction_format_t;
-	function get_function ( func : func_t) return func_op_t;
-   function "+" (lhs : address_t; rhs : integer) return address_t;
-   
+	function get_function ( func : func_t) return func_op_t;   
   
 end package defs;
 
 
 package body defs is
 
-   function "+" (lhs : address_t; rhs : integer) return address_t is
-   begin
-      return address_t( std_logic_vector( unsigned( lhs ) + rhs));
-   end "+";
-
    function get_format ( op : opcode_t) return instruction_format_t is
    begin
       if op = "000000" then
          return R_TYPE;
-      elsif op(1) = '0' and op(4) = '0' then
-         return I_TYPE;
+      elsif op(5 downto 1) = "00001" or op(5 downto 2) = "0100" then
+			return J_TYPE;
       else
-         return J_TYPE;
+			return I_TYPE;
       end if;
    end get_format;
 

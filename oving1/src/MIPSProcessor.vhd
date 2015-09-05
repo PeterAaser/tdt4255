@@ -11,6 +11,7 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
+use work.defs.all;
 
 entity MIPSProcessor is
 	generic (
@@ -29,25 +30,73 @@ entity MIPSProcessor is
 	);
 end MIPSProcessor;
 
-architecture DummyArch of MIPSProcessor is
-	signal counterReg : unsigned(31 downto 0);
+architecture Behavioral of MIPSProcessor is
+	
+	-- Control signals
+	signal RegDst : std_logic;
+	signal Branch : std_logic;
+	signal Jump : std_logic;
+	signal MemRead : std_logic;
+	signal MemtoReg : std_logic;
+	signal MemWrite : std_logic;
+	signal ALUsrc : std_logic;
+	signal RegWrite : std_logic;
+	signal stall : std_logic;
+	
+	signal opcode : opcode_t;
+	signal r_s : reg_t;
+	signal r_t : reg_t;
+	signal r_d : reg_t;
+	signal shift : shift_t;
+	signal func : func_t;
+	signal immediate : immediate_t;
+	signal target : target_t;
+	
+	signal data1 : signed(DATA_WIDTH-1 downto 0);
+	signal data2 : signed(DATA_WIDTH-1 downto 0);
+	
+	signal programCounter : std_logic_vector(DATA_WIDTH-1 downto 0);
+	signal tick : std_logic;
+	signal result_zero : std_logic;
+
 begin
 
-	DummyProc: process(clk, reset)
-	begin
-		if reset = '1' then
-			counterReg <= (others => '0');
-		elsif rising_edge(clk) then
-			if processor_enable = '1' then
-				counterReg <= counterReg + 1;
-			end if;
-		end if;
-	end process;
+	program_counter: entity work.ProgramCounter
+		generic map(
+			ADDRESS_WIDTH => ADDRESS_WIDTH
+		)
+		port map(
+			reset => reset,
+			clk => clk,
+			
+			branch => Branch,
+			zero => result_zero,
+			jump => Jump,
+			tick => tick
+		);
+	
+	registers: entity work.registers
+		generic map(
+			DATA_WIDTH => DATA_WIDTH
+		)
+		port map(
+			reset => reset,
+			clk => clk,
+		
+			RegWrite => RegWrite,
+			read1_reg => r_s,
+			read2_reg => r_t,
+			write_reg => r_d,
+			write_data => write_reg_data,
+		
+			data1 => data1,
+			data2 => data2
+		);
 	
 	dmem_write_enable <= processor_enable;
 	imem_address <= (others => '0');
-	dmem_address <= std_logic_vector(counterReg(7 downto 0));
-	dmem_data_out <= std_logic_vector(counterReg);
+	--dmem_address <= std_logic_vector(counterReg(7 downto 0));
+	--dmem_data_out <= std_logic_vector(counterReg);
 
-end DummyArch;
+end Behavioral;
 

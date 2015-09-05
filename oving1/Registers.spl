@@ -1,0 +1,12 @@
+[Inputs]
+clk
+reset
+RegWrite
+=read1_reg[4:0]=
+=read2_reg[4:0]=
+=write_reg[4:0]=
+=write_data[31:0]=
+[Outputs]
+=data1[31:0]=
+=data2[31:0]=
+[BiDir]

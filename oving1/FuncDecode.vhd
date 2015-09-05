@@ -1,9 +1,10 @@
 library IEEE;
-use ieee.std_logic_1164.all;
+use IEEE.STD_LOGIC_1164.ALL;
 use ieee.numeric_std.all;
 use work.defs.all;
 
-entity InstructionDecode is
+
+entity FuncDecode is
 
     port(
         clk : in std_logic;
@@ -13,6 +14,7 @@ entity InstructionDecode is
 		  -- settings -- 
         RegDst : out std_logic;
         Branch : out std_logic;
+		  Jump : out std_logic;
         MemRead : out std_logic;
         MemtoReg : out std_logic;
         MemWrite : out std_logic;
@@ -20,24 +22,12 @@ entity InstructionDecode is
         RegWrite : out std_logic;
 		  stall : out std_logic);
 		  
-end InstructionDecode;
+end FuncDecode;
 
-architecture Behavioral of InstructionDecode is
-	signal op_type : instruction_format_t;
+architecture Behavioral of FuncDecode is
 
 begin
-   decode : process (clk, rst)
-	begin
-		if rising_egde(clk) then
-			op_type <= get_format(opcode);
-			if op_type = R_TYPE then
-				report "R-TAIPU!";
-			elsif op_type = I_TYPE then
-				report "I-TAIPU!";
-			else
-				report "J-TAIPU!";
-			end if;
-		end if;
-	end process;
+
+
 end Behavioral;
 

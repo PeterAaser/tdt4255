@@ -1,0 +1,11 @@
+[Inputs]
+clk
+reset
+empty
+stall
+=address[8:0]=
+=instruction[31:0]=
+[Outputs]
+tick
+read
+[BiDir]

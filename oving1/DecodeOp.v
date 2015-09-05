@@ -1,6 +1,3 @@
-library IEEE;
-use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
 use work.defs.all;
 
 entity InstructionDecode is
@@ -28,15 +25,13 @@ architecture Behavioral of InstructionDecode is
 begin
    decode : process (clk, rst)
 	begin
-		if rising_egde(clk) then
-			op_type <= get_format(opcode);
-			if op_type = R_TYPE then
-				report "R-TAIPU!";
-			elsif op_type = I_TYPE then
-				report "I-TAIPU!";
-			else
-				report "J-TAIPU!";
-			end if;
+		op_type <= get_format(opcode);
+		if op_type = R_TYPE then
+			report "R-TAIPU!";
+		elsif op_type = I_TYPE then
+			report "I-TAIPU!";
+		else
+			report "J-TAIPU!";
 		end if;
 	end process;
 end Behavioral;
