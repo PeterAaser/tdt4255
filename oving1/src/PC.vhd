@@ -24,56 +24,71 @@ end ProgramCounter;
 
 architecture Behavioral of ProgramCounter is
    signal address : std_logic_vector(ADDRESS_WIDTH - 1 downto 0);
-   signal jump_addr : std_logic_vector(ADDRESS_WIDTH - 1 downto 0);
-   signal branch_addr : std_logic_vector(ADDRESS_WIDTH - 1 downto 0);
+   signal j_addr : std_logic_vector(ADDRESS_WIDTH - 1 downto 0);
+   signal b_addr : std_logic_vector(ADDRESS_WIDTH - 1 downto 0);
    signal branch_mux : std_logic;
-   signal extended_immediate : std_logic_vector(ADDRESS_WIDTH - 1 downto 0);
 	signal next_addr : std_logic_vector(ADDRESS_WIDTH - 1 downto 0);
+	
 begin
-   
    update : process(clk, reset)
+		variable jump_addr : std_logic_vector(ADDRESS_WIDTH - 1 downto 0);
+		variable branch_addr : std_logic_vector(ADDRESS_WIDTH - 1 downto 0);
    begin
-
       if reset = '1' then
 			address <= (others => '0');
-			jump_addr <= (others => '0');
-			branch_addr <= (others => '0');
+			address_out <= (others => '0');
+			jump_addr := (others => '0');
+			branch_addr := (others => '0');
 			next_addr <= (others => '0');
 			
 		elsif rising_edge(clk) then
+			
+			address_out <= address;
 
+
+			
 			-- CALC JUMP ADDR --
-			jump_addr(1 downto 0) <= "00";
-			jump_addr(ADDRESS_WIDTH-1 downto ADDRESS_WIDTH-4) <= next_addr(ADDRESS_WIDTH-1 downto ADDRESS_WIDTH-4);
-			jump_addr(ADDRESS_WIDTH-5 downto 2) <= op_target;
+			-- 4 most significant PC bits
+			jump_addr(ADDRESS_WIDTH-1 downto ADDRESS_WIDTH-4) := next_addr(ADDRESS_WIDTH-1 downto ADDRESS_WIDTH-4);
+			
+			-- 2 least bits to 0
+			jump_addr(1 downto 0) := "00";
+			
+			-- remaining bits set to target t
+			jump_addr(ADDRESS_WIDTH-5 downto ADDRESS_WIDTH-6) := op_target(1 downto 0);
+			
+			
 			
 			-- CALC BRANCH ADDR --
-			--branch_addr <= next_addr + to_integer(unsigned(extended_immediate))(ADDRESS_WIDTH-1 downto 0);
-			--branch_mux <= zero and branch;
+			-- pointless with 8 bit address space...
+			-- extended_immediate := std_logic_vector(resize(signed(op_immediate)
+			-- branch_addr <= next_addr + to_integer(unsigned(extended_immediate))(ADDRESS_WIDTH-1 downto 0);
+			-- branch_mux <= zero and branch;
+			
 			next_addr <= std_logic_vector(unsigned(address) + 1);
-					
-         if jump = '1' then
-            if branch_mux = '1' then
-					report "branchin";
-					address <= branch_addr;
+			
+			if tick = '1' then
+				if jump = '1' then
+					if branch_mux = '1' then
+						address <= branch_addr;
+						address_out <= branch_addr;
+						-- report "branchin'";
+					else
+						address <= jump_addr;
+						address_out <= jump_addr;
+						-- report "jumpin'";
+					end if;
 				else
-					report "Jumpin";
-					address <= jump_addr;
-				end if;
-         else
-				address <= next_addr;
-         end if; 
+					-- report "Incrementin'";
+					address <= next_addr;
+					address_out <= next_addr;
+				end if; 
+			end if;
       end if;
-   end process;
-	
-	get_next : process (tick)
-	begin
-		if tick = '1' then
-			address_out <= address;
-		end if;
-	end process;
-	
-	
-	
-        
+		
+		j_addr <= jump_addr;
+		b_addr <= branch_addr;
+		
+   end process;	
+	      
 end Behavioral;
