@@ -28,36 +28,37 @@ architecture Behavioral of DecodeFunc is
 begin
 	decode : process (clk, reset)
 	begin
-	
-		RegDst <= '0'; 
-		Branch <= '0';
-		Jump <= '0';
-		MemtoReg <= '0';
-		MemWrite <= '0';
-		RegWrite <= '0';
-		stall <= '0';
-	
-		case get_function(func) is
-			when add=>
-				RegWrite <= '1';
-				RegDst <= '1';
-			when sub=>
-				RegWrite <= '1';
-				RegDst <= '1';
-			when islt=>
-				RegWrite <= '1';
-				RegDst <= '1';
-			when iand=>
-				RegWrite <= '1';
-				RegDst <= '1';
-			when ior=>
-				RegWrite <= '1';
-				RegDst <= '1';
-			when others=>
-		end case;
+		if rising_edge(clk) then
 		
-		ALU_op <= get_function(func);
+			RegDst <= '0'; 
+			Branch <= '0';
+			Jump <= '0';
+			MemtoReg <= '0';
+			MemWrite <= '0';
+			RegWrite <= '0';
+			stall <= '0';
 		
+			case get_function(func) is
+				when add=>
+					RegWrite <= '1';
+					RegDst <= '1';
+				when sub=>
+					RegWrite <= '1';
+					RegDst <= '1';
+				when islt=>
+					RegWrite <= '1';
+					RegDst <= '1';
+				when iand=>
+					RegWrite <= '1';
+					RegDst <= '1';
+				when ior=>
+					RegWrite <= '1';
+					RegDst <= '1';
+				when others=>
+			end case;
+			
+			ALU_op <= get_function(func);
+		end if;
 	end process;
 end Behavioral;
 

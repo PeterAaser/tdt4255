@@ -91,7 +91,6 @@ BEGIN
    -- Stimulus process
    stim_proc: process
    begin		
-      -- hold reset state for 100 ns.
 		wait for clk_period;
 
 		--
@@ -141,7 +140,7 @@ BEGIN
 		opcode <= "101011";
 		wait for clk_period;
 		
-		assert false report "TEST SUCCESS" severity failure;
+		assert false report "DONE" severity failure;
 		wait until clk = '1';
       
    end process;
