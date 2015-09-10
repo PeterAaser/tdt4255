@@ -24,10 +24,12 @@ end ProgramCounter;
 
 architecture Behavioral of ProgramCounter is
    signal address : std_logic_vector(ADDRESS_WIDTH - 1 downto 0);
-   signal j_addr : std_logic_vector(ADDRESS_WIDTH - 1 downto 0);
-   signal b_addr : std_logic_vector(ADDRESS_WIDTH - 1 downto 0);
    signal branch_mux : std_logic;
 	signal next_addr : std_logic_vector(ADDRESS_WIDTH - 1 downto 0);
+	
+	-- Only for tb
+	signal j_addr : std_logic_vector(ADDRESS_WIDTH - 1 downto 0);
+   signal b_addr : std_logic_vector(ADDRESS_WIDTH - 1 downto 0);
 	
 begin
    update : process(clk, reset)
@@ -86,6 +88,7 @@ begin
 			end if;
       end if;
 		
+		-- Only for tb
 		j_addr <= jump_addr;
 		b_addr <= branch_addr;
 		

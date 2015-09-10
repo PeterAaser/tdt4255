@@ -34,7 +34,8 @@ end DecodeOp;
 architecture Behavioral of DecodeOp is
 begin
    decode : process (clk, reset)
-	begin
+begin
+	if rising_edge(clk) then
 		
 		RegDst <= '0'; 
 		Branch <= '0';
@@ -46,13 +47,11 @@ begin
 		RegWrite <= '0';
 		stall <= '0';
 		
-		ALU_src <= '0';
+		ALU_src <= '1';
 		ALU_op <= add;
 		
 		-- Selects opcode module as control signal driver for select signals --
 		ControlSrc <= '1';
-		
-		if rising_edge(clk) then
 			
 			case get_format(opcode) is
 				when R_TYPE=>

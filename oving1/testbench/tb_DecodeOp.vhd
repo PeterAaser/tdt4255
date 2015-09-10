@@ -1,48 +1,19 @@
---------------------------------------------------------------------------------
--- Company: 
--- Engineer:
---
--- Create Date:   11:15:30 09/03/2015
--- Design Name:   
--- Module Name:   /media/peter/stuff/sin bin/tdt4255/oving1/testbench/tb_DecodeOp.vhd
--- Project Name:  oving1
--- Target Device:  
--- Tool versions:  
--- Description:   
--- 
--- VHDL Test Bench Created by ISE for module: DecodeOp
--- 
--- Dependencies:
--- 
--- Revision:
--- Revision 0.01 - File Created
--- Additional Comments:
---
--- Notes: 
--- This testbench has been automatically generated using types std_logic and
--- std_logic_vector for the ports of the unit under test.  Xilinx recommends
--- that these types always be used for the top-level I/O of a design in order
--- to guarantee that the testbench will bind correctly to the post-implementation 
--- simulation model.
---------------------------------------------------------------------------------
-LIBRARY ieee;
-USE ieee.std_logic_1164.ALL;
- 
--- Uncomment the following library declaration if using
--- arithmetic functions with Signed or Unsigned values
---USE ieee.numeric_std.ALL;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use ieee.numeric_std.all;
+use work.defs.all;
+
  
 ENTITY tb_DecodeOp IS
 END tb_DecodeOp;
  
 ARCHITECTURE behavior OF tb_DecodeOp IS 
- 
-    -- Component Declaration for the Unit Under Test (UUT)
+
  
     COMPONENT DecodeOp
     PORT(
          clk : IN  std_logic;
-         rst : IN  std_logic;
+         reset : IN  std_logic;
          opcode : IN  std_logic_vector(5 downto 0);
          RegDst : OUT  std_logic;
          Branch : OUT  std_logic;
@@ -50,16 +21,17 @@ ARCHITECTURE behavior OF tb_DecodeOp IS
          MemRead : OUT  std_logic;
          MemtoReg : OUT  std_logic;
          MemWrite : OUT  std_logic;
-         ALUsrc : OUT  std_logic;
+         ALU_src : OUT  std_logic;
          RegWrite : OUT  std_logic;
-         stall : OUT  std_logic
+         stall : OUT  std_logic;
+			controlSrc : out std_logic
         );
     END COMPONENT;
     
 
    --Inputs
    signal clk : std_logic := '0';
-   signal rst : std_logic := '0';
+   signal reset : std_logic := '0';
    signal opcode : std_logic_vector(5 downto 0) := (others => '0');
 
  	--Outputs
@@ -69,9 +41,11 @@ ARCHITECTURE behavior OF tb_DecodeOp IS
    signal MemRead : std_logic;
    signal MemtoReg : std_logic;
    signal MemWrite : std_logic;
-   signal ALUsrc : std_logic;
+   signal ALU_src : std_logic;
+	signal ALU_op : ALU_op_t;
    signal RegWrite : std_logic;
    signal stall : std_logic;
+	signal controlSrc : std_logic;
 
    -- Clock period definitions
    constant clk_period : time := 10 ns;
@@ -81,7 +55,7 @@ BEGIN
 	-- Instantiate the Unit Under Test (UUT)
    uut: DecodeOp PORT MAP (
           clk => clk,
-          rst => rst,
+          reset => reset,
           opcode => opcode,
           RegDst => RegDst,
           Branch => Branch,
@@ -89,9 +63,10 @@ BEGIN
           MemRead => MemRead,
           MemtoReg => MemtoReg,
           MemWrite => MemWrite,
-          ALUsrc => ALUsrc,
+          ALU_src => ALU_src,
           RegWrite => RegWrite,
-          stall => stall
+          stall => stall,
+			 controlSrc => controlSrc
         );
 
    -- Clock process definitions
@@ -123,10 +98,12 @@ BEGIN
 		-- J-TYPE
 		--
 		-- j
+		-- Do nothing and let the PC sort it out
 		opcode <= "000010"; 
 		wait for clk_period;
 		
 		-- jal
+		-- Do something with LR???
 		opcode <= "000011";
 		wait for clk_period;
 	
@@ -134,10 +111,12 @@ BEGIN
 		-- R-TYPE
 		--
 		-- jr
+		-- ??
 		opcode <= "000000";
 		wait for clk_period;
 		
 		-- jalr
+		-- ??
 		opcode <= "000000";
 		wait for clk_period;
 		
@@ -145,10 +124,12 @@ BEGIN
 		-- I-TYPE
 		--
 		-- beq
+		-- SUB as ALU OP
 		opcode <= "000100";
 		wait for clk_period;
 		
 		-- bne
+		-- SUB as ALU OP
 		opcode <= "000101";
 		wait for clk_period;
 		
