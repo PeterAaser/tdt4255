@@ -1,2 +1,0 @@
-vhdl work "defs.vhd"
-vhdl work "src/InstructionDecode.vhd"

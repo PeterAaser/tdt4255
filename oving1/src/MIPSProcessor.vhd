@@ -157,29 +157,27 @@ begin
 			result => ALU_result
 		);
 	
-	fetch_next_instruction : process(read_instruction, clk)
+	fetch_next_instruction : process(clk)
 	begin
 		if read_instruction = '1' then
 			imem_address <= ProgramCounter;
 		end if;
 	end process;
 	
-	access_RAM : process(MemWrite, MemtoReg, clk)
+	access_RAM : process(clk)
 	begin
+		write_data <= signed(dmem_data_in);
+		dmem_data_out <= std_logic_vector(data2);
+		dmem_address <= std_logic_vector(ALU_result(ADDRESS_WIDTH-1 downto 0));
 		if MemWrite = '1' then
-			dmem_address <= std_logic_vector(ALU_result);
-			dmem_write_enable <= '1';
-		elsif MemtoReg = '1' then
-			dmem_address <= std_logic_vector(ALU_result);
-			dmem_write_enable <= '0';
-			write_data <= signed(unsigned(dmem_data_in));
+			dmem_write_enable <= '1';	
 		else
 			dmem_write_enable <= '0';
-			dmem_data_out <= std_logic_vector(ALU_result);
-		end if;			
+		end if;
 	end process;
-	
-	recieve_instruction : process(imem_data_in, clk)
+
+
+	recieve_instruction : process(clk)
 	begin
 		opcode <= imem_data_in(31 downto 26);
 		r_s <= imem_data_in(25 downto 21);

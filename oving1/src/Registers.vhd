@@ -45,9 +45,7 @@ begin
 				r1 := unsigned(read1_reg);
 				r2 := unsigned(read2_reg);
 				rd := unsigned(write_reg);
-				--report "r1: " & integer'image(to_integer(r1));
-				--report "r2: " & integer'image(to_integer(r2));
-				--report "dest: " & integer'image(to_integer(rd));
+
 				data1 <= signed(registers(to_integer(unsigned(std_logic_vector(r1)))));
 				data2 <= signed(registers(to_integer(unsigned(std_logic_vector(r2)))));
 			
