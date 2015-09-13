@@ -22,8 +22,13 @@ package defs is
       iand, ior, inor, ixor, isll, isrl, isra, islt, isltu, jr, jalr
 	);
 	
+	type op_t is (
+		j, jal, beq, bne, sw, lw, rtype
+	);
+	
    function get_format ( op : opcode_t) return instruction_format_t;
-	function get_function ( func : func_t) return ALU_op_t;   
+	function get_function ( func : func_t) return ALU_op_t;
+	function get_op ( op : opcode_t) return op_t;
   
 end package defs;
 
@@ -68,5 +73,18 @@ package body defs is
          when others => return add;
       end case;
    end get_function;
+	
+	function get_op ( op : opcode_t) return op_t is
+	begin
+		case op is
+			when "000010" => return j;
+			when "000011" => return jal;
+			when "000100" => return beq;
+			when "000101" => return bne;
+			when "100011" => return lw;
+			when "101011" => return sw;
+			when "000000" => return rtype;
+		end case;
+	end get_op;
 
 end defs;

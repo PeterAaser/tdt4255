@@ -10,19 +10,22 @@
          <ClosedNode>/MIPSSystem - Behavioral |home|peter|Documents|Datateknikk|DM kons|tdt4255|oving1|src|MIPSSystem.vhd/HostCommInst - HostComm - Behavioral</ClosedNode>
          <ClosedNode>/MIPSSystem - Behavioral |home|peter|Documents|Datateknikk|DM kons|tdt4255|oving1|src|MIPSSystem.vhd/testutil</ClosedNode>
          <ClosedNode>/MIPSSystem - Behavioral |home|shomec|p|peteraa|Documents|DM kons|oving1|src|MIPSSystem.vhd/HostCommInst - HostComm - Behavioral</ClosedNode>
+         <ClosedNode>/MIPSSystem - Behavioral |media|peter|stuff|sin bin|tdt4255|oving1|src|MIPSSystem.vhd/HostCommInst - HostComm - Behavioral</ClosedNode>
          <ClosedNode>/MIPSSystem - Behavioral |media|peter|stuff|sin bin|tdt4255|oving1|src|MIPSSystem.vhd/HostCommInst - HostComm - Behavioral/UARTHandlerInst - uart2BusTop - Behavioral</ClosedNode>
          <ClosedNode>/MIPSSystem - Behavioral |media|peter|stuff|sin bin|tdt4255|oving1|src|MIPSSystem.vhd/HostCommInst - HostComm - Behavioral/UARTHandlerInst - uart2BusTop - Behavioral/ut - uartTop - Behavioral</ClosedNode>
          <ClosedNode>/MIPSSystem - Behavioral |media|peter|stuff|sin bin|tdt4255|oving1|src|MIPSSystem.vhd/MIPSProcInst - MIPSProcessor - Behavioral/testutil</ClosedNode>
          <ClosedNode>/tb_MIPSProcessor - behavior |home|peter|Documents|Datateknikk|DM kons|tdt4255|oving1|src|testbench|tb_MIPSProcessor.vhd</ClosedNode>
+         <ClosedNode>/tb_MIPSProcessor - behavior |media|peter|stuff|sin bin|tdt4255|oving1|src|testbench|tb_MIPSProcessor.vhd</ClosedNode>
+         <ClosedNode>/tb_MIPSProcessor - behavior |media|peter|stuff|sin bin|tdt4255|oving1|src|testbench|tb_MIPSProcessor.vhd/Processor - MIPSProcessor - Behavioral</ClosedNode>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem>Processor - MIPSProcessor - Behavioral (/media/peter/stuff/sin bin/tdt4255/oving1/src/MIPSProcessor.vhd)</SelectedItem>
+         <SelectedItem>decode - Decode - Behavioral (/media/peter/stuff/sin bin/tdt4255/oving1/Decode.vhd)</SelectedItem>
       </SelectedItems>
-      <ScrollbarPosition orientation="vertical" >7</ScrollbarPosition>
+      <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
       <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000202000000010000000100000064000001b5000000020000000000000000000000000000000064ffffffff000000810000000000000002000001b50000000100000000000000000000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >true</UserChangedColumnWidths>
-      <CurrentItem>Processor - MIPSProcessor - Behavioral (/media/peter/stuff/sin bin/tdt4255/oving1/src/MIPSProcessor.vhd)</CurrentItem>
+      <CurrentItem>decode - Decode - Behavioral (/media/peter/stuff/sin bin/tdt4255/oving1/Decode.vhd)</CurrentItem>
    </ItemView>
    <ItemView engineview="SynthesisOnly" sourcetype="" guiview="Process" >
       <ClosedNodes>
@@ -61,7 +64,7 @@
       <CurrentItem>work</CurrentItem>
    </ItemView>
    <SourceProcessView>000000ff00000000000000020000014c0000011d01000000060100000002</SourceProcessView>
-   <CurrentView>Implementation</CurrentView>
+   <CurrentView>Behavioral Simulation</CurrentView>
    <ItemView engineview="SynthesisOnly" sourcetype="DESUT_VHDL_ARCHITECTURE" guiview="Process" >
       <ClosedNodes>
          <ClosedNodesVersion>1</ClosedNodesVersion>
@@ -70,13 +73,13 @@
          <ClosedNode>User Constraints</ClosedNode>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem>Create Schematic Symbol</SelectedItem>
+         <SelectedItem></SelectedItem>
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff0000000000000001000000010000000000000000000000000000000000000000000000015a000000010000000100000000000000000000000064ffffffff0000008100000000000000010000015a0000000100000000</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000000000000000000152000000010000000100000000000000000000000064ffffffff000000810000000000000001000001520000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
-      <CurrentItem>Create Schematic Symbol</CurrentItem>
+      <CurrentItem></CurrentItem>
    </ItemView>
    <ItemView engineview="SynthesisOnly" sourcetype="DESUT_UCF" guiview="Process" >
       <ClosedNodes>
@@ -97,49 +100,50 @@
          <ClosedNodesVersion>1</ClosedNodesVersion>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem></SelectedItem>
+         <SelectedItem/>
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
       <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000000000000000000f6000000010000000100000000000000000000000064ffffffff000000810000000000000001000000f60000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
-      <CurrentItem></CurrentItem>
+      <CurrentItem/>
    </ItemView>
    <ItemView engineview="SynthesisOnly" sourcetype="DESUT_VHDL_PACKAGE_BODY" guiview="Process" >
       <ClosedNodes>
          <ClosedNodesVersion>1</ClosedNodesVersion>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem></SelectedItem>
+         <SelectedItem/>
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
       <ViewHeaderState orientation="horizontal" >000000ff0000000000000001000000010000000000000000000000000000000000000000000000015a000000010000000100000000000000000000000064ffffffff0000008100000000000000010000015a0000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
-      <CurrentItem></CurrentItem>
+      <CurrentItem/>
    </ItemView>
    <ItemView engineview="BehavioralSim" guiview="Source" compilemode="AutoCompile" >
       <ClosedNodes>
          <ClosedNodesVersion>2</ClosedNodesVersion>
          <ClosedNode>/MIPSSystem - Behavioral |home|peter|Documents|Datateknikk|DM kons|tdt4255|oving1|src|MIPSSystem.vhd/HostCommInst - HostComm - Behavioral</ClosedNode>
          <ClosedNode>/MIPSSystem - Behavioral |home|shomec|p|peteraa|Documents|DM kons|oving1|src|MIPSSystem.vhd</ClosedNode>
-         <ClosedNode>/MIPSSystem - Behavioral |media|peter|stuff|sin bin|tdt4255|oving1|src|MIPSSystem.vhd</ClosedNode>
          <ClosedNode>/MIPSSystem - Behavioral |media|peter|stuff|sin bin|tdt4255|oving1|src|MIPSSystem.vhd/HostCommInst - HostComm - Behavioral</ClosedNode>
          <ClosedNode>/tb_ALU - behavior |media|peter|stuff|sin bin|tdt4255|oving1|testbench|tb_ALU.vhd</ClosedNode>
+         <ClosedNode>/tb_DecodeFunc - behavior |media|peter|stuff|sin bin|tdt4255|oving1|testbench|tb_DecodeFunc.vhd</ClosedNode>
          <ClosedNode>/tb_DecodeOp - behavior |media|peter|stuff|sin bin|tdt4255|oving1|testbench|tb_DecodeOp.vhd</ClosedNode>
          <ClosedNode>/tb_MIPSProcessor - behavior |media|peter|stuff|sin bin|tdt4255|oving1|src|testbench|tb_MIPSProcessor.vhd</ClosedNode>
+         <ClosedNode>/tb_MIPSProcessor - behavior |media|peter|stuff|sin bin|tdt4255|oving1|src|testbench|tb_MIPSProcessor.vhd/Processor - MIPSProcessor - Behavioral</ClosedNode>
          <ClosedNode>/tb_PC - behavior |media|peter|stuff|sin bin|tdt4255|oving1|testbench|tb_PC.vhd</ClosedNode>
          <ClosedNode>/testbench - behavior |media|peter|stuff|sin bin|tdt4255|oving1|testbench|tb_ALU.vhd</ClosedNode>
          <ClosedNode>/testbench - behavior |media|peter|stuff|sin bin|tdt4255|oving1|testbench|td_DecodeOp.vhd</ClosedNode>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem>tb_PC - behavior (/media/peter/stuff/sin bin/tdt4255/oving1/testbench/tb_PC.vhd)</SelectedItem>
+         <SelectedItem>tb_Decode - behavior (/media/peter/stuff/sin bin/tdt4255/oving1/src/testbench/tb_Decode.vhd)</SelectedItem>
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff0000000000000001000000010000000000000000000000000000000002020000000100000001000000640000017e000000020000000000000000000000000000000064ffffffff0000008100000000000000020000017e0000000100000000000000000000000100000000</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000202000000010000000100000064000001e0000000020000000000000000000000000000000064ffffffff000000810000000000000002000001e00000000100000000000000000000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
-      <CurrentItem>tb_PC - behavior (/media/peter/stuff/sin bin/tdt4255/oving1/testbench/tb_PC.vhd)</CurrentItem>
+      <CurrentItem>tb_Decode - behavior (/media/peter/stuff/sin bin/tdt4255/oving1/src/testbench/tb_Decode.vhd)</CurrentItem>
    </ItemView>
    <ItemView engineview="BehavioralSim" sourcetype="" guiview="Process" >
       <ClosedNodes>
@@ -164,7 +168,7 @@
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000000000000000000f6000000010000000100000000000000000000000064ffffffff000000810000000000000001000000f60000000100000000</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000000000000000000152000000010000000100000000000000000000000064ffffffff000000810000000000000001000001520000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
       <CurrentItem>Simulate Behavioral Model</CurrentItem>
    </ItemView>
@@ -204,5 +208,19 @@
       <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000000000000000000161000000020000000000000000000000000000000064ffffffff000000810000000000000002000000da0000000100000000000000870000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
       <CurrentItem>MIPSProcessor.vhd (/media/peter/stuff/sin bin/tdt4255/oving1/src/MIPSProcessor.vhd)</CurrentItem>
+   </ItemView>
+   <ItemView engineview="SynthesisOnly" sourcetype="DESUT_XCO" guiview="Process" >
+      <ClosedNodes>
+         <ClosedNodesVersion>1</ClosedNodesVersion>
+         <ClosedNode>CORE Generator</ClosedNode>
+      </ClosedNodes>
+      <SelectedItems>
+         <SelectedItem/>
+      </SelectedItems>
+      <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
+      <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
+      <ViewHeaderState orientation="horizontal" >000000ff0000000000000001000000010000000000000000000000000000000000000000000000015a000000010000000100000000000000000000000064ffffffff0000008100000000000000010000015a0000000100000000</ViewHeaderState>
+      <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
+      <CurrentItem/>
    </ItemView>
 </Project>

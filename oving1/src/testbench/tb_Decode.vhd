@@ -78,12 +78,33 @@ BEGIN
 		clk <= '1';
 		wait for clk_period/2;
    end process;
+	
+	-- FUNCS --
+	-- add	10 00 00
+	-- sub	10 00 10
+	-- or		10 01 01
+	-- and	10 01 00
+	-- slt	10 10 10
+	
+	-- OPS --
+	-- j		00 00 10
+	-- jal	00 00 11
+	-- jr		00 10 00
+	-- jalr	00 10 01
+	-- beq	00 01 00
+	-- bne	00 01 01
+	-- lw		10 00 11
+	-- sw		10 10 11
+	-- R		00 00 00
  
 
    -- Stimulus process
    stim_proc: process
    begin
-		wait for clk_period;
+		report "###";
+		report "### SIMULATING DECODE UNIT";
+		report "###";
+		wait for clk_period/4;
 		
 		--
 		--
@@ -91,25 +112,45 @@ BEGIN
 		--
 		-- j
 		-- Do nothing and let the PC sort it out
-		opcode <= "000010"; 
+		report "j";
+		opcode <= "000010";
+		func <= "101011";	--sw
 		wait for clk_period;
 		
 		-- jal
 		-- Do something with LR???
+		report "jal";
 		opcode <= "000011";
+		func <= "001000";	--jr
 		wait for clk_period;
 	
 		--
 		-- R-TYPE
 		--
-		-- jr
-		-- ??
+		-- add
+		report "add";
 		opcode <= "000000";
+		func <= "100000";
 		wait for clk_period;
 		
-		-- jalr
-		-- ??
-		opcode <= "000000";
+		-- sub
+		report "sub";
+		func <= "100010";
+		wait for clk_period;
+		
+		-- or
+		report "or";
+		func <= "100101";
+		wait for clk_period;
+		
+		-- and
+		report "and";
+		func <= "100100";
+		wait for clk_period;
+		
+		-- slt
+		report "slt";
+		func <= "101010";
 		wait for clk_period;
 		
 		--
@@ -117,20 +158,26 @@ BEGIN
 		--
 		-- beq
 		-- SUB as ALU OP
+		report "beq";
 		opcode <= "000100";
 		wait for clk_period;
 		
 		-- bne
 		-- SUB as ALU OP
+		report "bne";
 		opcode <= "000101";
 		wait for clk_period;
 		
 		-- lw
+		report "lw";
 		opcode <= "100011";
+		func <= "100100"; --and
 		wait for clk_period;
 		
 		-- sw
+		report "sw";
 		opcode <= "101011";
+		func <= "100101"; --or
 		wait for clk_period;
 		
 		assert false report "DONE" severity failure;

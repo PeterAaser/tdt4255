@@ -92,6 +92,7 @@ BEGIN
    stim_proc: process
    begin		
 		wait for clk_period;
+		wait for clk_period/4;
 
 		--
 		-- J-TYPE

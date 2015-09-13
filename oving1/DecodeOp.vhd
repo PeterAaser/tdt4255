@@ -12,22 +12,24 @@ entity DecodeOp is
 		  opcode : in opcode_t;
         
 		  -- settings -- 
-        RegDst : out std_logic;
-        Branch : out std_logic;
-		  zero_invert : out std_logic;
-		  Jump : out std_logic;
-        MemRead : out std_logic;
-        MemtoReg : out std_logic;
-        MemWrite : out std_logic;
-        RegWrite : out std_logic;
-		  stall : out std_logic;
+        RegDst : out std_logic := '0';
+        Branch : out std_logic := '0';
+		  zero_invert : out std_logic := '0';
+		  Jump : out std_logic := '0';
+        MemRead : out std_logic := '0';
+        MemtoReg : out std_logic := '0';
+        MemWrite : out std_logic := '0';
+        RegWrite : out std_logic := '0';
+		  stall : out std_logic := '0';
+		  
+		  -- Not currently used. Should it?
+		  op : out op_t := j; 
 		  
 		  -- DecodeFunc override --
-		  ControlSrc : out std_logic;
+		  ControlSrc : out std_logic := '0';
 		  
-		  -- ALU override and issue --
-		  ALU_src : out std_logic;
-		  ALU_op : out ALU_op_t);
+		  -- ALU issue if overriding --
+		  ALU_op : out ALU_op_t := add);
 		  
 end DecodeOp;
 
@@ -37,22 +39,12 @@ begin
 begin
 	if rising_edge(clk) then
 		
-		RegDst <= '0'; 
-		Branch <= '0';
-		zero_invert <= '0';
-		Jump <= '0';
-		MemRead <= '0';
-		MemtoReg <= '0';
-		MemWrite <= '0';
-		RegWrite <= '0';
-		stall <= '0';
-		
-		ALU_src <= '1';
-		ALU_op <= add;
+		-- Currently only here as a debug tool
+		op <= get_op( opcode);
 		
 		-- Selects opcode module as control signal driver for select signals --
 		ControlSrc <= '1';
-			
+		
 			case get_format(opcode) is
 				when R_TYPE=>
 					ControlSrc <= '0';
@@ -62,7 +54,6 @@ begin
 					
 					-- load store? --
 					if opcode(5) = '1' then
-						ALU_src <= '1';
 						ALU_op <= add;
 						
 						if opcode(3) = '0' then --store
@@ -75,7 +66,6 @@ begin
 					-- bne beq? --
 					else
 						branch <= '1';
-						ALU_src <= '1';
 						ALU_op <= sub;
 						if opcode(0) = '0' then -- beq --
 							zero_invert <= '0';

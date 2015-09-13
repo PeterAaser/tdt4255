@@ -12,13 +12,13 @@ entity DecodeFunc is
 		  func : in func_t;
         
 		  -- settings -- 
-        RegDst : out std_logic;
-        Branch : out std_logic;
-		  Jump : out std_logic;
-        MemtoReg : out std_logic;
-        MemWrite : out std_logic;
-        RegWrite : out std_logic;
-		  stall : out std_logic;
+        RegDst : out std_logic := '0';
+        Branch : out std_logic := '0';
+		  Jump : out std_logic := '0';
+        MemtoReg : out std_logic := '0';
+        MemWrite : out std_logic := '0';
+        RegWrite : out std_logic := '0';
+		  stall : out std_logic := '0';
 		  
 		  ALU_op : out ALU_op_t);
 		  
@@ -30,28 +30,25 @@ begin
 	begin
 		if rising_edge(clk) then
 		
-			RegDst <= '0'; 
-			Branch <= '0';
-			Jump <= '0';
-			MemtoReg <= '0';
-			MemWrite <= '0';
-			RegWrite <= '0';
-			stall <= '0';
-		
 			case get_function(func) is
 				when add=>
+
 					RegWrite <= '1';
 					RegDst <= '1';
 				when sub=>
+
 					RegWrite <= '1';
 					RegDst <= '1';
 				when islt=>
+
 					RegWrite <= '1';
 					RegDst <= '1';
 				when iand=>
+
 					RegWrite <= '1';
 					RegDst <= '1';
 				when ior=>
+
 					RegWrite <= '1';
 					RegDst <= '1';
 				when others=>

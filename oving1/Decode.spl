@@ -12,5 +12,6 @@ MemtoReg
 MemWrite
 RegWrite
 stall
+ALU_select
 ALU_op
 [BiDir]

@@ -32,7 +32,7 @@ end Decode;
 
 architecture Behavioral of Decode is
 	-- DecodeFunc override --
-	signal ControlSrc : std_logic;
+	signal ControlSrc : std_logic := '0';
 
 	-- Probably a better way to do this...
 	signal opRegDst : std_logic;
@@ -53,7 +53,8 @@ architecture Behavioral of Decode is
 	signal funcstall : std_logic;
 	signal funcALU_op : ALU_op_t;
 	
-	signal ALU_src : std_logic;
+	-- Currently only for debug
+	signal op : op_t;
 begin
 
 	decode_func: entity work.DecodeFunc
@@ -69,7 +70,9 @@ begin
 			MemtoReg => funcMemtoReg,
 			MemWrite => funcMemWrite,
 			RegWrite => funcRegWrite,
-			stall => funcstall
+			stall => funcstall,
+			
+			ALU_op => funcALU_op
 		);
 	
 	decode_op: entity work.DecodeOp	
@@ -89,31 +92,35 @@ begin
 			RegWrite => opRegWrite,
 			stall => opstall,
 			
-			ALU_src => ALU_src,
-		   ALU_op => opALU_op
+			controlSrc => controlSrc,
+		   ALU_op => opALU_op,
+			op => op
 		);
 	
-	select_decoder : process(ALU_src)
+	select_decoder : process(clk, controlSrc)
 	begin
-		ALU_select <= ALU_src;
-		if ALU_src = '1' then
-			RegDst <= opRegDst;
-			Branch <= opBranch;
-			Jump <= opJump;
-			MemtoReg <= opMemtoReg;
-			MemWrite <= opMemWrite;
-			RegWrite <= opRegWrite;
-			stall <= opstall;
-			ALU_op <= opALU_op;
-		else
-			RegDst <= funcRegDst;
-			Branch <= funcBranch;
-			Jump <= funcJump;
-			MemtoReg <= funcMemtoReg;
-			MemWrite <= funcMemWrite;
-			RegWrite <= funcRegWrite;
-			stall <= funcstall;
-			ALU_op <= funcALU_op;
+		if rising_edge(clk) then
+			if controlSrc = '1' then
+				--report "op decoder selected";
+				RegDst <= opRegDst;
+				Branch <= opBranch;
+				Jump <= opJump;
+				MemtoReg <= opMemtoReg;
+				MemWrite <= opMemWrite;
+				RegWrite <= opRegWrite;
+				stall <= opstall;
+				ALU_op <= opALU_op;
+			else
+				--report "func decoder selected";
+				RegDst <= funcRegDst;
+				Branch <= funcBranch;
+				Jump <= funcJump;
+				MemtoReg <= funcMemtoReg;
+				MemWrite <= funcMemWrite;
+				RegWrite <= funcRegWrite;
+				stall <= funcstall;
+				ALU_op <= funcALU_op;
+			end if;
 		end if;
 	end process;
 
