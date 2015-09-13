@@ -102,7 +102,63 @@ BEGIN
 		write_data <= x"6FFF1235";
 		wait for clk_period;
 		
-      
+		-- Try not writing 
+		regwrite <= '0';
+		wait for clk_period;
+		write_reg <= "00011";
+		write_data <= x"30000000";
+		wait for clk_period;
+		write_reg <= "00101";
+		write_data <= x"50000000";
+		wait for clk_period;
+		write_reg <= "00111";
+		write_data <= x"70000000";
+		wait for clk_period;
+		write_reg <= "00001";
+		write_data <= x"10000000";
+		regwrite <= '1';
+		wait for clk_period;
+		write_reg <= "00010";
+		write_data <= x"20000000";
+		wait for clk_period;
+		write_reg <= "00000";
+		write_data <= x"00000000";
+		wait for clk_period;
+		write_reg <= "00110";
+		write_data <= x"60000000";
+		wait for clk_period;
+		
+		-- Try reading some registers
+		read1_reg <= "00011";
+		read2_reg <= "00101";
+		wait for clk_period;
+      read1_reg <= "00011";
+		read2_reg <= "00101";
+		wait for clk_period;
+		read1_reg <= "00111";
+		read2_reg <= "00001";
+		wait for clk_period;
+		regwrite <= '0';
+		read1_reg <= "00011";
+		read2_reg <= "00011";
+		wait for clk_period;
+		read1_reg <= "01111";
+		read2_reg <= "00101";
+		wait for clk_period;
+		read1_reg <= "00011";
+		read2_reg <= "00101";
+		wait for clk_period;
+		
+		-- Try reading and writing at the same time
+		regwrite <= '1';
+		wait for clk_period;
+		read1_reg <= "00001";
+		read2_reg <= "00001";
+		write_reg <= "00001";
+		write_data <= x"12121212";
+		wait for clk_period;
+		
+		
 		wait for clk_period;
 		wait for clk_period;
 		

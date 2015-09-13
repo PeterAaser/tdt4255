@@ -48,10 +48,12 @@
    <wvobject fp_name="/tb_registers/data1" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">data1[31:0]</obj_property>
       <obj_property name="ObjectShortName">data1[31:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/tb_registers/data2" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">data2[31:0]</obj_property>
       <obj_property name="ObjectShortName">data2[31:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/tb_registers/uut/registers" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">registers[0:31]</obj_property>
