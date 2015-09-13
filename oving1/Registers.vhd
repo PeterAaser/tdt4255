@@ -25,37 +25,41 @@ entity Registers is
 end Registers;
 
 architecture Behavioral of Registers is
-	subtype register_t is std_logic_vector(DATA_WIDTH-1 downto 0);
+	subtype register_t is signed(DATA_WIDTH-1 downto 0);
 	type register_bank_t is array (integer range <>) of register_t;
 	signal registers : register_bank_t(0 to 31);
 begin
 	
-	do_register_thingz : process (clk)
-	variable r1 : unsigned(4 downto 0);
-	variable r2 : unsigned(4 downto 0);
-	variable rd : unsigned(4 downto 0);
+	access_registers : process (clk)
+		variable r1 : unsigned(4 downto 0);
+		variable r2 : unsigned(4 downto 0);
+		variable rd : unsigned(4 downto 0);
 	begin
 		if rising_edge(clk) then
-			r1 := unsigned(read1_reg);
-			r2 := unsigned(read1_reg);
-			rd := unsigned(read1_reg);
-			data1 <= signed(registers(to_integer(unsigned(std_logic_vector(r1)))));
-			data2 <= signed(registers(to_integer(unsigned(std_logic_vector(r2)))));
+			if reset = '1' then
+				report "I am actually resetting";
+				-- registers(0) <= x"00000000";
+				registers(0 to 31) <= (others => (others => '0'));
 		
-			if RegWrite = '1' then
-				if rd = (4 downto 0 => '0') then
-					report "Attempt to set 0 register";
-				else
-					registers(to_integer(unsigned(std_logic_vector(rd)))) <= std_logic_vector(write_data);
+			else
+				r1 := unsigned(read1_reg);
+				r2 := unsigned(read2_reg);
+				rd := unsigned(write_reg);
+				--report "r1: " & integer'image(to_integer(r1));
+				--report "r2: " & integer'image(to_integer(r2));
+				--report "dest: " & integer'image(to_integer(rd));
+				data1 <= signed(registers(to_integer(unsigned(std_logic_vector(r1)))));
+				data2 <= signed(registers(to_integer(unsigned(std_logic_vector(r2)))));
+			
+				if RegWrite = '1' then
+					if rd = (4 downto 0 => '0') then
+						report "Attempt to set 0 register";
+					else
+						report "Attempt to set register" & integer'image(to_integer(rd));
+						registers(to_integer(rd)) <= write_data;
+					end if;
 				end if;
 			end if;
-		end if;
-	end process;
-	
-	clear : process (reset)
-	begin
-		if reset = '1' then
-			registers(0 to 31) <= (others => (DATA_WIDTH-1 downto 0 => '0'));
 		end if;
 	end process;
 	

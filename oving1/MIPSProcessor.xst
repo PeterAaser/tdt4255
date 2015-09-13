@@ -1,6 +1,9 @@
-set -tmpdir "/media/peter/stuff/sin bin/tdt4255/oving1/xst/projnav.tmp"
-set -xsthdpdir "/media/peter/stuff/sin bin/tdt4255/oving1/xst"
-run -compileonly yes
+set -tmpdir "xst/projnav.tmp"
+set -xsthdpdir "xst"
+run
+-ifn MIPSProcessor.prj
+-ofn MIPSProcessor
+-ofmt NGC
 -p xc6slx16-2-csg324
 -top MIPSProcessor
 -opt_mode Speed
@@ -48,4 +51,3 @@ run -compileonly yes
 -iob Auto
 -equivalent_register_removal YES
 -slice_utilization_ratio_maxmargin 5
--ifn MIPSProcessor.prj

@@ -105,6 +105,7 @@ BEGIN
 		report "### SIMULATING DECODE UNIT";
 		report "###";
 		wait for clk_period/4;
+		wait for clk_period;
 		
 		--
 		--

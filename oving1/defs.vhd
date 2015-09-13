@@ -23,7 +23,7 @@ package defs is
 	);
 	
 	type op_t is (
-		j, jal, beq, bne, sw, lw, rtype
+		j, jal, beq, bne, sw, lw, rtype, error
 	);
 	
    function get_format ( op : opcode_t) return instruction_format_t;
@@ -84,6 +84,7 @@ package body defs is
 			when "100011" => return lw;
 			when "101011" => return sw;
 			when "000000" => return rtype;
+			when others => return error;
 		end case;
 	end get_op;
 

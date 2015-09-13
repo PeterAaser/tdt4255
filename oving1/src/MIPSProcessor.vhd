@@ -3,11 +3,6 @@
 -- Department of Computer and Information Science
 -- Norwegian University of Science and Technology
 
--- MIPSProcessor.vhd
--- The MIPS processor component to be used in Exercise 1 and 2.
-
--- TODO replace the architecture DummyArch with a working Behavioral
-
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
@@ -56,7 +51,7 @@ architecture Behavioral of MIPSProcessor is
 	signal data1 : signed(DATA_WIDTH-1 downto 0);
 	signal data2 : signed(DATA_WIDTH-1 downto 0);
 	
-	signal programCounter : std_logic_vector(DATA_WIDTH-1 downto 0);
+	signal programCounter : std_logic_vector(ADDRESS_WIDTH-1 downto 0);
 	signal tick : std_logic;
 	signal result_zero : std_logic;
 	
