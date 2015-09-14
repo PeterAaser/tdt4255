@@ -3,126 +3,46 @@
    <wave_state>
    </wave_state>
    <db_ref_list>
-      <db_ref path="/media/peter/stuff/tdt4255/oving1/tb_MIPSProcessor_isim_beh.wdb" id="1" type="auto">
+      <db_ref path="/media/peter/stuff/tdt4255/oving1/tb_control_isim_beh.wdb" id="1" type="auto">
          <top_modules>
             <top_module name="defs" />
             <top_module name="numeric_std" />
             <top_module name="std_logic_1164" />
-            <top_module name="std_logic_arith" />
-            <top_module name="std_logic_textio" />
-            <top_module name="std_logic_unsigned" />
-            <top_module name="tb_mipsprocessor" />
-            <top_module name="textio" />
+            <top_module name="tb_control" />
          </top_modules>
       </db_ref>
    </db_ref_list>
-   <WVObjectSize size="27" />
-   <wvobject fp_name="/tb_mipsprocessor/clk" type="logic" db_ref_id="1">
+   <WVObjectSize size="8" />
+   <wvobject fp_name="/tb_control/clk" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
    </wvobject>
-   <wvobject fp_name="/tb_mipsprocessor/reset" type="logic" db_ref_id="1">
+   <wvobject fp_name="/tb_control/reset" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">reset</obj_property>
       <obj_property name="ObjectShortName">reset</obj_property>
    </wvobject>
-   <wvobject fp_name="/tb_mipsprocessor/processor_enable" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">processor_enable</obj_property>
-      <obj_property name="ObjectShortName">processor_enable</obj_property>
+   <wvobject fp_name="/tb_control/empty" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">empty</obj_property>
+      <obj_property name="ObjectShortName">empty</obj_property>
    </wvobject>
-   <wvobject fp_name="/tb_mipsprocessor/imem_data_in" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">imem_data_in[31:0]</obj_property>
-      <obj_property name="ObjectShortName">imem_data_in[31:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_mipsprocessor/dmem_data_in" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">dmem_data_in[31:0]</obj_property>
-      <obj_property name="ObjectShortName">dmem_data_in[31:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_mipsprocessor/imem_address" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">imem_address[7:0]</obj_property>
-      <obj_property name="ObjectShortName">imem_address[7:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_mipsprocessor/dmem_address" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">dmem_address[7:0]</obj_property>
-      <obj_property name="ObjectShortName">dmem_address[7:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_mipsprocessor/dmem_data_out" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">dmem_data_out[31:0]</obj_property>
-      <obj_property name="ObjectShortName">dmem_data_out[31:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_mipsprocessor/dmem_write_enable" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">dmem_write_enable[0:0]</obj_property>
-      <obj_property name="ObjectShortName">dmem_write_enable[0:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_mipsprocessor/proc_imem_address" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">proc_imem_address[7:0]</obj_property>
-      <obj_property name="ObjectShortName">proc_imem_address[7:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_mipsprocessor/proc_dmem_data_out" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">proc_dmem_data_out[31:0]</obj_property>
-      <obj_property name="ObjectShortName">proc_dmem_data_out[31:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_mipsprocessor/proc_dmem_write_enable" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">proc_dmem_write_enable[0:0]</obj_property>
-      <obj_property name="ObjectShortName">proc_dmem_write_enable[0:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_mipsprocessor/proc_dmem_address" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">proc_dmem_address[7:0]</obj_property>
-      <obj_property name="ObjectShortName">proc_dmem_address[7:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_mipsprocessor/imem_data_out" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">imem_data_out[31:0]</obj_property>
-      <obj_property name="ObjectShortName">imem_data_out[31:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_mipsprocessor/imem_write_enable" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">imem_write_enable[0:0]</obj_property>
-      <obj_property name="ObjectShortName">imem_write_enable[0:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_mipsprocessor/tb_imem_address" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">tb_imem_address[7:0]</obj_property>
-      <obj_property name="ObjectShortName">tb_imem_address[7:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_mipsprocessor/tb_dmem_data_out" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">tb_dmem_data_out[31:0]</obj_property>
-      <obj_property name="ObjectShortName">tb_dmem_data_out[31:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_mipsprocessor/tb_dmem_write_enable" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">tb_dmem_write_enable[0:0]</obj_property>
-      <obj_property name="ObjectShortName">tb_dmem_write_enable[0:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_mipsprocessor/tb_dmem_address" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">tb_dmem_address[7:0]</obj_property>
-      <obj_property name="ObjectShortName">tb_dmem_address[7:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_mipsprocessor/addr_width" type="other" db_ref_id="1">
-      <obj_property name="ElementShortName">addr_width</obj_property>
-      <obj_property name="ObjectShortName">addr_width</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_mipsprocessor/data_width" type="other" db_ref_id="1">
-      <obj_property name="ElementShortName">data_width</obj_property>
-      <obj_property name="ObjectShortName">data_width</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_mipsprocessor/clk_period" type="other" db_ref_id="1">
-      <obj_property name="ElementShortName">clk_period</obj_property>
-      <obj_property name="ObjectShortName">clk_period</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_mipsprocessor/Processor/control/stall" type="logic" db_ref_id="1">
+   <wvobject fp_name="/tb_control/stall" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">stall</obj_property>
       <obj_property name="ObjectShortName">stall</obj_property>
    </wvobject>
-   <wvobject fp_name="/tb_mipsprocessor/Processor/control/tick" type="logic" db_ref_id="1">
+   <wvobject fp_name="/tb_control/enable" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">enable</obj_property>
+      <obj_property name="ObjectShortName">enable</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_control/tick" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">tick</obj_property>
       <obj_property name="ObjectShortName">tick</obj_property>
    </wvobject>
-   <wvobject fp_name="/tb_mipsprocessor/Processor/control/read_instruction" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">read_instruction</obj_property>
-      <obj_property name="ObjectShortName">read_instruction</obj_property>
+   <wvobject fp_name="/tb_control/instruction_fetched" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">instruction_fetched</obj_property>
+      <obj_property name="ObjectShortName">instruction_fetched</obj_property>
    </wvobject>
-   <wvobject fp_name="/tb_mipsprocessor/Processor/control/state" type="other" db_ref_id="1">
+   <wvobject fp_name="/tb_control/uut/state" type="other" db_ref_id="1">
       <obj_property name="ElementShortName">state</obj_property>
       <obj_property name="ObjectShortName">state</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_mipsprocessor/Processor/registers/registers" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">registers[0:31]</obj_property>
-      <obj_property name="ObjectShortName">registers[0:31]</obj_property>
    </wvobject>
 </wave_config>
