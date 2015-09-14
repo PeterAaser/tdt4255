@@ -12,10 +12,10 @@ entity Decode is
         opcode : in opcode_t;
         func : in func_t;
 		  
-		  -- op code exclusive --
+        -- op code exclusive --
         zero_invert : out std_logic;
         
-		  -- settings -- 
+        -- settings -- 
         RegDst : out std_logic;
         Branch : out std_logic;
         Jump : out std_logic;
@@ -23,8 +23,9 @@ entity Decode is
         MemWrite : out std_logic;
         RegWrite : out std_logic;
         stall : out std_logic;
+        ALUsrc : out std_logic;
 		  
-		  -- ALU issue --
+        -- ALU issue --
         ALU_select : out std_logic;
         ALU_op : out ALU_op_t);
 	
@@ -42,6 +43,7 @@ signal ControlSrc : std_logic := '0';
     signal opMemWrite : std_logic;
     signal opRegWrite : std_logic;
     signal opstall : std_logic;
+    signal opALUsrc : std_logic;
     signal opALU_op : ALU_op_t;
 
     signal funcRegDst : std_logic;
@@ -51,6 +53,7 @@ signal ControlSrc : std_logic := '0';
     signal funcMemWrite : std_logic;
     signal funcRegWrite : std_logic;
     signal funcstall : std_logic;
+    signal funcALUsrc : std_logic;
     signal funcALU_op : ALU_op_t;
 
     -- Currently only for debug
@@ -72,6 +75,7 @@ begin
             RegWrite => funcRegWrite,
             stall => funcstall,
             
+            ALUsrc => funcALUsrc,
             ALU_op => funcALU_op
         );
 
@@ -92,8 +96,9 @@ begin
             RegWrite => opRegWrite,
             stall => opstall,
             
+            ALUsrc => opALUsrc,
             controlSrc => controlSrc,
-           ALU_op => opALU_op,
+            ALU_op => opALU_op,
             op => op
         );
 

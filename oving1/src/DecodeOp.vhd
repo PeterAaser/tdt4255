@@ -37,51 +37,51 @@ architecture Behavioral of DecodeOp is
 begin
    decode : process (clk, reset)
 begin
-	if rising_edge(clk) then
-		
-		-- Currently only here as a debug tool
-		op <= get_op( opcode);
-		
-		-- Selects opcode module as control signal driver for select signals --
-		ControlSrc <= '1';
-		
-		stall <= '0';
-		
-			case get_format(opcode) is
-				when R_TYPE=>
-					ControlSrc <= '0';
-				when I_TYPE=>
-					-- stall (does all I-type stall??)
-					stall <= '1';
-					
-					-- load store? --
-					if opcode(5) = '1' then
-						ALU_op <= add;
-						
-						if opcode(3) = '0' then --store
-							MemWrite <= '1';
-						else -- load --						
-							MemtoReg <= '1'; 
-							RegWrite <= '1';
-						end if;
-					
-					-- bne beq? --
-					else
-						branch <= '1';
-						ALU_op <= sub;
-						if opcode(0) = '0' then -- beq --
-							zero_invert <= '0';
-						else
-							zero_invert <= '1';
-						end if;
-					end if;
-					
-				when J_TYPE=>
-					jump <= '1';
-			end case;
-		end if;
-	
-	
-	end process;
+    if rising_edge(clk) then
+        
+        -- Currently only here as a debug tool
+        op <= get_op( opcode);
+        
+        -- Selects opcode module as control signal driver for select signals --
+        ControlSrc <= '1';
+        
+        stall <= '0';
+        
+            case get_format(opcode) is
+                when R_TYPE=>
+                    ControlSrc <= '0';
+                when I_TYPE=>
+                    -- stall (does all I-type stall??)
+                    stall <= '1';
+                    
+                    -- load store? --
+                    if opcode(5) = '1' then
+                        ALU_op <= add;
+                        
+                        if opcode(3) = '0' then --store
+                            MemWrite <= '1';
+                        else -- load --						
+                            MemtoReg <= '1'; 
+                            RegWrite <= '1';
+                        end if;
+                    
+                    -- bne beq? --
+                    else
+                        branch <= '1';
+                        ALU_op <= sub;
+                        if opcode(0) = '0' then -- beq --
+                            zero_invert <= '0';
+                        else
+                            zero_invert <= '1';
+                        end if;
+                    end if;
+                    
+                when J_TYPE=>
+                    jump <= '1';
+            end case;
+        end if;
+
+
+    end process;
 end Behavioral;
 

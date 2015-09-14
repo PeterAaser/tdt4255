@@ -19,6 +19,7 @@ entity DecodeFunc is
         MemWrite : out std_logic := '0';
         RegWrite : out std_logic := '0';
         stall : out std_logic := '0';
+        ALU_src : out std_logic := '1';
       
         ALU_op : out ALU_op_t);
 		  
