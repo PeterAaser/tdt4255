@@ -21,14 +21,16 @@ end Control;
 
 architecture Behavioral of Control is
 
-	type state_type is (S_FETCH, S_EXECUTE, S_STALL);
+	type state_type is (S_FETCH, S_EXECUTE, S_STALL, S_OFFLINE);
 	signal state : state_type;
 
 begin
 
-	control_state : process(clk, reset)
+	control_state : process(clk)
 	begin
-		if reset = '1' then
+		if enable = '0' then
+			state <= S_OFFLINE;
+		elsif reset = '1' then
 			state <= S_FETCH;
 		elsif rising_edge(clk) then
 			case state is
@@ -42,6 +44,8 @@ begin
 					end if;
 				when S_STALL=>
 					state <= S_FETCH;
+				when S_OFFLINE=>
+					state <= S_FETCH;
 			end case;
 		end if;
 	end process;
@@ -53,6 +57,7 @@ begin
 			case state is 
 				when S_FETCH=>
 					read_instruction <= '1';
+					tick <= '0';
 				when S_EXECUTE=>
 					read_instruction <= '0';
 					if stall = '0' then
@@ -63,6 +68,10 @@ begin
 				when S_STALL=>
 					read_instruction <= '0';
 					tick <= '1';
+				when S_OFFLINE=>
+					read_instruction <= '0';
+					tick <= '0';
+					stall <= '0';
 			end case;
 		end if;
 	end process;

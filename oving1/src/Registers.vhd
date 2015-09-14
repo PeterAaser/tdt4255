@@ -37,8 +37,6 @@ begin
 	begin
 		if rising_edge(clk) then
 			if reset = '1' then
-				report "I am actually resetting";
-				-- registers(0) <= x"00000000";
 				registers(0 to 31) <= (others => (others => '0'));
 		
 			else
@@ -51,9 +49,7 @@ begin
 			
 				if RegWrite = '1' then
 					if rd = (4 downto 0 => '0') then
-						report "Attempt to set 0 register";
 					else
-						report "Attempt to set register" & integer'image(to_integer(rd));
 						registers(to_integer(rd)) <= write_data;
 					end if;
 				end if;

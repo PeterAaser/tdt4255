@@ -45,6 +45,8 @@ begin
 		-- Selects opcode module as control signal driver for select signals --
 		ControlSrc <= '1';
 		
+		stall <= '0';
+		
 			case get_format(opcode) is
 				when R_TYPE=>
 					ControlSrc <= '0';

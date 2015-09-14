@@ -22,7 +22,7 @@ entity MIPSSystem is
 	-- do not change these, the memories are pregenerated at the moment
 	-- and do not support changing the address width/word size
 	generic (
-		ADDR_WIDTH : integer := 8;	
+		ADDRESS_WIDTH : integer := 8;	
 		DATA_WIDTH : integer := 32
 	);
 	port ( 
@@ -42,12 +42,12 @@ architecture Behavioral of MIPSSystem is
 	
 	-- signals for instruction memory, processor port (read only!)
 	signal procIMemReadData			: std_logic_vector(DATA_WIDTH-1 downto 0);
-	signal procIMemAddr				: std_logic_vector(ADDR_WIDTH-1 downto 0);
+	signal procIMemAddr				: std_logic_vector(ADDRESS_WIDTH-1 downto 0);
 	-- signals for data memory, processor port
 	signal procDMemWriteEnable 	: std_logic;
 	signal procDMemWriteData		: std_logic_vector(DATA_WIDTH-1 downto 0);
 	signal procDMemReadData			: std_logic_vector(DATA_WIDTH-1 downto 0);
-	signal procDMemAddr				: std_logic_vector(ADDR_WIDTH-1 downto 0);
+	signal procDMemAddr				: std_logic_vector(ADDRESS_WIDTH-1 downto 0);
 	
 	-- signals for instruction memory, hostcomm port
 	signal hcIMemWriteEnable 	: std_logic;
@@ -64,7 +64,7 @@ architecture Behavioral of MIPSSystem is
 begin
 -- instantiate the processor
 MIPSProcInst:	entity work.MIPSProcessor(Behavioral) 
-					generic map (ADDR_WIDTH => ADDR_WIDTH, DATA_WIDTH => DATA_WIDTH) 
+					generic map (ADDRESS_WIDTH => ADDRESS_WIDTH, DATA_WIDTH => DATA_WIDTH) 
 					port map (
 						clk => clk, reset => processorReset,
 						processor_enable	=> processorEnable,
