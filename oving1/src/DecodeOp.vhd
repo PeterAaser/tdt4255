@@ -8,34 +8,34 @@ entity DecodeOp is
 
     port(
         clk : in std_logic;
-		  reset : in std_logic;
-		  opcode : in opcode_t;
-        
-		  -- settings -- 
+        reset : in std_logic;
+        opcode : in opcode_t;
+
+        -- settings -- 
         RegDst : out std_logic := '0';
         Branch : out std_logic := '0';
-		  zero_invert : out std_logic := '0';
-		  Jump : out std_logic := '0';
+        zero_invert : out std_logic := '0';
+        Jump : out std_logic := '0';
         MemRead : out std_logic := '0';
         MemtoReg : out std_logic := '0';
         MemWrite : out std_logic := '0';
         RegWrite : out std_logic := '0';
-		  stall : out std_logic := '0';
-		  
-		  -- Not currently used. Should it?
-		  op : out op_t := j; 
-		  
-		  -- DecodeFunc override --
-		  ControlSrc : out std_logic := '0';
-		  
-		  -- ALU issue if overriding --
-		  ALU_op : out ALU_op_t := add);
+        stall : out std_logic := '0';
+
+        -- Not currently used. Should it?
+        op : out op_t := j; 
+
+        -- DecodeFunc override --
+        ControlSrc : out std_logic := '0';
+
+        -- ALU issue if overriding --
+        ALU_op : out ALU_op_t := add);
 		  
 end DecodeOp;
 
 architecture Behavioral of DecodeOp is
 begin
-   decode : process (clk, reset)
+    decode : process (clk, reset)
 begin
     if rising_edge(clk) then
         
