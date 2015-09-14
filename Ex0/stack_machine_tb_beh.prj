@@ -1,0 +1,7 @@
+vhdl work "src/defs.vhd"
+vhdl work "RegFile.vhd"
+vhdl work "src/stack.vhd"
+vhdl work "src/control.vhd"
+vhdl work "src/tests/testutil.vhd"
+vhdl work "src/stack_machine.vhd"
+vhdl work "src/tests/stack_machine_tb.vhd"

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- IMPORTANT: This is an internal file that has been generated
+     by the Xilinx ISE software.  Any direct editing or
+     changes made to this file may result in unpredictable
+     behavior or data corruption.  It is strongly advised that
+     users do not edit the contents of this file. -->
+<messages>
+<msg type="warning" file="Xst" num="647" delta="new" >Input &lt;<arg fmt="%s" index="1">instruction&lt;15:10&gt;</arg>&gt; is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+</msg>
+
+<msg type="info" file="Xst" num="3010" delta="new" >&quot;<arg fmt="%s" index="1">/home/shomed/a/anderlim/Desktop/tdt4255/Ex0/src/framework/InstructionBuffer.vhd</arg>&quot; line <arg fmt="%d" index="2">53</arg>: Output port &lt;<arg fmt="%s" index="3">intAccessReq</arg>&gt; of the instance &lt;<arg fmt="%s" index="4">UARTHandlerInst</arg>&gt; is unconnected or connected to loadless signal.
+</msg>
+
+<msg type="info" file="Xst" num="3010" delta="new" >&quot;<arg fmt="%s" index="1">/home/shomed/a/anderlim/Desktop/tdt4255/Ex0/src/framework/uart/uart2BusTop.vhd</arg>&quot; line <arg fmt="%d" index="2">46</arg>: Output port &lt;<arg fmt="%s" index="3">baudClk</arg>&gt; of the instance &lt;<arg fmt="%s" index="4">ut</arg>&gt; is unconnected or connected to loadless signal.
+</msg>
+
+<msg type="info" file="Xst" num="1767" delta="new" >HDL ADVISOR - Resource sharing has identified that some arithmetic operations in this design can share the same physical resources for reduced device utilization. For improved clock frequency you may try to disable resource sharing.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="new" >Node &lt;<arg fmt="%s" index="1">RPNC/stack/stack_ptr_31</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">RPNSystem</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="new" >Node &lt;<arg fmt="%s" index="1">RPNC/stack/stack_ptr_30</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">RPNSystem</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="new" >Node &lt;<arg fmt="%s" index="1">RPNC/stack/stack_ptr_29</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">RPNSystem</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="new" >Node &lt;<arg fmt="%s" index="1">RPNC/stack/stack_ptr_28</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">RPNSystem</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="new" >Node &lt;<arg fmt="%s" index="1">RPNC/stack/stack_ptr_27</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">RPNSystem</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="new" >Node &lt;<arg fmt="%s" index="1">RPNC/stack/stack_ptr_26</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">RPNSystem</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="new" >Node &lt;<arg fmt="%s" index="1">RPNC/stack/stack_ptr_25</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">RPNSystem</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="new" >Node &lt;<arg fmt="%s" index="1">RPNC/stack/stack_ptr_24</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">RPNSystem</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="new" >Node &lt;<arg fmt="%s" index="1">RPNC/stack/stack_ptr_23</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">RPNSystem</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="new" >Node &lt;<arg fmt="%s" index="1">RPNC/stack/stack_ptr_22</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">RPNSystem</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="new" >Node &lt;<arg fmt="%s" index="1">RPNC/stack/stack_ptr_21</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">RPNSystem</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="new" >Node &lt;<arg fmt="%s" index="1">RPNC/stack/stack_ptr_20</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">RPNSystem</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="new" >Node &lt;<arg fmt="%s" index="1">RPNC/stack/stack_ptr_19</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">RPNSystem</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="new" >Node &lt;<arg fmt="%s" index="1">RPNC/stack/stack_ptr_18</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">RPNSystem</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="new" >Node &lt;<arg fmt="%s" index="1">RPNC/stack/stack_ptr_17</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">RPNSystem</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="new" >Node &lt;<arg fmt="%s" index="1">RPNC/stack/stack_ptr_16</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">RPNSystem</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="new" >Node &lt;<arg fmt="%s" index="1">RPNC/stack/stack_ptr_15</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">RPNSystem</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="new" >Node &lt;<arg fmt="%s" index="1">RPNC/stack/stack_ptr_14</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">RPNSystem</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="new" >Node &lt;<arg fmt="%s" index="1">RPNC/stack/stack_ptr_13</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">RPNSystem</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="new" >Node &lt;<arg fmt="%s" index="1">RPNC/stack/stack_ptr_12</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">RPNSystem</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="new" >Node &lt;<arg fmt="%s" index="1">RPNC/stack/stack_ptr_11</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">RPNSystem</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="new" >Node &lt;<arg fmt="%s" index="1">RPNC/stack/stack_ptr_10</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">RPNSystem</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="new" >Node &lt;<arg fmt="%s" index="1">RPNC/stack/stack_ptr_9</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">RPNSystem</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="new" >Node &lt;<arg fmt="%s" index="1">RPNC/stack/stack_ptr_8</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">RPNSystem</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="new" >Node &lt;<arg fmt="%s" index="1">RPNC/stack/stack_ptr_7</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">RPNSystem</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="new" >Node &lt;<arg fmt="%s" index="1">RPNC/stack/stack_ptr_6</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">RPNSystem</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="new" >Node &lt;<arg fmt="%s" index="1">RPNC/stack/stack_ptr_5</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">RPNSystem</arg>&gt;.
+</msg>
+
+<msg type="warning" file="Xst" num="2677" delta="new" >Node &lt;<arg fmt="%s" index="1">RPNC/stack/stack_ptr_4</arg>&gt; of sequential type is unconnected in block &lt;<arg fmt="%s" index="2">RPNSystem</arg>&gt;.
+</msg>
+
+</messages>
+

@@ -1,0 +1,33 @@
+Running: /opt/Xilinx/12.4/ISE_DS/ISE/bin/lin/unwrapped/fuse -intstyle ise -incremental -lib secureip -o /home/shomed/a/anderlim/Desktop/tdt4255/Ex0/stack_machine_tb_isim_beh.exe -prj /home/shomed/a/anderlim/Desktop/tdt4255/Ex0/stack_machine_tb_beh.prj work.stack_machine_tb 
+ISim M.81d (signature 0x141a37e9)
+Number of CPUs detected in this system: 4
+Turning on mult-threading, number of parallel sub-compilation jobs: 8 
+Determining compilation order of HDL files
+Parsing VHDL file "/home/shomed/a/anderlim/Desktop/tdt4255/Ex0/src/defs.vhd" into library work
+Parsing VHDL file "/home/shomed/a/anderlim/Desktop/tdt4255/Ex0/RegFile.vhd" into library work
+Parsing VHDL file "/home/shomed/a/anderlim/Desktop/tdt4255/Ex0/src/stack.vhd" into library work
+Parsing VHDL file "/home/shomed/a/anderlim/Desktop/tdt4255/Ex0/src/control.vhd" into library work
+Parsing VHDL file "/home/shomed/a/anderlim/Desktop/tdt4255/Ex0/src/tests/testutil.vhd" into library work
+Parsing VHDL file "/home/shomed/a/anderlim/Desktop/tdt4255/Ex0/src/stack_machine.vhd" into library work
+Parsing VHDL file "/home/shomed/a/anderlim/Desktop/tdt4255/Ex0/src/tests/stack_machine_tb.vhd" into library work
+Starting static elaboration
+Completed static elaboration
+Fuse Memory Usage: 29584 KB
+Fuse CPU Usage: 210 ms
+Using precompiled package standard from library std
+Using precompiled package std_logic_1164 from library ieee
+Using precompiled package numeric_std from library ieee
+Compiling package defs
+Compiling package testutil
+Compiling architecture behavioural of entity control [control_default]
+Compiling architecture behavioral of entity regfile [\RegFile(1024)\]
+Compiling architecture behavioural of entity stack [\stack(1024)\]
+Compiling architecture behavioural of entity stack_machine [\stack_machine(1024)\]
+Compiling architecture behavioural of entity stack_machine_tb
+Time Resolution for simulation is 1ps.
+Waiting for 1 sub-compilation(s) to finish...
+Compiled 14 VHDL Units
+Built simulation executable /home/shomed/a/anderlim/Desktop/tdt4255/Ex0/stack_machine_tb_isim_beh.exe
+Fuse Memory Usage: 78788 KB
+Fuse CPU Usage: 250 ms
+GCC CPU Usage: 650 ms

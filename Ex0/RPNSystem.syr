@@ -1,0 +1,819 @@
+Release 12.4 - xst M.81d (lin)
+Copyright (c) 1995-2010 Xilinx, Inc.  All rights reserved.
+--> 
+Parameter TMPDIR set to xst/projnav.tmp
+
+
+Total REAL time to Xst completion: 0.00 secs
+Total CPU time to Xst completion: 0.06 secs
+ 
+--> 
+Parameter xsthdpdir set to xst
+
+
+Total REAL time to Xst completion: 0.00 secs
+Total CPU time to Xst completion: 0.06 secs
+ 
+--> 
+Reading design: RPNSystem.prj
+
+TABLE OF CONTENTS
+  1) Synthesis Options Summary
+  2) HDL Parsing
+  3) HDL Elaboration
+  4) HDL Synthesis
+       4.1) HDL Synthesis Report
+  5) Advanced HDL Synthesis
+       5.1) Advanced HDL Synthesis Report
+  6) Low Level Synthesis
+  7) Partition Report
+  8) Design Summary
+       8.1) Primitive and Black Box Usage
+       8.2) Device utilization summary
+       8.3) Partition Resource Summary
+       8.4) Timing Report
+            8.4.1) Clock Information
+            8.4.2) Asynchronous Control Signals Information
+            8.4.3) Timing Summary
+            8.4.4) Timing Details
+            8.4.5) Cross Clock Domains Report
+
+
+=========================================================================
+*                      Synthesis Options Summary                        *
+=========================================================================
+---- Source Parameters
+Input File Name                    : "RPNSystem.prj"
+Input Format                       : mixed
+Ignore Synthesis Constraint File   : NO
+
+---- Target Parameters
+Output File Name                   : "RPNSystem"
+Output Format                      : NGC
+Target Device                      : xc6slx16-2-csg324
+
+---- Source Options
+Top Module Name                    : RPNSystem
+Automatic FSM Extraction           : YES
+FSM Encoding Algorithm             : Auto
+Safe Implementation                : No
+FSM Style                          : LUT
+RAM Extraction                     : Yes
+RAM Style                          : Auto
+ROM Extraction                     : Yes
+Shift Register Extraction          : YES
+ROM Style                          : Auto
+Resource Sharing                   : YES
+Asynchronous To Synchronous        : NO
+Shift Register Minimum Size        : 2
+Use DSP Block                      : Auto
+Automatic Register Balancing       : No
+
+---- Target Options
+LUT Combining                      : Auto
+Reduce Control Sets                : Auto
+Add IO Buffers                     : YES
+Global Maximum Fanout              : 100000
+Add Generic Clock Buffer(BUFG)     : 16
+Register Duplication               : YES
+Optimize Instantiated Primitives   : NO
+Use Clock Enable                   : Auto
+Use Synchronous Set                : Auto
+Use Synchronous Reset              : Auto
+Pack IO Registers into IOBs        : Auto
+Equivalent register Removal        : YES
+
+---- General Options
+Optimization Goal                  : Speed
+Optimization Effort                : 1
+Power Reduction                    : NO
+Keep Hierarchy                     : No
+Netlist Hierarchy                  : As_Optimized
+RTL Output                         : Yes
+Global Optimization                : AllClockNets
+Read Cores                         : YES
+Write Timing Constraints           : NO
+Cross Clock Analysis               : NO
+Hierarchy Separator                : /
+Bus Delimiter                      : <>
+Case Specifier                     : Maintain
+Slice Utilization Ratio            : 100
+BRAM Utilization Ratio             : 100
+DSP48 Utilization Ratio            : 100
+Auto BRAM Packing                  : NO
+Slice Utilization Ratio Delta      : 5
+
+---- Other Options
+Cores Search Directories           : {"src/framework"  }
+
+=========================================================================
+
+
+=========================================================================
+*                          HDL Parsing                                  *
+=========================================================================
+Parsing VHDL file "/home/shomed/a/anderlim/Desktop/tdt4255/Ex0/src/framework/RPNDataMem.vhd" into library work
+Parsing entity <RPNDataMem>.
+Parsing architecture <RPNDataMem_a> of entity <rpndatamem>.
+Parsing VHDL file "/home/shomed/a/anderlim/Desktop/tdt4255/Ex0/src/framework/uart/uartTx.vhd" into library work
+Parsing entity <uartTx>.
+Parsing architecture <Behavioral> of entity <uarttx>.
+Parsing VHDL file "/home/shomed/a/anderlim/Desktop/tdt4255/Ex0/src/framework/uart/uartRx.vhd" into library work
+Parsing entity <uartRx>.
+Parsing architecture <Behavioral> of entity <uartrx>.
+Parsing VHDL file "/home/shomed/a/anderlim/Desktop/tdt4255/Ex0/src/framework/uart/uart2BusTop_pkg.vhd" into library work
+Parsing package <uart2BusTop_pkg>.
+Parsing VHDL file "/home/shomed/a/anderlim/Desktop/tdt4255/Ex0/src/framework/uart/baudGen.vhd" into library work
+Parsing entity <baudGen>.
+Parsing architecture <Behavioral> of entity <baudgen>.
+Parsing VHDL file "/home/shomed/a/anderlim/Desktop/tdt4255/Ex0/src/defs.vhd" into library work
+Parsing package <defs>.
+Parsing VHDL file "/home/shomed/a/anderlim/Desktop/tdt4255/Ex0/src/framework/uart/uartTop.vhd" into library work
+Parsing entity <uartTop>.
+Parsing architecture <Behavioral> of entity <uarttop>.
+Parsing VHDL file "/home/shomed/a/anderlim/Desktop/tdt4255/Ex0/src/framework/uart/uartParser.vhd" into library work
+Parsing entity <uartParser>.
+Parsing architecture <Behavioral> of entity <uartparser>.
+Parsing VHDL file "/home/shomed/a/anderlim/Desktop/tdt4255/Ex0/RegFile.vhd" into library work
+Parsing entity <RegFile>.
+Parsing architecture <Behavioral> of entity <regfile>.
+Parsing VHDL file "/home/shomed/a/anderlim/Desktop/tdt4255/Ex0/src/stack.vhd" into library work
+Parsing entity <stack>.
+Parsing architecture <behavioural> of entity <stack>.
+Parsing VHDL file "/home/shomed/a/anderlim/Desktop/tdt4255/Ex0/src/framework/uart/uart2BusTop.vhd" into library work
+Parsing entity <uart2BusTop>.
+Parsing architecture <Behavioral> of entity <uart2bustop>.
+Parsing VHDL file "/home/shomed/a/anderlim/Desktop/tdt4255/Ex0/src/control.vhd" into library work
+Parsing entity <control>.
+Parsing architecture <behavioural> of entity <control>.
+Parsing VHDL file "/home/shomed/a/anderlim/Desktop/tdt4255/Ex0/src/stack_machine.vhd" into library work
+Parsing entity <stack_machine>.
+Parsing architecture <behavioural> of entity <stack_machine>.
+Parsing VHDL file "/home/shomed/a/anderlim/Desktop/tdt4255/Ex0/src/framework/InstructionBuffer.vhd" into library work
+Parsing entity <InstructionBuffer>.
+Parsing architecture <Behavioral> of entity <instructionbuffer>.
+Parsing VHDL file "/home/shomed/a/anderlim/Desktop/tdt4255/Ex0/src/framework/RPNSystem.vhd" into library work
+Parsing entity <RPNSystem>.
+Parsing architecture <Behavioral> of entity <rpnsystem>.
+
+=========================================================================
+*                            HDL Elaboration                            *
+=========================================================================
+
+Elaborating entity <RPNSystem> (architecture <Behavioral>) from library <work>.
+
+Elaborating entity <stack_machine> (architecture <behavioural>) with generics from library <work>.
+
+Elaborating entity <control> (architecture <behavioural>) from library <work>.
+
+Elaborating entity <stack> (architecture <behavioural>) with generics from library <work>.
+
+Elaborating entity <RegFile> (architecture <Behavioral>) with generics from library <work>.
+
+Elaborating entity <InstructionBuffer> (architecture <Behavioral>) from library <work>.
+
+Elaborating entity <uart2BusTop> (architecture <Behavioral>) with generics from library <work>.
+
+Elaborating entity <uartTop> (architecture <Behavioral>) from library <work>.
+
+Elaborating entity <baudGen> (architecture <Behavioral>) from library <work>.
+
+Elaborating entity <uartTx> (architecture <Behavioral>) from library <work>.
+
+Elaborating entity <uartRx> (architecture <Behavioral>) from library <work>.
+
+Elaborating entity <uartParser> (architecture <Behavioral>) with generics from library <work>.
+
+Elaborating entity <RPNDataMem> (architecture <RPNDataMem_a>) from library <work>.
+
+=========================================================================
+*                           HDL Synthesis                               *
+=========================================================================
+
+Synthesizing Unit <RPNSystem>.
+    Related source file is "/home/shomed/a/anderlim/Desktop/tdt4255/Ex0/src/framework/RPNSystem.vhd".
+    Summary:
+	no macro.
+Unit <RPNSystem> synthesized.
+
+Synthesizing Unit <stack_machine>.
+    Related source file is "/home/shomed/a/anderlim/Desktop/tdt4255/Ex0/src/stack_machine.vhd".
+        size = 16
+    Found 8-bit register for signal <b>.
+    Found 8-bit register for signal <a>.
+    Found 8-bit adder for signal <a[7]_b[7]_add_3_OUT> created at line 56.
+    Found 8-bit subtractor for signal <a[7]_b[7]_sub_5_OUT<7:0>> created at line 57.
+    Summary:
+	inferred   1 Adder/Subtractor(s).
+	inferred  16 D-type flip-flop(s).
+	inferred   1 Multiplexer(s).
+Unit <stack_machine> synthesized.
+
+Synthesizing Unit <control>.
+    Related source file is "/home/shomed/a/anderlim/Desktop/tdt4255/Ex0/src/control.vhd".
+WARNING:Xst:647 - Input <instruction<15:10>> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+    Found 32-bit register for signal <state>.
+    Found 1-bit register for signal <read>.
+    Found 1-bit register for signal <push>.
+    Found 1-bit register for signal <pop>.
+    Found 1-bit register for signal <a_wen>.
+    Found 1-bit register for signal <b_wen>.
+    Found 1-bit register for signal <stack_src>.
+    Found 1-bit register for signal <alu_sel>.
+    Found 32-bit adder for signal <state[31]_GND_7_o_add_5_OUT> created at line 66.
+    Found 32-bit adder for signal <state[31]_GND_7_o_add_13_OUT> created at line 92.
+    Summary:
+	inferred   2 Adder/Subtractor(s).
+	inferred  39 D-type flip-flop(s).
+	inferred  11 Multiplexer(s).
+Unit <control> synthesized.
+
+Synthesizing Unit <stack>.
+    Related source file is "/home/shomed/a/anderlim/Desktop/tdt4255/Ex0/src/stack.vhd".
+        size = 16
+    Found 32-bit register for signal <stack_ptr>.
+    Found 32-bit adder for signal <stack_ptr[31]_GND_8_o_add_0_OUT> created at line 40.
+    Found 32-bit subtractor for signal <stack_ptr[31]_GND_8_o_sub_2_OUT<31:0>> created at line 49.
+    Summary:
+	inferred   1 Adder/Subtractor(s).
+	inferred  32 D-type flip-flop(s).
+Unit <stack> synthesized.
+
+Synthesizing Unit <RegFile>.
+    Related source file is "/home/shomed/a/anderlim/Desktop/tdt4255/Ex0/RegFile.vhd".
+        size = 16
+    Found 8-bit register for signal <regFile<1>>.
+    Found 8-bit register for signal <regFile<2>>.
+    Found 8-bit register for signal <regFile<3>>.
+    Found 8-bit register for signal <regFile<4>>.
+    Found 8-bit register for signal <regFile<5>>.
+    Found 8-bit register for signal <regFile<6>>.
+    Found 8-bit register for signal <regFile<7>>.
+    Found 8-bit register for signal <regFile<8>>.
+    Found 8-bit register for signal <regFile<9>>.
+    Found 8-bit register for signal <regFile<10>>.
+    Found 8-bit register for signal <regFile<11>>.
+    Found 8-bit register for signal <regFile<12>>.
+    Found 8-bit register for signal <regFile<13>>.
+    Found 8-bit register for signal <regFile<14>>.
+    Found 8-bit register for signal <regFile<15>>.
+    Found 8-bit register for signal <regFile<0>>.
+    Found 4-bit subtractor for signal <addr[31]_GND_9_o_sub_50_OUT<3:0>> created at line 63.
+    Found 8-bit 16-to-1 multiplexer for signal <data_out> created at line 63.
+    Summary:
+	inferred   1 Adder/Subtractor(s).
+	inferred 128 D-type flip-flop(s).
+	inferred   1 Multiplexer(s).
+Unit <RegFile> synthesized.
+
+Synthesizing Unit <InstructionBuffer>.
+    Related source file is "/home/shomed/a/anderlim/Desktop/tdt4255/Ex0/src/framework/InstructionBuffer.vhd".
+INFO:Xst:3010 - "/home/shomed/a/anderlim/Desktop/tdt4255/Ex0/src/framework/InstructionBuffer.vhd" line 53: Output port <intAccessReq> of the instance <UARTHandlerInst> is unconnected or connected to loadless signal.
+    Found 8-bit register for signal <currentReadAddr>.
+    Found 8-bit register for signal <remainingInstructions>.
+    Found 1-bit register for signal <RPNCResetSignal>.
+    Found 8-bit adder for signal <currentReadAddr[7]_GND_11_o_add_32_OUT> created at line 1241.
+    Found 8-bit subtractor for signal <GND_11_o_GND_11_o_sub_21_OUT<7:0>> created at line 1308.
+    Found 8-bit 4-to-1 multiplexer for signal <_n0079> created at line 34.
+    Summary:
+	inferred   2 Adder/Subtractor(s).
+	inferred  17 D-type flip-flop(s).
+	inferred  10 Multiplexer(s).
+Unit <InstructionBuffer> synthesized.
+
+Synthesizing Unit <uart2BusTop>.
+    Related source file is "/home/shomed/a/anderlim/Desktop/tdt4255/Ex0/src/framework/uart/uart2BusTop.vhd".
+        AW = 16
+INFO:Xst:3010 - "/home/shomed/a/anderlim/Desktop/tdt4255/Ex0/src/framework/uart/uart2BusTop.vhd" line 46: Output port <baudClk> of the instance <ut> is unconnected or connected to loadless signal.
+    Summary:
+	no macro.
+Unit <uart2BusTop> synthesized.
+
+Synthesizing Unit <uartTop>.
+    Related source file is "/home/shomed/a/anderlim/Desktop/tdt4255/Ex0/src/framework/uart/uartTop.vhd".
+    Summary:
+	no macro.
+Unit <uartTop> synthesized.
+
+Synthesizing Unit <baudGen>.
+    Related source file is "/home/shomed/a/anderlim/Desktop/tdt4255/Ex0/src/framework/uart/baudGen.vhd".
+    Found 1-bit register for signal <ce16>.
+    Found 16-bit register for signal <counter>.
+    Found 16-bit adder for signal <counter[15]_GND_17_o_add_2_OUT> created at line 43.
+    Found 16-bit subtractor for signal <GND_17_o_GND_17_o_sub_2_OUT<15:0>> created at line 40.
+    Found 16-bit comparator lessequal for signal <n0000> created at line 39
+    Summary:
+	inferred   1 Adder/Subtractor(s).
+	inferred  17 D-type flip-flop(s).
+	inferred   1 Comparator(s).
+	inferred   1 Multiplexer(s).
+Unit <baudGen> synthesized.
+
+Synthesizing Unit <uartTx>.
+    Related source file is "/home/shomed/a/anderlim/Desktop/tdt4255/Ex0/src/framework/uart/uartTx.vhd".
+    Found 1-bit register for signal <serOut>.
+    Found 1-bit register for signal <iTxBusy>.
+    Found 4-bit register for signal <bitCount>.
+    Found 4-bit register for signal <count16>.
+    Found 9-bit register for signal <dataBuf>.
+    Found 4-bit adder for signal <count16[3]_GND_18_o_add_0_OUT> created at line 35.
+    Found 4-bit adder for signal <bitCount[3]_GND_18_o_add_5_OUT> created at line 61.
+    Summary:
+	inferred   2 Adder/Subtractor(s).
+	inferred  19 D-type flip-flop(s).
+	inferred   4 Multiplexer(s).
+Unit <uartTx> synthesized.
+
+Synthesizing Unit <uartRx>.
+    Related source file is "/home/shomed/a/anderlim/Desktop/tdt4255/Ex0/src/framework/uart/uartRx.vhd".
+    Found 2-bit register for signal <inSync>.
+    Found 1-bit register for signal <rxBusy>.
+    Found 1-bit register for signal <newRxData>.
+    Found 4-bit register for signal <count16>.
+    Found 4-bit register for signal <bitCount>.
+    Found 8-bit register for signal <dataBuf>.
+    Found 8-bit register for signal <rxData>.
+    Found 4-bit adder for signal <count16[3]_GND_20_o_add_1_OUT> created at line 48.
+    Found 4-bit adder for signal <bitCount[3]_GND_20_o_add_6_OUT> created at line 77.
+    Summary:
+	inferred   2 Adder/Subtractor(s).
+	inferred  28 D-type flip-flop(s).
+	inferred   2 Multiplexer(s).
+Unit <uartRx> synthesized.
+
+Synthesizing Unit <uartParser>.
+    Related source file is "/home/shomed/a/anderlim/Desktop/tdt4255/Ex0/src/framework/uart/uartParser.vhd".
+        AW = 16
+    Found 1-bit register for signal <sTxBusy>.
+    Found 1-bit register for signal <readOp>.
+    Found 1-bit register for signal <writeOp>.
+    Found 1-bit register for signal <binReadOp>.
+    Found 1-bit register for signal <binWriteOp>.
+    Found 1-bit register for signal <sendStatFlag>.
+    Found 1-bit register for signal <addrAutoInc>.
+    Found 1-bit register for signal <iReadReq>.
+    Found 1-bit register for signal <iIntRead>.
+    Found 1-bit register for signal <iWriteReq>.
+    Found 1-bit register for signal <iIntWrite>.
+    Found 1-bit register for signal <readDone>.
+    Found 1-bit register for signal <readDoneS>.
+    Found 1-bit register for signal <newTxData>.
+    Found 8-bit register for signal <dataParam>.
+    Found 8-bit register for signal <binByteCount>.
+    Found 8-bit register for signal <intWrData>.
+    Found 8-bit register for signal <readDataS>.
+    Found 8-bit register for signal <txData>.
+    Found 16-bit register for signal <addrParam>.
+    Found 16-bit register for signal <iIntAddress>.
+    Found 3-bit register for signal <txSm>.
+    Found 4-bit register for signal <mainSm>.
+    Found finite state machine <FSM_1> for signal <mainSm>.
+    -----------------------------------------------------------------------
+    | States             | 11                                             |
+    | Transitions        | 41                                             |
+    | Inputs             | 10                                             |
+    | Outputs            | 10                                             |
+    | Clock              | clk (rising_edge)                              |
+    | Reset              | clr (positive)                                 |
+    | Reset type         | asynchronous                                   |
+    | Reset State        | 0000                                           |
+    | Encoding           | auto                                           |
+    | Implementation     | LUT                                            |
+    -----------------------------------------------------------------------
+    Found finite state machine <FSM_0> for signal <txSm>.
+    -----------------------------------------------------------------------
+    | States             | 5                                              |
+    | Transitions        | 15                                             |
+    | Inputs             | 4                                              |
+    | Outputs            | 8                                              |
+    | Clock              | clk (rising_edge)                              |
+    | Reset              | clr (positive)                                 |
+    | Reset type         | asynchronous                                   |
+    | Reset State        | 000                                            |
+    | Encoding           | auto                                           |
+    | Implementation     | LUT                                            |
+    -----------------------------------------------------------------------
+    Found 16-bit adder for signal <iIntAddress[15]_GND_45_o_add_85_OUT> created at line 414.
+    Found 8-bit subtractor for signal <GND_45_o_GND_45_o_sub_73_OUT<7:0>> created at line 354.
+    Found 8-bit comparator lessequal for signal <n0169> created at line 518
+    Found 8-bit comparator lessequal for signal <n0171> created at line 518
+    Found 8-bit comparator lessequal for signal <n0174> created at line 519
+    Found 8-bit comparator lessequal for signal <n0176> created at line 519
+    Found 8-bit comparator lessequal for signal <n0180> created at line 520
+    Found 8-bit comparator lessequal for signal <n0182> created at line 520
+    Summary:
+	inferred   2 Adder/Subtractor(s).
+	inferred  86 D-type flip-flop(s).
+	inferred   6 Comparator(s).
+	inferred  32 Multiplexer(s).
+	inferred   2 Finite State Machine(s).
+Unit <uartParser> synthesized.
+RTL-Simplification CPUSTAT: 0.13 
+RTL-BasicInf CPUSTAT: 0.56 
+RTL-BasicOpt CPUSTAT: 0.00 
+RTL-Remain-Bus CPUSTAT: 0.02 
+
+=========================================================================
+HDL Synthesis Report
+
+Macro Statistics
+# Adders/Subtractors                                   : 14
+ 16-bit adder                                          : 1
+ 16-bit addsub                                         : 1
+ 32-bit adder                                          : 2
+ 32-bit addsub                                         : 1
+ 4-bit adder                                           : 4
+ 4-bit subtractor                                      : 1
+ 8-bit adder                                           : 1
+ 8-bit addsub                                          : 1
+ 8-bit subtractor                                      : 2
+# Registers                                            : 65
+ 1-bit register                                        : 27
+ 16-bit register                                       : 3
+ 2-bit register                                        : 1
+ 32-bit register                                       : 2
+ 4-bit register                                        : 4
+ 8-bit register                                        : 27
+ 9-bit register                                        : 1
+# Comparators                                          : 7
+ 16-bit comparator lessequal                           : 1
+ 8-bit comparator lessequal                            : 6
+# Multiplexers                                         : 62
+ 1-bit 2-to-1 multiplexer                              : 25
+ 16-bit 2-to-1 multiplexer                             : 6
+ 32-bit 2-to-1 multiplexer                             : 7
+ 4-bit 2-to-1 multiplexer                              : 4
+ 8-bit 16-to-1 multiplexer                             : 1
+ 8-bit 2-to-1 multiplexer                              : 15
+ 8-bit 4-to-1 multiplexer                              : 1
+ 9-bit 2-to-1 multiplexer                              : 3
+# FSMs                                                 : 2
+
+=========================================================================
+INFO:Xst:1767 - HDL ADVISOR - Resource sharing has identified that some arithmetic operations in this design can share the same physical resources for reduced device utilization. For improved clock frequency you may try to disable resource sharing.
+
+=========================================================================
+*                       Advanced HDL Synthesis                          *
+=========================================================================
+
+Reading core <src/framework/RPNDataMem.ngc>.
+Loading core <RPNDataMem> for timing and area information for instance <RPNDataMemInst>.
+
+Synthesizing (advanced) Unit <InstructionBuffer>.
+The following registers are absorbed into counter <remainingInstructions>: 1 register on signal <remainingInstructions>.
+Unit <InstructionBuffer> synthesized (advanced).
+
+Synthesizing (advanced) Unit <baudGen>.
+The following registers are absorbed into accumulator <counter>: 1 register on signal <counter>.
+Unit <baudGen> synthesized (advanced).
+
+Synthesizing (advanced) Unit <uartParser>.
+The following registers are absorbed into counter <binByteCount>: 1 register on signal <binByteCount>.
+Unit <uartParser> synthesized (advanced).
+
+Synthesizing (advanced) Unit <uartRx>.
+The following registers are absorbed into counter <count16>: 1 register on signal <count16>.
+The following registers are absorbed into counter <bitCount>: 1 register on signal <bitCount>.
+Unit <uartRx> synthesized (advanced).
+
+Synthesizing (advanced) Unit <uartTx>.
+The following registers are absorbed into counter <bitCount>: 1 register on signal <bitCount>.
+The following registers are absorbed into counter <count16>: 1 register on signal <count16>.
+Unit <uartTx> synthesized (advanced).
+
+=========================================================================
+Advanced HDL Synthesis Report
+
+Macro Statistics
+# Adders/Subtractors                                   : 7
+ 16-bit adder                                          : 1
+ 32-bit adder                                          : 2
+ 32-bit addsub                                         : 1
+ 4-bit subtractor                                      : 1
+ 8-bit adder                                           : 1
+ 8-bit addsub                                          : 1
+# Counters                                             : 6
+ 4-bit up counter                                      : 4
+ 8-bit down counter                                    : 2
+# Accumulators                                         : 1
+ 16-bit updown accumulator                             : 1
+# Registers                                            : 334
+ Flip-Flops                                            : 334
+# Comparators                                          : 7
+ 16-bit comparator lessequal                           : 1
+ 8-bit comparator lessequal                            : 6
+# Multiplexers                                         : 69
+ 1-bit 2-to-1 multiplexer                              : 41
+ 16-bit 2-to-1 multiplexer                             : 5
+ 32-bit 2-to-1 multiplexer                             : 7
+ 8-bit 16-to-1 multiplexer                             : 1
+ 8-bit 2-to-1 multiplexer                              : 11
+ 8-bit 4-to-1 multiplexer                              : 1
+ 9-bit 2-to-1 multiplexer                              : 3
+# FSMs                                                 : 2
+
+=========================================================================
+
+=========================================================================
+*                         Low Level Synthesis                           *
+=========================================================================
+Analyzing FSM <MFsm> for best encoding.
+Optimizing FSM <InstrBufferInst/UARTHandlerInst/up/FSM_1> on signal <mainSm[1:4]> with gray encoding.
+-------------------
+ State | Encoding
+-------------------
+ 0000  | 0000
+ 0101  | 0001
+ 0001  | 0011
+ 0011  | 0010
+ 1000  | 0110
+ 0010  | 0111
+ 0100  | 0101
+ 1001  | 0100
+ 1010  | 1100
+ 1011  | 1101
+ 1100  | 1111
+-------------------
+Analyzing FSM <MFsm> for best encoding.
+Optimizing FSM <InstrBufferInst/UARTHandlerInst/up/FSM_0> on signal <txSm[1:3]> with user encoding.
+-------------------
+ State | Encoding
+-------------------
+ 000   | 000
+ 001   | 001
+ 100   | 100
+ 101   | 101
+ 110   | 110
+-------------------
+
+Optimizing unit <RPNSystem> ...
+
+Optimizing unit <stack_machine> ...
+
+Optimizing unit <control> ...
+
+Optimizing unit <stack> ...
+
+Optimizing unit <RegFile> ...
+
+Optimizing unit <InstructionBuffer> ...
+
+Optimizing unit <uartParser> ...
+
+Optimizing unit <uartTx> ...
+
+Optimizing unit <uartRx> ...
+WARNING:Xst:2677 - Node <RPNC/stack/stack_ptr_31> of sequential type is unconnected in block <RPNSystem>.
+WARNING:Xst:2677 - Node <RPNC/stack/stack_ptr_30> of sequential type is unconnected in block <RPNSystem>.
+WARNING:Xst:2677 - Node <RPNC/stack/stack_ptr_29> of sequential type is unconnected in block <RPNSystem>.
+WARNING:Xst:2677 - Node <RPNC/stack/stack_ptr_28> of sequential type is unconnected in block <RPNSystem>.
+WARNING:Xst:2677 - Node <RPNC/stack/stack_ptr_27> of sequential type is unconnected in block <RPNSystem>.
+WARNING:Xst:2677 - Node <RPNC/stack/stack_ptr_26> of sequential type is unconnected in block <RPNSystem>.
+WARNING:Xst:2677 - Node <RPNC/stack/stack_ptr_25> of sequential type is unconnected in block <RPNSystem>.
+WARNING:Xst:2677 - Node <RPNC/stack/stack_ptr_24> of sequential type is unconnected in block <RPNSystem>.
+WARNING:Xst:2677 - Node <RPNC/stack/stack_ptr_23> of sequential type is unconnected in block <RPNSystem>.
+WARNING:Xst:2677 - Node <RPNC/stack/stack_ptr_22> of sequential type is unconnected in block <RPNSystem>.
+WARNING:Xst:2677 - Node <RPNC/stack/stack_ptr_21> of sequential type is unconnected in block <RPNSystem>.
+WARNING:Xst:2677 - Node <RPNC/stack/stack_ptr_20> of sequential type is unconnected in block <RPNSystem>.
+WARNING:Xst:2677 - Node <RPNC/stack/stack_ptr_19> of sequential type is unconnected in block <RPNSystem>.
+WARNING:Xst:2677 - Node <RPNC/stack/stack_ptr_18> of sequential type is unconnected in block <RPNSystem>.
+WARNING:Xst:2677 - Node <RPNC/stack/stack_ptr_17> of sequential type is unconnected in block <RPNSystem>.
+WARNING:Xst:2677 - Node <RPNC/stack/stack_ptr_16> of sequential type is unconnected in block <RPNSystem>.
+WARNING:Xst:2677 - Node <RPNC/stack/stack_ptr_15> of sequential type is unconnected in block <RPNSystem>.
+WARNING:Xst:2677 - Node <RPNC/stack/stack_ptr_14> of sequential type is unconnected in block <RPNSystem>.
+WARNING:Xst:2677 - Node <RPNC/stack/stack_ptr_13> of sequential type is unconnected in block <RPNSystem>.
+WARNING:Xst:2677 - Node <RPNC/stack/stack_ptr_12> of sequential type is unconnected in block <RPNSystem>.
+WARNING:Xst:2677 - Node <RPNC/stack/stack_ptr_11> of sequential type is unconnected in block <RPNSystem>.
+WARNING:Xst:2677 - Node <RPNC/stack/stack_ptr_10> of sequential type is unconnected in block <RPNSystem>.
+WARNING:Xst:2677 - Node <RPNC/stack/stack_ptr_9> of sequential type is unconnected in block <RPNSystem>.
+WARNING:Xst:2677 - Node <RPNC/stack/stack_ptr_8> of sequential type is unconnected in block <RPNSystem>.
+WARNING:Xst:2677 - Node <RPNC/stack/stack_ptr_7> of sequential type is unconnected in block <RPNSystem>.
+WARNING:Xst:2677 - Node <RPNC/stack/stack_ptr_6> of sequential type is unconnected in block <RPNSystem>.
+WARNING:Xst:2677 - Node <RPNC/stack/stack_ptr_5> of sequential type is unconnected in block <RPNSystem>.
+WARNING:Xst:2677 - Node <RPNC/stack/stack_ptr_4> of sequential type is unconnected in block <RPNSystem>.
+
+Mapping all equations...
+Building and optimizing final netlist ...
+Found area constraint ratio of 100 (+ 5) on block RPNSystem, actual ratio is 7.
+FlipFlop InstrBufferInst/UARTHandlerInst/up/mainSm_FSM_FFd1 has been replicated 1 time(s)
+FlipFlop InstrBufferInst/UARTHandlerInst/up/mainSm_FSM_FFd2 has been replicated 1 time(s)
+FlipFlop InstrBufferInst/UARTHandlerInst/up/mainSm_FSM_FFd3 has been replicated 1 time(s)
+
+Final Macro Processing ...
+
+=========================================================================
+Final Register Report
+
+Macro Statistics
+# Registers                                            : 364
+ Flip-Flops                                            : 364
+
+=========================================================================
+
+=========================================================================
+*                           Partition Report                            *
+=========================================================================
+
+Partition Implementation Status
+-------------------------------
+
+  No Partitions were found in this design.
+
+-------------------------------
+
+=========================================================================
+*                            Design Summary                             *
+=========================================================================
+
+Top Level Output File Name         : RPNSystem.ngc
+
+Primitive and Black Box Usage:
+------------------------------
+# BELS                             : 807
+#      GND                         : 2
+#      INV                         : 13
+#      LUT1                        : 80
+#      LUT2                        : 36
+#      LUT3                        : 65
+#      LUT4                        : 46
+#      LUT5                        : 79
+#      LUT6                        : 216
+#      MUXCY                       : 115
+#      MUXF7                       : 22
+#      MUXF8                       : 8
+#      VCC                         : 2
+#      XORCY                       : 123
+# FlipFlops/Latches                : 364
+#      FD                          : 2
+#      FDC                         : 78
+#      FDCE                        : 279
+#      FDP                         : 4
+#      FDPE                        : 1
+# RAMS                             : 1
+#      RAMB8BWER                   : 1
+# Clock Buffers                    : 1
+#      BUFGP                       : 1
+# IO Buffers                       : 7
+#      IBUF                        : 2
+#      OBUF                        : 5
+
+Device utilization summary:
+---------------------------
+
+Selected Device : 6slx16csg324-2 
+
+
+Slice Logic Utilization: 
+ Number of Slice Registers:             364  out of  18224     1%  
+ Number of Slice LUTs:                  535  out of   9112     5%  
+    Number used as Logic:               535  out of   9112     5%  
+
+Slice Logic Distribution: 
+ Number of LUT Flip Flop pairs used:    674
+   Number with an unused Flip Flop:     310  out of    674    45%  
+   Number with an unused LUT:           139  out of    674    20%  
+   Number of fully used LUT-FF pairs:   225  out of    674    33%  
+   Number of unique control sets:        37
+
+IO Utilization: 
+ Number of IOs:                           8
+ Number of bonded IOBs:                   8  out of    232     3%  
+
+Specific Feature Utilization:
+ Number of Block RAM/FIFO:                1  out of     32     3%  
+    Number using Block RAM only:          1
+ Number of BUFG/BUFGCTRLs:                1  out of     16     6%  
+
+---------------------------
+Partition Resource Summary:
+---------------------------
+
+  No Partitions were found in this design.
+
+---------------------------
+
+
+=========================================================================
+Timing Report
+
+NOTE: THESE TIMING NUMBERS ARE ONLY A SYNTHESIS ESTIMATE.
+      FOR ACCURATE TIMING INFORMATION PLEASE REFER TO THE TRACE REPORT
+      GENERATED AFTER PLACE-and-ROUTE.
+
+Clock Information:
+------------------
+-----------------------------------+------------------------+-------+
+Clock Signal                       | Clock buffer(FF name)  | Load  |
+-----------------------------------+------------------------+-------+
+clk                                | BUFGP                  | 365   |
+-----------------------------------+------------------------+-------+
+
+Asynchronous Control Signals Information:
+----------------------------------------
+No asynchronous control signals found in this design
+
+Timing Summary:
+---------------
+Speed Grade: -2
+
+   Minimum period: 7.446ns (Maximum Frequency: 134.300MHz)
+   Minimum input arrival time before clock: 4.260ns
+   Maximum output required time after clock: 6.905ns
+   Maximum combinational path delay: No path found
+
+Timing Details:
+---------------
+All values displayed in nanoseconds (ns)
+
+=========================================================================
+Timing constraint: Default period analysis for Clock 'clk'
+  Clock period: 7.446ns (frequency: 134.300MHz)
+  Total number of paths / destination ports: 15808 / 857
+-------------------------------------------------------------------------
+Delay:               7.446ns (Levels of Logic = 3)
+  Source:            RPNC/control/state_9 (FF)
+  Destination:       RPNC/control/state_31 (FF)
+  Source Clock:      clk rising
+  Destination Clock: clk rising
+
+  Data Path: RPNC/control/state_9 to RPNC/control/state_31
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDCE:C->Q             4   0.633   1.421  RPNC/control/state_9 (RPNC/control/state_9)
+     LUT6:I0->O            1   0.373   1.283  RPNC/control/_n0146_inv12 (RPNC/control/_n0146_inv11)
+     LUT5:I0->O            5   0.373   0.979  RPNC/control/_n0146_inv16 (RPNC/control/N6)
+     LUT6:I4->O           32   0.373   1.519  RPNC/control/_n0143_inv1 (RPNC/control/_n0143_inv)
+     FDCE:CE                   0.492          RPNC/control/state_0
+    ----------------------------------------
+    Total                      7.446ns (2.244ns logic, 5.202ns route)
+                                       (30.1% logic, 69.9% route)
+
+=========================================================================
+Timing constraint: Default OFFSET IN BEFORE for Clock 'clk'
+  Total number of paths / destination ports: 178 / 178
+-------------------------------------------------------------------------
+Offset:              4.260ns (Levels of Logic = 1)
+  Source:            reset (PAD)
+  Destination:       InstrBufferInst/UARTHandlerInst/ut/bg/counter_15 (FF)
+  Destination Clock: clk rising
+
+  Data Path: reset to InstrBufferInst/UARTHandlerInst/ut/bg/counter_15
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     IBUF:I->O           177   1.328   2.391  reset_IBUF (reset_IBUF)
+     FDCE:CLR                  0.541          InstrBufferInst/currentReadAddr_1
+    ----------------------------------------
+    Total                      4.260ns (1.869ns logic, 2.391ns route)
+                                       (43.9% logic, 56.1% route)
+
+=========================================================================
+Timing constraint: Default OFFSET OUT AFTER for Clock 'clk'
+  Total number of paths / destination ports: 9 / 2
+-------------------------------------------------------------------------
+Offset:              6.905ns (Levels of Logic = 3)
+  Source:            InstrBufferInst/remainingInstructions_4 (FF)
+  Destination:       leds<3> (PAD)
+  Source Clock:      clk rising
+
+  Data Path: InstrBufferInst/remainingInstructions_4 to leds<3>
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDC:C->Q              4   0.633   1.092  InstrBufferInst/remainingInstructions_4 (InstrBufferInst/remainingInstructions_4)
+     LUT3:I0->O            1   0.373   0.682  InstrBufferInst/empty<7>_SW0 (N10)
+     LUT6:I5->O            5   0.373   0.840  InstrBufferInst/empty<7> (leds_3_OBUF)
+     OBUF:I->O                 2.912          leds_3_OBUF (leds<3>)
+    ----------------------------------------
+    Total                      6.905ns (4.291ns logic, 2.614ns route)
+                                       (62.1% logic, 37.9% route)
+
+=========================================================================
+
+Cross Clock Domains Report:
+--------------------------
+
+Clock to Setup on destination clock clk
+---------------+---------+---------+---------+---------+
+               | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
+Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
+---------------+---------+---------+---------+---------+
+clk            |    7.446|         |         |         |
+---------------+---------+---------+---------+---------+
+
+=========================================================================
+
+
+Total REAL time to Xst completion: 12.00 secs
+Total CPU time to Xst completion: 11.65 secs
+ 
+--> 
+
+
+Total memory usage is 145640 kilobytes
+
+Number of errors   :    0 (   0 filtered)
+Number of warnings :   29 (   0 filtered)
+Number of infos    :    3 (   0 filtered)
+
