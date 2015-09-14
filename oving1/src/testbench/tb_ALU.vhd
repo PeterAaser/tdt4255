@@ -16,13 +16,14 @@ ARCHITECTURE behavior OF tb_ALU IS
  
     COMPONENT ALU
     PORT(
-         clk : IN  std_logic;
-         op_A : in signed(DATA_WIDTH - 1 downto 0);
-			op_B : in signed(DATA_WIDTH - 1 downto 0);
-         op_sel : IN  ALU_op_t;
-         zero_invert : IN  std_logic;
-         zero : OUT  std_logic;
-         result : OUT  signed(DATA_WIDTH - 1 downto 0)
+        clk : IN  std_logic;
+        op_A : in signed(DATA_WIDTH - 1 downto 0);
+        op_B_reg : in signed(DATA_WIDTH - 1 downto 0);
+        op_B_imm : in signed(DATA_WIDTH - 1 downto 0);
+        op_sel : IN  ALU_op_t;
+        zero_invert : IN  std_logic;
+        zero : OUT  std_logic;
+        result : OUT  signed(DATA_WIDTH - 1 downto 0)
         );
     END COMPONENT;
     
