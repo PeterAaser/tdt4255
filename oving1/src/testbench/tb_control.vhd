@@ -14,8 +14,8 @@ ARCHITECTURE behavior OF tb_control IS
          reset : IN  std_logic;
          empty : IN  std_logic;
          stall : IN  std_logic;
-         tick : OUT  std_logic;
-         read_instruction : OUT  std_logic
+         enable : in std_logic;
+         fetch : OUT  std_logic
         );
     END COMPONENT;
     
@@ -25,10 +25,10 @@ ARCHITECTURE behavior OF tb_control IS
    signal reset : std_logic := '0';
    signal empty : std_logic := '0';
    signal stall : std_logic := '0';
+   signal enable : std_logic := '0';
 
  	--Outputs
-   signal tick : std_logic;
-   signal read_instruction : std_logic;
+   signal fetch : std_logic;
 
    -- Clock period definitions
    constant clk_period : time := 10 ns;
@@ -40,9 +40,9 @@ BEGIN
           clk => clk,
           reset => reset,
           empty => empty,
+          enable => enable,
           stall => stall,
-          tick => tick,
-          read_instruction => read_instruction
+          fetch => fetch
         );
 
    -- Clock process definitions
@@ -51,7 +51,7 @@ BEGIN
 		clk <= '0';
 		wait for clk_period/2;
 		clk <= '1';
-		wait for clk_period/2;
+      wait for clk_period/2;
    end process;
  
 
@@ -59,11 +59,37 @@ BEGIN
    stim_proc: process
    begin		
       -- hold reset state for 100 ns.
-      wait for 100 ns;	
+      reset <= '1';
+      stall <= '1'; 
+      enable <= '0';
+      wait for clk_period/4;
+      wait for clk_period;
+      reset <= '0';
+      stall <= '0';
+      wait for clk_period;
+      stall <= '1';
+      wait for clk_period;
+      stall <= '0';
+      wait for clk_period;
+      enable <= '1';
+      wait for clk_period;
+      report "fetch";
+      wait for clk_period;
+      report "execute";
+      wait for clk_period;
+      report "fetch";
+      wait for clk_period;
+      report "execute load/store";
+      stall <= '1';
+      wait for clk_period;
+      report "stall";
+      stall <= '0';
+      wait for clk_period;
+      report "fetch";
+      wait for clk_period;
+		assert false report "DONE" severity failure;
+		wait until clk = '1';
 
-      wait for clk_period*10;
-
-      -- insert stimulus here 
 
       wait;
    end process;

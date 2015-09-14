@@ -2,10 +2,10 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use ieee.numeric_std.all;
 use work.defs.all;
-
+    
 
 entity Control is
-	generic(
+       generic(
 		DATA_WIDTH : integer := 32;
 		ADDRESS_WIDTH : integer := 8);
 	port (
@@ -13,11 +13,14 @@ entity Control is
 		reset : in std_logic;
 		empty : in std_logic;
 		stall : in std_logic;
+      enable : in std_logic;
 		
-		tick : out std_logic;
-		read_instruction : out std_logic);
+		fetch : out std_logic);
 		
 end Control;
+
+
+
 
 architecture Behavioral of Control is
 
@@ -50,28 +53,22 @@ begin
 		end if;
 	end process;
 	
-	-- TODO experiment with sensitivity lists --
-	control_execution : process(clk, reset, stall)
+	control_execution : process(clk)
 	begin
-		if rising_edge(clk) then
+      if rising_edge(clk) then
+      fetch <= '0';
 			case state is 
 				when S_FETCH=>
-					read_instruction <= '1';
-					tick <= '0';
 				when S_EXECUTE=>
-					read_instruction <= '0';
-					if stall = '0' then
-						tick <= '1';
-					else
-						tick <= '0';
-					end if;
+               if stall = '0' then
+                  fetch <= '1';
+               end if;
 				when S_STALL=>
-					read_instruction <= '0';
-					tick <= '1';
+					fetch <= '1';
 				when S_OFFLINE=>
-					read_instruction <= '0';
-					tick <= '0';
-					stall <= '0';
+               if enable = '1' then
+                  fetch <= '1';
+               end if;
 			end case;
 		end if;
 	end process;
