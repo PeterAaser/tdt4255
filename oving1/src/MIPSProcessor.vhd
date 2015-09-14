@@ -1,4 +1,4 @@
-    -- Part of TDT4255 Computer Design laboratory exercises
+-- Part of TDT4255 Computer Design laboratory exercises
 -- Group for Computer Architecture and Design
 -- Department of Computer and Information Science
 -- Norwegian University of Science and Technology
@@ -36,7 +36,7 @@ architecture Behavioral of MIPSProcessor is
     signal MemWrite : std_logic;
     signal RegWrite : std_logic;
     signal stall : std_logic;
-    signal ALU_src : std_logic;
+    signal ALUsrc : std_logic;
 
     signal opcode : opcode_t;
     signal r_s : reg_t;
@@ -72,7 +72,7 @@ begin
     generic map(
         DATA_WIDTH => DATA_WIDTH,
         ADDRESS_WIDTH => ADDRESS_WIDTH
-        )
+    )
     port map(
         reset => reset,
         clk => clk,
@@ -134,8 +134,8 @@ begin
             MemWrite => MemWrite,
             RegWrite => RegWrite,
             stall => stall,
+            ALUsrc => ALUsrc,
 
-            ALU_select => ALU_src,
             ALU_op => ALU_op);
     
     ALU: entity work.ALU
@@ -151,7 +151,7 @@ begin
             op_sel => ALU_op,
             zero => zero,
             zero_invert => zero_invert,
-            ALU_src => ALU_src,
+            ALUsrc => ALUsrc,
             
             result => ALU_result
         );

@@ -9,14 +9,14 @@ entity Control is
         DATA_WIDTH : integer := 32;
         ADDRESS_WIDTH : integer := 8);
 	port (
-		clk : in std_logic;
-		reset : in std_logic;
-		empty : in std_logic;
-		stall : in std_logic;
-        enable : in std_logic;
+            clk : in std_logic;
+            reset : in std_logic;
+            empty : in std_logic;
+            stall : in std_logic;
+            enable : in std_logic;
 		
-		tick : out std_logic;
-		read_instruction : out std_logic);
+            fetch : out std_logic;
+            read_instruction : out std_logic);
 		
 end Control;
 
@@ -33,16 +33,16 @@ begin
 		if enable = '0' then
             state <= S_OFFLINE;
             read_instruction <= '0';
-            tick <= '0';
+            fetch <= '0';
 		elsif reset = '1' then
 			state <= S_FETCH;
 		elsif rising_edge(clk) then
             read_instruction <= '0';
-            tick <= '0';
+            fetch <= '0';
 			case state is
                 when S_FETCH=>
                     state <= S_EXECUTE;
-                    tick <= '1';
+                    fetch <= '1';
 				when S_EXECUTE=>
 					if stall = '0' then
                         read_instruction <= '1';

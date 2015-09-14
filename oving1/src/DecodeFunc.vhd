@@ -19,7 +19,7 @@ entity DecodeFunc is
         MemWrite : out std_logic := '0';
         RegWrite : out std_logic := '0';
         stall : out std_logic := '0';
-        ALU_src : out std_logic := '1';
+        ALUsrc : out std_logic := '1';
       
         ALU_op : out ALU_op_t);
 		  
@@ -30,7 +30,7 @@ begin
     decode : process (clk, reset)
     begin
         if rising_edge(clk) then
-		
+            ALUsrc <= '1';
             case get_function(func) is
                 when add=>
 

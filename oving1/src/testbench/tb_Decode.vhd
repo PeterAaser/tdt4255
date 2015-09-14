@@ -11,20 +11,21 @@ ARCHITECTURE behavior OF tb_Decode IS
  
     COMPONENT Decode
     PORT(
-         clk : IN  std_logic;
-         reset : IN  std_logic;
-         opcode : IN  std_logic_vector(5 downto 0);
-         func : IN  std_logic_vector(5 downto 0);
-         zero_invert : OUT  std_logic;
-         RegDst : OUT  std_logic;
-         Branch : OUT  std_logic;
-         Jump : OUT  std_logic;
-         MemtoReg : OUT  std_logic;
-         MemWrite : OUT  std_logic;
-         RegWrite : OUT  std_logic;
-         stall : OUT  std_logic;
-         ALU_select : OUT  std_logic;
-         ALU_op : OUT  ALU_op_t
+        clk : IN  std_logic;
+        reset : IN  std_logic;
+        opcode : IN  std_logic_vector(5 downto 0);
+        func : IN  std_logic_vector(5 downto 0);
+        zero_invert : OUT  std_logic;
+        RegDst : OUT  std_logic;
+        Branch : OUT  std_logic;
+        Jump : OUT  std_logic;
+        MemtoReg : OUT  std_logic;
+        MemWrite : OUT  std_logic;
+        RegWrite : OUT  std_logic;
+        stall : OUT  std_logic;
+        ALUsrc : out std_logic;
+
+        ALU_op : OUT  ALU_op_t
         );
     END COMPONENT;
     
@@ -44,7 +45,7 @@ ARCHITECTURE behavior OF tb_Decode IS
    signal MemWrite : std_logic;
    signal RegWrite : std_logic;
    signal stall : std_logic;
-   signal ALU_select : std_logic;
+   signal ALUsrc : std_logic;
    signal ALU_op : ALU_op_t;
 
    -- Clock period definitions
@@ -53,22 +54,23 @@ ARCHITECTURE behavior OF tb_Decode IS
 BEGIN
  
 	-- Instantiate the Unit Under Test (UUT)
-   uut: Decode PORT MAP (
-          clk => clk,
-          reset => reset,
-          opcode => opcode,
-          func => func,
-          zero_invert => zero_invert,
-          RegDst => RegDst,
-          Branch => Branch,
-          Jump => Jump,
-          MemtoReg => MemtoReg,
-          MemWrite => MemWrite,
-          RegWrite => RegWrite,
-          stall => stall,
-          ALU_select => ALU_select,
-          ALU_op => ALU_op
-        );
+    uut: Decode PORT MAP (
+        clk => clk,
+        reset => reset,
+        opcode => opcode,
+        func => func,
+        zero_invert => zero_invert,
+        RegDst => RegDst,
+        Branch => Branch,
+        Jump => Jump,
+        MemtoReg => MemtoReg,
+        MemWrite => MemWrite,
+        RegWrite => RegWrite,
+        ALUsrc => ALUsrc,
+        stall => stall,
+
+        ALU_op => ALU_op
+    );
 
    -- Clock process definitions
    clk_process :process

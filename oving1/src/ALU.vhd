@@ -14,8 +14,7 @@ entity ALU is
         op_B_imm : in signed(DATA_WIDTH - 1 downto 0);
         op_sel : in ALU_op_t;
         zero_invert : in std_logic;
-        
-        ALU_src : in std_logic;
+        ALUsrc : in std_logic;
         
         zero : out std_logic;
         result : out signed(DATA_WIDTH - 1 downto 0));
@@ -31,7 +30,7 @@ calculate_result : process(clk)
     variable op_B : signed(DATA_WIDTH - 1 downto 0) := (DATA_WIDTH - 1 downto 0 => '0');
     begin
         if rising_edge(clk) then
-            if ALU_src = '1' then
+            if ALUsrc = '1' then
                 op_B := op_B_imm;
             else
                 op_B := op_B_reg;

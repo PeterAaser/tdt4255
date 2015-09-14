@@ -26,14 +26,13 @@ entity Decode is
         ALUsrc : out std_logic;
 		  
         -- ALU issue --
-        ALU_select : out std_logic;
         ALU_op : out ALU_op_t);
 	
 end Decode;
 
 architecture Behavioral of Decode is
 -- DecodeFunc override --
-signal ControlSrc : std_logic := '0';
+signal ALUctrl : std_logic := '0';
 
     -- Probably a better way to do this...
     signal opRegDst : std_logic;
@@ -55,6 +54,8 @@ signal ControlSrc : std_logic := '0';
     signal funcstall : std_logic;
     signal funcALUsrc : std_logic;
     signal funcALU_op : ALU_op_t;
+
+    signal ALU_select : std_logic;
 
     -- Currently only for debug
     signal op : op_t;
@@ -97,15 +98,14 @@ begin
             stall => opstall,
             
             ALUsrc => opALUsrc,
-            controlSrc => controlSrc,
             ALU_op => opALU_op,
             op => op
         );
 
-    select_decoder : process(clk, controlSrc)
+    select_decoder : process(clk, ALUctrl)
     begin
         if rising_edge(clk) then
-            if controlSrc = '1' then
+            if ALUctrl = '1' then
                 --report "op decoder selected";
                 RegDst <= opRegDst;
                 Branch <= opBranch;
@@ -115,6 +115,7 @@ begin
                 RegWrite <= opRegWrite;
                 stall <= opstall;
                 ALU_op <= opALU_op;
+                ALUsrc <= opALUsrc;
             else
                 --report "func decoder selected";
                 RegDst <= funcRegDst;
@@ -125,6 +126,7 @@ begin
                 RegWrite <= funcRegWrite;
                 stall <= funcstall;
                 ALU_op <= funcALU_op;
+                ALUsrc <= funcALUsrc;
             end if;
         end if;
     end process;
