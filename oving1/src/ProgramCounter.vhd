@@ -4,8 +4,7 @@ use ieee.numeric_std.all;
 use work.defs.all;
 
 entity ProgramCounter is
-	generic(
-		-- TODO assert that address width is supported
+   generic(
 		ADDRESS_WIDTH : integer := 8);
    port(
       clk : in std_logic;

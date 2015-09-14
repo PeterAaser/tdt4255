@@ -61,9 +61,9 @@ BEGIN
 
    -- Stimulus process
    stim_proc: process
-   begin		
-      wait for clk_period/4;
-		wait for clk_period;
+    begin		
+        wait for clk_period/4;
+        wait for clk_period;
 
       -- insert stimulus here 
 

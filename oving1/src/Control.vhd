@@ -5,7 +5,7 @@ use work.defs.all;
     
 
 entity Control is
-       generic(
+   generic(
 		DATA_WIDTH : integer := 32;
 		ADDRESS_WIDTH : integer := 8);
 	port (

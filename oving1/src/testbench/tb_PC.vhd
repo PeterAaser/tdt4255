@@ -9,19 +9,19 @@ END tb_PC;
  
 ARCHITECTURE behavior OF tb_PC IS 
  
-    COMPONENT ProgramCounter
-    PORT(
-         clk : IN  std_logic;
-         reset : IN  std_logic;
-         op_target : IN  std_logic_vector(25 downto 0);
-         op_immediate : IN  std_logic_vector(15 downto 0);
-         branch : IN  std_logic;
-         zero : IN  std_logic;
-         jump : IN  std_logic;
-         address_out : OUT  std_logic_vector(7 downto 0);
-			tick : in std_logic
-        );
-    END COMPONENT;
+   COMPONENT ProgramCounter
+   PORT(
+      clk : IN  std_logic;
+      reset : IN  std_logic;
+      op_target : IN  std_logic_vector(25 downto 0);
+      op_immediate : IN  std_logic_vector(15 downto 0);
+      branch : IN  std_logic;
+      zero : IN  std_logic;
+      jump : IN  std_logic;
+      address_out : OUT  std_logic_vector(7 downto 0);
+      tick : in std_logic
+      );
+   END COMPONENT;
     
    signal clk : std_logic := '0';
    signal reset : std_logic := '0';
