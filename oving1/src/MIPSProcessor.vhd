@@ -28,15 +28,7 @@ end MIPSProcessor;
 architecture Behavioral of MIPSProcessor is
         
     -- Control signals
-    signal RegDst : std_logic;
-    signal Branch : std_logic;
-    signal Jump : std_logic;
-    signal MemRead : std_logic;
-    signal MemtoReg : std_logic;
-    signal MemWrite : std_logic;
-    signal RegWrite : std_logic;
-    signal stall : std_logic;
-    signal ALUsrc : std_logic;
+    signal control_signals : control_signals_t;
 
     signal opcode : opcode_t;
     signal r_s : reg_t;

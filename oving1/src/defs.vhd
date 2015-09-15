@@ -12,6 +12,18 @@ subtype instruction_t is std_logic_vector(31 downto 0);
     subtype immediate_t is std_logic_vector(15 downto 0);
     subtype target_t is std_logic_vector(25 downto 0);
 
+    type instruction is 
+        record
+            opcode : opcode_t;
+            regs : reg_t;
+            regt : reg_t;
+            regd : reg_t;
+            shift : shift_t;
+            func_code : func_t;
+            immediate : immediate_t;
+            target : target_t;
+        end record;
+
     type ALU_op_t is (
     add, sub, addu, subu, mult, div, multu, divu, mfhi, mflo, 
         iand, ior, inor, ixor, isll, isrl, isra, islt, isltu, jr, jalr
@@ -53,6 +65,7 @@ subtype instruction_t is std_logic_vector(31 downto 0);
             ALU_op : ALU_op_t;
         end record;
 
+    
     -- not all used. 
 
 
