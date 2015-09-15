@@ -19,8 +19,10 @@ entity DecodeOp is
         MemtoReg : out MemtoReg_t := FROM_ALU;
         MemWrite : out MemWrite_t := NO_WRITE;
         RegWrite : out RegWrite_t := WRITE;
-        ALUsrc : out ALU_source_t := FROM_ALU;
+        ALUsrc : out ALU_source_t := REG2;
         stall : out stall_t := false;
+
+        control_signals : out control_signals_t;
 
         -- Not currently used. Should it?
         op_name : out op_t := j; 
@@ -44,25 +46,25 @@ begin
             
             -- Selects opcode module as control signal driver for select signals --
             decoder_select <= OPERATION;
-            ALUsrc <= '0'; 
-            stall <= '0';
+            control_signals.ALU_source <= REG2 ; 
+            control_signals.stall <= false;
             
             case get_format(opcode) is
                 when R_TYPE=>
                     decoder_select <= FUNCT;
                 when I_TYPE=>
                     -- stall (does all I-type stall??)
-                    stall <= '1';
+                    control_signals.stall <= true;
                     
                     -- load store? --
                     if opcode(5) = '1' then
-                        ALU_op <= add;
+                        control_signals.ALU_op <= add;
                         
                         if opcode(3) = '0' then --store
-                            MemWrite <= '1';
+                            control_signals.MemWrite <= WRITE;
                         else -- load --						
-                            MemtoReg <= '1'; 
-                            RegWrite <= '1';
+                            control_signals.MemtoReg <= FROM_MEM; 
+                            control_signals.RegWrite <= WRITE;
                         end if;
                     
                     -- bne beq? --

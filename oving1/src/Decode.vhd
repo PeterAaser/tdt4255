@@ -104,7 +104,7 @@ begin
     select_decoder : process(clk, decoder_select)
     begin
         if rising_edge(clk) then
-            if decoder_select = eOPERATION then
+            if decoder_select = OPERATION then
                 report "op decoder selected";
                 RegDst <= opRegDst;
                 Branch <= opBranch;
@@ -116,7 +116,7 @@ begin
                 ALU_op <= opALU_op;
                 ALUsrc <= opALUsrc;
                 
-            elsif decoder_select = eFUNCT then
+            elsif decoder_select = FUNCT then
                 report "func decoder selected";
                 RegDst <= funcRegDst;
                 Branch <= funcBranch;

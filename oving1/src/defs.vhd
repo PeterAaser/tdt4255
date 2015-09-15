@@ -12,6 +12,15 @@ subtype instruction_t is std_logic_vector(31 downto 0);
     subtype immediate_t is std_logic_vector(15 downto 0);
     subtype target_t is std_logic_vector(25 downto 0);
 
+    type ALU_op_t is (
+    add, sub, addu, subu, mult, div, multu, divu, mfhi, mflo, 
+        iand, ior, inor, ixor, isll, isrl, isra, islt, isltu, jr, jalr
+    );
+
+    type op_t is (
+        j, jal, beq, bne, sw, lw, rtype, error
+    );
+
     -- Enumerators for control signals
     -- e[name] denotes enumerated name, because strings are not allowed and types share namespac
     -- with subtypes (WHAT THE FUCK!=?==)
@@ -22,17 +31,24 @@ subtype instruction_t is std_logic_vector(31 downto 0);
     type RegDst_t is (REGT, REGD);
     type MemtoReg_t is (FROM_ALU, FROM_MEM); 
     type MemWrite_t is (WRITE, NO_WRITE);
+
     subtype stall_t is boolean;
+    subtype branch_t is boolean;
+    subtype jump_t is boolean;
+
+    type control_signals_t is
+        record
+            RegWrite : RegWrite_t;
+            RegDst : RegDst_t;
+            MemtoReg : MemtoReg_t;
+            MemWrite : MemWrite_t;
+            ALU_source : ALU_source_t;
+            stall : stall_t;
+            ALU_op : ALU_op_t;
+        end record;
+
     -- not all used. 
 
-    type ALU_op_t is (
-    add, sub, addu, subu, mult, div, multu, divu, mfhi, mflo, 
-        iand, ior, inor, ixor, isll, isrl, isra, islt, isltu, jr, jalr
-    );
-
-    type op_t is (
-        j, jal, beq, bne, sw, lw, rtype, error
-    );
 
     function get_format ( op : opcode_t) return instruction_format_t;
     function get_function ( func : func_t) return ALU_op_t;
