@@ -55,8 +55,6 @@ signal ALUctrl : std_logic := '0';
     signal funcALUsrc : std_logic;
     signal funcALU_op : ALU_op_t;
 
-    signal ALU_select : std_logic;
-
     -- Currently only for debug
     signal op : op_t;
 
@@ -97,6 +95,7 @@ begin
             RegWrite => opRegWrite,
             stall => opstall,
             
+            ALUctrl => ALUctrl,
             ALUsrc => opALUsrc,
             ALU_op => opALU_op,
             op => op
@@ -106,7 +105,7 @@ begin
     begin
         if rising_edge(clk) then
             if ALUctrl = '1' then
-                --report "op decoder selected";
+                report "op decoder selected";
                 RegDst <= opRegDst;
                 Branch <= opBranch;
                 Jump <= opJump;
@@ -117,7 +116,7 @@ begin
                 ALU_op <= opALU_op;
                 ALUsrc <= opALUsrc;
             else
-                --report "func decoder selected";
+                report "func decoder selected";
                 RegDst <= funcRegDst;
                 Branch <= funcBranch;
                 Jump <= funcJump;
