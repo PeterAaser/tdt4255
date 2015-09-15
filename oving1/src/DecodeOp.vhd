@@ -12,22 +12,21 @@ entity DecodeOp is
         opcode : in opcode_t;
 
         -- settings -- 
-        RegDst : out std_logic := '0';
+        RegDst : out RegDst_t := REGT;
         Branch : out std_logic := '0';
         zero_invert : out std_logic := '0';
         Jump : out std_logic := '0';
-        MemRead : out std_logic := '0';
-        MemtoReg : out std_logic := '0';
-        MemWrite : out std_logic := '0';
-        RegWrite : out std_logic := '0';
-        ALUsrc : out std_logic := '0';
-        stall : out std_logic := '0';
+        MemtoReg : out MemtoReg_t := FROM_ALU;
+        MemWrite : out MemWrite_t := NO_WRITE;
+        RegWrite : out RegWrite_t := WRITE;
+        ALUsrc : out ALU_source_t := FROM_ALU;
+        stall : out stall_t := false;
 
         -- Not currently used. Should it?
-        op : out op_t := j; 
+        op_name : out op_t := j; 
 
         -- DecodeFunc override --
-        ALUctrl : out std_logic := '0';
+        decoder_select : out decoder_select_t := OPERATION;
 
         -- ALU issue if overriding --
         ALU_op : out ALU_op_t := add);
@@ -41,16 +40,16 @@ begin
         if rising_edge(clk) then
             
             -- Currently only here as a debug tool
-            op <= get_op( opcode);
+            op_name <= get_op( opcode);
             
             -- Selects opcode module as control signal driver for select signals --
-            ALUctrl <= '1';
+            decoder_select <= OPERATION;
             ALUsrc <= '0'; 
             stall <= '0';
             
             case get_format(opcode) is
                 when R_TYPE=>
-                    ALUctrl <= '0';
+                    decoder_select <= FUNCT;
                 when I_TYPE=>
                     -- stall (does all I-type stall??)
                     stall <= '1';

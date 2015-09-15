@@ -12,9 +12,17 @@ subtype instruction_t is std_logic_vector(31 downto 0);
     subtype immediate_t is std_logic_vector(15 downto 0);
     subtype target_t is std_logic_vector(25 downto 0);
 
-    -- enumerates the three formats we will conside
+    -- Enumerators for control signals
+    -- e[name] denotes enumerated name, because strings are not allowed and types share namespac
+    -- with subtypes (WHAT THE FUCK!=?==)
     type instruction_format_t is (R_TYPE, I_TYPE, J_TYPE);
-
+    type decoder_select_t is (OPERATION, FUNCT);
+    type ALU_source_t is (REG2, INSTR);
+    type RegWrite_t is (WRITE, NO_WRITE);
+    type RegDst_t is (REGT, REGD);
+    type MemtoReg_t is (FROM_ALU, FROM_MEM); 
+    type MemWrite_t is (WRITE, NO_WRITE);
+    subtype stall_t is boolean;
     -- not all used. 
 
     type ALU_op_t is (
