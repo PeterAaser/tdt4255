@@ -11,27 +11,13 @@ entity DecodeOp is
         reset : in std_logic;
         opcode : in opcode_t;
 
-        -- settings -- 
-        RegDst : out RegDst_t := REGT;
-        Branch : out std_logic := '0';
-        zero_invert : out std_logic := '0';
-        Jump : out std_logic := '0';
-        MemtoReg : out MemtoReg_t := FROM_ALU;
-        MemWrite : out MemWrite_t := NO_WRITE;
-        RegWrite : out RegWrite_t := WRITE;
-        ALUsrc : out ALU_source_t := REG2;
-        stall : out stall_t := false;
-
         control_signals : out control_signals_t;
 
         -- Not currently used. Should it?
         op_name : out op_t := j; 
 
-        -- DecodeFunc override --
-        decoder_select : out decoder_select_t := OPERATION;
+        decoder_select : out decoder_select_t := OPERATION);
 
-        -- ALU issue if overriding --
-        ALU_op : out ALU_op_t := add);
 		  
 end DecodeOp;
 
@@ -39,6 +25,19 @@ architecture Behavioral of DecodeOp is
 begin
     decode : process (clk, reset)
     begin
+
+        control_signals.ALUsrc <= REG2;
+        control_signals.RegDst <= REGT;
+        control_signals.MemtoReg <= FROM_ALU;
+
+        control_signals.branch <= false;
+        control_signals.jump <= false;
+        control_signals.MemWrite <= false;
+        control_signals.RegWrite <= false;
+        control_signals.stall <= false;
+        control_signals.ALU_op <= add:
+
+
         if rising_edge(clk) then
             
             -- Currently only here as a debug tool
@@ -69,7 +68,7 @@ begin
                     
                     -- bne beq? --
                     else
-                        branch <= '1';
+                        branch <= true;
                         ALU_op <= sub;
                         if opcode(0) = '0' then -- beq --
                             zero_invert <= '0';
@@ -79,8 +78,8 @@ begin
                     end if;
                     
                 when J_TYPE=>
-                    ALUsrc <= '1';
-                    jump <= '1';
+                    ALUsrc <= INSTR;
+                    jump <= true;
             end case;
         end if;
     end process;

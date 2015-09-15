@@ -5,14 +5,14 @@ Parameter TMPDIR set to xst/projnav.tmp
 
 
 Total REAL time to Xst completion: 0.00 secs
-Total CPU time to Xst completion: 0.03 secs
+Total CPU time to Xst completion: 0.04 secs
  
 --> 
 Parameter xsthdpdir set to xst
 
 
 Total REAL time to Xst completion: 0.00 secs
-Total CPU time to Xst completion: 0.03 secs
+Total CPU time to Xst completion: 0.04 secs
  
 --> 
 Reading design: MIPSSystem.prj
@@ -178,10 +178,12 @@ Elaborating entity <MIPSSystem> (architecture <Behavioral>) with generics from l
 Elaborating entity <MIPSProcessor> (architecture <Behavioral>) with generics from library <work>.
 
 Elaborating entity <Control> (architecture <Behavioral>) with generics from library <work>.
+WARNING:HDLCompiler:92 - "/media/peter/stuff/tdt4255/oving1/src/Control.vhd" Line 34: enable should be on the sensitivity list of the process
+WARNING:HDLCompiler:92 - "/media/peter/stuff/tdt4255/oving1/src/Control.vhd" Line 36: reset should be on the sensitivity list of the process
 
 Elaborating entity <ProgramCounter> (architecture <Behavioral>) with generics from library <work>.
-WARNING:HDLCompiler:1127 - "/media/peter/stuff/tdt4255/oving1/src/ProgramCounter.vhd" Line 35: Assignment to j_addr ignored, since the identifier is never used
-WARNING:HDLCompiler:634 - "/media/peter/stuff/tdt4255/oving1/src/ProgramCounter.vhd" Line 27: Net <branch_mux> does not have a driver.
+WARNING:HDLCompiler:1127 - "/media/peter/stuff/tdt4255/oving1/src/ProgramCounter.vhd" Line 34: Assignment to j_addr ignored, since the identifier is never used
+WARNING:HDLCompiler:634 - "/media/peter/stuff/tdt4255/oving1/src/ProgramCounter.vhd" Line 26: Net <branch_mux> does not have a driver.
 
 Elaborating entity <Registers> (architecture <Behavioral>) with generics from library <work>.
 
@@ -192,12 +194,13 @@ Elaborating entity <DecodeFunc> (architecture <Behavioral>) from library <work>.
 Elaborating entity <DecodeOp> (architecture <Behavioral>) from library <work>.
 
 Elaborating entity <ALU> (architecture <Behavioral>) with generics from library <work>.
-WARNING:HDLCompiler:92 - "/media/peter/stuff/tdt4255/oving1/src/MIPSProcessor.vhd" Line 162: read_instruction should be on the sensitivity list of the process
-WARNING:HDLCompiler:92 - "/media/peter/stuff/tdt4255/oving1/src/MIPSProcessor.vhd" Line 163: programcounter should be on the sensitivity list of the process
-WARNING:HDLCompiler:92 - "/media/peter/stuff/tdt4255/oving1/src/MIPSProcessor.vhd" Line 169: dmem_data_in should be on the sensitivity list of the process
-WARNING:HDLCompiler:92 - "/media/peter/stuff/tdt4255/oving1/src/MIPSProcessor.vhd" Line 170: data2 should be on the sensitivity list of the process
-WARNING:HDLCompiler:92 - "/media/peter/stuff/tdt4255/oving1/src/MIPSProcessor.vhd" Line 171: alu_result should be on the sensitivity list of the process
-WARNING:HDLCompiler:92 - "/media/peter/stuff/tdt4255/oving1/src/MIPSProcessor.vhd" Line 172: memwrite should be on the sensitivity list of the process
+WARNING:HDLCompiler:92 - "/media/peter/stuff/tdt4255/oving1/src/MIPSProcessor.vhd" Line 161: fetch should be on the sensitivity list of the process
+WARNING:HDLCompiler:92 - "/media/peter/stuff/tdt4255/oving1/src/MIPSProcessor.vhd" Line 162: programcounter should be on the sensitivity list of the process
+WARNING:HDLCompiler:92 - "/media/peter/stuff/tdt4255/oving1/src/MIPSProcessor.vhd" Line 168: dmem_data_in should be on the sensitivity list of the process
+WARNING:HDLCompiler:92 - "/media/peter/stuff/tdt4255/oving1/src/MIPSProcessor.vhd" Line 169: data2 should be on the sensitivity list of the process
+WARNING:HDLCompiler:92 - "/media/peter/stuff/tdt4255/oving1/src/MIPSProcessor.vhd" Line 170: alu_result should be on the sensitivity list of the process
+WARNING:HDLCompiler:92 - "/media/peter/stuff/tdt4255/oving1/src/MIPSProcessor.vhd" Line 171: memwrite should be on the sensitivity list of the process
+WARNING:HDLCompiler:92 - "/media/peter/stuff/tdt4255/oving1/src/MIPSProcessor.vhd" Line 181: imem_data_in should be on the sensitivity list of the process
 WARNING:HDLCompiler:92 - "/media/peter/stuff/tdt4255/oving1/src/MIPSProcessor.vhd" Line 182: imem_data_in should be on the sensitivity list of the process
 WARNING:HDLCompiler:92 - "/media/peter/stuff/tdt4255/oving1/src/MIPSProcessor.vhd" Line 183: imem_data_in should be on the sensitivity list of the process
 WARNING:HDLCompiler:92 - "/media/peter/stuff/tdt4255/oving1/src/MIPSProcessor.vhd" Line 184: imem_data_in should be on the sensitivity list of the process
@@ -205,13 +208,12 @@ WARNING:HDLCompiler:92 - "/media/peter/stuff/tdt4255/oving1/src/MIPSProcessor.vh
 WARNING:HDLCompiler:92 - "/media/peter/stuff/tdt4255/oving1/src/MIPSProcessor.vhd" Line 186: imem_data_in should be on the sensitivity list of the process
 WARNING:HDLCompiler:92 - "/media/peter/stuff/tdt4255/oving1/src/MIPSProcessor.vhd" Line 187: imem_data_in should be on the sensitivity list of the process
 WARNING:HDLCompiler:92 - "/media/peter/stuff/tdt4255/oving1/src/MIPSProcessor.vhd" Line 188: imem_data_in should be on the sensitivity list of the process
-WARNING:HDLCompiler:92 - "/media/peter/stuff/tdt4255/oving1/src/MIPSProcessor.vhd" Line 189: imem_data_in should be on the sensitivity list of the process
+WARNING:HDLCompiler:92 - "/media/peter/stuff/tdt4255/oving1/src/MIPSProcessor.vhd" Line 191: imem_data_in should be on the sensitivity list of the process
 WARNING:HDLCompiler:92 - "/media/peter/stuff/tdt4255/oving1/src/MIPSProcessor.vhd" Line 192: imem_data_in should be on the sensitivity list of the process
-WARNING:HDLCompiler:92 - "/media/peter/stuff/tdt4255/oving1/src/MIPSProcessor.vhd" Line 193: imem_data_in should be on the sensitivity list of the process
-WARNING:HDLCompiler:1127 - "/media/peter/stuff/tdt4255/oving1/src/MIPSProcessor.vhd" Line 180: Assignment to shift ignored, since the identifier is never used
+WARNING:HDLCompiler:1127 - "/media/peter/stuff/tdt4255/oving1/src/MIPSProcessor.vhd" Line 179: Assignment to shift ignored, since the identifier is never used
 WARNING:HDLCompiler:634 - "/media/peter/stuff/tdt4255/oving1/src/MIPSProcessor.vhd" Line 56: Net <result_zero> does not have a driver.
 WARNING:HDLCompiler:634 - "/media/peter/stuff/tdt4255/oving1/src/MIPSProcessor.vhd" Line 63: Net <empty> does not have a driver.
-WARNING:HDLCompiler:634 - "/media/peter/stuff/tdt4255/oving1/src/MIPSProcessor.vhd" Line 66: Net <zero_invert> does not have a driver.
+WARNING:HDLCompiler:634 - "/media/peter/stuff/tdt4255/oving1/src/MIPSProcessor.vhd" Line 65: Net <zero_invert> does not have a driver.
 
 Elaborating entity <HostComm> (architecture <Behavioral>) from library <work>.
 
@@ -245,11 +247,10 @@ Synthesizing Unit <MIPSProcessor>.
     Related source file is "/media/peter/stuff/tdt4255/oving1/src/MIPSProcessor.vhd".
         ADDRESS_WIDTH = 8
         DATA_WIDTH = 32
-WARNING:Xst:647 - Input <processor_enable> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
-INFO:Xst:3010 - "/media/peter/stuff/tdt4255/oving1/src/MIPSProcessor.vhd" line 123: Output port <zero_invert> of the instance <decode> is unconnected or connected to loadless signal.
-INFO:Xst:3010 - "/media/peter/stuff/tdt4255/oving1/src/MIPSProcessor.vhd" line 123: Output port <RegDst> of the instance <decode> is unconnected or connected to loadless signal.
-INFO:Xst:3010 - "/media/peter/stuff/tdt4255/oving1/src/MIPSProcessor.vhd" line 123: Output port <MemtoReg> of the instance <decode> is unconnected or connected to loadless signal.
-INFO:Xst:3010 - "/media/peter/stuff/tdt4255/oving1/src/MIPSProcessor.vhd" line 142: Output port <zero> of the instance <ALU> is unconnected or connected to loadless signal.
+INFO:Xst:3010 - "/media/peter/stuff/tdt4255/oving1/src/MIPSProcessor.vhd" line 122: Output port <zero_invert> of the instance <decode> is unconnected or connected to loadless signal.
+INFO:Xst:3010 - "/media/peter/stuff/tdt4255/oving1/src/MIPSProcessor.vhd" line 122: Output port <RegDst> of the instance <decode> is unconnected or connected to loadless signal.
+INFO:Xst:3010 - "/media/peter/stuff/tdt4255/oving1/src/MIPSProcessor.vhd" line 122: Output port <MemtoReg> of the instance <decode> is unconnected or connected to loadless signal.
+INFO:Xst:3010 - "/media/peter/stuff/tdt4255/oving1/src/MIPSProcessor.vhd" line 141: Output port <zero> of the instance <ALU> is unconnected or connected to loadless signal.
 WARNING:Xst:653 - Signal <result_zero> is used but never assigned. This sourceless signal will be automatically connected to value GND.
 WARNING:Xst:653 - Signal <empty> is used but never assigned. This sourceless signal will be automatically connected to value GND.
 WARNING:Xst:653 - Signal <zero_invert> is used but never assigned. This sourceless signal will be automatically connected to value GND.
@@ -270,27 +271,12 @@ Synthesizing Unit <Control>.
         DATA_WIDTH = 32
         ADDRESS_WIDTH = 8
 WARNING:Xst:647 - Input <empty> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+    Found 1-bit register for signal <fetch>.
     Found 2-bit register for signal <state>.
-    Found 1-bit register for signal <read_instruction>.
-    Found 1-bit register for signal <tick>.
-    Found finite state machine <FSM_0> for signal <state>.
-    -----------------------------------------------------------------------
-    | States             | 3                                              |
-    | Transitions        | 4                                              |
-    | Inputs             | 1                                              |
-    | Outputs            | 3                                              |
-    | Clock              | clk (rising_edge)                              |
-    | Reset              | reset (positive)                               |
-    | Reset type         | asynchronous                                   |
-    | Reset State        | s_fetch                                        |
-    | Power Up State     | s_fetch                                        |
-    | Encoding           | auto                                           |
-    | Implementation     | LUT                                            |
-    -----------------------------------------------------------------------
+    Found 1-bit 4-to-1 multiplexer for signal <state[1]_enable_Mux_3_o> created at line 60.
     Summary:
-	inferred   2 D-type flip-flop(s).
+	inferred   3 D-type flip-flop(s).
 	inferred   1 Multiplexer(s).
-	inferred   1 Finite State Machine(s).
 Unit <Control> synthesized.
 
 Synthesizing Unit <ProgramCounter>.
@@ -528,7 +514,7 @@ Synthesizing Unit <uartParser>.
     Found 16-bit register for signal <iIntAddress>.
     Found 3-bit register for signal <txSm>.
     Found 4-bit register for signal <mainSm>.
-    Found finite state machine <FSM_2> for signal <mainSm>.
+    Found finite state machine <FSM_1> for signal <mainSm>.
     -----------------------------------------------------------------------
     | States             | 11                                             |
     | Transitions        | 41                                             |
@@ -541,7 +527,7 @@ Synthesizing Unit <uartParser>.
     | Encoding           | auto                                           |
     | Implementation     | LUT                                            |
     -----------------------------------------------------------------------
-    Found finite state machine <FSM_1> for signal <txSm>.
+    Found finite state machine <FSM_0> for signal <txSm>.
     -----------------------------------------------------------------------
     | States             | 5                                              |
     | Transitions        | 15                                             |
@@ -569,10 +555,10 @@ Synthesizing Unit <uartParser>.
 	inferred  32 Multiplexer(s).
 	inferred   2 Finite State Machine(s).
 Unit <uartParser> synthesized.
-RTL-Simplification CPUSTAT: 0.19 
-RTL-BasicInf CPUSTAT: 0.43 
-RTL-BasicOpt CPUSTAT: 0.00 
-RTL-Remain-Bus CPUSTAT: 0.01 
+RTL-Simplification CPUSTAT: 0.24 
+RTL-BasicInf CPUSTAT: 0.36 
+RTL-BasicOpt CPUSTAT: 0.01 
+RTL-Remain-Bus CPUSTAT: 0.03 
 
 =========================================================================
 HDL Synthesis Report
@@ -589,9 +575,9 @@ Macro Statistics
  8-bit adder                                           : 1
  8-bit subtractor                                      : 1
 # Registers                                            : 97
- 1-bit register                                        : 40
+ 1-bit register                                        : 39
  16-bit register                                       : 3
- 2-bit register                                        : 1
+ 2-bit register                                        : 2
  3-bit register                                        : 1
  32-bit register                                       : 35
  4-bit register                                        : 4
@@ -605,7 +591,8 @@ Macro Statistics
  32-bit comparator greater                             : 1
  8-bit comparator lessequal                            : 6
 # Multiplexers                                         : 63
- 1-bit 2-to-1 multiplexer                              : 31
+ 1-bit 2-to-1 multiplexer                              : 30
+ 1-bit 4-to-1 multiplexer                              : 1
  16-bit 2-to-1 multiplexer                             : 6
  32-bit 2-to-1 multiplexer                             : 4
  32-bit 32-to-1 multiplexer                            : 2
@@ -614,7 +601,7 @@ Macro Statistics
  8-bit 2-to-1 multiplexer                              : 13
  8-bit 3-to-1 multiplexer                              : 1
  9-bit 2-to-1 multiplexer                              : 1
-# FSMs                                                 : 3
+# FSMs                                                 : 2
 
 =========================================================================
 INFO:Xst:1767 - HDL ADVISOR - Resource sharing has identified that some arithmetic operations in this design can share the same physical resources for reduced device utilization. For improved clock frequency you may try to disable resource sharing.
@@ -715,8 +702,8 @@ Macro Statistics
  8-bit down counter                                    : 1
 # Accumulators                                         : 1
  16-bit updown accumulator                             : 1
-# Registers                                            : 1285
- Flip-Flops                                            : 1285
+# Registers                                            : 1286
+ Flip-Flops                                            : 1286
 # Comparators                                          : 8
  16-bit comparator lessequal                           : 1
  32-bit comparator greater                             : 1
@@ -730,7 +717,7 @@ Macro Statistics
  8-bit 2-to-1 multiplexer                              : 10
  8-bit 3-to-1 multiplexer                              : 1
  9-bit 2-to-1 multiplexer                              : 1
-# FSMs                                                 : 3
+# FSMs                                                 : 2
 
 =========================================================================
 
@@ -742,16 +729,7 @@ WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch <ALU_op_2> has a con
 WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch <ALU_op_3> has a constant value of 0 in block <DecodeOp>. This FF/Latch will be trimmed during the optimization process.
 WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch <ALU_op_4> has a constant value of 0 in block <DecodeOp>. This FF/Latch will be trimmed during the optimization process.
 Analyzing FSM <MFsm> for best encoding.
-Optimizing FSM <MIPSProcInst/FSM_0> on signal <state[1:2]> with user encoding.
------------------------
- State     | Encoding
------------------------
- s_fetch   | 00
- s_execute | 01
- s_stall   | 10
------------------------
-Analyzing FSM <MFsm> for best encoding.
-Optimizing FSM <HostCommInst/UARTHandlerInst/up/FSM_2> on signal <mainSm[1:4]> with gray encoding.
+Optimizing FSM <HostCommInst/UARTHandlerInst/up/FSM_1> on signal <mainSm[1:4]> with gray encoding.
 -------------------
  State | Encoding
 -------------------
@@ -768,7 +746,7 @@ Optimizing FSM <HostCommInst/UARTHandlerInst/up/FSM_2> on signal <mainSm[1:4]> w
  1100  | 1111
 -------------------
 Analyzing FSM <MFsm> for best encoding.
-Optimizing FSM <HostCommInst/UARTHandlerInst/up/FSM_1> on signal <txSm[1:3]> with user encoding.
+Optimizing FSM <HostCommInst/UARTHandlerInst/up/FSM_0> on signal <txSm[1:3]> with user encoding.
 -------------------
  State | Encoding
 -------------------
@@ -778,6 +756,32 @@ Optimizing FSM <HostCommInst/UARTHandlerInst/up/FSM_1> on signal <txSm[1:3]> wit
  101   | 101
  110   | 110
 -------------------
+WARNING:Xst:3002 - This design contains one or more registers/latches that are directly
+   incompatible with the Spartan6 architecture. The two primary causes of this is
+   either a register or latch described with both an asynchronous set and
+   asynchronous reset, or a register or latch described with an asynchronous
+   set or reset which however has an initialization value of the opposite 
+   polarity (i.e. asynchronous reset with an initialization value of 1).
+    While this circuit can be built, it creates a sub-optimal implementation
+   in terms of area, power and performance. For a more optimal implementation
+   Xilinx highly recommends one of the following:
+
+          1) Remove either the set or reset from all registers and latches
+             if not needed for required functionality
+          2) Modify the code in order to produce a synchronous set
+             and/or reset (both is preferred)
+          3) Ensure all registers have the same initialization value as the
+             described asynchronous set or reset polarity
+          4) Use the -async_to_sync option to transform the asynchronous
+             set/reset to synchronous operation
+             (timing simulation highly recommended when using this option)
+
+  Please refer to http://www.xilinx.com search string "Spartan6 asynchronous set/reset" for more details.
+
+  List of register instances with asynchronous set and reset:
+    state_1 in unit <Control>
+    state_0 in unit <Control>
+
 
 Optimizing unit <MIPSSystem> ...
 
@@ -816,6 +820,8 @@ WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <registers_0_3> (wit
 WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <registers_0_2> (without init value) has a constant value of 0 in block <Registers>. This FF/Latch will be trimmed during the optimization process.
 WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <registers_0_1> (without init value) has a constant value of 0 in block <Registers>. This FF/Latch will be trimmed during the optimization process.
 WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <registers_0_0> (without init value) has a constant value of 0 in block <Registers>. This FF/Latch will be trimmed during the optimization process.
+
+Optimizing unit <Control> ...
 
 Optimizing unit <ProgramCounter> ...
 
@@ -882,8 +888,8 @@ Final Macro Processing ...
 Final Register Report
 
 Macro Statistics
-# Registers                                            : 1267
- Flip-Flops                                            : 1267
+# Registers                                            : 1268
+ Flip-Flops                                            : 1268
 
 =========================================================================
 
@@ -906,27 +912,28 @@ Top Level Output File Name         : MIPSSystem.ngc
 
 Primitive and Black Box Usage:
 ------------------------------
-# BELS                             : 2274
+# BELS                             : 2275
 #      GND                         : 3
-#      INV                         : 37
+#      INV                         : 38
 #      LUT1                        : 19
-#      LUT2                        : 36
-#      LUT3                        : 1046
-#      LUT4                        : 76
-#      LUT5                        : 163
-#      LUT6                        : 712
+#      LUT2                        : 35
+#      LUT3                        : 1047
+#      LUT4                        : 75
+#      LUT5                        : 162
+#      LUT6                        : 714
 #      MUXCY                       : 62
 #      MUXF7                       : 69
 #      VCC                         : 3
 #      XORCY                       : 48
-# FlipFlops/Latches                : 1275
-#      FD                          : 23
+# FlipFlops/Latches                : 1277
+#      FD                          : 22
 #      FDC                         : 75
 #      FDCE                        : 101
 #      FDE                         : 72
-#      FDP                         : 4
+#      FDP                         : 6
 #      FDRE                        : 992
 #      LD                          : 8
+#      LDC                         : 1
 # RAMS                             : 2
 #      RAMB16BWER                  : 2
 # Clock Buffers                    : 1
@@ -942,16 +949,16 @@ Selected Device : 6slx16csg324-2
 
 
 Slice Logic Utilization: 
- Number of Slice Registers:            1275  out of  18224     6%  
- Number of Slice LUTs:                 2089  out of   9112    22%  
-    Number used as Logic:              2089  out of   9112    22%  
+ Number of Slice Registers:            1277  out of  18224     7%  
+ Number of Slice LUTs:                 2090  out of   9112    22%  
+    Number used as Logic:              2090  out of   9112    22%  
 
 Slice Logic Distribution: 
- Number of LUT Flip Flop pairs used:   2118
-   Number with an unused Flip Flop:     843  out of   2118    39%  
-   Number with an unused LUT:            29  out of   2118     1%  
-   Number of fully used LUT-FF pairs:  1246  out of   2118    58%  
-   Number of unique control sets:        51
+ Number of LUT Flip Flop pairs used:   2121
+   Number with an unused Flip Flop:     844  out of   2121    39%  
+   Number with an unused LUT:            31  out of   2121     1%  
+   Number of fully used LUT-FF pairs:  1246  out of   2121    58%  
+   Number of unique control sets:        54
 
 IO Utilization: 
  Number of IOs:                           8
@@ -980,12 +987,13 @@ NOTE: THESE TIMING NUMBERS ARE ONLY A SYNTHESIS ESTIMATE.
 
 Clock Information:
 ------------------
--------------------------------------+----------------------------------+-------+
-Clock Signal                         | Clock buffer(FF name)            | Load  |
--------------------------------------+----------------------------------+-------+
-clk                                  | BUFGP                            | 1269  |
-MIPSProcInst/control/read_instruction| NONE(MIPSProcInst/imem_address_0)| 8     |
--------------------------------------+----------------------------------+-------+
+-----------------------------------+---------------------------------------+-------+
+Clock Signal                       | Clock buffer(FF name)                 | Load  |
+-----------------------------------+---------------------------------------+-------+
+MIPSProcInst/control/fetch         | NONE(MIPSProcInst/imem_address_0)     | 8     |
+clk                                | BUFGP                                 | 1270  |
+HostCommInst/procEnableSignal      | NONE(MIPSProcInst/control/state_1_LDC)| 1     |
+-----------------------------------+---------------------------------------+-------+
 INFO:Xst:2169 - HDL ADVISOR - Some clock signals were not automatically buffered by XST with BUFG/BUFR resources. Please use the buffer_type constraint in order to insert these buffers to the clock signals to help prevent skew problems.
 
 Asynchronous Control Signals Information:
@@ -1008,7 +1016,7 @@ All values displayed in nanoseconds (ns)
 =========================================================================
 Timing constraint: Default period analysis for Clock 'clk'
   Clock period: 7.639ns (frequency: 130.912MHz)
-  Total number of paths / destination ports: 19137 / 3529
+  Total number of paths / destination ports: 19152 / 3532
 -------------------------------------------------------------------------
 Delay:               7.639ns (Levels of Logic = 4)
   Source:            InstrMem/BU2/U0/blk_mem_generator/valid.cstr/ramloop[0].ram.r/s6_noinit.ram/TRUE_DP.PRIM18.ram (RAM)
@@ -1074,7 +1082,15 @@ Offset:              4.226ns (Levels of Logic = 1)
 Cross Clock Domains Report:
 --------------------------
 
-Clock to Setup on destination clock MIPSProcInst/control/read_instruction
+Clock to Setup on destination clock HostCommInst/procEnableSignal
+---------------+---------+---------+---------+---------+
+               | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
+Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
+---------------+---------+---------+---------+---------+
+clk            |    5.050|         |         |         |
+---------------+---------+---------+---------+---------+
+
+Clock to Setup on destination clock MIPSProcInst/control/fetch
 ---------------+---------+---------+---------+---------+
                | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
 Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
@@ -1083,26 +1099,27 @@ clk            |         |         |    1.688|         |
 ---------------+---------+---------+---------+---------+
 
 Clock to Setup on destination clock clk
--------------------------------------+---------+---------+---------+---------+
-                                     | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
-Source Clock                         |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
--------------------------------------+---------+---------+---------+---------+
-MIPSProcInst/control/read_instruction|         |    1.829|         |         |
-clk                                  |    7.639|         |         |         |
--------------------------------------+---------+---------+---------+---------+
+-----------------------------+---------+---------+---------+---------+
+                             | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
+Source Clock                 |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
+-----------------------------+---------+---------+---------+---------+
+HostCommInst/procEnableSignal|    3.548|         |         |         |
+MIPSProcInst/control/fetch   |         |    1.829|         |         |
+clk                          |    7.639|         |         |         |
+-----------------------------+---------+---------+---------+---------+
 
 =========================================================================
 
 
 Total REAL time to Xst completion: 14.00 secs
-Total CPU time to Xst completion: 14.11 secs
+Total CPU time to Xst completion: 14.06 secs
  
 --> 
 
 
-Total memory usage is 378996 kilobytes
+Total memory usage is 378952 kilobytes
 
 Number of errors   :    0 (   0 filtered)
-Number of warnings :  147 (   0 filtered)
+Number of warnings :  149 (   0 filtered)
 Number of infos    :   16 (   0 filtered)
 

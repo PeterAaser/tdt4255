@@ -1,12 +1,8 @@
-set -tmpdir "xst/projnav.tmp"
-set -xsthdpdir "xst"
-run
--ifn MIPSSystem.prj
--ifmt mixed
--ofn MIPSSystem
--ofmt NGC
+set -tmpdir "/media/peter/stuff/tdt4255/oving1/xst/projnav.tmp"
+set -xsthdpdir "/media/peter/stuff/tdt4255/oving1/xst"
+run -compileonly yes
 -p xc6slx16-2-csg324
--top MIPSSystem
+-top Decode
 -opt_mode Speed
 -opt_level 1
 -power NO
@@ -52,3 +48,5 @@ run
 -iob Auto
 -equivalent_register_removal YES
 -slice_utilization_ratio_maxmargin 5
+-ifn Decode.prj
+-ifmt mixed

@@ -11,17 +11,7 @@ entity DecodeFunc is
         reset : in std_logic;
         func : in func_t;
         
-		  -- settings -- 
-        RegDst : out std_logic := '0';
-        Branch : out std_logic := '0';
-        Jump : out std_logic := '0';
-        MemtoReg : out std_logic := '0';
-        MemWrite : out std_logic := '0';
-        RegWrite : out std_logic := '0';
-        stall : out std_logic := '0';
-        ALUsrc : out std_logic := '1';
-      
-        ALU_op : out ALU_op_t);
+        control_signals : out control_signals_t);
 		  
 end DecodeFunc;
 
@@ -29,33 +19,44 @@ architecture Behavioral of DecodeFunc is
 begin
     decode : process (clk, reset)
     begin
+    
+        control_signals.ALUsrc <= REG2;
+        control_signals.RegDst <= REGD;
+        control_signals.MemtoReg <= FROM_ALU;
+
+        control_signals.branch <= false;
+        control_signals.jump <= false;
+        control_signals.MemWrite <= false;
+        control_signals.RegWrite <= false;
+        control_signals.stall <= false;
+
         if rising_edge(clk) then
-            ALUsrc <= '1';
+            ALUsrc <= REG2;
             case get_function(func) is
                 when add=>
 
-                    RegWrite <= '1';
-                    RegDst <= '1';
+                    control_signals.RegWrite <= true;
+                    control_signals.RegDst <= REGD;
                 when sub=>
 
-                    RegWrite <= '1';
-                    RegDst <= '1';
+                    control_signals.RegWrite <= true;
+                    control_signals.RegDst <= REGD;
                 when islt=>
 
-                    RegWrite <= '1';
-                    RegDst <= '1';
+                    control_signals.RegWrite <= true;
+                    control_signals.RegDst <= REGD;
                 when iand=>
 
-                    RegWrite <= '1';
-                    RegDst <= '1';
+                    control_signals.RegWrite <= true;
+                    control_signals.RegDst <= REGD;
                 when ior=>
 
-                    RegWrite <= '1';
-                    RegDst <= '1';
+                    control_signals.RegWrite <= true;
+                    control_signals.RegDst <= REGD;
                 when others=>
             end case;
 			
-            ALU_op <= get_function(func);
+            control_signals.ALU_op <= get_function(func);
         end if;
     end process;
 end Behavioral;

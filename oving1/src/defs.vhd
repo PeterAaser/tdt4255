@@ -26,12 +26,14 @@ subtype instruction_t is std_logic_vector(31 downto 0);
     -- with subtypes (WHAT THE FUCK!=?==)
     type instruction_format_t is (R_TYPE, I_TYPE, J_TYPE);
     type decoder_select_t is (OPERATION, FUNCT);
+
+
     type ALU_source_t is (REG2, INSTR);
-    type RegWrite_t is (WRITE, NO_WRITE);
     type RegDst_t is (REGT, REGD);
     type MemtoReg_t is (FROM_ALU, FROM_MEM); 
-    type MemWrite_t is (WRITE, NO_WRITE);
 
+    subtype RegWrite_t is boolean;
+    subtype MemWrite_t is boolean;
     subtype stall_t is boolean;
     subtype branch_t is boolean;
     subtype jump_t is boolean;
@@ -44,6 +46,10 @@ subtype instruction_t is std_logic_vector(31 downto 0);
             MemWrite : MemWrite_t;
             ALU_source : ALU_source_t;
             stall : stall_t;
+            ALU_op : ALU_op_t;
+            stall : stall_t;
+            branch : branch_t;
+            jump : jump_t;
             ALU_op : ALU_op_t;
         end record;
 
