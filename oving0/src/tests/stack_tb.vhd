@@ -46,7 +46,6 @@ begin  -- architecture behavioural
   -- waveform generation
   WaveGen_Proc: process
   begin
-  
     -- insert signal assignments here
     wait for clk_period/4;
     rst <= '1';

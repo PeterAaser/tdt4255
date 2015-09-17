@@ -1,8 +1,0 @@
-INTSTYLE=ise
-INFILE=/home/shomec/p/peteraa/Documents/oving0/oving0/RPNSystem.ncd
-OUTFILE=/home/shomec/p/peteraa/Documents/oving0/oving0/RPNSystem.bit
-FAMILY=Spartan6
-PART=xc6slx16-2csg324
-WORKINGDIR=/home/shomec/p/peteraa/Documents/oving0/oving0
-LICENSE=ISE
-USER_INFO=174154421_208900020_000

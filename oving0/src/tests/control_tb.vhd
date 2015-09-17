@@ -30,10 +30,10 @@ architecture behavioural of control_tb is
   signal alu_operation : alu_operation_t;
 
   -- clock
-  constant clk_period : time      := 5 ns;
+  constant clk_period : time      := 20 ns;
   signal clk          : std_logic := '1';
 
-  --signal i : integer := 0;
+  signal i : integer := 0;
 
 begin  -- architecture behavioural
 
@@ -44,7 +44,7 @@ begin  -- architecture behavioural
       rst         => rst,
       instruction => instruction,
       empty       => empty,
-      read        => read_instruction,
+      read			=> read_instruction,
       push        => push,
       pop         => pop,
       stack_src   => stack_input_select,

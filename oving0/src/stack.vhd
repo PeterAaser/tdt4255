@@ -16,23 +16,23 @@ entity stack is
     pop       : in  std_logic;
     top       : out operand_t);
 
+
 end entity stack;
 
 architecture behavioural of stack is
-  signal stack_ptr : integer;
 
+  -- Fill in type and signal declarations here.
+  signal stack_ptr 	: integer := 1;  
 
 begin  -- architecture behavioural
-	
-	store: entity work.storage
-	port map (clk => clk, push => push, pop => pop, stack_ptr => stack_ptr, stack_in => value_in, stack_top => top, rst => rst);
-	
-	do_stack_thangz : process(rst, pop, push, clk)
-	begin
+
+  -- Fill in processes here.
+
+	process(clk, rst) is
+		begin
 		if rst = '1' then
-			stack_ptr <= 0;
-		end if;
-		if rising_edge(clk) then
+			stack_ptr <= 1;
+		elsif rising_edge(clk) then
 			if push = '1' then
 				stack_ptr <= stack_ptr + 1;
 			elsif pop = '1' then
@@ -40,9 +40,17 @@ begin  -- architecture behavioural
 			end if;
 		end if;
 	end process;
+
+	register_file: entity work.RegFile
+	generic map( size => size )
+	port map(
+		clk => clk,
+		reset => rst,
+		write_enable => push,
+		addr => stack_ptr,
+		data_in => value_in,
+		data_out => top
+	);
 	
-
-
-  -- Fill in processes here.
-
+	
 end architecture behavioural;

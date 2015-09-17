@@ -36,7 +36,7 @@ architecture behavioural of control is
 
 begin
 
-    do_state_thangz : process(clk, rst)
+    state_transitions : process(clk, rst)
     begin
         if rst = '1' then
 			state <= S_IDLE;
@@ -53,7 +53,7 @@ begin
 					state <= S_DECODE;
 					
 				when S_DECODE=>
-					if op_code = (7 downto 0 => '0') then
+					if instruction(15 downto 8) = "00000000" then
 					   state <= S_PUSH_OPERAND;
 					else 
 						state <= S_POP_B;
@@ -78,7 +78,7 @@ begin
 		end if;
 	end process;
 
-	say_state_thangz : process(clk, state, instruction, empty, state, op_code)
+	perform_state_operations : process(clk, state, instruction, empty, state, op_code)
 	begin
 		push <= '0';
 		pop <= '0';
@@ -106,7 +106,7 @@ begin
 				a_wen <= '1';
 			
 			when S_COMPUTE=>
-				if op_code = "00000001" then
+				if instruction(15 downto 8) = "00000001" then
 					alu_sel <= ALU_ADD;
 				else
 					alu_sel <= ALU_SUB;
@@ -123,3 +123,4 @@ begin
 
   
 end architecture behavioural;
+

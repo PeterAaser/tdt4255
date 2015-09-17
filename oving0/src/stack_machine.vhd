@@ -44,13 +44,10 @@ architecture behavioural of stack_machine is
 
 begin  -- architecture behavioural
 
-  -- drive result from stack top
   result <= stack_top;
 
-  -- stack src is mux select drive for stack_in
   with stack_src select
     stack_in <=
-	 -- stack_in is driven by operand when stack_src is STACK_INPUT_OPERAND, else alu result
     operand                      when STACK_INPUT_OPERAND,
     std_logic_vector(alu_result) when others;
 
