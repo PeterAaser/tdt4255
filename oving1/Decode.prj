@@ -1,0 +1,4 @@
+vhdl work "src/defs.vhd"
+vhdl work "src/DecodeOp.vhd"
+vhdl work "src/DecodeFunc.vhd"
+vhdl work "src/Decode.vhd"

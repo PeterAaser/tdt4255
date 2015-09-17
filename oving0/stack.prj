@@ -1,0 +1,3 @@
+vhdl work "src/defs.vhd"
+vhdl work "storage.vhd"
+vhdl work "src/stack.vhd"

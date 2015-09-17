@@ -1,0 +1,8 @@
+INTSTYLE=ise
+INFILE=/media/peter/stuff/tdt4255/oving1/MIPSSystem.ncd
+OUTFILE=/media/peter/stuff/tdt4255/oving1/MIPSSystem.bit
+FAMILY=Spartan6
+PART=xc6slx16-2csg324
+WORKINGDIR=/media/peter/stuff/tdt4255/oving1
+LICENSE=WebPack
+USER_INFO=0_0_456
