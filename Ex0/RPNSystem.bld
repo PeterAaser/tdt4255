@@ -5,7 +5,7 @@ Command Line: /opt/Xilinx/12.4/ISE_DS/ISE/bin/lin/unwrapped/ngdbuild -intstyle
 ise -dd _ngo -sd src/framework -nt timestamp -uc src/framework/RPNSystem.ucf -p
 xc6slx16-csg324-2 RPNSystem.ngc RPNSystem.ngd
 
-Reading NGO file "/home/shomed/a/anderlim/Desktop/tdt4255/Ex0/RPNSystem.ngc" ...
+Reading NGO file "/home/shomeb/o/oyvinrob/tdt4255/Ex0/RPNSystem.ngc" ...
 Loading design module "src/framework/RPNDataMem.ngc"...
 Applying constraints in "src/framework/RPNDataMem.ncf" to module
 "src/framework/RPNDataMem.ngc"...
@@ -31,10 +31,10 @@ NGDBUILD Design Results Summary:
   Number of errors:     0
   Number of warnings:   0
 
-Total memory usage is 92408 kilobytes
+Total memory usage is 97388 kilobytes
 
 Writing NGD file "RPNSystem.ngd" ...
-Total REAL time to NGDBUILD completion:  3 sec
-Total CPU time to NGDBUILD completion:   3 sec
+Total REAL time to NGDBUILD completion:  5 sec
+Total CPU time to NGDBUILD completion:   4 sec
 
 Writing NGDBUILD log file "RPNSystem.bld"...

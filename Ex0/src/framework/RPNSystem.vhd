@@ -21,7 +21,7 @@ architecture Behavioral of RPNSystem is
 begin
 
 RPNC:		    entity work.stack_machine 
-            generic map (size => 16)
+            generic map (size => 256)
             port map (
 							clk => clk, rst => RPNCResetSignal, 
 							empty => emptySignal, read => readEnableSignal,

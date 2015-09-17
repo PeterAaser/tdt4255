@@ -27,5 +27,6 @@ package defs is
   -- (enumerated) values.
   type alu_operation_t is (ALU_ADD, ALU_SUB);
   type stack_input_select_t is (STACK_INPUT_OPERAND, STACK_INPUT_RESULT);
+  type ram_t is array (0 to 255) of std_logic_vector(7 downto 0);
 
 end package defs;

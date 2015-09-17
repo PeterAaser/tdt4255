@@ -21,7 +21,7 @@
 #include <malloc.h>
 #define alloca _alloca
 #endif
-static const char *ng0 = "/home/shomed/a/anderlim/Desktop/tdt4255/Ex0/src/framework/uart/uartTx.vhd";
+static const char *ng0 = "/home/shomeb/o/oyvinrob/tdt4255/Ex0/src/framework/uart/uartTx.vhd";
 extern char *IEEE_P_2592010699;
 extern char *IEEE_P_3620187407;
 
@@ -108,7 +108,7 @@ LAB8:    goto LAB3;
 LAB7:    xsi_set_current_line(35, ng0);
     t2 = (t0 + 1420U);
     t7 = *((char **)t2);
-    t2 = (t0 + 6152U);
+    t2 = (t0 + 5984U);
     t8 = ieee_p_3620187407_sub_436279890_3965413181(IEEE_P_3620187407, t15, t7, t2, 1);
     t9 = (t0 + 3340);
     t10 = (t9 + 32U);
@@ -264,8 +264,8 @@ LAB15:    t13 = (t0 + 1328U);
 
 LAB18:    t1 = (t0 + 1512U);
     t5 = *((char **)t1);
-    t1 = (t0 + 6168U);
-    t6 = (t0 + 6239);
+    t1 = (t0 + 6000U);
+    t6 = (t0 + 6071);
     t8 = (t15 + 0U);
     t13 = (t8 + 0U);
     *((int *)t13) = 0;
@@ -363,7 +363,7 @@ LAB8:    goto LAB3;
 LAB7:    xsi_set_current_line(61, ng0);
     t2 = (t0 + 1512U);
     t7 = *((char **)t2);
-    t2 = (t0 + 6168U);
+    t2 = (t0 + 6000U);
     t8 = ieee_p_3620187407_sub_436279890_3965413181(IEEE_P_3620187407, t15, t7, t2, 1);
     t9 = (t0 + 3412);
     t10 = (t9 + 32U);
@@ -483,7 +483,7 @@ LAB7:    xsi_set_current_line(74, ng0);
     t2 = (t0 + 868U);
     t6 = *((char **)t2);
     t7 = ((IEEE_P_2592010699) + 2312);
-    t8 = (t0 + 6136U);
+    t8 = (t0 + 5968U);
     t2 = xsi_base_array_concat(t2, t12, t7, (char)97, t6, t8, (char)99, (unsigned char)2, (char)101);
     t9 = (t0 + 3448);
     t10 = (t9 + 32U);
@@ -649,8 +649,8 @@ static void work_a_3059077005_3212880686_p_5(char *t0)
 LAB0:    xsi_set_current_line(94, ng0);
     t2 = (t0 + 1420U);
     t3 = *((char **)t2);
-    t2 = (t0 + 6152U);
-    t4 = (t0 + 6243);
+    t2 = (t0 + 5984U);
+    t4 = (t0 + 6075);
     t7 = (t6 + 0U);
     t8 = (t7 + 0U);
     *((int *)t8) = 0;

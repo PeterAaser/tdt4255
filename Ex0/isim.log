@@ -1,6 +1,5 @@
 ISim log file
-Running: /home/shomed/a/anderlim/Desktop/tdt4255/Ex0/stack_machine_tb_isim_beh.exe -gui -tclbatch isim.cmd -wdb /home/shomed/a/anderlim/Desktop/tdt4255/Ex0/stack_machine_tb_isim_beh.wdb 
-INFO: There is another simulation running in the same directory. Using database file name isim1.wdb.
+Running: /home/shomeb/o/oyvinrob/tdt4255/Ex0/tb_top_isim_beh.exe -gui -tclbatch isim.cmd -wdb /home/shomeb/o/oyvinrob/tdt4255/Ex0/tb_top_isim_beh.wdb 
 ISim M.81d (signature 0x141a37e9)
 ----------------------------------------------------------------------
 INFO:Security:51 - The XILINXD_LICENSE_FILE environment variable is not set.
@@ -20,5 +19,13 @@ Time resolution is 1 ps
 # wave add /
 # run 1000 ns
 Simulator is doing circuit initialization process.
+at 0 ps, Instance /tb_top/uut/InstrBufferInst/ : Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
+at 0 ps, Instance /tb_top/uut/InstrBufferInst/UARTHandlerInst/up/ : Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
 Finished circuit initialization process.
+# restart
+# run 10.5ms
+Simulator is doing circuit initialization process.
+at 0 ps, Instance /tb_top/uut/InstrBufferInst/ : Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
+Finished circuit initialization process.
+at 3464139 ns(1): Note: Block Memory Generator CORE Generator module is using a behavioral model FOR simulation which will not precisely model memory collision behavior. (/tb_top/uut/InstrBufferInst/RPNDataMemInst/U0/mem_module/).
 # exit 0

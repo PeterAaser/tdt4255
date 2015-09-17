@@ -1,8 +1,8 @@
 INTSTYLE=ise
-INFILE=/home/shomed/a/anderlim/Desktop/tdt4255/Ex0/RPNSystem.ncd
-OUTFILE=/home/shomed/a/anderlim/Desktop/tdt4255/Ex0/RPNSystem.bit
+INFILE=/home/shomeb/o/oyvinrob/tdt4255/Ex0/RPNSystem.ncd
+OUTFILE=/home/shomeb/o/oyvinrob/tdt4255/Ex0/RPNSystem.bit
 FAMILY=Spartan6
 PART=xc6slx16-2csg324
-WORKINGDIR=/home/shomed/a/anderlim/Desktop/tdt4255/Ex0
+WORKINGDIR=/home/shomeb/o/oyvinrob/tdt4255/Ex0
 LICENSE=ISE
 USER_INFO=174154421_208900020_000

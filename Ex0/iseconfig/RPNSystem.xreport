@@ -1,17 +1,17 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <report-views version="2.0" >
  <header>
-  <DateModified>2015-09-14T14:48:03</DateModified>
+  <DateModified>2015-09-15T14:04:21</DateModified>
   <ModuleName>RPNSystem</ModuleName>
-  <SummaryTimeStamp>2015-09-14T14:38:21</SummaryTimeStamp>
-  <SavedFilePath>/home/shomed/a/anderlim/Desktop/tdt4255/Ex0/iseconfig/RPNSystem.xreport</SavedFilePath>
-  <ImplementationReportsDirectory>/home/shomed/a/anderlim/Desktop/tdt4255/Ex0/</ImplementationReportsDirectory>
-  <DateInitialized>2015-08-31T16:03:52</DateInitialized>
+  <SummaryTimeStamp>2015-09-14T17:14:34</SummaryTimeStamp>
+  <SavedFilePath>/home/shomeb/o/oyvinrob/tdt4255/Ex0/iseconfig/RPNSystem.xreport</SavedFilePath>
+  <ImplementationReportsDirectory>/home/shomeb/o/oyvinrob/tdt4255/Ex0/</ImplementationReportsDirectory>
+  <DateInitialized>2015-09-14T16:28:17</DateInitialized>
   <EnableMessageFiltering>false</EnableMessageFiltering>
  </header>
  <body>
   <viewgroup label="Design Overview" >
-   <view inputState="Unknown" program="implementation" ExpandErrors="true" ShowPartitionData="false" type="FPGASummary" file="RPNSystem_summary.html" label="Summary" ExpandWarnings="true" >
+   <view inputState="Unknown" program="implementation" ShowPartitionData="false" type="FPGASummary" file="RPNSystem_summary.html" label="Summary" >
     <toc-item title="Design Overview" target="Design Overview" />
     <toc-item title="Design Utilization Summary" target="Design Utilization Summary" />
     <toc-item title="Performance Summary" target="Performance Summary" />

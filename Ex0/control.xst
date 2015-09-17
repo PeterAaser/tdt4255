@@ -1,5 +1,5 @@
-set -tmpdir "/home/shomed/a/anderlim/Desktop/tdt4255/Ex0/xst/projnav.tmp"
-set -xsthdpdir "/home/shomed/a/anderlim/Desktop/tdt4255/Ex0/xst"
+set -tmpdir "/home/shomeb/o/oyvinrob/tdt4255/Ex0/xst/projnav.tmp"
+set -xsthdpdir "/home/shomeb/o/oyvinrob/tdt4255/Ex0/xst"
 run -compileonly yes
 -p xc6slx16-2-csg324
 -top control

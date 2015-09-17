@@ -21,7 +21,7 @@
 #include <malloc.h>
 #define alloca _alloca
 #endif
-static const char *ng0 = "/home/shomed/a/anderlim/Desktop/tdt4255/Ex0/src/framework/RPNSystem.vhd";
+static const char *ng0 = "/home/shomeb/o/oyvinrob/tdt4255/Ex0/src/framework/RPNSystem.vhd";
 
 
 
@@ -68,7 +68,7 @@ static void work_a_2395137934_3212880686_p_1(char *t0)
 
 LAB0:    xsi_set_current_line(41, ng0);
 
-LAB3:    t1 = (t0 + 5035);
+LAB3:    t1 = (t0 + 4899);
     t3 = (t0 + 2556);
     t4 = (t3 + 32U);
     t5 = *((char **)t4);

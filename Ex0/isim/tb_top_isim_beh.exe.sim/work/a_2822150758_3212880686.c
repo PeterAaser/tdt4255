@@ -21,7 +21,7 @@
 #include <malloc.h>
 #define alloca _alloca
 #endif
-static const char *ng0 = "/home/shomed/a/anderlim/Desktop/tdt4255/Ex0/src/framework/InstructionBuffer.vhd";
+static const char *ng0 = "/home/shomeb/o/oyvinrob/tdt4255/Ex0/src/framework/InstructionBuffer.vhd";
 extern char *IEEE_P_2592010699;
 extern char *IEEE_P_1242562249;
 
@@ -327,7 +327,7 @@ LAB65:    if (t146 != 0)
         goto LAB61;
 
 LAB62:
-LAB69:    t159 = (t0 + 11692);
+LAB69:    t159 = (t0 + 11324);
     t161 = (t0 + 5396);
     t162 = (t161 + 32U);
     t163 = *((char **)t162);
@@ -893,7 +893,7 @@ LAB18:    t14 = (t14 + 1);
 LAB19:    xsi_set_current_line(104, ng0);
     t1 = (t0 + 2340U);
     t5 = *((char **)t1);
-    t1 = (t0 + 11384U);
+    t1 = (t0 + 11016U);
     t6 = ieee_p_1242562249_sub_1919437128_1035706684(IEEE_P_1242562249, t19, t5, t1, 1);
     t7 = (t0 + 5576);
     t8 = (t7 + 32U);
@@ -1009,8 +1009,8 @@ static void work_a_2822150758_3212880686_p_7(char *t0)
 LAB0:    xsi_set_current_line(118, ng0);
     t1 = (t0 + 2340U);
     t2 = *((char **)t1);
-    t1 = (t0 + 11384U);
-    t3 = (t0 + 11700);
+    t1 = (t0 + 11016U);
+    t3 = (t0 + 11332);
     t6 = (t5 + 0U);
     t7 = (t6 + 0U);
     *((int *)t7) = 0;
@@ -1173,7 +1173,7 @@ LAB18:    t14 = (t14 + 1);
 LAB19:    xsi_set_current_line(128, ng0);
     t1 = (t0 + 2432U);
     t5 = *((char **)t1);
-    t1 = (t0 + 11400U);
+    t1 = (t0 + 11032U);
     t6 = ieee_p_1242562249_sub_1919365254_1035706684(IEEE_P_1242562249, t19, t5, t1, 1);
     t7 = (t0 + 5720);
     t8 = (t7 + 32U);
@@ -1282,7 +1282,7 @@ LAB2:    t47 = (t0 + 5352);
 LAB1:    return;
 LAB3:    t2 = (t0 + 2432U);
     t10 = *((char **)t2);
-    t2 = (t0 + 11400U);
+    t2 = (t0 + 11032U);
     t11 = ieee_p_1242562249_sub_1919365254_1035706684(IEEE_P_1242562249, t9, t10, t2, 1);
     t14 = ((IEEE_P_2592010699) + 2312);
     t12 = xsi_base_array_concat(t12, t13, t14, (char)99, (unsigned char)2, (char)97, t11, t9, (char)101);
@@ -1305,7 +1305,7 @@ LAB5:    t2 = (t0 + 1696U);
 LAB8:    t21 = (t0 + 2432U);
     t28 = *((char **)t21);
     t30 = ((IEEE_P_2592010699) + 2312);
-    t31 = (t0 + 11400U);
+    t31 = (t0 + 11032U);
     t21 = xsi_base_array_concat(t21, t29, t30, (char)99, (unsigned char)2, (char)97, t28, t31, (char)101);
     t32 = (t0 + 5756);
     t33 = (t32 + 32U);

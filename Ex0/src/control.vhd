@@ -29,74 +29,98 @@ entity control is
 end entity control;
 
 architecture behavioural of control is
+  
+	type state_type is (S_IDLE, S_FETCH, S_DECODE, S_PUSH_OPERAND, S_POP_B, S_POP_A, S_COMPUTE, S_PUSH);
+	signal state : state_type;
+	signal op_code : operand_t;
 
-  -- Fill in type and signal declarations here.
-  signal state 	: integer := 0; 
+begin
 
-begin  -- architecture behavioural
-
-	process(rst, clk, empty) is
-		begin
-			if rst='1' then
-				state <= 0;
-				read <= '0';
-				push <= '0';
-				pop <= '0';
-				a_wen <= '0';
-				b_wen <= '0';
-		
-
-			
-			elsif rising_edge(clk) then
-			
-				if state = 0 then -- IDLE
-					push <= '0';
-					state <= 1;
-				end if;	
-				
-				if state = 1 and empty = '0' then -- FETCH
-					read <= '1';
-					state <= 2;
-				
-				elsif state = 2 then -- DECODE
-					read <= '0';
-					if instruction(9) = '0' and instruction(8) = '0' then
-						state <= state + 1;
-					else
-						state <= state + 2;
+    state_transitions : process(clk, rst)
+    begin
+        if rst = '1' then
+			state <= S_IDLE;
+		elsif (rising_edge(clk)) then
+			case state is	  
+				when S_IDLE=>
+					if empty = '1' then
+					   state <= S_IDLE;
+					else 
+					   state <= S_FETCH;
 					end if;
-				
-				elsif state = 3 then -- PUSH_OPERAND
-					stack_src <= STACK_INPUT_OPERAND;
-					push <= '1';
-					state <= 0;
 					
-				elsif state = 4 then -- POP_B
-					b_wen <= '1';
-					pop <= '1';
-					state <= state + 1;
-				
-				elsif state = 5 then -- POP_A
-					b_wen <= '0';
-					a_wen <= '1';
-					state <= state + 1;
+				when S_FETCH=>
+					state <= S_DECODE;
 					
-				elsif state = 6 then -- COMPUTE
-					a_wen <= '0';
-					pop <= '0';
-					if instruction(8) = '1' then
-						alu_sel <= ALU_ADD;
-					else
-						alu_sel <= ALU_SUB;
+				when S_DECODE=>
+					if instruction(15 downto 8) = "00000000" then
+					   state <= S_PUSH_OPERAND;
+					else 
+						state <= S_POP_B;
 					end if;
-					state <= state + 1;
 					
-				elsif state = 7 then -- PUSH_RESULT
-					stack_src <= STACK_INPUT_RESULT;
-					push <= '1';
-					state <= 0;
-				end if;
-			end if;
+				when S_PUSH_OPERAND=>
+					state <= S_IDLE;
+				
+				when S_POP_B=>
+					state <= S_POP_A;
+				
+				when S_POP_A=>
+					state <= S_COMPUTE;
+				
+				when S_COMPUTE=>
+					state <= S_PUSH;
+				
+				when S_PUSH=>
+					state <= S_IDLE;
+					
+			end case;
+		end if;
 	end process;
-	operand <= instruction(7 downto 0);
+
+	perform_state_operations : process(clk, state, instruction, empty, state, op_code)
+	begin
+		push <= '0';
+		pop <= '0';
+		read <= '0';
+		a_wen <= '0';
+		b_wen <= '0';
+		stack_src <= STACK_INPUT_OPERAND;
+		operand <= instruction(7 downto 0);
+		
+		case state is
+			when S_FETCH=>
+				read <= '1';
+				op_code <= instruction(15 downto 8);
+				
+			when S_PUSH_OPERAND=>
+				push <= '1';
+				stack_src <= STACK_INPUT_OPERAND;
+			
+			when S_POP_B=>
+				pop <= '1';
+				b_wen <= '1';
+			
+			when S_POP_A=>
+				pop <= '1';
+				a_wen <= '1';
+			
+			when S_COMPUTE=>
+				if instruction(15 downto 8) = "00000001" then
+					alu_sel <= ALU_ADD;
+				else
+					alu_sel <= ALU_SUB;
+				end if;
+			
+			when S_PUSH=>
+				stack_src <= STACK_INPUT_RESULT;
+				push <= '1';
+				
+			when others=>
+				null;
+		end case;
+	end process;
+
+  
 end architecture behavioural;
+

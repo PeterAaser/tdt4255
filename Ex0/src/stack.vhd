@@ -23,7 +23,6 @@ architecture behavioural of stack is
 
   -- Fill in type and signal declarations here.
   signal stack_ptr 	: integer := 1;  
-  signal empty			: std_logic;
 
 begin  -- architecture behavioural
 
@@ -32,23 +31,12 @@ begin  -- architecture behavioural
 	process(clk, rst) is
 		begin
 		if rst = '1' then
-			--empty <= '1';
 			stack_ptr <= 1;
 		elsif rising_edge(clk) then
 			if push = '1' then
-				--if empty = '0' then
-					stack_ptr <= stack_ptr + 1;
-				--else
-				--	empty <= '0';
-				--end if;
+				stack_ptr <= stack_ptr + 1;
 			elsif pop = '1' then
-				--if empty = '0' then
-				--	if stack_ptr = 1 then
-				--		empty <= '1';
-				--	else
-						stack_ptr <= stack_ptr - 1;
-				--	end if;
-				--end if;
+				stack_ptr <= stack_ptr - 1;
 			end if;
 		end if;
 	end process;

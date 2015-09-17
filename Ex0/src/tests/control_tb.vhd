@@ -51,8 +51,7 @@ begin  -- architecture behavioural
       operand     => operand,
       a_wen       => operand_a_wen,
       b_wen       => operand_b_wen,
-      alu_sel     => alu_operation,
-		i 				=> i);
+      alu_sel     => alu_operation);
 
   -- clock generation
   clk <= not clk after clk_period / 2;
