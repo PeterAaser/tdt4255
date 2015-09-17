@@ -1,8 +1,0 @@
-Release 12.4 Drc M.81d (lin)
-Copyright (c) 1995-2010 Xilinx, Inc.  All rights reserved.
-
-Tue Sep 15 15:11:17 2015
-
-drc -z RPNSystem.ncd RPNSystem.pcf
-
-DRC detected 0 errors and 0 warnings.
