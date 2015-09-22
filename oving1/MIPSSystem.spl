@@ -1,8 +1,0 @@
-[Inputs]
-clk
-reset
-UART_Rx
-[Outputs]
-UART_Tx
-=leds[3:0]=
-[BiDir]
