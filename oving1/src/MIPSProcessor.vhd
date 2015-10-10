@@ -11,6 +11,7 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
+use work.Defs.all;
 
 entity MIPSProcessor is
     generic (
@@ -30,44 +31,47 @@ entity MIPSProcessor is
 end MIPSProcessor;
 
 architecture MultiCycleMIPS of MIPSProcessor is
-    signal program_counter : std_logic_vector(ADDR_WIDTH-1 downto 0) := (others=> '0');
-    signal if_register : std_logic_vector(DATA_WIDTH-1 downto 0);
-    type state_t is (S_FETCH, S_EXECUTE, S_STALL);
-    signal state : state_t;
+    signal program_counter_val : std_logic_vector(ADDR_WIDTH-1 downto 0);
+    signal pc_write : std_logic;
+    signal instruction: std_logic_vector(DATA_WIDTH-1 downto 0);
+    signal read_data_1, read_data_2 : std_logic_vector(DATA_WIDTH-1 downto 0);
 begin
-
-    state_transitions : process(clk, reset)
+    program_counter: entity work.ProgramCounter
+    generic map(
+        ADDR_WIDTH => ADDR_WIDTH
+    )
+    port map(
+        reset => reset,
+        clk => clk,
+        pc_write => pc_write,
+        address_out => program_counter_val
+    );
+    
+    registers: entity work.Registers
+    generic map(
+        DATA_WIDTH => WIDTH
+    )
+    port map(
+        clk => clk,
+        reset => reset,
+        read_reg_1 => instruction(25 downto 21),
+        read_reg_2 => instruction(20 downto 16),
+        write_reg_addr => instruction(15 downto 11),
+        write_data => x"00000000", -- TODO
+        RegWrite => '0',
+        read_data_1 => read_data_1,
+        read_data_2 => read_data_2
+        -- More todo
+    );
+    
+    do_reset: process(reset)
     begin
         if reset = '1' then
-            state <= S_FETCH;
-        elsif rising_edge(clk) then
-            case state is
-                when S_FETCH=>
-                    state <= S_EXECUTE;
-                when S_EXECUTE=>
-                    state <= S_FETCH;
-                when others=>
-                    null;
-            end case;
+            null;
         end if;
     end process;
-
-    state_operations : process(state)
-    begin
-        case state is
-            when S_FETCH=>
-                if_register <= imem_data_in;
-                program_counter <= std_logic_vector(unsigned(program_counter) + 1);
-            when others=>
-                null;
-        end case;
-                
-    end process;
-
-    dmem_write_enable <= processor_enable;
-    imem_address <= program_counter;
-    dmem_address <= (others=> '0');
-    dmem_data_out <= (others=>'0');
-
+    
+    imem_addres <= program_counter_val;
+    instruction <= imem_data_in;
 end MultiCycleMIPS;
 

@@ -51,7 +51,7 @@ ARCHITECTURE behavior OF tb_MIPSProcessor IS
    constant clk_period : time := 10 ns; 
 BEGIN
 -- Instantiate the processor
-Processor: entity work.MIPSProcessor(Behavioral) port map (
+Processor: entity work.MIPSProcessor(MultiCycleMIPS) port map (
 						clk => clk,	reset => reset,
 						processor_enable => processor_enable,
 						imem_data_in => imem_data_in,
@@ -112,7 +112,7 @@ DataMem:			entity work.DualPortMem port map (
 		
 		procedure FillInstructionMemory is
 			constant TEST_INSTRS : integer := 31;
-			type InstrData is array (0 to TEST_INSTRS-1) of std_logic_vector(DATA_WIDTH-1 downto 0);
+			type InstrData is array (0 to TEST_INSTRS-2) of std_logic_vector(DATA_WIDTH-1 downto 0);
 			variable TestInstrData : InstrData := (
 				X"8C010001", --lw $1, 1($0)		/$1 =  2	
 				X"8C020002", --lw $2, 2($0)		/$2 = 10	
