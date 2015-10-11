@@ -35,6 +35,8 @@ architecture MultiCycleMIPS of MIPSProcessor is
     signal pc_write : std_logic;
     signal instruction: std_logic_vector(DATA_WIDTH-1 downto 0);
     signal read_data_1, read_data_2 : std_logic_vector(DATA_WIDTH-1 downto 0);
+    signal Zero : std_logic; 
+    signal ALUResult : std_logic_vector(DATA_WIDTH-1 downto 0);
 begin
     program_counter: entity work.ProgramCounter
     generic map(
@@ -70,16 +72,12 @@ begin
         reset => reset,
         read_data_1 => read_data_1,
         read_data_2 => read_data_2,
-
-
+        instruction => instruction(5 downto 0),
+        ALUOp => "00", -- TODO
+        Zero => Zero,
+        ALUResult => ALUResult,
+        ALUSrc => '0'
     );
-    
-    do_reset: process(reset)
-    begin
-        if reset = '1' then
-            null;
-        end if;
-    end process;
     
     imem_addres <= program_counter_val;
     instruction <= imem_data_in;
