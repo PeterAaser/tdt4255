@@ -20,8 +20,9 @@ ARCHITECTURE behavior OF tb_Registers IS
     signal reset : std_logic := '0';
     signal read_reg_1 : std_logic_vector(ADDR_WIDTH-1 downto 0) := "00000";
     signal read_reg_2 : std_logic_vector(ADDR_WIDTH-1 downto 0) := "00001";
-    signal write_reg_addr : std_logic_vector(ADDR_WIDTH-1 downto 0) := "00002";
+    signal read_reg_3 : std_logic_vector(ADDR_WIDTH-1 downto 0) := "00002";
     signal RegWrite : std_logic := '0';
+    signal RegDst : std_logic := '0';
     signal write_data : std_logic_vector(DATA_WIDTH-1 downto 0) := x"00000000";
 
  	--Outputs
@@ -39,8 +40,9 @@ BEGIN
         reset => reset,
         read_reg_1 => read_reg_1,
         read_reg_2 => read_reg_2,
-        write_reg_addr => write_reg_addr,
+        read_reg_3 => read_reg_3,
         RegWrite => RegWrite,
+        RegDst => RegDst,
         write_data => write_data,
         read_data_1 => read_data_1,
         read_data_2 => read_data_2
@@ -64,7 +66,7 @@ BEGIN
         wait for clk_period;	
         reset <= '0';
         -- Write to r1
-        write_reg_addr <= "00001";
+        read_reg_2 <= "00001";
         write_data <= x"DEADBEEF";
         RegWrite <= '1';
         wait for clk_period;

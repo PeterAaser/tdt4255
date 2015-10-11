@@ -8,28 +8,41 @@ entity Registers is
         ADDR_WIDTH : natural := 5
     );
     port (
-        clk, reset                  : in std_logic;
-        read_reg_1, read_reg_2      : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-        write_reg_addr              : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-        RegWrite                    : in std_logic;
-        write_data                  : in std_logic_vector(DATA_WIDTH-1 downto 0);
-        read_data_1, read_data_2    : out std_logic_vector(DATA_WIDTH-1 downto 0)
+        clk, reset                              : in std_logic;
+        read_reg_1, read_reg_2, read_reg_3      : in std_logic_vector(ADDR_WIDTH-1 downto 0);
+        RegWrite                                : in std_logic;
+        RegDst                                  : in std_logic;
+        write_data                              : in std_logic_vector(DATA_WIDTH-1 downto 0);
+        read_data_1, read_data_2                : out std_logic_vector(DATA_WIDTH-1 downto 0)
     );
 end Registers;
 
 architecture Behavioral of Registers is
+    type RegisterFileType is array(0 to 2**ADDR_WIDTH-1) of std_logic_vector(DATA_WIDTH-1 downto 0);
+    signal regFile : RegisterFileType;
+    signal write_reg_addr : std_logic_vector(ADDR_WIDTH-1 downto 0);
 begin
-    register_file: entity work.RegFile
-        generic map(size => 2 ** ADDR_WIDTH, DATA_WIDTH => DATA_WIDTH)
-        port map(
-            clk => clk,
-            reset => reset,
-            write_enable => RegWrite,
-            addr1 => to_integer(unsigned(read_reg_1)),
-            addr2 => to_integer(unsigned(read_reg_2)),
-            data_in => read_reg_2,
-            data_out1 => read_data_1,
-            data_out2 => read_data_2
-        );
+
+    mux: process(RegDst)
+    begin
+        if RegDst = '0' then
+            write_reg_addr <= read_reg_2;
+        else
+            write_reg_addr <= read_reg_3;
+    end process;
+
+    process (clk, reset) is
+    begin
+        if reset = '1' then
+            regFile <= (others => (others => '0'));
+        elsif rising_edge(clk) then
+            if write_enable = '1' then
+                regFile(write_reg_addr) <= write_data;
+            end if;
+        end if;
+    end process;
+
+    read_data_1 <= regFile(read_reg_1);
+    read_data_2 <= regFile(read_reg_2);
 end Behavioral;
 

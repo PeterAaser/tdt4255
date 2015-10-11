@@ -56,12 +56,22 @@ begin
         reset => reset,
         read_reg_1 => instruction(25 downto 21),
         read_reg_2 => instruction(20 downto 16),
-        write_reg_addr => instruction(15 downto 11),
+        read_reg_3 => instruction(15 downto 11),
         write_data => x"00000000", -- TODO
-        RegWrite => '0',
+        RegWrite => '0', -- TODO
+        RegDst => '0', -- TODO
         read_data_1 => read_data_1,
         read_data_2 => read_data_2
-        -- More todo
+    );
+
+    alu: entity work.ALU
+    port map(
+        clk => clk,
+        reset => reset,
+        read_data_1 => read_data_1,
+        read_data_2 => read_data_2,
+
+
     );
     
     do_reset: process(reset)
