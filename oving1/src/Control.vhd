@@ -29,20 +29,11 @@ architecture Behavioral of Control is
     signal state : state_t;
 begin
 
-    state_transitions: process(clk, reset)
+    state_transitions: process(clk, reset, processor_enable)
     begin
         if processor_enable = '0' then
             state <= S_OFFLINE;
-        elsif reset = '1' then 
-            RegDst <= '0';
-            Branch <= '0';
-            Jump <= '0';
-            MemToReg <= '0';
-            ALUOp <= "00";
-            MemWrite <= '0';
-            ALUSrc <= '0';
-            RegWrite <= '0';
-            PCWrite <= '0';
+        elsif reset = '1' then
             state <= S_FETCH;
         elsif rising_edge(clk) then
             if state = S_FETCH then
@@ -59,9 +50,19 @@ begin
         end if;
     end process;
 
-    update: process(clk)
+    update: process(clk, reset)
     begin
-        if rising_edge(clk) then
+        if reset = '1' then
+            RegDst <= '0';
+            Branch <= '0';
+            Jump <= '0';
+            MemToReg <= '0';
+            ALUOp <= "00";
+            MemWrite <= '0';
+            ALUSrc <= '0';
+            RegWrite <= '0';
+            PCWrite <= '0';
+        elsif rising_edge(clk) then
             if state = S_FETCH then
                 case opcode is
                     when b"000000" =>
