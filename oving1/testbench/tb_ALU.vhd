@@ -6,28 +6,12 @@ ENTITY tb_ALU IS
 END tb_ALU;
  
 ARCHITECTURE behavior OF tb_ALU IS 
- 
-    -- Component Declaration for the Unit Under Test (UUT)
- 
-    COMPONENT ALU
-    PORT(
-         clk : IN  std_logic;
-         read_data1 : IN  std_logic_vector(31 downto 0);
-         read_data2 : IN  std_logic_vector(31 downto 0);
-         instruction : IN  std_logic_vector(5 downto 0);
-         ALUOp : IN  std_logic_vector(1 downto 0);
-         Zero : OUT  std_logic;
-         ALUResult : OUT  std_logic_vector(31 downto 0);
-         ALUSrc : IN  std_logic
-        );
-    END COMPONENT;
-    
 
    --Inputs
    signal clk : std_logic := '0';
    signal read_data1 : std_logic_vector(31 downto 0) := (others => '0');
    signal read_data2 : std_logic_vector(31 downto 0) := (others => '0');
-   signal instruction : std_logic_vector(5 downto 0) := (others => '0');
+   signal instruction : std_logic_vector(15 downto 0) := (others => '0');
    signal ALUOp : std_logic_vector(1 downto 0) := (others => '0');
    signal ALUSrc : std_logic := '0';
 
@@ -68,27 +52,66 @@ BEGIN
       -- hold reset state for 100 ns.
       wait for 100 ns;	
 
-      wait for clk_period*10;
+      wait for clk_period*5;
 
       -- insert stimulus here 
+		-- test add
 		read_data1 <= x"00000002";
 		read_data2 <= x"00000003";
 		ALUOp <= "00";
-		Instruction <= b"100000";
-		
-		wait for clk_period*5;
-		
-		assert Zero = '0';
-		assert ALUResult = x"00000005";
-		
-		read_data2 <= x"00000010";
-		Instruction <= b"100010";
+		Instruction <= x"0020";
 		
 		wait for clk_period;
 		
 		assert Zero = '0';
-		assert ALUResult = x"FFFFFFF2";
+		assert ALUResult = x"00000005";
+				wait for clk_period*3;
+
+		-- test sub
+		read_data2 <= x"00000010";
+		Instruction <= x"0022";
 		
+		wait for clk_period*3;
+		
+		assert Zero = '0';
+		assert ALUResult = x"FFFFFFF2";
+		wait for clk_period*3;
+
+		-- test beq
+		ALUOp <= "10";
+		read_data1 <= x"00001234";
+		read_data2 <= x"00001234";
+
+		wait for clk_period;
+		
+		assert Zero = '1';
+		
+		read_data1 <= x"00001231";
+
+		wait for clk_period;
+		
+		assert Zero = '0';
+		wait for clk_period*3;
+
+		--test or
+		ALUOp <= "00";
+		instruction <= x"0025";
+		read_data1 <= x"01000010";
+		read_data2 <= x"00011011";	
+		
+		wait for clk_period;
+		
+		assert ALUResult = x"01011011";		
+		wait for clk_period*3;
+
+		--test and
+		instruction <= x"0024";
+		read_data1 <= x"01110110";
+		read_data2 <= x"11011011";		
+		
+		wait for clk_period;
+		
+		assert ALUResult = x"01010010";
 		
       wait;
    end process;

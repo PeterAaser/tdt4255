@@ -6,7 +6,7 @@ entity ALU is
     Port ( clk: in STD_LOGIC;
 			  read_data1 : in  std_logic_vector (31 downto 0);
            read_data2 : in  std_logic_vector (31 downto 0);
-           instruction : in  std_logic_vector (5 downto 0);
+           instruction : in  std_logic_vector (15 downto 0);
            ALUOp : in  std_logic_vector (1 downto 0);
            Zero : out  std_logic;
            ALUResult : inout  std_logic_vector (31 downto 0);
@@ -35,21 +35,23 @@ begin
 		case ALUOp is
 			when "00"=> --R-type
 				case instruction is
-					when b"100000"=>
+					when x"0020"=>
 						operation <= ALU_ADD;
-					when b"100100"=>
+					when x"0024"=>
 						operation <= ALU_AND;
-					when b"100101"=>
+					when x"0025"=>
 						operation <= ALU_OR;
-					when b"101010"=>
+					when x"002A"=>
 						operation <= ALU_SLT;
-					when b"100010"=>
+					when x"0022"=>
 						operation <= ALU_SUB;
 					when others=>
 						null;
 				end case;
-			when "01"=> --I-Type
-				operation <= ALU_B;
+			when "01"=> --I-Type (LDI, SW, LW)
+				operation <= ALU_A;
+			when "10"=> --BEQ
+				operation <= ALU_SUB;
 			when others=>
 				null;
 		end case;
