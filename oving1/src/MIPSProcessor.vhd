@@ -43,6 +43,7 @@ architecture MultiCycleMIPS of MIPSProcessor is
     -- Control out signals
     signal RegDst : std_logic;
     signal Branch : std_logic;
+    signal Jump : std_logic;
     signal MemRead : std_logic;
     signal MemToReg : std_logic;
     signal ALUOp : std_logic_vector(1 downto 0);
@@ -54,16 +55,19 @@ begin
 
     control: entity work.Control
     port map(
+        clk => clk,
+        reset => reset,
+        processor_enable => processor_enable,
         opcode => instruction(31 downto 26),
         RegDst => RegDst,
         Branch => Branch,
-        MemRead => MemRead,
+        Jump => Jump,
         MemToReg => MemToReg,
         ALUOp => ALUOp,
         MemWrite => MemWrite,
         ALUSrc => ALUSrc,
         RegWrite => RegWrite,
-        PWRite => PCWrite
+        PCWrite => PCWrite
     );
 
     program_counter: entity work.ProgramCounter
