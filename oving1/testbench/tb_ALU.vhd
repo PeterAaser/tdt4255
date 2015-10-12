@@ -5,28 +5,11 @@ USE ieee.numeric_std.ALL;
 ENTITY tb_ALU IS
 END tb_ALU;
  
-ARCHITECTURE behavior OF tb_ALU IS 
- 
-    -- Component Declaration for the Unit Under Test (UUT)
- 
-    COMPONENT ALU
-    PORT(
-         clk : IN  std_logic;
-         read_data1 : IN  std_logic_vector(31 downto 0);
-         read_data2 : IN  std_logic_vector(31 downto 0);
-         instruction : IN  std_logic_vector(5 downto 0);
-         ALUOp : IN  std_logic_vector(1 downto 0);
-         Zero : OUT  std_logic;
-         ALUResult : OUT  std_logic_vector(31 downto 0);
-         ALUSrc : IN  std_logic
-        );
-    END COMPONENT;
-    
-
+ARCHITECTURE behavior OF tb_ALU IS
    --Inputs
    signal clk : std_logic := '0';
-   signal read_data1 : std_logic_vector(31 downto 0) := (others => '0');
-   signal read_data2 : std_logic_vector(31 downto 0) := (others => '0');
+   signal read_data_1 : std_logic_vector(31 downto 0) := (others => '0');
+   signal read_data_2 : std_logic_vector(31 downto 0) := (others => '0');
    signal instruction : std_logic_vector(5 downto 0) := (others => '0');
    signal ALUOp : std_logic_vector(1 downto 0) := (others => '0');
    signal ALUSrc : std_logic := '0';
@@ -43,8 +26,8 @@ BEGIN
 	-- Instantiate the Unit Under Test (UUT)
    uut: entity work.ALU PORT MAP (
           clk => clk,
-          read_data1 => read_data1,
-          read_data2 => read_data2,
+          read_data_1 => read_data_1,
+          read_data_2 => read_data_2,
           instruction => instruction,
           ALUOp => ALUOp,
           Zero => Zero,
@@ -71,8 +54,8 @@ BEGIN
       wait for clk_period*10;
 
       -- insert stimulus here 
-		read_data1 <= x"00000002";
-		read_data2 <= x"00000003";
+		read_data_1 <= x"00000002";
+		read_data_2 <= x"00000003";
 		ALUOp <= "00";
 		Instruction <= b"100000";
 		
@@ -81,7 +64,7 @@ BEGIN
 		assert Zero = '0';
 		assert ALUResult = x"00000005";
 		
-		read_data2 <= x"00000010";
+		read_data_2 <= x"00000010";
 		Instruction <= b"100010";
 		
 		wait for clk_period;

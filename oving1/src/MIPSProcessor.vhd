@@ -101,7 +101,7 @@ begin
         clk => clk,
         read_data_1 => read_data_1,
         read_data_2 => read_data_2,
-        instruction => instruction(5 downto 0),
+        instruction => instruction(15 downto 0),
         ALUOp => ALUOp,
         Zero => Zero,
         ALUResult => ALUResult,
@@ -112,6 +112,8 @@ begin
     imem_address <= program_counter_val;
     instruction <= imem_data_in;
     -- DMEM
-    dmem_address <= ALUResult;
+    dmem_address <= ALUResult(7 downto 0);
+    dmem_data_out <= read_data_1;
+    dmem_write_enable <= MemWrite;
 end MultiCycleMIPS;
 
