@@ -4,8 +4,8 @@ use IEEE.NUMERIC_STD.ALL;
 
 entity ALU is
     Port ( clk: in STD_LOGIC;
-	       read_data_1 : in  std_logic_vector (31 downto 0);
-           read_data_2 : in  std_logic_vector (31 downto 0);
+			  read_data1 : in  std_logic_vector (31 downto 0);
+           read_data2 : in  std_logic_vector (31 downto 0);
            instruction : in  std_logic_vector (5 downto 0);
            ALUOp : in  std_logic_vector (1 downto 0);
            Zero : out  std_logic;
@@ -21,10 +21,10 @@ architecture Behavioral of ALU is
 		signal func: std_logic_vector ( 5 downto 0);
 		--signal immediate: std_logic_vector (15 downto 0);
 begin
-	mux : process(ALUSrc)
+	mux : process(clk, ALUSrc)
 	begin
 		if ALUSrc = '0' then
-			operatorB <= read_data_2;
+			operatorB <= read_data2;
 		else
 			operatorB <= std_logic_vector(resize(signed(instruction(15 downto 0)), operatorB'length));
 		end if;
@@ -83,16 +83,16 @@ begin
 		end if;
 	end process;
 	
-	alu_zero: process(ALUResult)
+	alu_zero: process(clk, ALUResult)
 	begin
-		if ALUResult = x"0000" then
+		if ALUResult = x"00000000" then
 			Zero <= '1';
 		else
 			Zero <= '0';
 		end if;
 	end process;
 
-	operatorA <= read_data_1;
+	operatorA <= read_data1;
 
 end Behavioral;
 

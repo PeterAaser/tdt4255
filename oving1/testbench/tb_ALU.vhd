@@ -81,6 +81,14 @@ BEGIN
 		assert Zero = '0';
 		assert ALUResult = x"00000005";
 		
+		read_data2 <= x"00000010";
+		Instruction <= b"100010";
+		
+		wait for clk_period;
+		
+		assert Zero = '0';
+		assert ALUResult = x"FFFFFFF2";
+		
 		
       wait;
    end process;
