@@ -27,8 +27,8 @@ BEGIN
 	-- Instantiate the Unit Under Test (UUT)
    uut: entity work.ALU PORT MAP (
           clk => clk,
-          read_data1 => read_data1,
-          read_data2 => read_data2,
+          read_data_1 => read_data_1,
+          read_data_2 => read_data_2,
           instruction => instruction,
           ALUOp => ALUOp,
           Zero => Zero,
@@ -55,9 +55,10 @@ BEGIN
       wait for clk_period*5;
 
       -- insert stimulus here 
-		-- test add
-		read_data1 <= x"00000002";
-		read_data2 <= x"00000003";
+
+		read_data_1 <= x"00000002";
+		read_data_2 <= x"00000003";
+
 		ALUOp <= "00";
 		Instruction <= x"0020";
 		
@@ -65,11 +66,12 @@ BEGIN
 		
 		assert Zero = '0';
 		assert ALUResult = x"00000005";
-				wait for clk_period*3;
 
-		-- test sub
-		read_data2 <= x"00000010";
-		Instruction <= x"0022";
+		wait for clk_period*3;
+
+		-- test sub		
+		read_data_2 <= x"00000010";
+		Instruction <= b"100010";
 		
 		wait for clk_period*3;
 		

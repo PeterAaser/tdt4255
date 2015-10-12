@@ -8,7 +8,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.all;
 
 package Defs is
-  type state_t is (S_FETCH, S_EXECUTE, S_STALL);
+  type state_t is (S_FETCH, S_EXECUTE, S_STALL, S_OFFLINE);
 end Defs;
 
 

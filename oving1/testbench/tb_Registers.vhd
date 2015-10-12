@@ -18,14 +18,14 @@ ARCHITECTURE behavior OF tb_Registers IS
     --Inputs
     signal clk : std_logic := '0';
     signal reset : std_logic := '0';
-    signal read_reg_1 : std_logic_vector(ADDR_WIDTH-1 downto 0) := "00000";
+    signal read_reg_1 : std_logic_vector(ADDR_WIDTH-1 downto 0) := "00001";
     signal read_reg_2 : std_logic_vector(ADDR_WIDTH-1 downto 0) := "00001";
-    signal read_reg_3 : std_logic_vector(ADDR_WIDTH-1 downto 0) := "00002";
+    signal read_reg_3 : std_logic_vector(ADDR_WIDTH-1 downto 0) := "00010";
     signal RegWrite : std_logic := '0';
     signal MemToReg : std_logic := '0';
     signal RegDst : std_logic := '0';
-    signal ALUResult : std_logic_vector(DATA_WIDTH-1 downto 0) := "00000000";
-    signal dmem_data : std_logic_vector(DATA_WIDTH-1 downto 0) := "00000000";
+    signal ALUResult : std_logic_vector(DATA_WIDTH-1 downto 0) := x"00000000";
+    signal dmem_data : std_logic_vector(DATA_WIDTH-1 downto 0) := x"00000000";
 
  	--Outputs
     signal read_data_1 : std_logic_vector(DATA_WIDTH-1 downto 0);
@@ -66,14 +66,18 @@ BEGIN
     stim_proc: process
     begin		
         -- reset
+        wait for clk_period/2;
         reset <= '1';
-        wait for clk_period;	
-        reset <= '0';
-        -- Write to r1
-        read_reg_2 <= "00001";
-        write_data <= x"DEADBEEF";
-        RegWrite <= '1';
+        -- Prep for write
         wait for clk_period;
+        RegWrite <= '1';
+        reset <= '0';
+        -- Write to r1 from alu result
+        read_reg_2 <= "00001";
+        ALUResult <= x"DEADBEEF";
+        MemToReg <= '0';
+        RegDst <= '0';
+        wait for clk_period*2;
         read_reg_1 <= "00001";
         RegWrite <= '0';
         assert read_data_1 = x"DEADBEEF";

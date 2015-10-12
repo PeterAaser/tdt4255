@@ -25,35 +25,36 @@ architecture Behavioral of Registers is
     signal write_data : std_logic_vector(DATA_WIDTH-1 downto 0);
 begin
 
-    mux: process(RegDst)
+    mux: process(clk, RegDst)
     begin
         if RegDst = '0' then
             write_reg_addr <= read_reg_2;
         else
             write_reg_addr <= read_reg_3;
+        end if;
     end process;
 
-    data_mux: process(MemToReg)
+    data_mux: process(clk, MemToReg)
     begin
         if MemToReg = '0' then
             write_data <= ALUResult;
-        else:
+        else
             write_data <= dmem_data;
         end if;
     end process;
 
-    process (clk, reset) is
+    process (clk, reset)
     begin
         if reset = '1' then
             regFile <= (others => (others => '0'));
         elsif rising_edge(clk) then
-            if write_enable = '1' then
-                regFile(write_reg_addr) <= write_data;
+            if RegWrite = '1' then
+                regFile(to_integer(unsigned(write_reg_addr))) <= write_data;
             end if;
         end if;
     end process;
 
-    read_data_1 <= regFile(read_reg_1);
-    read_data_2 <= regFile(read_reg_2);
+    read_data_1 <= regFile(to_integer(unsigned(read_reg_1)));
+    read_data_2 <= regFile(to_integer(unsigned(read_reg_2)));
 end Behavioral;
 

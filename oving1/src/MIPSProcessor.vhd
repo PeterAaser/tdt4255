@@ -43,25 +43,31 @@ architecture MultiCycleMIPS of MIPSProcessor is
     -- Control out signals
     signal RegDst : std_logic;
     signal Branch : std_logic;
+    signal Jump : std_logic;
     signal MemRead : std_logic;
     signal MemToReg : std_logic;
     signal ALUOp : std_logic_vector(1 downto 0);
     signal MemWrite : std_logic;
     signal ALUSrc : std_logic;
     signal RegWrite : std_logic;
+    signal PCWrite : std_logic;
 begin
 
     control: entity work.Control
     port map(
+        clk => clk,
+        reset => reset,
+        processor_enable => processor_enable,
         opcode => instruction(31 downto 26),
         RegDst => RegDst,
         Branch => Branch,
-        MemRead => MemRead,
+        Jump => Jump,
         MemToReg => MemToReg,
         ALUOp => ALUOp,
         MemWrite => MemWrite,
         ALUSrc => ALUSrc,
-        RegWrite => RegWrite
+        RegWrite => RegWrite,
+        PCWrite => PCWrite
     );
 
     program_counter: entity work.ProgramCounter
@@ -71,13 +77,13 @@ begin
     port map(
         reset => reset,
         clk => clk,
-        pc_write => pc_write,
+        pc_write => PCWrite,
         address_out => program_counter_val
     );
     
     registers: entity work.Registers
     generic map(
-        DATA_WIDTH => WIDTH
+        DATA_WIDTH => DATA_WIDTH
     )
     port map(
         clk => clk,
@@ -97,10 +103,9 @@ begin
     alu: entity work.ALU
     port map(
         clk => clk,
-        reset => reset,
         read_data_1 => read_data_1,
         read_data_2 => read_data_2,
-        instruction => instruction(5 downto 0),
+        instruction => instruction(15 downto 0),
         ALUOp => ALUOp,
         Zero => Zero,
         ALUResult => ALUResult,
@@ -108,9 +113,11 @@ begin
     );
     
     -- IMEM
-    imem_addres <= program_counter_val;
+    imem_address <= program_counter_val;
     instruction <= imem_data_in;
     -- DMEM
-    dmem_address <= ALUResult;
+    dmem_address <= ALUResult(7 downto 0);
+    dmem_data_out <= read_data_1;
+    dmem_write_enable <= MemWrite;
 end MultiCycleMIPS;
 
