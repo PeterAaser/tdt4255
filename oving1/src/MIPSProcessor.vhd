@@ -49,6 +49,7 @@ architecture MultiCycleMIPS of MIPSProcessor is
     signal MemWrite : std_logic;
     signal ALUSrc : std_logic;
     signal RegWrite : std_logic;
+    signal PCWrite : std_logic;
 begin
 
     control: entity work.Control
@@ -61,7 +62,8 @@ begin
         ALUOp => ALUOp,
         MemWrite => MemWrite,
         ALUSrc => ALUSrc,
-        RegWrite => RegWrite
+        RegWrite => RegWrite,
+        PWRite => PCWrite
     );
 
     program_counter: entity work.ProgramCounter
@@ -71,13 +73,13 @@ begin
     port map(
         reset => reset,
         clk => clk,
-        pc_write => pc_write,
+        pc_write => PCWrite,
         address_out => program_counter_val
     );
     
     registers: entity work.Registers
     generic map(
-        DATA_WIDTH => WIDTH
+        DATA_WIDTH => DATA_WIDTH
     )
     port map(
         clk => clk,
@@ -97,7 +99,6 @@ begin
     alu: entity work.ALU
     port map(
         clk => clk,
-        reset => reset,
         read_data_1 => read_data_1,
         read_data_2 => read_data_2,
         instruction => instruction(5 downto 0),
@@ -108,7 +109,7 @@ begin
     );
     
     -- IMEM
-    imem_addres <= program_counter_val;
+    imem_address <= program_counter_val;
     instruction <= imem_data_in;
     -- DMEM
     dmem_address <= ALUResult;
