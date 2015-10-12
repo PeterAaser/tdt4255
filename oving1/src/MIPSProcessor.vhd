@@ -31,13 +31,39 @@ entity MIPSProcessor is
 end MIPSProcessor;
 
 architecture MultiCycleMIPS of MIPSProcessor is
+    -- PC out signals
     signal program_counter_val : std_logic_vector(ADDR_WIDTH-1 downto 0);
-    signal pc_write : std_logic;
-    signal instruction: std_logic_vector(DATA_WIDTH-1 downto 0);
+    -- IMEM out signals
+    signal instruction : std_logic_vector(DATA_WIDTH-1 downto 0);
+    -- Register out signals
     signal read_data_1, read_data_2 : std_logic_vector(DATA_WIDTH-1 downto 0);
+    -- ALU out signals
     signal Zero : std_logic; 
     signal ALUResult : std_logic_vector(DATA_WIDTH-1 downto 0);
+    -- Control out signals
+    signal RegDst : std_logic;
+    signal Branch : std_logic;
+    signal MemRead : std_logic;
+    signal MemToReg : std_logic;
+    signal ALUOp : std_logic_vector(1 downto 0);
+    signal MemWrite : std_logic;
+    signal ALUSrc : std_logic;
+    signal RegWrite : std_logic;
 begin
+
+    control: entity work.Control
+    port map(
+        opcode => instruction(31 downto 26),
+        RegDst => RegDst,
+        Branch => Branch,
+        MemRead => MemRead,
+        MemToReg => MemToReg,
+        ALUOp => ALUOp,
+        MemWrite => MemWrite,
+        ALUSrc => ALUSrc,
+        RegWrite => RegWrite
+    );
+
     program_counter: entity work.ProgramCounter
     generic map(
         ADDR_WIDTH => ADDR_WIDTH
@@ -59,9 +85,11 @@ begin
         read_reg_1 => instruction(25 downto 21),
         read_reg_2 => instruction(20 downto 16),
         read_reg_3 => instruction(15 downto 11),
-        write_data => x"00000000", -- TODO
-        RegWrite => '0', -- TODO
-        RegDst => '0', -- TODO
+        ALUResult => ALUResult,
+        dmem_data => dmem_data_in,
+        MemToReg => MemToReg,
+        RegWrite => RegWrite,
+        RegDst => RegDst,
         read_data_1 => read_data_1,
         read_data_2 => read_data_2
     );
@@ -73,13 +101,16 @@ begin
         read_data_1 => read_data_1,
         read_data_2 => read_data_2,
         instruction => instruction(5 downto 0),
-        ALUOp => "00", -- TODO
+        ALUOp => ALUOp,
         Zero => Zero,
         ALUResult => ALUResult,
-        ALUSrc => '0'
+        ALUSrc => ALUSrc
     );
     
+    -- IMEM
     imem_addres <= program_counter_val;
     instruction <= imem_data_in;
+    -- DMEM
+    dmem_address <= ALUResult;
 end MultiCycleMIPS;
 

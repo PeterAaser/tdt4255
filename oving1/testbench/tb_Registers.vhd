@@ -22,8 +22,10 @@ ARCHITECTURE behavior OF tb_Registers IS
     signal read_reg_2 : std_logic_vector(ADDR_WIDTH-1 downto 0) := "00001";
     signal read_reg_3 : std_logic_vector(ADDR_WIDTH-1 downto 0) := "00002";
     signal RegWrite : std_logic := '0';
+    signal MemToReg : std_logic := '0';
     signal RegDst : std_logic := '0';
-    signal write_data : std_logic_vector(DATA_WIDTH-1 downto 0) := x"00000000";
+    signal ALUResult : std_logic_vector(DATA_WIDTH-1 downto 0) := "00000000";
+    signal dmem_data : std_logic_vector(DATA_WIDTH-1 downto 0) := "00000000";
 
  	--Outputs
     signal read_data_1 : std_logic_vector(DATA_WIDTH-1 downto 0);
@@ -43,7 +45,9 @@ BEGIN
         read_reg_3 => read_reg_3,
         RegWrite => RegWrite,
         RegDst => RegDst,
-        write_data => write_data,
+        MemToReg => MemToReg,
+        ALUResult => ALUResult,
+        dmem_data => dmem_data,
         read_data_1 => read_data_1,
         read_data_2 => read_data_2
     );
