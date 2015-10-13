@@ -1,4 +1,4 @@
-				library IEEE;
+			library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use work.Defs.all;
 
@@ -12,34 +12,37 @@ entity Control is
         clk                 : in std_logic;
         reset               : in std_logic;
         processor_enable    : in std_logic;
-        opcode              : in std_logic_vector(5 downto 0);
-        RegDst              : out std_logic;
-        Branch              : out std_logic;
-        Jump                : out std_logic;
-        MemToReg            : out std_logic;
-        ALUOp               : out std_logic_vector(1 downto 0);
-        MemWrite            : out std_logic;
-        ALUSrc              : out std_logic;
-        RegWrite            : out std_logic;
-        PCWrite             : out std_logic
+        instruction         : in std_logic_vector(31 downto 0);		
+        RegDst              : out std_logic := '0';
+        Branch              : out std_logic := '0';
+        Jump                : out std_logic := '0';
+        MemToReg            : out std_logic := '0';
+        ALUOp               : out std_logic_vector(1 downto 0) := "00";
+        MemWrite            : out std_logic := '0';
+        ALUSrc              : out std_logic := '0';
+        RegWrite            : out std_logic := '0';
+        PCWrite             : out std_logic := '0'
     );
 end Control;
 
 architecture Behavioral of Control is
-    signal state : state_t;
+    signal state : state_t := S_OFFLINE;
 begin
 
     state_transitions: process(clk, reset, processor_enable)
     begin
+	 
         if processor_enable = '0' then
             state <= S_OFFLINE;
         elsif reset = '1' then
             state <= S_FETCH;
         elsif rising_edge(clk) then
+						PCWrite <= '0';
             if state = S_FETCH then
-                state <= S_EXECUTE;
+					PCWrite <= '1';
+					state <= S_EXECUTE;
             elsif state = S_EXECUTE then
-                if opcode = b"100011" or opcode = b"101011" then
+                if instruction(31 downto 26) = b"100011" or instruction(31 downto 26) = b"101011" then
                     state <= S_STALL;
                 else
                     state <= S_FETCH;
@@ -50,24 +53,12 @@ begin
         end if;
     end process;
 
-    update: process(clk, reset)
+    update: process(instruction, state)
     begin
-        if reset = '1' then
-            RegDst <= '0';
-            Branch <= '0';
-            Jump <= '0';
-            MemToReg <= '0';
-            ALUOp <= "00";
-            MemWrite <= '0';
-            ALUSrc <= '0';
-            RegWrite <= '0';
-            PCWrite <= '0';
-        elsif rising_edge(clk) then
             if state = S_FETCH then
 					RegWrite <= '0';
-					PCWrite <= '1';
              elsif state = S_EXECUTE then
-                 case opcode is
+                 case instruction(31 downto 26) is
                     when b"000000" =>
 						  RegDst <= '1';
                         Branch <= '0';
@@ -103,11 +94,9 @@ begin
                     when others =>
                         null;
                  end case;
-					 PCWrite <= '0';
 					elsif state = S_STALL then
-						PCWrite <= '0';
+						null;
              end if;
-        end if;
     end process;
 
 

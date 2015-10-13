@@ -61,10 +61,9 @@ subtype instruction_t is std_logic_vector(31 downto 0);
             ALU_source : ALU_source_t;
             stall : stall_t;
             ALU_op : ALU_op_t;
-            stall : stall_t;
             branch : branch_t;
             jump : jump_t;
-            ALU_op : ALU_op_t;
+
         end record;
 
     

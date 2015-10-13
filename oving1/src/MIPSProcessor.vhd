@@ -41,16 +41,16 @@ architecture MultiCycleMIPS of MIPSProcessor is
     signal Zero : std_logic; 
     signal ALUResult : std_logic_vector(DATA_WIDTH-1 downto 0);
     -- Control out signals
-    signal RegDst : std_logic;
-    signal Branch : std_logic;
-    signal Jump : std_logic;
-    signal MemRead : std_logic;
-    signal MemToReg : std_logic;
-    signal ALUOp : std_logic_vector(1 downto 0);
-    signal MemWrite : std_logic;
-    signal ALUSrc : std_logic;
-    signal RegWrite : std_logic;
-    signal PCWrite : std_logic;
+    signal RegDst : std_logic := '0';
+    signal Branch : std_logic := '0';
+    signal Jump : std_logic := '0';
+    signal MemRead : std_logic := '0';
+    signal MemToReg : std_logic := '0';
+    signal ALUOp : std_logic_vector(1 downto 0) := "00";
+    signal MemWrite : std_logic := '0';
+    signal ALUSrc : std_logic := '0';
+    signal RegWrite : std_logic := '0';
+    signal PCWrite : std_logic := '0';
 begin
 
     control: entity work.Control
@@ -58,7 +58,7 @@ begin
         clk => clk,
         reset => reset,
         processor_enable => processor_enable,
-        opcode => imem_data_in(31 downto 26),
+        instruction => imem_data_in,
         RegDst => RegDst,
         Branch => Branch,
         Jump => Jump,
@@ -109,7 +109,7 @@ begin
         ALUOp => ALUOp,
         Zero => Zero,
         ALUResult => ALUResult,
-        ALUSrc => work.control.ALUSrc
+        ALUSrc => ALUSrc
     );
     
     -- IMEM

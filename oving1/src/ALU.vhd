@@ -21,11 +21,8 @@ architecture Behavioral of ALU is
 		--signal immediate: std_logic_vector (15 downto 0);
 begin
 
-	alu_control: process(clk, ALUOp, instruction)
-		
+	alu_control: process(read_data_1, read_data_2, ALUOp, instruction)	
 	begin
-		
-		
 		case ALUOp is
 			when "00"=> --R-type
 				case instruction is
@@ -51,7 +48,7 @@ begin
 		end case;
 	end process;
 		
-	alu_perform_op: process(clk)
+	alu_perform_op: process(operation, read_data_1, read_data_2, instruction)
 		variable operatorA: std_logic_vector (31 downto 0);
 		variable operatorB: std_logic_vector (31 downto 0);
 	begin
@@ -61,33 +58,33 @@ begin
 		else
 			operatorB := std_logic_vector(resize(signed(instruction(15 downto 0)), 32));
 		end if;
-		if rising_edge(clk) then
-			case operation is
-				when ALU_ADD=>
-					ALUResult <= std_logic_vector(signed(operatorA) + signed(operatorB));
-				when ALU_SUB=>
-					ALUResult <= std_logic_vector(signed(operatorA) - signed(operatorB));
-				when ALU_SLT=>
-					if operatorA < operatorB then
-						ALUResult <= x"00000001";
-					else
-						ALUResult <= x"00000000";
-					end if;
-				when ALU_AND=>
-					ALUResult <= operatorA and operatorB;
-				when ALU_OR=>
-					ALUResult <= operatorA or operatorB;
-				when ALU_A=>
-					ALUResult <= operatorA;
-				when ALU_B=>
-					ALUResult <= operatorB;
-				when others=>
-					null;
-			end case;
-		end if;
+
+		case operation is
+			when ALU_ADD=>
+				ALUResult <= std_logic_vector(signed(operatorA) + signed(operatorB));
+			when ALU_SUB=>
+				ALUResult <= std_logic_vector(signed(operatorA) - signed(operatorB));
+			when ALU_SLT=>
+				if operatorA < operatorB then
+					ALUResult <= x"00000001";
+				else
+					ALUResult <= x"00000000";
+				end if;
+			when ALU_AND=>
+				ALUResult <= operatorA and operatorB;
+			when ALU_OR=>
+				ALUResult <= operatorA or operatorB;
+			when ALU_A=>
+				ALUResult <= operatorA;
+			when ALU_B=>
+				ALUResult <= operatorB;
+			when others=>
+				null;
+		end case;
+
 	end process;
 	
-	alu_zero: process(clk, ALUResult)
+	alu_zero: process(ALUResult)
 	begin
 		if ALUResult = x"00000000" then
 			Zero <= '1';
