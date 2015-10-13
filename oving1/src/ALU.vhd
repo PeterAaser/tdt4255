@@ -16,22 +16,16 @@ end ALU;
 architecture Behavioral of ALU is
 		type Operation_t is (ALU_ADD, ALU_SUB, ALU_SLT, ALU_AND, ALU_OR, ALU_A, ALU_B);
 		signal operation: Operation_t := ALU_ADD;
-		signal operatorA: std_logic_vector (31 downto 0);
-		signal operatorB: std_logic_vector (31 downto 0);
+
 		signal func: std_logic_vector ( 5 downto 0);
 		--signal immediate: std_logic_vector (15 downto 0);
 begin
-	mux : process(clk, ALUSrc)
-	begin
-		if ALUSrc = '0' then
-			operatorB <= read_data_2;
-		else
-			operatorB <= std_logic_vector(resize(signed(instruction(15 downto 0)), operatorB'length));
-		end if;
-	end process;
 
 	alu_control: process(clk, ALUOp, instruction)
+		
 	begin
+		
+		
 		case ALUOp is
 			when "00"=> --R-type
 				case instruction is
@@ -49,7 +43,7 @@ begin
 						null;
 				end case;
 			when "01"=> --I-Type (LDI, SW, LW)
-				operation <= ALU_A;
+				operation <= ALU_ADD;
 			when "10"=> --BEQ
 				operation <= ALU_SUB;
 			when others=>
@@ -58,7 +52,15 @@ begin
 	end process;
 		
 	alu_perform_op: process(clk)
+		variable operatorA: std_logic_vector (31 downto 0);
+		variable operatorB: std_logic_vector (31 downto 0);
 	begin
+		operatorA := read_data_1;
+		if ALUSrc = '0' then
+			operatorB := read_data_2;
+		else
+			operatorB := std_logic_vector(resize(signed(instruction(15 downto 0)), 32));
+		end if;
 		if rising_edge(clk) then
 			case operation is
 				when ALU_ADD=>
@@ -93,8 +95,6 @@ begin
 			Zero <= '0';
 		end if;
 	end process;
-
-	operatorA <= read_data_1;
 
 end Behavioral;
 

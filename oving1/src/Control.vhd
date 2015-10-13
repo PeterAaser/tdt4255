@@ -1,4 +1,4 @@
-library IEEE;
+				library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use work.Defs.all;
 
@@ -64,67 +64,48 @@ begin
             PCWrite <= '0';
         elsif rising_edge(clk) then
             if state = S_FETCH then
-                case opcode is
+					RegWrite <= '0';
+					PCWrite <= '1';
+             elsif state = S_EXECUTE then
+                 case opcode is
                     when b"000000" =>
-                        RegDst <= '1';
+						  RegDst <= '1';
                         Branch <= '0';
                         MemToReg <= '0';
                         Jump <= '0';
                         ALUOp <= "00";
                         MemWrite <= '0';
                         ALUSrc <= '0';
-                        RegWrite <= '0';
-                        PCWrite <= '0';
+                        RegWrite <= '1';
                     when b"000100" =>
-                        Branch <= '1';
+								Branch <= '1';
                         Jump <= '0';
                         ALUOp <= "10";
                         MemWrite <= '0';
                         ALUSrc <= '0';
-                        RegWrite <= '0';
-                        PCWrite <= '0';
                     when b"100011" =>
-                        MemToReg <= '1';
+								MemToReg <= '1';
                         Branch <= '0';
                         Jump <= '0';
                         ALUOp <= "01";
                         MemWrite <= '0';
                         ALUSrc <= '1';
-                        RegWrite <= '0';
-                        PCWrite <= '0';
+                        RegWrite <= '1';
                     when b"101011" =>
-                        Branch <= '0';
+						  Branch <= '0';
                         Jump <= '0';
                         ALUOp <= "01";
                         MemWrite <= '0';
-                        RegWrite <= '0';
-                        PCWrite <= '0';
-                    when b"000010" =>
-                        Jump <= '1';
-                        MemWrite <= '0';
-                        RegWrite <= '0';
-                        PCWrite <= '0';
-                    when others =>
-                        null;
-                end case;
-             elsif state = S_EXECUTE then
-                 case opcode is
-                    when b"000000" =>
-                        RegWrite <= '1';
-                        PCWrite <= '1';
-                    when b"000100" =>
-                        PCWrite <= '1';
-                    when b"100011" =>
-                        RegWrite <= '1';
-                        PCWrite <= '1';
-                    when b"101011" =>
                         MemWrite <= '1';
-                        PCWrite <= '1';
                     when b"000010" =>
-                        PCWrite <= '1';
+								Jump <= '1';
+                        MemWrite <= '0';
                     when others =>
                         null;
                  end case;
+					 PCWrite <= '0';
+					elsif state = S_STALL then
+						PCWrite <= '0';
              end if;
         end if;
     end process;

@@ -58,7 +58,7 @@ begin
         clk => clk,
         reset => reset,
         processor_enable => processor_enable,
-        opcode => instruction(31 downto 26),
+        opcode => imem_data_in(31 downto 26),
         RegDst => RegDst,
         Branch => Branch,
         Jump => Jump,
@@ -88,9 +88,9 @@ begin
     port map(
         clk => clk,
         reset => reset,
-        read_reg_1 => instruction(25 downto 21),
-        read_reg_2 => instruction(20 downto 16),
-        read_reg_3 => instruction(15 downto 11),
+        read_reg_1 => imem_data_in(25 downto 21),
+        read_reg_2 => imem_data_in(20 downto 16),
+        read_reg_3 => imem_data_in(15 downto 11),
         ALUResult => ALUResult,
         dmem_data => dmem_data_in,
         MemToReg => MemToReg,
@@ -105,16 +105,15 @@ begin
         clk => clk,
         read_data_1 => read_data_1,
         read_data_2 => read_data_2,
-        instruction => instruction(15 downto 0),
+        instruction => imem_data_in(15 downto 0),
         ALUOp => ALUOp,
         Zero => Zero,
         ALUResult => ALUResult,
-        ALUSrc => ALUSrc
+        ALUSrc => work.control.ALUSrc
     );
     
     -- IMEM
     imem_address <= program_counter_val;
-    instruction <= imem_data_in;
     -- DMEM
     dmem_address <= ALUResult(7 downto 0);
     dmem_data_out <= read_data_1;
