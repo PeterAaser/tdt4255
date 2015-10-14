@@ -77,6 +77,10 @@ begin
     port map(
         reset => reset,
         clk => clk,
+		  jump => Jump,
+		  branch => Branch,
+		  zero => Zero,
+		  instruction => imem_data_in(25 downto 0),
         pc_write => PCWrite,
         address_out => program_counter_val
     );
