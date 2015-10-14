@@ -17,12 +17,13 @@ architecture Behavioral of ALU is
 		type Operation_t is (ALU_ADD, ALU_SUB, ALU_SLT, ALU_AND, ALU_OR, ALU_A, ALU_B);
 		signal operation: Operation_t := ALU_ADD;
 
-		signal func: std_logic_vector ( 5 downto 0);
+		--signal func: std_logic_vector ( 5 downto 0);
 		--signal immediate: std_logic_vector (15 downto 0);
 begin
 
 	alu_control: process(read_data_1, read_data_2, ALUOp, instruction)	
 	begin
+		--report "ALU ctrl triggered";
 		case ALUOp is
 			when "00"=> --R-type
 				case instruction is
@@ -48,15 +49,18 @@ begin
 		end case;
 	end process;
 		
-	alu_perform_op: process(operation, read_data_1, read_data_2, instruction)
+	alu_perform_op: process(operation, read_data_1, read_data_2, instruction, ALUSrc)
 		variable operatorA: std_logic_vector (31 downto 0);
 		variable operatorB: std_logic_vector (31 downto 0);
 	begin
+		--report "ALU perform op triggered";
 		operatorA := read_data_1;
 		if ALUSrc = '0' then
 			operatorB := read_data_2;
+			report "Op B is register";
 		else
 			operatorB := std_logic_vector(resize(signed(instruction(15 downto 0)), 32));
+			report "Op B is immediate";
 		end if;
 
 		case operation is
