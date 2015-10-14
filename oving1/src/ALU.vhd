@@ -14,7 +14,7 @@ entity ALU is
 end ALU;
 
 architecture Behavioral of ALU is
-		type Operation_t is (ALU_ADD, ALU_SUB, ALU_SLT, ALU_AND, ALU_OR, ALU_A, ALU_B);
+		type Operation_t is (ALU_ADD, ALU_SUB, ALU_SLT, ALU_AND, ALU_OR, ALU_A, ALU_B, ALU_SL16);
 		signal operation: Operation_t := ALU_ADD;
 
 		--signal func: std_logic_vector ( 5 downto 0);
@@ -26,16 +26,16 @@ begin
 
 		case ALUOp is
 			when "00"=> --R-type
-				case instruction is
-					when x"0020"=>
+				case instruction(7 downto 0) is -- assume sh bits is never usedS
+					when x"20"=>
 						operation <= ALU_ADD;
-					when x"0024"=>
+					when x"24"=>
 						operation <= ALU_AND;
-					when x"0025"=>
+					when x"25"=>
 						operation <= ALU_OR;
-					when x"002A"=>
+					when x"2A"=>
 						operation <= ALU_SLT;
-					when x"0022"=>
+					when x"22"=>
 						operation <= ALU_SUB;
 					when others=>
 						null;
@@ -44,6 +44,8 @@ begin
 				operation <= ALU_ADD;
 			when "10"=> --BEQ
 				operation <= ALU_SUB;
+			when "11"=> --LUI
+				operation <= ALU_SL16;
 			when others=>
 				null;
 		end case;
@@ -68,7 +70,7 @@ begin
 			when ALU_SUB=>
 				ALUResult <= std_logic_vector(signed(operatorA) - signed(operatorB));
 			when ALU_SLT=>
-				if operatorA < operatorB then
+				if signed(read_data_1) < signed(read_data_2) then
 					ALUResult <= x"00000001";
 				else
 					ALUResult <= x"00000000";
@@ -81,6 +83,8 @@ begin
 				ALUResult <= operatorA;
 			when ALU_B=>
 				ALUResult <= operatorB;
+			when ALU_SL16=>
+				ALUResult <= operatorB(15 downto 0) & x"0000";
 			when others=>
 				null;
 		end case;
