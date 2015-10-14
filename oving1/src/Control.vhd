@@ -57,6 +57,7 @@ begin
     begin
             if state = S_FETCH then
 					RegWrite <= '0';
+                    MemWrite <= '0';
              elsif state = S_EXECUTE then
                  case instruction(31 downto 26) is
                     when b"000000" => -- R-Type
@@ -69,7 +70,7 @@ begin
                         ALUSrc <= '0';
                         RegWrite <= '1';
                     when b"000100" => -- beq
-								Branch <= '1';
+						Branch <= '1';
                         Jump <= '0';
                         ALUOp <= "10";
                         MemWrite <= '0';
@@ -83,12 +84,12 @@ begin
                         ALUSrc <= '1';
                         RegWrite <= '1';
                     when b"101011" => --SW
-								Branch <= '0';
+                        Branch <= '0';
                         Jump <= '0';
                         ALUOp <= "01";
-								ALUSrc <= '1';
+                        ALUSrc <= '1';
                         MemWrite <= '1';
-								RegWrite <= '0';
+                        RegWrite <= '0';
                     when b"000010" => --J
 								Jump <= '1';
                         MemWrite <= '0';
