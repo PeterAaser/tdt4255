@@ -1,4 +1,4 @@
-			library IEEE;
+library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use work.Defs.all;
 
@@ -83,11 +83,13 @@ begin
                         ALUSrc <= '1';
                         RegWrite <= '1';
                     when b"101011" =>
-						  Branch <= '0';
+								report "On SW";
+								Branch <= '0';
                         Jump <= '0';
                         ALUOp <= "01";
-                        MemWrite <= '0';
+								ALUSrc <= '1';
                         MemWrite <= '1';
+								RegWrite <= '0';
                     when b"000010" =>
 								Jump <= '1';
                         MemWrite <= '0';

@@ -14,7 +14,7 @@
          </top_modules>
       </db_ref>
    </db_ref_list>
-   <WVObjectSize size="10" />
+   <WVObjectSize size="11" />
    <wvobject fp_name="/tb_mipsprocessor/clk" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
@@ -167,72 +167,92 @@
          <obj_property name="ObjectShortName">addr_width</obj_property>
       </wvobject>
    </wvobject>
+   <wvobject fp_name="group77" type="group">
+      <obj_property name="label">Processor driven mem</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/tb_mipsprocessor/proc_imem_address" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">proc_imem_address[7:0]</obj_property>
+         <obj_property name="ObjectShortName">proc_imem_address[7:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_mipsprocessor/proc_dmem_data_out" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">proc_dmem_data_out[31:0]</obj_property>
+         <obj_property name="ObjectShortName">proc_dmem_data_out[31:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_mipsprocessor/proc_dmem_write_enable" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">proc_dmem_write_enable[0:0]</obj_property>
+         <obj_property name="ObjectShortName">proc_dmem_write_enable[0:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_mipsprocessor/proc_dmem_address" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">proc_dmem_address[7:0]</obj_property>
+         <obj_property name="ObjectShortName">proc_dmem_address[7:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      </wvobject>
+   </wvobject>
    <wvobject fp_name="group41" type="group">
       <obj_property name="label">MIPS</obj_property>
       <obj_property name="DisplayName">label</obj_property>
       <wvobject fp_name="/tb_mipsprocessor/imem_data_in" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">imem_data_in[31:0]</obj_property>
          <obj_property name="ObjectShortName">imem_data_in[31:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/tb_mipsprocessor/dmem_data_in" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">dmem_data_in[31:0]</obj_property>
          <obj_property name="ObjectShortName">dmem_data_in[31:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/tb_mipsprocessor/imem_address" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">imem_address[7:0]</obj_property>
          <obj_property name="ObjectShortName">imem_address[7:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/tb_mipsprocessor/dmem_address" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">dmem_address[7:0]</obj_property>
          <obj_property name="ObjectShortName">dmem_address[7:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/tb_mipsprocessor/dmem_data_out" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">dmem_data_out[31:0]</obj_property>
          <obj_property name="ObjectShortName">dmem_data_out[31:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/tb_mipsprocessor/dmem_write_enable" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">dmem_write_enable[0:0]</obj_property>
          <obj_property name="ObjectShortName">dmem_write_enable[0:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/tb_mipsprocessor/proc_imem_address" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">proc_imem_address[7:0]</obj_property>
-         <obj_property name="ObjectShortName">proc_imem_address[7:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/tb_mipsprocessor/proc_dmem_data_out" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">proc_dmem_data_out[31:0]</obj_property>
-         <obj_property name="ObjectShortName">proc_dmem_data_out[31:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/tb_mipsprocessor/proc_dmem_write_enable" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">proc_dmem_write_enable[0:0]</obj_property>
-         <obj_property name="ObjectShortName">proc_dmem_write_enable[0:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/tb_mipsprocessor/proc_dmem_address" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">proc_dmem_address[7:0]</obj_property>
-         <obj_property name="ObjectShortName">proc_dmem_address[7:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/tb_mipsprocessor/imem_data_out" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">imem_data_out[31:0]</obj_property>
          <obj_property name="ObjectShortName">imem_data_out[31:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/tb_mipsprocessor/imem_write_enable" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">imem_write_enable[0:0]</obj_property>
          <obj_property name="ObjectShortName">imem_write_enable[0:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/tb_mipsprocessor/tb_imem_address" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">tb_imem_address[7:0]</obj_property>
          <obj_property name="ObjectShortName">tb_imem_address[7:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/tb_mipsprocessor/tb_dmem_data_out" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">tb_dmem_data_out[31:0]</obj_property>
          <obj_property name="ObjectShortName">tb_dmem_data_out[31:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/tb_mipsprocessor/tb_dmem_write_enable" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">tb_dmem_write_enable[0:0]</obj_property>
          <obj_property name="ObjectShortName">tb_dmem_write_enable[0:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/tb_mipsprocessor/tb_dmem_address" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">tb_dmem_address[7:0]</obj_property>
          <obj_property name="ObjectShortName">tb_dmem_address[7:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/tb_mipsprocessor/addr_width" type="other" db_ref_id="1">
          <obj_property name="ElementShortName">addr_width</obj_property>
@@ -316,10 +336,6 @@
       <wvobject fp_name="/tb_mipsprocessor/Processor/alu/operation" type="other" db_ref_id="1">
          <obj_property name="ElementShortName">operation</obj_property>
          <obj_property name="ObjectShortName">operation</obj_property>
-      </wvobject>
-      <wvobject fp_name="/tb_mipsprocessor/Processor/alu/func" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">func[5:0]</obj_property>
-         <obj_property name="ObjectShortName">func[5:0]</obj_property>
       </wvobject>
    </wvobject>
 </wave_config>

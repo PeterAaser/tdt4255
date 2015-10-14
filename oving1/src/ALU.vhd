@@ -23,7 +23,7 @@ begin
 
 	alu_control: process(read_data_1, read_data_2, ALUOp, instruction)	
 	begin
-		--report "ALU ctrl triggered";
+
 		case ALUOp is
 			when "00"=> --R-type
 				case instruction is
@@ -53,14 +53,13 @@ begin
 		variable operatorA: std_logic_vector (31 downto 0);
 		variable operatorB: std_logic_vector (31 downto 0);
 	begin
-		--report "ALU perform op triggered";
 		operatorA := read_data_1;
 		if ALUSrc = '0' then
 			operatorB := read_data_2;
-			report "Op B is register";
+
 		else
 			operatorB := std_logic_vector(resize(signed(instruction(15 downto 0)), 32));
-			report "Op B is immediate";
+
 		end if;
 
 		case operation is
