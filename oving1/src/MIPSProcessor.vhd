@@ -54,6 +54,9 @@ architecture MultiCycleMIPS of MIPSProcessor is
 begin
 
     control: entity work.Control
+    generic map(
+        DATA_WIDTH => DATA_WIDTH
+    )
     port map(
         clk => clk,
         reset => reset,

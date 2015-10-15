@@ -44,9 +44,9 @@ BEGIN
     clk_process :process
     begin
         clk <= '0';
-		wait for clk_period/2;
-		clk <= '1';
-		wait for clk_period/2;
+	wait for clk_period/2;
+	clk <= '1';
+	wait for clk_period/2;
     end process;
  
 
@@ -82,5 +82,4 @@ BEGIN
         -- insert stimulus here 
         wait;
    end process;
-
 END;
