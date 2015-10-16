@@ -82,7 +82,6 @@ Since some instructions use only one source operand, the register block also mul
 In addition to deciding registers sources and destinations the module is responsible to multiplex whether the destination register should read from the data memory or the ALU result.
 Lastly, the register module checks whether the selected destination register should read at all, which is again opcode dependant, represented by the reg write signal provided by the control module
 
-
 \begin{figure}[h!]
     \includegraphics[width=\linewidth]{img/regs.jpg}
     \caption{The register module, showing an abstracted register file with 32 registers}
