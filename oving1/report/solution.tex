@@ -6,7 +6,11 @@ In order to efficently deal with the abstractions of creating an architecture we
 We used a bottom up approach, sketching the base modules in order to decide what sort of interface each module should use, and building abstraction layers as the module interfaces started to form.
 Contrary to our work flow however, we will in this report first introduce our top level sketch to make it clearer what each models purpose is before exploring its implementation.
 
-TODO insert top level.
+\begin{figure}[h!]
+    \includegraphics[width=\linewidth]{img/toplevel.jpg}
+    \caption{The toplevel architecture RTL scematic}
+    \label{fig:toplevel}
+\end{figure}
 
 \section{implementation}
 The top level sketch introduces the four modules we have implemented, along with the two memory modules which has been provided in the exercise. These are:
@@ -39,6 +43,12 @@ These states are:
 
 The second task for the control module is to decode the incoming instruction, and to set the appropriate control signals. These signals will be covered in the respective modules.
 
+\begin{figure}[h!]
+    \includegraphics[width=\linewidth]{img/FSM.jpg}
+    \caption{The statemachine controlling the execution state of the machine, along with an informal description of each states responsibilities}
+    \label{fig:States}
+\end{figure}
+
 \subsection{Program Counter}
 
 The program counter calculates the next address based on the current address, the branch and jump signals issued by the control module, and a zero flag, denoting the result of the current ALU result being zero.
@@ -46,3 +56,35 @@ This calculated addres is however not used directly, the only component connecte
 The output of the PC module is the value of the PC register, thus in order to get the next address the control module issues a special signal: PC write, which enables the PC register to read the address it has calculated, outputting the new instruction address the next cycle.
 Since the PC is a register, it is necessary to factor in the delay associated with state, causing the updated instruction address to be updated one cycle after the PC write signal is issued.
 
+\begin{figure}[h!]
+    \includegraphics[width=\linewidth]{img/PC.jpg}
+    \caption{RTL of the program counter module, showing how the PC calculates next instruction address}
+    \label{fig:ProgramCounter}
+\end{figure}
+
+\subsection{ALU}
+
+The ALU sketch is fairly simple, abstracting away the hairy details of the calculating unit into one unified combinatorial block.
+This block performs an operation given by the ALU op signal vector, and outputs the result along with a special zero flag as its output.
+The ALU module is also responsible for multiplexing the second register operand and the immediate value part of the instruction as the second ALU operand.
+
+\begin{figure}[h!]
+    \includegraphics[width=\linewidth]{img/ALU.jpg}
+    \caption{The ALU module, showing the abstracted calculation unit}
+    \label{fig:ALU}
+\end{figure}
+
+\subsection{registers}
+
+The register module is responsible both for feeding the ALU with operands, and storing ALU results or memory reads into registers.
+To control which registers are used as sources, and which registers should hold results, the register block reads the relevant parts of the instruction (that is, reg\_s, reg\_t and reg\_d). 
+Since some instructions use only one source operand, the register block also multiplexes whether the destination register should be given by the second or third register slot of the instruction. Since this is opcode dependant, the select signal is provided by the control module.
+In addition to deciding registers sources and destinations the module is responsible to multiplex whether the destination register should read from the data memory or the ALU result.
+Lastly, the register module checks whether the selected destination register should read at all, which is again opcode dependant, represented by the reg write signal provided by the control module
+
+
+\begin{figure}[h!]
+    \includegraphics[width=\linewidth]{img/regs.jpg}
+    \caption{The register module, showing an abstracted register file with 32 registers}
+    \label{fig:registers}
+\end{figure}
