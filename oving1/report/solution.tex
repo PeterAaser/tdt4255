@@ -6,10 +6,15 @@ In order to efficently deal with the abstractions of creating an architecture we
 We used a bottom up approach, sketching the base modules in order to decide what sort of interface each module should use, and building abstraction layers as the module interfaces started to form.
 Contrary to our work flow however, we will in this report first introduce our top level sketch to make it clearer what each models purpose is before exploring its implementation.
 
-TODO insert top level.
+\begin{figure}[h!]
+    \includegraphics[width=\linewidth]{img/toplevel.jpg}
+    \caption{Top level architecture sketch.}
+    \label{fig:toplevel}
+\end{figure}
 
 \section{implementation}
-The top level sketch introduces the four modules we have implemented, along with the two memory modules which has been provided in the exercise. These are:
+The top level sketch introduces the four modules we have implemented, along with the two memory modules which has been provided in the exercise.
+These are:
 
 \begin{description}
   \item[Control] \hfill \\
@@ -23,7 +28,8 @@ The top level sketch introduces the four modules we have implemented, along with
 \end{description}
 
 \subsection{Control module}
-The job of the control module can be partitioned into two tasks. First, it keeps track of the current state of the processor.
+The job of the control module can be partitioned into two tasks.
+First, it keeps track of the current state of the processor.
 These states are:
 \begin{description}
   \item[Offline] \hfill \\
