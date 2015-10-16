@@ -1,3 +1,9 @@
 \chapter{Results}
 
-\input{discussion}
+By implementing a microarchitecture comprised of a program counter, register, control and ALU modules, and wiring these together to form a control-/datapath, we succeded in implementing a multi-cycle, MIPS-like processor.
+Each component was tested with individual testbenches.
+The system as a whole was tested using an end-to-end testbench, as well as by uploading the bitfile to an FPGA in the lab and verifying correctness using the \texttt{hostcomm} utility.
+We succeded in implementing support for the instructions listed as requirements in the exercise description.
+
+Our implementation has two stages, Instruction Fetch and Instruction Execute.
+The fetch stage is done in one clock period, while the execute stage is done in either one or two periods, depending on the instruction.

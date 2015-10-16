@@ -13,7 +13,8 @@ Contrary to our work flow however, we will in this report first introduce our to
 \end{figure}
 
 \section{implementation}
-The top level sketch introduces the four modules we have implemented, along with the two memory modules which has been provided in the exercise. These are:
+The top level sketch introduces the four modules we have implemented, along with the two memory modules which has been provided in the exercise.
+These are:
 
 \begin{description}
   \item[Control] \hfill \\
@@ -27,7 +28,8 @@ The top level sketch introduces the four modules we have implemented, along with
 \end{description}
 
 \subsection{Control module}
-The job of the control module can be partitioned into two tasks. First, it keeps track of the current state of the processor.
+The job of the control module can be partitioned into two tasks.
+First, it keeps track of the current state of the processor.
 These states are:
 \begin{description}
   \item[Offline] \hfill \\
@@ -74,7 +76,7 @@ The ALU module is also responsible for multiplexing the second register operand 
     \label{fig:ALU}
 \end{figure}
 
-\subsection{registers}
+\subsection{Registers}
 
 The register module is responsible both for feeding the ALU with operands, and storing ALU results or memory reads into registers.
 To control which registers are used as sources, and which registers should hold results, the register block reads the relevant parts of the instruction (that is, reg\_s, reg\_t and reg\_d). 
