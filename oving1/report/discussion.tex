@@ -1,2 +1,10 @@
 \chapter{Discussion}
 
+The design specified in this exercise has some big weaknesses, stemming mostly from the lack of efficient pipelining.
+Ideally a design with similar complexity should be able to always be executing or stalling, fetching a new instructiong in parallel with executing the current instruction.
+Instead our processor stands idle in its fetch state, simply waiting for the next instruction. In order to alleviate this a possible solution would be to issue the fetch in a single execution cycle, or postponing it to the stall stage in the case of multi-cycle operation.
+
+In the result part of the report we introduced the discrepancy between our ideal RTL and the synthesized RTL. In our case we got two functional units instead of one, which we chose to leave be since the scope of the exercise was not optimizing the design.
+None the less it is an interesting result since it highlights how a careless implementation can lead to excsessive duplication of reusable components. For instance in a vector processor with 256 functional units for rapid subtraction and addition it would be very bad to duplicate every functional unit!
+
+
