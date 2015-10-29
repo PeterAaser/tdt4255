@@ -68,6 +68,9 @@ architecture MultiCycleMIPS of MIPSProcessor is
     
 begin
 
+    ex_read_data_1 <= tmp_ex_read_data_1;
+    ex_read_data_2 <= tmp_ex_read_data_2;
+
     control: entity work.Control
     generic map(
         DATA_WIDTH => DATA_WIDTH

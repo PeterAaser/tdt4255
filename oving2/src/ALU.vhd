@@ -20,78 +20,48 @@ entity ALU is
 end ALU;
 
 architecture Behavioral of ALU is
-		type Operation_t is (ALU_ADD, ALU_SUB, ALU_SLT, ALU_AND, ALU_OR, ALU_A, ALU_B, ALU_SL16);
-		signal operation: Operation_t := ALU_ADD;
+    signal ALU_op : ALU_op_t;
 begin
 
 	alu_control: process(read_data_1, read_data_2, op, extended_immediate)	
 	begin
-
-		case op is
-			when rtype => --R-type
-				case get_function(extended_immediate(21 downto 15)) is -- assume sh bits is never usedS
-					when add =>
-						operation <= ALU_ADD;
-					when op_and =>
-						operation <= ALU_AND;
-					when op_or =>
-						operation <= ALU_OR;
-					when slt =>
-						operation <= ALU_SLT;
-					when sub =>
-						operation <= ALU_SUB;
-					when others=>
-						null;
-				end case;
-			when lw =>
-				operation <= ALU_ADD;
-            when sw =>
-				operation <= ALU_ADD;
-			when beq => 
-				operation <= ALU_SUB;
-			when lui =>
-				operation <= ALU_SL16;
-			when others=>
-				null;
-		end case;
+		if op = rtype then
+            ALU_op <= get_funct(extended_immediate(20 downto 15));
+        else
+			ALU_op <= get_op_funct(op);
+        end if;
 	end process;
 		
-	alu_perform_op: process(operation, read_data_1, read_data_2, extended_immediate, ALUSrc)
-		variable operatorA: std_logic_vector (31 downto 0);
-		variable operatorB: std_logic_vector (31 downto 0);
+	alu_perform_op: process(ALU_op, read_data_1, read_data_2, extended_immediate, ALUSrc)
+		variable operandA: std_logic_vector (31 downto 0);
+		variable operandB: std_logic_vector (31 downto 0);
 	begin
-		operatorA := read_data_1;
+		operandA:= read_data_1;
 		if ALUSrc = REG2 then
-			operatorB := read_data_2;
-
+			operandB := read_data_2;
 		else
-			operatorB := extended_immediate;
-
+			operandB := extended_immediate;
 		end if;
 
-		case operation is
-			when ALU_ADD=>
-				ALUResult <= std_logic_vector(signed(operatorA) + signed(operatorB));
-			when ALU_SUB=>
-				ALUResult <= std_logic_vector(signed(operatorA) - signed(operatorB));
-			when ALU_SLT=>
+		case ALU_op is
+			when ADD =>
+				ALUResult <= std_logic_vector(signed(operandA) + signed(operandB));
+			when SUB =>
+				ALUResult <= std_logic_vector(signed(operandA) - signed(operandB));
+			when SLT =>
 				if signed(read_data_1) < signed(read_data_2) then
 					ALUResult <= x"00000001";
 				else
 					ALUResult <= x"00000000";
 				end if;
-			when ALU_AND=>
-				ALUResult <= operatorA and operatorB;
-			when ALU_OR=>
-				ALUResult <= operatorA or operatorB;
-			when ALU_A=>
-				ALUResult <= operatorA;
-			when ALU_B=>
-				ALUResult <= operatorB;
-			when ALU_SL16=>
-				ALUResult <= operatorB(15 downto 0) & x"0000";
+			when op_AND =>
+				ALUResult <= operandA and operandB;
+			when op_OR =>
+				ALUResult <= operandA or operandB;
+			when SL16=>
+				ALUResult <= operandB(15 downto 0) & x"0000";
 			when others=>
-				null;
+				ALUResult <= x"00000000";
 		end case;
 
 	end process;

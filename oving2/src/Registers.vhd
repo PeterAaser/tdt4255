@@ -24,7 +24,7 @@ architecture Behavioral of Registers is
     signal write_reg_addr : std_logic_vector(REG_ADDR_WIDTH-1 downto 0);
     signal write_data : std_logic_vector(DATA_WIDTH-1 downto 0);
 begin
-    data_mux: process(clk, MemToReg)
+    data_mux: process(clk, MemToReg, ALUresult, dmem_data)
     begin
         if MemToReg = FROM_ALU then
             write_data <= ALUResult;

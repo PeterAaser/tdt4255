@@ -69,11 +69,11 @@ package Defs is
     -- not all used. 
 
 
-    function get_format ( op : opcode_t) return instruction_format_t;
-    function get_function ( funct : funct_t) return ALU_op_t;
-    function get_op ( op : opcode_t) return op_t;
-    function make_instruction(vec : std_logic_vector(31 downto 0)) return instruction_t;
-    
+    function get_format ( op : opcode_t ) return instruction_format_t;
+    function get_funct ( funct : funct_t ) return ALU_op_t;
+    function get_op ( op : opcode_t ) return op_t;
+    function make_instruction(vec : std_logic_vector(31 downto 0) ) return instruction_t;
+    function get_op_funct ( op : op_t ) return ALU_op_t;
     
   
 end package Defs;
@@ -106,7 +106,7 @@ begin
     end if;
 end get_format;
 
-function get_function ( funct : funct_t) return ALU_op_t is
+function get_funct ( funct : funct_t) return ALU_op_t is
 begin
     case funct is
         when "100000" => return add;
@@ -132,7 +132,7 @@ begin
         when "100011" => return subu;
         when others => return add;
     end case;
-end get_function;
+end get_funct;
 	
 function get_op ( op : opcode_t) return op_t is
 begin
@@ -149,5 +149,20 @@ begin
         when others => return rtype;
     end case;
 end get_op;
+
+function get_op_funct ( op : op_t ) return ALU_op_t is
+begin
+    case op is
+        when beq => return sub;
+        when bne => return sub;
+
+        when lw => return add;
+        when sw => return add;
+
+        when lui => return sl16;
+        
+        when others => return add;
+    end case;
+end get_op_funct;
 
 end Defs;
