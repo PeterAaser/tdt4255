@@ -9,14 +9,14 @@ entity Branch is
         DATA_WIDTH : integer := 32
     );
     port (
-        op          : in opcode_t;
-        immediate   : in immediate_t;
-        pc          : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-        read_data_1 : in std_logic_vector(DATA_WIDTH-1 downto 0);
-        read_data_2 : in std_logic_vector(DATA_WIDTH-1 downto 0);
+        op              : in opcode_t;
+        immediate       : in immediate_t;
+        pc              : in std_logic_vector(ADDR_WIDTH-1 downto 0);
+        read_data_1     : in std_logic_vector(DATA_WIDTH-1 downto 0);
+        read_data_2     : in std_logic_vector(DATA_WIDTH-1 downto 0);
         
-        pc_src       : out std_logic;
-        address_out : out std_logic_vector(ADDR_WIDTH-1 downto 0)
+        pc_address_src  : out PC_addr_source_t;
+        address_out     : out std_logic_vector(ADDR_WIDTH-1 downto 0)
     );
 end Branch;
 
@@ -30,15 +30,15 @@ begin
             when beq =>
                 if (read_data_1 = read_data_2) then
                     address_out <= std_logic_vector(unsigned(pc) + unsigned(immediate(ADDR_WIDTH-1 downto 0)));
-                    pc_src <= '1';
+                    pc_address_src <= Branch_addr;
                 else
-                    pc_src <= '0';
+                    pc_address_src <= PC_addr;
                 end if;
             when jump =>
                 address_out <= immediate(ADDR_WIDTH-1 downto 0);
-                pc_src <= '1';
+                pc_address_src <= Branch_addr;
             when others =>
-                pc_src <= '0';
+                pc_address_src <= PC_addr;
         end case;
     end process;
 

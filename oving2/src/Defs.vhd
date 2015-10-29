@@ -63,9 +63,7 @@ package Defs is
 
         end record;
 
-    
-    -- not all used. 
-
+    type PC_addr_source_t is (Branch_addr, PC_addr);
 
     function get_format ( op : opcode_t ) return instruction_format_t;
     function get_funct ( funct : funct_t ) return ALU_op_t;
@@ -75,6 +73,13 @@ package Defs is
     
     -- Used in testbenches to make input saner.
     function test_get_funct_inverse ( op : ALU_op_t ) return funct_t;
+    function test_get_op_inverse ( op : op_t ) return opcode_t;
+    
+    -- Used in testbenches to make reporting somewhat less of a joke.
+    function vec_string(v: std_logic_vector(31 downto 0)) return string;
+    function op_string(op: op_t) return string;
+    function ALU_op_string(ALU_op: ALU_op_t) return string;
+    function bool_string(b: boolean) return string;
     
   
 end package Defs;
@@ -156,15 +161,21 @@ begin
     case op is
         when beq => return sub;
         when bne => return sub;
-
-        when lw => return add;
-        when sw => return add;
-
+        when lw  => return add;
+        when sw  => return add;
         when lui => return sl16;
         
         when others => return add;
     end case;
 end get_op_funct;
+
+
+--##################################################
+--##################################################
+--------------- TEST STUFF
+--##################################################
+--##################################################
+
 
 function test_get_funct_inverse ( op : ALU_op_t ) return funct_t is
 begin
@@ -193,5 +204,26 @@ begin
         when others =>  return "000000";
     end case;
 end test_get_funct_inverse;
+
+function test_get_op_inverse ( op : op_t ) return opcode_t is
+begin
+    case op is
+        when jump   => return "000010";
+        when jal    => return "000011";
+        when beq    => return "000100";
+        when bne    => return "000101";
+        when lw     => return "100011";
+        when sw     => return "101011";
+        when rtype  => return "000000";
+        when lui    => return "001111";
+        
+        when others => return "000000";
+    end case;
+end test_get_op_inverse;
+
+function vec_string(v: std_logic_vector(31 downto 0)) return string is begin return integer'image(to_integer(unsigned(v))); end vec_string;
+function op_string(op: op_t) return string is begin return op_t'image(op); end op_string;
+function ALU_op_string(ALU_op: ALU_op_t) return string is begin return ALU_op_t'image(ALU_op); end ALU_op_string;
+function bool_string(b: boolean) return string is begin return boolean'image(b); end bool_string;
 
 end Defs;

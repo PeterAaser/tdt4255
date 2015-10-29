@@ -1,6 +1,8 @@
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 USE ieee.numeric_std.ALL;
+use ieee.std_logic_arith.conv_std_logic_vector;
+use work.defs.all;
  
 ENTITY tb_Branch IS
 END tb_Branch;
@@ -49,18 +51,34 @@ BEGIN
           pc_src => pc_src,
           address_out => address_out
         );
- 
 
-   -- Stimulus process
-   stim_proc: process
-   begin		
-      -- hold reset state for 100 ns.
-      wait for 4 ns;	
+    stim_proc: process
 
-      wait for clk_period*2;
+procedure test_pc(
+    op_in               : in op_t;
+    immediate_in        : in integer;
+    pc_in               : in integer;
+    read_data_1_in      : in integer;
+    read_data_2_in      : in integer;
+    pc_source_addr_in   : in PC_addr_source_t;
+    expected_address    : in integer)
+is
+begin
+    op                  <= test_get_op_inverse(op_in);
+    immediate           <= conv_std_logic_vector(immediate_in, 16);
+    pc                  <= conv_std_logic_vector(pc_in, 8);
+    read_data_1         <= conv_std_logic_vector(read_data_1_in, 32);
+    read_data_1         <= conv_std_logic_vector(read_data_2_in, 32);
+    wait for clk_period;
+    
+    assert address_out = conv_std_logic_vector(expected_address, 8)
+        report "YOU FUCKED UP, NIGGA" & lf;
 
-      -- insert stimulus here 
-      
+    
+end test_pc;
+    
+    
+    begin
       op <= b"000000";
       wait for clk_period;
       assert pc_src = '0';

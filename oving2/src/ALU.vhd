@@ -14,7 +14,7 @@ entity ALU is
            ALU_source               : in ALU_source_t;
            
            Zero                     : out  std_logic;
-           result                : out  std_logic_vector (31 downto 0)
+           result                   : out  std_logic_vector (31 downto 0) := (others => '0')
          );
            
 end ALU;
@@ -23,7 +23,7 @@ architecture Behavioral of ALU is
     signal ALU_op : ALU_op_t;
     signal s_operandA:  signed (31 downto 0);
     signal s_operandB:  signed (31 downto 0);
-    signal s_result:    signed (31 downto 0);
+    signal s_result:    signed (31 downto 0) := (others => '0');
 begin
 
 	alu_control: process(read_data_1, read_data_2, op, extended_immediate)	

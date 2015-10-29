@@ -10,7 +10,7 @@ entity ProgramCounter is
     port (
         clk, reset          : in std_logic;
         branch_address_in   : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-        pc_src              : in std_logic;
+        pc_address_src      : in PC_addr_source_t;
         incremented_address : out std_logic_vector(ADDR_WIDTH-1 downto 0);
         imem_address        : out std_logic_vector(ADDR_WIDTH-1 downto 0)
     );
@@ -24,7 +24,7 @@ begin
         if reset = '1' then
             address <= (others => '0');
         elsif rising_edge(clk) then
-            if (pc_src = '1') then
+            if (pc_address_src = Branch_addr) then
                 address <= branch_address_in;
             else
                 address <= std_logic_vector(unsigned(address) + 1);

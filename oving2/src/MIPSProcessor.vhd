@@ -31,7 +31,7 @@ entity MIPSProcessor is
 end MIPSProcessor;
 
 architecture MultiCycleMIPS of MIPSProcessor is
-    signal pc_src : std_logic;
+    signal pc_address_src : pc_addr_source_t;
     signal branch_address : std_logic_vector(ADDR_WIDTH-1 downto 0);
     
     -- pipeline stage_registers are named corresponding to the names in the architecture sketch
@@ -91,7 +91,7 @@ begin
     port map(
         reset => reset,
         clk => clk,
-        pc_src => pc_src,
+        pc_address_src => pc_address_src,
         branch_address_in => branch_address,
         imem_address => imem_address,
         incremented_address => id_pc
@@ -121,14 +121,14 @@ begin
         DATA_WIDTH => DATA_WIDTH
     )
     port map(
-        op          => id_instruction.opcode,
-        immediate   => id_instruction.immediate,
-        pc          => id_pc,
-        read_data_1 => tmp_ex_read_data_1,
-        read_data_2 => tmp_ex_read_data_2,
+        op                  => id_instruction.opcode,
+        immediate           => id_instruction.immediate,
+        pc                  => id_pc,
+        read_data_1         => tmp_ex_read_data_1,
+        read_data_2         => tmp_ex_read_data_2,
         
-        pc_src      => pc_src,
-        address_out => branch_address
+        pc_address_src      => pc_address_src,
+        address_out         => branch_address
     );
 
     alu: entity work.ALU
