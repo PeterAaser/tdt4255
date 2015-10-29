@@ -75,7 +75,15 @@
     <file xil_pn:fileType="FILE_XMSGS" xil_pn:name="_xmsgs/par.xmsgs"/>
     <file xil_pn:fileType="FILE_XMSGS" xil_pn:name="_xmsgs/trce.xmsgs"/>
     <file xil_pn:fileType="FILE_XMSGS" xil_pn:name="_xmsgs/xst.xmsgs"/>
+    <file xil_pn:fileType="FILE_LOG" xil_pn:name="fuse.log"/>
+    <file xil_pn:fileType="FILE_DIRECTORY" xil_pn:name="isim"/>
+    <file xil_pn:branch="BehavioralSim" xil_pn:fileType="FILE_CMD" xil_pn:name="isim.cmd"/>
+    <file xil_pn:branch="BehavioralSim" xil_pn:fileType="FILE_LOG" xil_pn:name="isim.log"/>
+    <file xil_pn:fileType="FILE_XST_PROJECT" xil_pn:name="tb_ProgramCounter_beh.prj"/>
+    <file xil_pn:branch="BehavioralSim" xil_pn:fileType="FILE_ISIM_EXE" xil_pn:name="tb_ProgramCounter_isim_beh.exe"/>
+    <file xil_pn:fileType="FILE_ISIM_MISC" xil_pn:name="tb_ProgramCounter_isim_beh.wdb"/>
     <file xil_pn:fileType="FILE_FITTER_REPORT" xil_pn:name="webtalk_pn.xml"/>
+    <file xil_pn:branch="BehavioralSim" xil_pn:fileType="FILE_INI" xil_pn:name="xilinxsim.ini"/>
     <file xil_pn:fileType="FILE_DIRECTORY" xil_pn:name="xlnx_auto_0_xdb"/>
     <file xil_pn:fileType="FILE_DIRECTORY" xil_pn:name="xst"/>
   </files>
@@ -85,14 +93,9 @@
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
     </transform>
-    <transform xil_pn:end_ts="1446123605" xil_pn:in_ck="-4287371184307957838" xil_pn:name="TRAN_copyAbstractToPostAbstractSimulation" xil_pn:start_ts="1446123605">
+    <transform xil_pn:end_ts="1446128072" xil_pn:in_ck="-7037627901046523970" xil_pn:name="TRAN_copyAbstractToPostAbstractSimulation" xil_pn:start_ts="1446128072">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
-      <status xil_pn:value="OutOfDateForInputs"/>
-      <status xil_pn:value="OutOfDateForOutputs"/>
-      <status xil_pn:value="InputAdded"/>
-      <status xil_pn:value="InputChanged"/>
-      <status xil_pn:value="OutputChanged"/>
       <outfile xil_pn:name="Branch.vhd"/>
       <outfile xil_pn:name="src/ALU.vhd"/>
       <outfile xil_pn:name="src/Control.vhd"/>
@@ -113,19 +116,65 @@
       <outfile xil_pn:name="testbench/tb_ALU.vhd"/>
       <outfile xil_pn:name="testbench/tb_Control.vhd"/>
       <outfile xil_pn:name="testbench/tb_MIPSProcessor.vhd"/>
+      <outfile xil_pn:name="testbench/tb_ProgramCounter.vhd"/>
       <outfile xil_pn:name="testbench/tb_Registers.vhd"/>
     </transform>
-    <transform xil_pn:end_ts="1446123605" xil_pn:name="TRAN_xawsToSimhdl" xil_pn:prop_ck="-9044832904953873877" xil_pn:start_ts="1446123605">
+    <transform xil_pn:end_ts="1446127623" xil_pn:name="TRAN_xawsToSimhdl" xil_pn:prop_ck="2455117420038965283" xil_pn:start_ts="1446127623">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
     </transform>
-    <transform xil_pn:end_ts="1446123605" xil_pn:name="TRAN_schematicsToHdlSim" xil_pn:prop_ck="-2793873426928892759" xil_pn:start_ts="1446123605">
+    <transform xil_pn:end_ts="1446127623" xil_pn:name="TRAN_schematicsToHdlSim" xil_pn:prop_ck="-7034003850069343583" xil_pn:start_ts="1446127623">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
     </transform>
     <transform xil_pn:end_ts="1446123605" xil_pn:name="TRAN_regenerateCoresSim" xil_pn:prop_ck="-5450188108304755155" xil_pn:start_ts="1446123605">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
+    </transform>
+    <transform xil_pn:end_ts="1446128072" xil_pn:in_ck="-7037627901046523970" xil_pn:name="TRAN_copyPostAbstractToPreSimulation" xil_pn:start_ts="1446128072">
+      <status xil_pn:value="SuccessfullyRun"/>
+      <status xil_pn:value="ReadyToRun"/>
+      <outfile xil_pn:name="Branch.vhd"/>
+      <outfile xil_pn:name="src/ALU.vhd"/>
+      <outfile xil_pn:name="src/Control.vhd"/>
+      <outfile xil_pn:name="src/Defs.vhd"/>
+      <outfile xil_pn:name="src/DualPortMem.vhd"/>
+      <outfile xil_pn:name="src/HostComm.vhd"/>
+      <outfile xil_pn:name="src/MIPSProcessor.vhd"/>
+      <outfile xil_pn:name="src/MIPSSystem.vhd"/>
+      <outfile xil_pn:name="src/ProgramCounter.vhd"/>
+      <outfile xil_pn:name="src/Registers.vhd"/>
+      <outfile xil_pn:name="src/uart/baudGen.vhd"/>
+      <outfile xil_pn:name="src/uart/uart2BusTop.vhd"/>
+      <outfile xil_pn:name="src/uart/uart2BusTop_pkg.vhd"/>
+      <outfile xil_pn:name="src/uart/uartParser.vhd"/>
+      <outfile xil_pn:name="src/uart/uartRx.vhd"/>
+      <outfile xil_pn:name="src/uart/uartTop.vhd"/>
+      <outfile xil_pn:name="src/uart/uartTx.vhd"/>
+      <outfile xil_pn:name="testbench/tb_ALU.vhd"/>
+      <outfile xil_pn:name="testbench/tb_Control.vhd"/>
+      <outfile xil_pn:name="testbench/tb_MIPSProcessor.vhd"/>
+      <outfile xil_pn:name="testbench/tb_ProgramCounter.vhd"/>
+      <outfile xil_pn:name="testbench/tb_Registers.vhd"/>
+    </transform>
+    <transform xil_pn:end_ts="1446128075" xil_pn:in_ck="-7037627901046523970" xil_pn:name="TRAN_ISimulateBehavioralModelRunFuse" xil_pn:prop_ck="7866501798368194278" xil_pn:start_ts="1446128072">
+      <status xil_pn:value="SuccessfullyRun"/>
+      <status xil_pn:value="ReadyToRun"/>
+      <status xil_pn:value="OutOfDateForOutputs"/>
+      <status xil_pn:value="OutputChanged"/>
+      <outfile xil_pn:name="fuse.log"/>
+      <outfile xil_pn:name="isim"/>
+      <outfile xil_pn:name="isim.log"/>
+      <outfile xil_pn:name="tb_ProgramCounter_beh.prj"/>
+      <outfile xil_pn:name="tb_ProgramCounter_isim_beh.exe"/>
+      <outfile xil_pn:name="xilinxsim.ini"/>
+    </transform>
+    <transform xil_pn:end_ts="1446128075" xil_pn:in_ck="-3317927939539446244" xil_pn:name="TRAN_ISimulateBehavioralModel" xil_pn:prop_ck="8136319435761612051" xil_pn:start_ts="1446128075">
+      <status xil_pn:value="SuccessfullyRun"/>
+      <status xil_pn:value="ReadyToRun"/>
+      <outfile xil_pn:name="isim.cmd"/>
+      <outfile xil_pn:name="isim.log"/>
+      <outfile xil_pn:name="tb_ProgramCounter_isim_beh.wdb"/>
     </transform>
     <transform xil_pn:end_ts="1446047451" xil_pn:name="TRAN_copyInitialToXSTAbstractSynthesis" xil_pn:start_ts="1446047451">
       <status xil_pn:value="SuccessfullyRun"/>

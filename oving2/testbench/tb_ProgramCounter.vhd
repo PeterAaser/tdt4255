@@ -55,14 +55,8 @@ BEGIN
 		clk <= '1';
 		wait for clk_period/2;
    end process;
- 
 
-   -- Stimulus process
    stim_proc: process
-        procedure
-    
-   
-    
    begin		
       -- hold reset state for 100 ns.
       wait for 100 ns;	
@@ -70,7 +64,42 @@ BEGIN
       wait for clk_period*10;
 
       -- insert stimulus here 
+      
+      reset <= '1';
+      wait for clk_period;
+      reset <= '0';
+      
+      assert imem_address = x"00";
+      assert incremented_address = x"01";
+      
+      wait for clk_period;
 
+      assert imem_address = x"01";
+      assert incremented_address = x"02";
+      
+      branch_address_in <= x"AB";
+      wait for clk_period;
+      
+      assert imem_address = x"02";
+      assert incremented_address = x"03";
+      
+      pc_src <= '1';
+      wait for clk_period;
+
+      assert imem_address = x"AB";
+      assert incremented_address = x"AC";
+      
+      pc_src <= '0';
+      wait for clk_period;
+      
+      assert imem_address = x"AC";
+      assert incremented_address = x"AD";
+      
+      wait for clk_period;
+
+      assert imem_address = x"AD";
+      assert incremented_address = x"AE";
+      
       wait;
    end process;
 
