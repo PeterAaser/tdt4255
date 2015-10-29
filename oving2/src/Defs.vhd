@@ -39,8 +39,6 @@ package Defs is
     -- e[name] denotes enumerated name, because strings are not allowed and types share namespac
     -- with subtypes (WHAT THE FUCK!=?==)
     type instruction_format_t is (R_TYPE, I_TYPE, J_TYPE);
-    type decoder_select_t is (OPERATION, FUNCT);
-
 
     type ALU_source_t is (REG2, INSTR);
     type RegDst_t is (REGT, REGD);
@@ -74,6 +72,9 @@ package Defs is
     function get_op ( op : opcode_t ) return op_t;
     function make_instruction(vec : std_logic_vector(31 downto 0) ) return instruction_t;
     function get_op_funct ( op : op_t ) return ALU_op_t;
+    
+    -- Used in testbenches to make input saner.
+    function test_get_funct_inverse ( op : ALU_op_t ) return funct_t;
     
   
 end package Defs;
@@ -164,5 +165,33 @@ begin
         when others => return add;
     end case;
 end get_op_funct;
+
+function test_get_funct_inverse ( op : ALU_op_t ) return funct_t is
+begin
+    case op is
+        when add =>     return "100000";
+        when addu =>    return "100001";
+        when op_and =>  return "100100";
+        when div =>     return "011010";
+        when divu =>    return "011011";
+        when jr =>      return "001000";
+        when jalr =>    return "001001";
+        when mfhi =>    return "010000";
+        when mflo =>    return "010010";
+        when mult =>    return "011000";
+        when multu =>   return "011001";
+        when op_nor =>  return "100111";
+        when op_xor =>  return "100110";
+        when op_or =>   return "100101";
+        when slt =>     return "101010";
+        when op_sltu => return "101011";
+        when op_sll =>  return "000000";
+        when op_srl =>  return "000010";
+        when op_sra =>  return "000011";
+        when sub =>     return "100010";
+        when subu =>    return "100011";
+        when others =>  return "000000";
+    end case;
+end test_get_funct_inverse;
 
 end Defs;

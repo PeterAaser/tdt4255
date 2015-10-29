@@ -140,10 +140,10 @@ begin
         
         op => ex_control_signals.op,
         funct => ex_funct,
-        ALUSrc => ex_control_signals.ALU_source,
+        ALU_source => ex_control_signals.ALU_source,
         
         Zero => mem_zero,
-        ALUResult => mem_alu_result
+        result => mem_alu_result
     );
 
     

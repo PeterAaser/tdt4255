@@ -65,12 +65,109 @@
     <file xil_pn:fileType="FILE_XMSGS" xil_pn:name="_xmsgs/par.xmsgs"/>
     <file xil_pn:fileType="FILE_XMSGS" xil_pn:name="_xmsgs/trce.xmsgs"/>
     <file xil_pn:fileType="FILE_XMSGS" xil_pn:name="_xmsgs/xst.xmsgs"/>
+    <file xil_pn:fileType="FILE_LOG" xil_pn:name="fuse.log"/>
+    <file xil_pn:fileType="FILE_DIRECTORY" xil_pn:name="isim"/>
+    <file xil_pn:branch="BehavioralSim" xil_pn:fileType="FILE_CMD" xil_pn:name="isim.cmd"/>
+    <file xil_pn:branch="BehavioralSim" xil_pn:fileType="FILE_LOG" xil_pn:name="isim.log"/>
+    <file xil_pn:fileType="FILE_XST_PROJECT" xil_pn:name="tb_ALU_beh.prj"/>
+    <file xil_pn:branch="BehavioralSim" xil_pn:fileType="FILE_ISIM_EXE" xil_pn:name="tb_ALU_isim_beh.exe"/>
+    <file xil_pn:fileType="FILE_ISIM_MISC" xil_pn:name="tb_ALU_isim_beh.wdb"/>
+    <file xil_pn:fileType="FILE_XST_PROJECT" xil_pn:name="tb_ALU_stx_beh.prj"/>
+    <file xil_pn:fileType="FILE_XST_PROJECT" xil_pn:name="tb_Control_stx_beh.prj"/>
     <file xil_pn:fileType="FILE_FITTER_REPORT" xil_pn:name="webtalk_pn.xml"/>
+    <file xil_pn:branch="BehavioralSim" xil_pn:fileType="FILE_INI" xil_pn:name="xilinxsim.ini"/>
     <file xil_pn:fileType="FILE_DIRECTORY" xil_pn:name="xlnx_auto_0_xdb"/>
     <file xil_pn:fileType="FILE_DIRECTORY" xil_pn:name="xst"/>
   </files>
 
   <transforms xmlns="http://www.xilinx.com/XMLSchema">
+    <transform xil_pn:end_ts="1446121082" xil_pn:name="TRAN_copyInitialToAbstractSimulation" xil_pn:start_ts="1446121082">
+      <status xil_pn:value="SuccessfullyRun"/>
+      <status xil_pn:value="ReadyToRun"/>
+    </transform>
+    <transform xil_pn:end_ts="1446141811" xil_pn:in_ck="-7037627901046523970" xil_pn:name="TRAN_copyAbstractToPostAbstractSimulation" xil_pn:start_ts="1446141811">
+      <status xil_pn:value="SuccessfullyRun"/>
+      <status xil_pn:value="ReadyToRun"/>
+      <outfile xil_pn:name="Branch.vhd"/>
+      <outfile xil_pn:name="src/ALU.vhd"/>
+      <outfile xil_pn:name="src/Control.vhd"/>
+      <outfile xil_pn:name="src/Defs.vhd"/>
+      <outfile xil_pn:name="src/DualPortMem.vhd"/>
+      <outfile xil_pn:name="src/HostComm.vhd"/>
+      <outfile xil_pn:name="src/MIPSProcessor.vhd"/>
+      <outfile xil_pn:name="src/MIPSSystem.vhd"/>
+      <outfile xil_pn:name="src/ProgramCounter.vhd"/>
+      <outfile xil_pn:name="src/Registers.vhd"/>
+      <outfile xil_pn:name="src/uart/baudGen.vhd"/>
+      <outfile xil_pn:name="src/uart/uart2BusTop.vhd"/>
+      <outfile xil_pn:name="src/uart/uart2BusTop_pkg.vhd"/>
+      <outfile xil_pn:name="src/uart/uartParser.vhd"/>
+      <outfile xil_pn:name="src/uart/uartRx.vhd"/>
+      <outfile xil_pn:name="src/uart/uartTop.vhd"/>
+      <outfile xil_pn:name="src/uart/uartTx.vhd"/>
+      <outfile xil_pn:name="testbench/tb_ALU.vhd"/>
+      <outfile xil_pn:name="testbench/tb_Control.vhd"/>
+      <outfile xil_pn:name="testbench/tb_MIPSProcessor.vhd"/>
+      <outfile xil_pn:name="testbench/tb_ProgramCounter.vhd"/>
+      <outfile xil_pn:name="testbench/tb_Registers.vhd"/>
+    </transform>
+    <transform xil_pn:end_ts="1446136257" xil_pn:name="TRAN_xawsToSimhdl" xil_pn:prop_ck="-5363646524905085939" xil_pn:start_ts="1446136257">
+      <status xil_pn:value="SuccessfullyRun"/>
+      <status xil_pn:value="ReadyToRun"/>
+    </transform>
+    <transform xil_pn:end_ts="1446136257" xil_pn:name="TRAN_schematicsToHdlSim" xil_pn:prop_ck="2217253599134347915" xil_pn:start_ts="1446136257">
+      <status xil_pn:value="SuccessfullyRun"/>
+      <status xil_pn:value="ReadyToRun"/>
+    </transform>
+    <transform xil_pn:end_ts="1446121082" xil_pn:in_ck="-3560779980911258407" xil_pn:name="TRAN_regenerateCoresSim" xil_pn:prop_ck="-5450188108304755155" xil_pn:start_ts="1446121082">
+      <status xil_pn:value="SuccessfullyRun"/>
+      <status xil_pn:value="ReadyToRun"/>
+    </transform>
+    <transform xil_pn:end_ts="1446141811" xil_pn:in_ck="-7037627901046523970" xil_pn:name="TRAN_copyPostAbstractToPreSimulation" xil_pn:start_ts="1446141811">
+      <status xil_pn:value="SuccessfullyRun"/>
+      <status xil_pn:value="ReadyToRun"/>
+      <outfile xil_pn:name="Branch.vhd"/>
+      <outfile xil_pn:name="src/ALU.vhd"/>
+      <outfile xil_pn:name="src/Control.vhd"/>
+      <outfile xil_pn:name="src/Defs.vhd"/>
+      <outfile xil_pn:name="src/DualPortMem.vhd"/>
+      <outfile xil_pn:name="src/HostComm.vhd"/>
+      <outfile xil_pn:name="src/MIPSProcessor.vhd"/>
+      <outfile xil_pn:name="src/MIPSSystem.vhd"/>
+      <outfile xil_pn:name="src/ProgramCounter.vhd"/>
+      <outfile xil_pn:name="src/Registers.vhd"/>
+      <outfile xil_pn:name="src/uart/baudGen.vhd"/>
+      <outfile xil_pn:name="src/uart/uart2BusTop.vhd"/>
+      <outfile xil_pn:name="src/uart/uart2BusTop_pkg.vhd"/>
+      <outfile xil_pn:name="src/uart/uartParser.vhd"/>
+      <outfile xil_pn:name="src/uart/uartRx.vhd"/>
+      <outfile xil_pn:name="src/uart/uartTop.vhd"/>
+      <outfile xil_pn:name="src/uart/uartTx.vhd"/>
+      <outfile xil_pn:name="testbench/tb_ALU.vhd"/>
+      <outfile xil_pn:name="testbench/tb_Control.vhd"/>
+      <outfile xil_pn:name="testbench/tb_MIPSProcessor.vhd"/>
+      <outfile xil_pn:name="testbench/tb_ProgramCounter.vhd"/>
+      <outfile xil_pn:name="testbench/tb_Registers.vhd"/>
+    </transform>
+    <transform xil_pn:end_ts="1446141812" xil_pn:in_ck="-7037627901046523970" xil_pn:name="TRAN_ISimulateBehavioralModelRunFuse" xil_pn:prop_ck="3448583910948434394" xil_pn:start_ts="1446141811">
+      <status xil_pn:value="SuccessfullyRun"/>
+      <status xil_pn:value="ReadyToRun"/>
+      <status xil_pn:value="OutOfDateForOutputs"/>
+      <status xil_pn:value="OutputChanged"/>
+      <outfile xil_pn:name="fuse.log"/>
+      <outfile xil_pn:name="isim"/>
+      <outfile xil_pn:name="isim.log"/>
+      <outfile xil_pn:name="tb_ALU_beh.prj"/>
+      <outfile xil_pn:name="tb_ALU_isim_beh.exe"/>
+      <outfile xil_pn:name="xilinxsim.ini"/>
+    </transform>
+    <transform xil_pn:end_ts="1446141812" xil_pn:in_ck="-5814035991779560858" xil_pn:name="TRAN_ISimulateBehavioralModel" xil_pn:prop_ck="5970278301026716455" xil_pn:start_ts="1446141812">
+      <status xil_pn:value="SuccessfullyRun"/>
+      <status xil_pn:value="ReadyToRun"/>
+      <outfile xil_pn:name="isim.cmd"/>
+      <outfile xil_pn:name="isim.log"/>
+      <outfile xil_pn:name="tb_ALU_isim_beh.wdb"/>
+    </transform>
     <transform xil_pn:end_ts="1446047451" xil_pn:name="TRAN_copyInitialToXSTAbstractSynthesis" xil_pn:start_ts="1446047451">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
@@ -99,10 +196,12 @@
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
     </transform>
-    <transform xil_pn:end_ts="1446120367" xil_pn:in_ck="194802027882701390" xil_pn:name="TRANEXT_xstsynthesize_spartan6" xil_pn:prop_ck="-44725954950988794" xil_pn:start_ts="1446120344">
+    <transform xil_pn:end_ts="1446137762" xil_pn:in_ck="194802027882701390" xil_pn:name="TRANEXT_xstsynthesize_spartan6" xil_pn:prop_ck="-44725954950988794" xil_pn:start_ts="1446137741">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="WarningsGenerated"/>
       <status xil_pn:value="ReadyToRun"/>
+      <status xil_pn:value="OutOfDateForInputs"/>
+      <status xil_pn:value="InputChanged"/>
       <outfile xil_pn:name="MIPSSystem.lso"/>
       <outfile xil_pn:name="MIPSSystem.ngc"/>
       <outfile xil_pn:name="MIPSSystem.ngr"/>
@@ -123,6 +222,7 @@
       <status xil_pn:value="AbortedRun"/>
       <status xil_pn:value="ReadyToRun"/>
       <status xil_pn:value="OutOfDateForInputs"/>
+      <status xil_pn:value="OutOfDateForPredecessor"/>
       <status xil_pn:value="InputAdded"/>
       <status xil_pn:value="InputChanged"/>
       <status xil_pn:value="InputRemoved"/>

@@ -1,159 +1,146 @@
+    
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
-USE ieee.numeric_std.ALL;
+use ieee.std_logic_arith.conv_std_logic_vector;
+use ieee.numeric_std.all;
+use work.defs.all;
 
+
+entity tb_ALU is
+end tb_ALU;
  
-ENTITY tb_ALU IS
-END tb_ALU;
+architecture behavior OF tb_ALU IS 
  
-ARCHITECTURE behavior OF tb_ALU IS 
-
-   --Inputs
-   signal clk : std_logic := '0';
-   signal read_data_1 : std_logic_vector(31 downto 0) := (others => '0');
-   signal read_data_2 : std_logic_vector(31 downto 0) := (others => '0');
-   signal instruction : std_logic_vector(15 downto 0) := (others => '0');
-   signal op : op_t;
-   signal ALU_source : ALU_source_t;
-
- 	--Outputs
-   signal Zero : std_logic;
-   signal ALUResult : std_logic_vector(31 downto 0);
-
-   -- Clock period definitions
-   constant clk_period : time := 10 ns;
  
-BEGIN
+
+    
+
+  --  function str(n: data_t) return string is begin return integer'image(to_integer(n)); end str;  
+
+    function vec_string(v: std_logic_vector(31 downto 0)) return string is begin return integer'image(to_integer(unsigned(v))); end vec_string;
+    function op_string(op: op_t) return string is begin return op_t'image(op); end op_string;
+    function ALU_op_string(ALU_op: ALU_op_t) return string is begin return ALU_op_t'image(ALU_op); end ALU_op_string;
+    function bool_string(b: boolean) return string is begin return boolean'image(b); end bool_string;
+ 
+    component alu
+    port(
+        clk                     : IN  std_logic;
+        read_data_1             : IN  std_logic_vector(31 downto 0);
+        read_data_2             : IN  std_logic_vector(31 downto 0);
+        extended_immediate      : IN  std_logic_vector(31 downto 0);
+        funct                   : IN  funct_t;
+        op                      : IN  op_t;
+        ALU_source              : IN  alu_source_t;
+        Zero                    : OUT  std_logic;
+        result                  : out  std_logic_vector(31 downto 0)
+);
+    end component;
+
+    --Inputs
+    signal clk                  : std_logic := '0';
+    signal read_data_1          : std_logic_vector(31 downto 0) := (others => '0');
+    signal read_data_2          : std_logic_vector(31 downto 0) := (others => '0');
+    signal extended_immediate   : std_logic_vector(31 downto 0) := (others => '0');
+    signal funct                : funct_t;
+    signal op                   : op_t;
+    signal ALU_source           : alu_source_t;
+
+    --Outputs
+    signal Zero                 : std_logic;
+    signal result               : std_logic_vector(31 downto 0) := (others => '0');
+
+    constant clk_period         : time := 10 ns;
+   
+    signal expected_result      : integer := 0;
+begin
  
 	-- Instantiate the Unit Under Test (UUT)
-   uut: entity work.ALU PORT MAP (
-          clk => clk,
-          read_data_1 => read_data_1,
-          read_data_2 => read_data_2,
-          instruction => instruction,
-          op => op,
-          Zero => Zero,
-          ALUResult => ALUResult,
-          ALU_source => ALUSrc
-        );
+    uut: ALU port map(
+        clk                   => clk,
+        read_data_1           => read_data_1,
+        read_data_2           => read_data_2,
+        extended_immediate    => extended_immediate,
+        funct                 => funct,
+        op                    => op,
+        ALU_source            => ALU_source,
+        Zero                  => Zero,
+        result                => result
+    );
 
    -- Clock process definitions
-   clk_process :process
-   begin
-		clk <= '0';
-		wait for clk_period/2;
-		clk <= '1';
-		wait for clk_period/2;
-   end process;
- 
-
-   -- Stimulus process
-   stim_proc: process
-   begin		
-      -- hold reset state for 100 ns.
-      wait for 100 ns;	
-
-      wait for clk_period*5;
-
-      -- insert stimulus here 
-		
-		report "Testing add";
-		read_data_1 <= x"00000002";
-		read_data_2 <= x"00000003";
-
-		ALUOp <= "00";
-		Instruction <= x"0020";
-		
-		wait for clk_period;
-		
-		assert Zero = '0';
-		assert ALUResult = x"00000005";
-
-	
-		report "Testing sub";		
-		read_data_2 <= x"00000010";
-		Instruction <= x"0022";
-		
-		wait for clk_period;
-		
-		assert Zero = '0';
-		assert ALUResult = x"FFFFFFF2";
-
-	
-		report "Testing beq";
-		ALUOp <= "10";
-		read_data_1 <= x"00001234";
-		read_data_2 <= x"00001234";
-
-		wait for clk_period;
-		
-		assert Zero = '1';
-		
-		read_data_1 <= x"00001231";
-
-		wait for clk_period;
-		
-		assert Zero = '0';
+    clk_process :process
+    begin
+        clk <= '0';
+        wait for clk_period/2;
+        clk <= '1';
+        wait for clk_period/2;
+    end process;
 
 
-		report "Testing or";
-		ALUOp <= "00";
-		instruction <= x"0025";
-		read_data_1 <= x"01000010";
-		read_data_2 <= x"00011011";	
-		
-		wait for clk_period;
-		
-		assert ALUResult = x"01011011";		
+    -- Stimulus process
+    stim_proc: process
+    procedure test_op(    
+           op_in               : in op_t;
+           funct_in            : in ALU_op_t;
+           
+           ALU_source_in       : in ALU_source_t;
+           
+           operand_a           : in integer;
+           operand_b           : in integer;
+           immediate           : in integer;
+           expected_result     : in integer;
+           expected_zero       : in boolean)
+      is
+      begin
+           op                  <= op_in;
+           funct               <= test_get_funct_inverse(funct_in);
+           
+           read_data_1         <= conv_std_logic_vector(operand_a, 32);
+           read_data_2         <= conv_std_logic_vector(operand_b, 32);
+           extended_immediate  <= conv_std_logic_vector(immediate, 32);
+           
+           ALU_source          <= ALU_source_in;
 
-		report "testing and";
-		instruction <= x"0024";
-		read_data_1 <= x"01110110";
-		read_data_2 <= x"11011011";		
-		
-		wait for clk_period;
-		
-		assert ALUResult = x"01010010";
-		
-		report "Testing slt";
-		instruction <= x"002A";
-		read_data_1 <= x"00002000";
-		read_data_2 <= x"0000A000";
-
-		wait for clk_period;
-		
-		assert ALUResult = x"00000001";
-		
-		report "Testing LUI";
-		ALUOp <= "11";
-		ALUSrc <= '1';
-		instruction <= x"1234";
-		
-		wait for clk_period;
-		
-		assert ALUResult = x"12340000";		
-		
-		report "Testing BEQ";
-		ALUOp <= "10";
-		read_data_1 <= x"0000A000";
-		ALUSrc <= '0';
-		wait for clk_period;
-		
-		assert Zero = '1';
-		
-		report "Testing LW/SW";
-		ALUSrc <= '1';
-		ALUOp <= "01";
-		read_data_1 <= x"00000002";
-		instruction <= x"00A0";
-		
-		wait for clk_period;
-      
-		assert ALUResult = x"000000A2";
-		
-		report "ALU test complete";
-		
-		wait;
-   end process;
+           wait for clk_period;
+           assert result = conv_std_logic_vector(expected_result, 32)
+                       report "RESULT MISMATCH: " & lf &
+                       "Operands: read_1 : " & vec_string(read_data_1) & lf &
+                       "Operands: read_2 : " & vec_string(read_data_1) & lf &
+                       "Operands: immediate : " & vec_string(extended_immediate) & lf &
+                       "Operations: op " & op_string(op) & "\n" &
+                       "Operations: Funct " & ALU_op_string(get_funct(funct)) & lf &
+                       "With result: " & vec_string(result) & lf &
+                       "Expected result: " & vec_string(conv_std_logic_vector(expected_result, 32))
+                       severity error;
+          
+          assert (zero = '0') = expected_zero 
+                       report "ZERO MISMATCH: " & lf &
+                       "Operands: read_1 : " & vec_string(read_data_1) & lf &
+                       "Operands: read_2 : " & vec_string(read_data_1) & lf &
+                       "Operands: immediate : " & vec_string(extended_immediate) & lf &
+                       "Operations: op " & op_string(op) & lf &
+                       "Operations: Funct " & ALU_op_string(get_funct(funct)) & lf &
+                       "With result: " & vec_string(result) & "\n " &
+                       "Expected result: " & vec_string(conv_std_logic_vector(expected_result, 32)) & lf &
+                       "With Zero: " & bool_string(zero = '0') & lf &
+                       "Expected Zero: " & bool_string(expected_zero)
+                       severity error;     
+        end test_op;
+    begin		
+        wait for clk_period;
+        
+        report "====== Test starting ======";
+        
+        report "Testing operations on 0";
+        -- ZEROS
+        test_op(rtype,  add,    REG2, 0, 0, 0, 0, true);
+        test_op(rtype,  sub,    REG2, 0, 0, 0, 0, true);
+        test_op(rtype,  op_and, REG2, 0, 0, 0, 0, true);
+        test_op(rtype,  op_or,  REG2, 0, 0, 0, 0, true);
+        
+        -- read_data_1
+     
+        wait;
+    end process;
 
 END;
