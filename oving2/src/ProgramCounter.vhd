@@ -9,12 +9,10 @@ entity ProgramCounter is
     );
     port (
         clk, reset          : in std_logic;
-        pc_write            : in std_logic;
-        jump                : in jump_t;
-        branch              : in branch_t; 
-        zero                : in std_logic;
-        instruction         : in std_logic_vector(26 - 1 downto 0);
-        address_out         : out std_logic_vector(ADDR_WIDTH - 1 downto 0)
+        branch_address_in   : in std_logic_vector(ADDR_WIDTH-1 downto 0);
+        pc_src              : in std_logic;
+        incremented_address : out std_logic_vector(ADDR_WIDTH-1 downto 0);
+        imem_address        : out std_logic_vector(ADDR_WIDTH-1 downto 0)
     );
 end ProgramCounter;
 
@@ -25,21 +23,17 @@ begin
     begin
         if reset = '1' then
             address <= (others => '0');
-        elsif rising_edge(clk) and pc_write = '1' then
-
-            if jump = true then
-                address <= instruction(7 downto 0);
+        elsif rising_edge(clk) then
+            if (pc_src = '1') then
+                imem_address <= branch_address_in;
             else
-                if branch and zero = '1' then
-                    address <= std_logic_vector(unsigned(address) + 1 + unsigned(instruction(7 downto 0)));
-                else
-                    address <= std_logic_vector(unsigned(address) + 1);
-                end if;
+                imem_address <= std_logic_vector(unsigned(address) + 1);
             end if;
+            
         end if;
+        
     end process;
-
-    address_out <= address;
-
+    
+    incremented_address <= std_logic_vector(unsigned(address) + 1);
 end Behavioral;
 

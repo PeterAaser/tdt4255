@@ -3,27 +3,27 @@ use IEEE.STD_LOGIC_1164.all;
 use ieee.numeric_std.all;
 
 package Defs is
-subtype instruction_t is std_logic_vector(31 downto 0);
+-- subtype instruction_t is std_logic_vector(31 downto 0);
 
     type state_t is (S_FETCH, S_EXECUTE, S_STALL, S_OFFLINE);
 
     subtype opcode_t is std_logic_vector(5 downto 0);
     subtype reg_t is std_logic_vector(4 downto 0);
     subtype shift_t is std_logic_vector(4 downto 0);
-    subtype func_t is std_logic_vector(5 downto 0);
+    subtype funct_t is std_logic_vector(5 downto 0);
     subtype immediate_t is std_logic_vector(15 downto 0);
     subtype target_t is std_logic_vector(25 downto 0);
 
-    type instruction is 
+    type instruction_t is 
         record
             opcode : opcode_t;
             regs : reg_t;
             regt : reg_t;
             regd : reg_t;
             shift : shift_t;
-            func_code : func_t;
+            funct : funct_t;
             immediate : immediate_t;
-            target : target_t;
+            jmp_target : target_t;
         end record;
 
     type ALU_op_t is (
@@ -70,13 +70,30 @@ subtype instruction_t is std_logic_vector(31 downto 0);
 
 
     function get_format ( op : opcode_t) return instruction_format_t;
-    function get_function ( func : func_t) return ALU_op_t;
+    function get_function ( funct : funct_t) return ALU_op_t;
     function get_op ( op : opcode_t) return op_t;
+    function make_instruction(vec : std_logic_vector(31 downto 0)) return instruction_t;
+    
+    
   
 end package Defs;
 
 
 package body Defs is
+
+function make_instruction(vec : std_logic_vector(31 downto 0)) return instruction_t is
+        variable result : instruction_t;
+    begin
+        result.opcode := vec(31 downto 26);
+        result.regs := vec(25 downto 21);
+        result.regt := vec(20 downto 16);
+        result.regd := vec(15 downto 11);
+        result.shift := vec(10 downto 6);
+        result.funct := vec(5 downto 0);
+        result.immediate := vec(15 downto 0);
+        result.jmp_target := vec(25 downto 0);
+        return result;
+    end function make_instruction;
 
 function get_format ( op : opcode_t) return instruction_format_t is
 begin
@@ -89,9 +106,9 @@ begin
     end if;
 end get_format;
 
-function get_function ( func : func_t) return ALU_op_t is
+function get_function ( funct : funct_t) return ALU_op_t is
 begin
-    case func is
+    case funct is
         when "100000" => return add;
         when "100001" => return addu;
         when "100100" => return op_and;
