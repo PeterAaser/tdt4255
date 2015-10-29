@@ -19,21 +19,21 @@ end ProgramCounter;
 architecture Behavioral of ProgramCounter is
     signal address : std_logic_vector(ADDR_WIDTH - 1 downto 0);
 begin
-    update: process(clk, reset)
+    update: process(clk, reset, address)
     begin
         if reset = '1' then
             address <= (others => '0');
         elsif rising_edge(clk) then
             if (pc_src = '1') then
-                imem_address <= branch_address_in;
+                address <= branch_address_in;
             else
-                imem_address <= std_logic_vector(unsigned(address) + 1);
+                address <= std_logic_vector(unsigned(address) + 1);
             end if;
             
         end if;
-        
+        imem_address <= address;
+        incremented_address <= std_logic_vector(unsigned(address) + 1);
     end process;
     
-    incremented_address <= std_logic_vector(unsigned(address) + 1);
 end Behavioral;
 
