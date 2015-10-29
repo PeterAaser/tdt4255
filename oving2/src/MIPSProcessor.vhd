@@ -1,0 +1,159 @@
+-- Part of TDT4255 Computer Design laboratory exercises
+-- Group for Computer Architecture and Design
+-- Department of Computer and Information Science
+-- Norwegian University of Science and Technology
+
+-- MIPSProcessor.vhd
+-- The MIPS processor component to be used in Exercise 1 and 2.
+
+-- TODO replace the architecture DummyArch with a working Behavioral
+
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
+use work.Defs.all;
+
+entity MIPSProcessor is
+    generic (
+        ADDR_WIDTH : integer := 8;
+        DATA_WIDTH : integer := 32
+    );
+    port (
+        clk, reset 			: in std_logic;
+        processor_enable		: in std_logic;
+        imem_data_in			: in std_logic_vector(DATA_WIDTH-1 downto 0);
+        imem_address			: out std_logic_vector(ADDR_WIDTH-1 downto 0);
+        dmem_data_in			: in std_logic_vector(DATA_WIDTH-1 downto 0);
+        dmem_address			: out std_logic_vector(ADDR_WIDTH-1 downto 0);
+        dmem_data_out			: out std_logic_vector(DATA_WIDTH-1 downto 0);
+        dmem_write_enable		: out std_logic
+    );
+end MIPSProcessor;
+
+architecture MultiCycleMIPS of MIPSProcessor is
+    signal PCWrite : std_logic := '0';
+    
+    -- pipeline stage_registers are named corresponding to the names in the architecture sketch
+    -- E.g.: IF/ID -> id_, ID/EX -> ex_, etc.
+    -- IF
+    
+    -- ID
+    signal id_instruction : instruction;
+    
+    -- EX
+    signal ex_control_signals : control_signals_t;
+    signal ex_extended_immediate : std_logic_vector(DATA_WIDTH-1 downto 0); 
+    signal ex_read_data_1 : std_logic_vector(DATA_WIDTH-1 downto 0);
+    signal ex_read_data_2 : std_logic_vector(DATA_WIDTH-1 downto 0);
+    signal ex_regt : reg_t;
+    signal ex_regd : reg_t;
+    
+    -- MEM
+    signal mem_read_data_2 : std_logic_vector(DATA_WIDTH-1 downto 0);
+    signal mem_alu_result : std_logic_vector(DATA_WIDTH-1 downto 0);
+    signal mem_zero : std_logic;
+    signal mem_control_signals : control_signals_t;
+    signal mem_write_register : reg_t;
+    
+    -- WB
+    signal wb_control_signals : control_signals_t;
+    signal wb_write_reg : reg_t;
+    signal wb_alu_result : std_logic_vector(DATA_WIDTH-1 downto 0);
+    
+begin
+
+    control: entity work.Control
+    generic map(
+        DATA_WIDTH => DATA_WIDTH
+    )
+    port map(
+        clk => clk,
+        reset => reset,
+        processor_enable => processor_enable,
+        instruction => id_instruction,
+        
+        control_signals => ex_control_signals,
+        
+        PCWrite => PCWrite
+    );
+
+    program_counter: entity work.ProgramCounter
+    generic map(
+        ADDR_WIDTH => ADDR_WIDTH
+    )
+    port map(
+        reset => reset,
+        clk => clk,
+		jump => control_signals.Jump,
+		branch => control_signals.Branch,
+		zero => Zero,
+		instruction => imem_data_in(25 downto 0),
+        pc_write => PCWrite,
+        address_out => program_counter_val
+    );
+    
+    registers: entity work.Registers
+    generic map(
+        DATA_WIDTH => DATA_WIDTH
+    )
+    port map(
+        clk => clk,
+        reset => reset,
+        read_reg_1 => id_instruction.regs,
+        read_reg_2 => id_instruction.regt,
+        write_reg => wb_write_reg,
+        ALUResult => wb_alu_result,
+        dmem_data => dmem_data_in,
+        MemToReg => wb_control_signals.MemToReg,
+        RegWrite => wb_control_signals.RegWrite,
+        read_data_1 => ex_read_data_1,
+        read_data_2 => ex_read_data_2
+    );
+
+    alu: entity work.ALU
+    port map(
+        clk => clk,
+        read_data_1 => ex_read_data_1,
+        read_data_2 => ex_read_data_2,
+        extended_immediate => ex_extended_immediate,
+        
+        op => ex_control_signals.op,
+        ALUSrc => ex_control_signals.ALU_source,
+        
+        Zero => mem_zero,
+        ALUResult => mem_alu_result
+    );
+
+    
+    propagate_signals : process(clk)
+    begin
+        if(rising_edge(clk)) then
+            id_instruction <= imem_data_in;
+            
+            ex_extended_immediate <= std_logic_vector(resize(signed(id_instruction.immediate), 32));
+            ex_regt <= id_instruction.regt;
+            ex_regd <= id_instruction.regd;
+            
+            mem_control_signals <= ex_control_signals;
+            mem_read_data_2 <= ex_read_data_2;
+            if (ex_control_signals.RegDst = REGT) then
+                mem_write_reg <= ex_regt;
+            else
+                mem_write_reg <= ex_regd;
+            end if;
+            
+            wb_control_signals <= mem_control_signals;
+            wb_alu_result <= mem_alu_result;
+            wb_write_reg <= mem_write_reg;
+         end if;
+    end process;
+    
+    -- IMEM
+    imem_address <= program_counter_val;
+    -- DMEM
+    dmem_address <= mem_alu_result(7 downto 0);
+    dmem_data_out <= mem_read_data_2;
+
+    dmem_write_enable <= '1' when mem_control_signals.MemWrite else '0';
+end MultiCycleMIPS;
+
