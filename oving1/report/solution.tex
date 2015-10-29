@@ -1,4 +1,6 @@
 \chapter{Solution}
+This Chapter will explain the details of the implementation, and our methodology. We dive into each component for a thorough explanation, and RTL sketches for each.
+
 
 \section{Methodology}
 
@@ -18,13 +20,13 @@ These are:
 
 \begin{description}
   \item[Control] \hfill \\
-  the control unit keeps track of the state of the processor, namely fetch, execute and stall, and then issues the appropriate control signals.  
+  The control unit keeps track of the state of the processor, namely fetch, execute and stall, and then issues the appropriate control signals.  
   \item[Program counter] \hfill \\
-  the program counter keeps track off the address to the next instruction to be executed. It therefore handles regular increments and calculates jumps.
+  The program counter keeps track off the address to the next instruction to be executed. It therefore handles regular increments and calculates jumps.
   \item[ALU] \hfill \\
-  the heart of the processor, the ALU performs an operation issued by the control unit and outputs a result along with a zero signal which is part of the branch logic of the PC.
+  The heart of the processor, the ALU performs an operation issued by the control unit and outputs a result along with a zero signal which is part of the branch logic of the PC.
   \item[Register] \hfill \\
-  the register bank is the short term memory of the architecture, feeding operands to the ALU, and recieving data which may be stored based on the control signals.
+  The register bank is the short term memory of the architecture, feeding operands to the ALU, and recieving data which may be stored based on the control signals.
 \end{description}
 
 \subsection{Control module}
