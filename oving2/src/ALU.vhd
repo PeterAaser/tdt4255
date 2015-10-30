@@ -4,17 +4,22 @@ use IEEE.NUMERIC_STD.ALL;
 use work.defs.all;
 
 entity ALU is
-    Port ( clk: in STD_LOGIC;
-		   read_data_1              : in std_logic_vector (31 downto 0);
+    Port ( read_data_1              : in std_logic_vector (31 downto 0);
            read_data_2              : in std_logic_vector (31 downto 0);
            extended_immediate       : in std_logic_vector(31 downto 0);
            funct                    : in funct_t;       -- this is a bit vector whose function must be looked up
+           
+           forward_a                : in forward_t;
+           forward_b                : in forward_t;
+           wb_alu_result_in            : in std_logic_vector(31 downto 0);
+           mem_alu_result_in           : in std_logic_vector(31 downto 0);
            
            op                       : in op_t;          -- on the other hand this is an enumerated type.
            ALU_source               : in ALU_source_t;
            
            Zero                     : out  std_logic;
-           result                   : out  std_logic_vector (31 downto 0) := (others => '0')
+           result                   : out  std_logic_vector (31 downto 0) := (others => '0');
+           ex_read_data_2_forwarded : out  std_logic_vector (31 downto 0) := (others => '0')
          );
            
 end ALU;
@@ -24,28 +29,55 @@ architecture Behavioral of ALU is
     signal s_operandA:  signed (31 downto 0);
     signal s_operandB:  signed (31 downto 0);
     signal s_result:    signed (31 downto 0) := (others => '0');
+    --signal temp_ex_read: std_logic_vector(31 downto 0) := (others => '0');
 begin
 
-	alu_control: process(read_data_1, read_data_2, op, extended_immediate, ALU_source)	
-	begin
+	alu_control: process(op, extended_immediate)	
+    begin
 		if op = rtype then
             ALU_op <= get_funct(extended_immediate(20 downto 15));
         else
 			ALU_op <= get_op_funct(op);
         end if;
+    end process;
+
+	mux: process(forward_a, forward_b, read_data_1, read_data_2, ALU_source, mem_alu_result_in, wb_alu_result_in)	
+        --variable temp_ex_read: std_logic_vector(31 downto 0);
+    begin
         
-        s_operandA <= signed(read_data_1);
-		if ALU_source = REG2 then
-			s_operandB <= signed(read_data_2);
-		else
-			s_operandB <= signed(extended_immediate);
-		end if;
+        case forward_a is
+            when REG =>
+                s_operandA <= signed(read_data_1);
+            when WB =>
+                s_operandA <= signed(wb_alu_result_in);
+            when MEM =>
+                s_operandA <= signed(mem_alu_result_in);
+            when others =>
+                null;
+        end case;
+        
+--        case forward_b is
+--            when REG =>
+--                ex_read_data_2_forwarded <= read_data_2;
+--            when WB =>
+--                ex_read_data_2_forwarded <= wb_alu_result;
+--            when MEM =>
+--                ex_read_data_2_forwarded <= mem_alu_result;
+--            when others =>
+--                null;
+--        end case;
+--
+--        if ALU_source = REG2 then
+--            s_operandB <= signed(temp_ex_read);
+--        else
+--            s_operandB <= signed(extended_immediate);
+--        end if;
         
 	end process;
 
 
 	alu_perform_op: process(ALU_op, s_operandA, s_operandB, s_result, extended_immediate)
-	begin
+    begin
 
 		case ALU_op is
 			when ADD =>     s_result   <= s_operandA + s_operandB;

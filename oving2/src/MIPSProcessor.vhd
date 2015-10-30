@@ -34,8 +34,9 @@ architecture MultiCycleMIPS of MIPSProcessor is
     signal pc_address_src : pc_addr_source_t;
     signal branch_address : std_logic_vector(ADDR_WIDTH-1 downto 0);
     
-    signal forward_a: Forward_t;
-    signal forward_b: Forward_t;
+    signal forward_a : Forward_t;
+    signal forward_b : Forward_t;
+    signal ex_read_data_2_forwarded : std_logic_vector(DATA_WIDTH-1 downto 0);
     -- pipeline stage_registers are named corresponding to the names in the architecture sketch
     -- E.g.: IF/ID -> id_, ID/EX -> ex_, etc.
     -- IF
@@ -135,17 +136,22 @@ begin
 
     alu: entity work.ALU
     port map(
-        clk => clk,
         read_data_1 => ex_read_data_1,
         read_data_2 => ex_read_data_2,
         extended_immediate => ex_extended_immediate,
+        
+        forward_a => forward_a,
+        forward_b => forward_b,
+        wb_alu_result_in => wb_alu_result,
+        mem_alu_result_in => mem_alu_result,
         
         op => ex_control_signals.op,
         funct => ex_funct,
         ALU_source => ex_control_signals.ALU_source,
         
         Zero => mem_zero,
-        result => mem_alu_result
+        result => mem_alu_result,
+        ex_read_data_2_forwarded => ex_read_data_2_forwarded
     );
     
         
@@ -176,7 +182,7 @@ begin
             ex_regd <= id_instruction.regd;
             
             mem_control_signals <= ex_control_signals;
-            mem_read_data_2 <= ex_read_data_2;
+            mem_read_data_2 <= ex_read_data_2_forwarded;
             if (ex_control_signals.RegDst = REGT) then
                 mem_write_reg <= ex_regt;
             else
