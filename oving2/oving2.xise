@@ -76,6 +76,12 @@
       <association xil_pn:name="BehavioralSimulation"/>
       <association xil_pn:name="Implementation"/>
     </file>
+    <file xil_pn:name="testbench/tb_ALU.vhd" xil_pn:type="FILE_VHDL">
+      <association xil_pn:name="BehavioralSimulation"/>
+      <association xil_pn:name="PostMapSimulation"/>
+      <association xil_pn:name="PostRouteSimulation"/>
+      <association xil_pn:name="PostTranslateSimulation"/>
+    </file>
     <file xil_pn:name="testbench/tb_Control.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation"/>
       <association xil_pn:name="PostMapSimulation"/>
@@ -104,13 +110,6 @@
       <association xil_pn:name="BehavioralSimulation"/>
       <association xil_pn:name="Implementation"/>
     </file>
-<<<<<<< HEAD
-    <file xil_pn:name="testbench/tb_ALU.vhd" xil_pn:type="FILE_VHDL">
-      <association xil_pn:name="BehavioralSimulation"/>
-      <association xil_pn:name="PostMapSimulation"/>
-      <association xil_pn:name="PostRouteSimulation"/>
-      <association xil_pn:name="PostTranslateSimulation"/>
-=======
     <file xil_pn:name="src/ProgramCounter.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation"/>
       <association xil_pn:name="Implementation"/>
@@ -118,7 +117,6 @@
     <file xil_pn:name="testbench/tb_Branch.vhd" xil_pn:type="FILE_VHDL">
       <association xil_pn:name="BehavioralSimulation"/>
       <association xil_pn:name="Implementation"/>
->>>>>>> ae90f080111d8dd9d5ac8f798468b452c331d8a7
     </file>
   </files>
 
@@ -315,6 +313,7 @@
     <property xil_pn:name="Produce Advanced Verbose Report" xil_pn:value="false" xil_pn:valueState="default"/>
     <property xil_pn:name="Produce Verbose Report" xil_pn:value="false" xil_pn:valueState="default"/>
     <property xil_pn:name="Project Description" xil_pn:value="" xil_pn:valueState="default"/>
+    <property xil_pn:name="Project Generator" xil_pn:value="ProjNav" xil_pn:valueState="default"/>
     <property xil_pn:name="Property Specification in Project File" xil_pn:value="Store all values" xil_pn:valueState="default"/>
     <property xil_pn:name="RAM Extraction" xil_pn:value="true" xil_pn:valueState="default"/>
     <property xil_pn:name="RAM Style" xil_pn:value="Auto" xil_pn:valueState="default"/>
@@ -352,13 +351,8 @@
     <property xil_pn:name="Run for Specified Time Translate" xil_pn:value="true" xil_pn:valueState="default"/>
     <property xil_pn:name="Safe Implementation" xil_pn:value="No" xil_pn:valueState="default"/>
     <property xil_pn:name="Security" xil_pn:value="Enable Readback and Reconfiguration" xil_pn:valueState="default"/>
-<<<<<<< HEAD
-    <property xil_pn:name="Selected Module Instance Name" xil_pn:value="/tb_ALU" xil_pn:valueState="non-default"/>
-    <property xil_pn:name="Selected Simulation Root Source Node Behavioral" xil_pn:value="work.tb_ALU" xil_pn:valueState="non-default"/>
-=======
-    <property xil_pn:name="Selected Module Instance Name" xil_pn:value="/tb_Branch" xil_pn:valueState="non-default"/>
-    <property xil_pn:name="Selected Simulation Root Source Node Behavioral" xil_pn:value="work.tb_Branch" xil_pn:valueState="non-default"/>
->>>>>>> ae90f080111d8dd9d5ac8f798468b452c331d8a7
+    <property xil_pn:name="Selected Module Instance Name" xil_pn:value="/MIPSSystem/MIPSProcInst/branch" xil_pn:valueState="non-default"/>
+    <property xil_pn:name="Selected Simulation Root Source Node Behavioral" xil_pn:value="work.Branch" xil_pn:valueState="non-default"/>
     <property xil_pn:name="Selected Simulation Root Source Node Post-Map" xil_pn:value="" xil_pn:valueState="default"/>
     <property xil_pn:name="Selected Simulation Root Source Node Post-Route" xil_pn:value="" xil_pn:valueState="default"/>
     <property xil_pn:name="Selected Simulation Root Source Node Post-Translate" xil_pn:value="" xil_pn:valueState="default"/>
@@ -376,11 +370,7 @@
     <property xil_pn:name="Simulator" xil_pn:value="ISim (VHDL/Verilog)" xil_pn:valueState="default"/>
     <property xil_pn:name="Slice Utilization Ratio" xil_pn:value="100" xil_pn:valueState="default"/>
     <property xil_pn:name="Specify 'define Macro Name and Value" xil_pn:value="" xil_pn:valueState="default"/>
-<<<<<<< HEAD
-    <property xil_pn:name="Specify Top Level Instance Names Behavioral" xil_pn:value="work.tb_ALU" xil_pn:valueState="default"/>
-=======
-    <property xil_pn:name="Specify Top Level Instance Names Behavioral" xil_pn:value="work.tb_Branch" xil_pn:valueState="default"/>
->>>>>>> ae90f080111d8dd9d5ac8f798468b452c331d8a7
+    <property xil_pn:name="Specify Top Level Instance Names Behavioral" xil_pn:value="work.Branch" xil_pn:valueState="default"/>
     <property xil_pn:name="Specify Top Level Instance Names Post-Map" xil_pn:value="Default" xil_pn:valueState="default"/>
     <property xil_pn:name="Specify Top Level Instance Names Post-Route" xil_pn:value="Default" xil_pn:valueState="default"/>
     <property xil_pn:name="Specify Top Level Instance Names Post-Translate" xil_pn:value="Default" xil_pn:valueState="default"/>
@@ -429,11 +419,7 @@
     <!--                                                                                  -->
     <!-- The following properties are for internal use only. These should not be modified.-->
     <!--                                                                                  -->
-<<<<<<< HEAD
-    <property xil_pn:name="PROP_BehavioralSimTop" xil_pn:value="Architecture|tb_ALU|behavior" xil_pn:valueState="non-default"/>
-=======
-    <property xil_pn:name="PROP_BehavioralSimTop" xil_pn:value="Architecture|tb_Branch|behavior" xil_pn:valueState="non-default"/>
->>>>>>> ae90f080111d8dd9d5ac8f798468b452c331d8a7
+    <property xil_pn:name="PROP_BehavioralSimTop" xil_pn:value="Architecture|tb_MIPSProcessor|behavior" xil_pn:valueState="non-default"/>
     <property xil_pn:name="PROP_DesignName" xil_pn:value="oving2" xil_pn:valueState="non-default"/>
     <property xil_pn:name="PROP_DevFamilyPMName" xil_pn:value="spartan6" xil_pn:valueState="default"/>
     <property xil_pn:name="PROP_FPGAConfiguration" xil_pn:value="FPGAConfiguration" xil_pn:valueState="default"/>
