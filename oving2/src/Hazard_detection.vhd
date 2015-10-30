@@ -9,6 +9,11 @@ use work.defs.all;
 
 -- To calculate this we need the two addresses of the instruction currently ad ID. We will match those with the recipient register
 -- which we will collect from the ex stage
+
+-- Once a collission is detected the following needs to happen:
+--      EX stage becomes NOP
+--      IM and ID stage is stalled such that we dont NOP a valid instruction
+
 entity Hazard_detection is
     port (
         id_reg_a          : in reg_t;

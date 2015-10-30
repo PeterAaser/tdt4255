@@ -36,9 +36,11 @@ architecture MultiCycleMIPS of MIPSProcessor is
     
     signal forward_a: Forward_t;
     signal forward_b: Forward_t;
+    
     -- pipeline stage_registers are named corresponding to the names in the architecture sketch
     -- E.g.: IF/ID -> id_, ID/EX -> ex_, etc.
     -- IF
+    signal if_stall : std_logic;
     
     -- ID
     signal id_instruction : instruction_t;
@@ -173,11 +175,8 @@ begin
     propagate_signals : process(clk)
     begin
         if(rising_edge(clk)) then
-            if(pc_address_src = pc_addr) then -- insert bubble if branch
-                 id_instruction <= make_instruction(imem_data_in);
-            else
-                 id_instruction <= make_instruction(x"00000020"); -- ADD $0, $0, $0 (NOP instr)
-            end if;
+
+            id_instruction <= make_instruction(imem_data_in);
             
             ex_extended_immediate <= std_logic_vector(resize(signed(id_instruction.immediate), 32));
             ex_funct <= id_instruction.funct;
