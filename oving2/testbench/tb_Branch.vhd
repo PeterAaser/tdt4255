@@ -18,7 +18,7 @@ ARCHITECTURE behavior OF tb_Branch IS
          pc : IN  std_logic_vector(7 downto 0);
          read_data_1 : IN  std_logic_vector(31 downto 0);
          read_data_2 : IN  std_logic_vector(31 downto 0);
-         pc_src : OUT  std_logic;
+         PC_address_src : OUT  PC_addr_source_t;
          address_out : OUT  std_logic_vector(7 downto 0)
         );
     END COMPONENT;
@@ -32,12 +32,12 @@ ARCHITECTURE behavior OF tb_Branch IS
    signal read_data_2 : std_logic_vector(31 downto 0) := (others => '0');
 
  	--Outputs
-   signal pc_src : std_logic;
+   signal PC_address_src : PC_addr_source_t;
    signal address_out : std_logic_vector(7 downto 0);
    -- No clocks detected in port list. Replace <clock> below with 
    -- appropriate port name 
  
-   constant clk_period : time := 2 ns;
+   constant clk_period : time := 10 ns;
  
 BEGIN
  
@@ -48,20 +48,20 @@ BEGIN
           pc => pc,
           read_data_1 => read_data_1,
           read_data_2 => read_data_2,
-          pc_src => pc_src,
+          PC_address_src => PC_address_src,
           address_out => address_out
         );
 
     stim_proc: process
 
 procedure test_pc(
-    op_in               : in op_t;
-    immediate_in        : in integer;
-    pc_in               : in integer;
-    read_data_1_in      : in integer;
-    read_data_2_in      : in integer;
-    pc_source_addr_in   : in PC_addr_source_t;
-    expected_address    : in integer)
+    op_in                       : in op_t;
+    immediate_in                : in integer;
+    pc_in                       : in integer;
+    read_data_1_in              : in integer;
+    read_data_2_in              : in integer;
+    expected_pc_source_address  : in PC_addr_source_t;
+    expected_address            : in integer)
 is
 begin
     op                  <= test_get_op_inverse(op_in);
@@ -79,30 +79,14 @@ end test_pc;
     
     
     begin
-      op <= b"000000";
-      wait for clk_period;
-      assert pc_src = '0';
-      
-      pc <= x"80";
-      op <= b"000010";
-      immediate <= x"00AB";
-      wait for clk_period;
-      assert pc_src = '1';
-      assert address_out = x"AB";
-      
-      immediate <= x"0012";
-      op <= b"000100";
-      read_data_1 <= x"00001234";
-      read_data_2 <= x"12341234";
-      wait for clk_period;
-      assert pc_src = '0';
-
-      read_data_1 <= x"00001234";
-      read_data_2 <= x"00001234";
-      wait for clk_period;
-      assert pc_src = '1';
-      assert address_out = x"12";
-
+        op <= test_get_op_inverse(rtype);
+        wait for clk_period;
+        
+        test_pc(jump, 171, 128, 12, 21, PC_addr, 171);
+        test_pc(beq, 18, 128, 4321, 1234, PC_addr, 128); -- what should expected address be?
+        test_pc(beq, 18, 128, 1234, 1234, Branch_addr, 18);
+        
+        assert false report "YOURE WINNER" severity failure;
 
       wait;
    end process;
