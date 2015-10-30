@@ -34,6 +34,8 @@ architecture MultiCycleMIPS of MIPSProcessor is
     signal pc_address_src : pc_addr_source_t;
     signal branch_address : std_logic_vector(ADDR_WIDTH-1 downto 0);
     
+    signal forward_a: Forward_t;
+    signal forward_b: Forward_t;
     -- pipeline stage_registers are named corresponding to the names in the architecture sketch
     -- E.g.: IF/ID -> id_, ID/EX -> ex_, etc.
     -- IF
@@ -156,7 +158,18 @@ begin
         stall       => id_stall
     );
     
-    
+    forward: entity work.Forwarding
+    port map(
+        mem_regd => mem_write_reg,
+        wb_regd => wb_write_reg,
+        ex_regs => id_instruction.regs,
+        ex_regt => id_instruction.regt,
+        mem_regwrite => mem_control_signals.RegWrite,
+        wb_regwrite => wb_control_signals.RegWrite,
+        forward_a => forward_a,
+        forward_b => forward_b
+    );
+
     propagate_signals : process(clk)
     begin
         if(rising_edge(clk)) then
@@ -184,7 +197,8 @@ begin
             wb_write_reg <= mem_write_reg;
          end if;
     end process;
-    
+
+
 
     -- DMEM
     dmem_address <= mem_alu_result(7 downto 0);
