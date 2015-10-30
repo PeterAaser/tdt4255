@@ -26,7 +26,7 @@ architecture Behavioral of ALU is
     signal s_result:    signed (31 downto 0) := (others => '0');
 begin
 
-	alu_control: process(read_data_1, read_data_2, op, extended_immediate)	
+	alu_control: process(read_data_1, read_data_2, op, extended_immediate, ALU_source)	
 	begin
 		if op = rtype then
             ALU_op <= get_funct(extended_immediate(20 downto 15));
@@ -44,14 +44,14 @@ begin
 	end process;
 
 
-	alu_perform_op: process(ALU_op, read_data_1, read_data_2, extended_immediate)
+	alu_perform_op: process(ALU_op, s_operandA, s_operandB, s_result, extended_immediate)
 	begin
 
 		case ALU_op is
 			when ADD =>     s_result   <= s_operandA + s_operandB;
 			when SUB =>     s_result   <= s_operandA - s_operandB;
 			when SLT =>
-                if signed(read_data_1) < signed(read_data_2) then
+                if s_operandA < s_operandB then
                             s_result   <= x"00000001";
 				else        s_result   <= x"00000000";
 				end if;
