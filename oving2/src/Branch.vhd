@@ -33,12 +33,14 @@ begin
                     pc_address_src <= Branch_addr;
                 else
                     pc_address_src <= PC_addr;
+                    address_out <= (others => 'X'); --Remove 1-bit latches, by explicitly write that we don't care.
                 end if;
             when jump =>
                 address_out <= immediate(ADDR_WIDTH-1 downto 0);
                 pc_address_src <= Branch_addr;
             when others =>
                 pc_address_src <= PC_addr;
+                address_out <= (others => 'X');
         end case;
     end process;
 

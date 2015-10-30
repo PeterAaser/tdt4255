@@ -19,7 +19,7 @@ entity MIPSProcessor is
         DATA_WIDTH : integer := 32
     );
     port (
-        clk, reset 			: in std_logic;
+        clk, reset 			    : in std_logic;
         processor_enable		: in std_logic;
         imem_data_in			: in std_logic_vector(DATA_WIDTH-1 downto 0);
         imem_address			: out std_logic_vector(ADDR_WIDTH-1 downto 0);
@@ -150,7 +150,11 @@ begin
     propagate_signals : process(clk)
     begin
         if(rising_edge(clk)) then
-            id_instruction <= make_instruction(imem_data_in);
+            if(pc_address_src = pc_addr) then -- insert bubble if branch
+                 id_instruction <= make_instruction(imem_data_in);
+            else
+                 id_instruction <= make_instruction(x"00000020"); -- ADD $0, $0, $0 (NOP instr)
+            end if;
             
             ex_extended_immediate <= std_logic_vector(resize(signed(id_instruction.immediate), 32));
             ex_funct <= id_instruction.funct;
