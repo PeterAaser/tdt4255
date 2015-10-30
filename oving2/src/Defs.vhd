@@ -43,6 +43,7 @@ package Defs is
     type ALU_source_t is (REG2, INSTR);
     type RegDst_t is (REGT, REGD);
     type MemtoReg_t is (FROM_ALU, FROM_MEM); 
+    type Forward_t is (REG, MEM, WB);
 
     subtype RegWrite_t is boolean;
     subtype MemWrite_t is boolean;
