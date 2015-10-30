@@ -287,9 +287,39 @@ DataMem:			entity work.DualPortMem port map (
 			for i in 0 to TEST_INSTRS-1 loop
 				WriteInstructionWord(TestInstrData(i), to_unsigned(i, ADDR_WIDTH));
 			end loop;
-		end FillInstructionMemory_branch1;        
+		end FillInstructionMemory_branch1;
+
+
+
+        procedure FillInstructionMemory_lwbubble is
+			constant TEST_INSTRS : integer := 9;
+			type InstrData is array (0 to TEST_INSTRS-1) of std_logic_vector(DATA_WIDTH-1 downto 0);
+			variable TestInstrData : InstrData := (
+                make_itype_instruction(addi, 1, 0, 10),
+                make_itype_instruction(addi, 1, 0, 20),
+                make_itype_instruction(addi, 1, 0, 30),
+                
+                make_itype_instruction(lw, 2, 1, 0),
+                make_rtype_instruction(1, 1, 2, 0, add),
+                make_rtype_instruction(2, 2, 1, 0, add),
+                
+                make_itype_instruction(lw, 2, 1, 0),
+                make_rtype_instruction(1, 2, 1, 0, add),
+                make_rtype_instruction(2, 1, 2, 0, add)
+            );
+		begin
+			for i in 0 to TEST_INSTRS-1 loop
+				WriteInstructionWord(TestInstrData(i), to_unsigned(i, ADDR_WIDTH));
+			end loop;
+		end FillInstructionMemory_lwbubble;             
         
    begin
+      --########################################################################
+      --########################################################################
+      --############## TEST START
+      --########################################################################
+      --########################################################################
+      
       -- hold reset state for 100 ns
 		reset <= '1';
       wait for 100 ns;	
@@ -297,8 +327,16 @@ DataMem:			entity work.DualPortMem port map (
 		
 		processor_enable <= '0';
 		-- fill instruction and data mems with test data
-		FillInstructionMemory;
-		FillDataMemory;
+		
+        
+        FillInstructionMemory;
+        -- FillInstructionMemory_dep1;
+        -- FillInstructionMemory_jump1;
+        -- FillInstructionMemory_branch1;
+        -- FillInstructionMemory_lwbubble;
+		
+        
+        FillDataMemory;
 
       wait for clk_period*10;
 
