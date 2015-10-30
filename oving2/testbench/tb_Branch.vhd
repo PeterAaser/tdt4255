@@ -18,7 +18,7 @@ ARCHITECTURE behavior OF tb_Branch IS
          pc : IN  std_logic_vector(7 downto 0);
          read_data_1 : IN  std_logic_vector(31 downto 0);
          read_data_2 : IN  std_logic_vector(31 downto 0);
-         PC_addr_src : OUT  PC_addr_source_t;
+         PC_address_src : OUT  PC_addr_source_t;
          address_out : OUT  std_logic_vector(7 downto 0)
         );
     END COMPONENT;
@@ -32,7 +32,7 @@ ARCHITECTURE behavior OF tb_Branch IS
    signal read_data_2 : std_logic_vector(31 downto 0) := (others => '0');
 
  	--Outputs
-   signal PC_addr_src : PC_addr_source_t;
+   signal PC_address_src : PC_addr_source_t;
    signal address_out : std_logic_vector(7 downto 0);
    -- No clocks detected in port list. Replace <clock> below with 
    -- appropriate port name 
@@ -48,7 +48,7 @@ BEGIN
           pc => pc,
           read_data_1 => read_data_1,
           read_data_2 => read_data_2,
-          PC_addr_src => PC_addr_src,
+          PC_address_src => PC_address_src,
           address_out => address_out
         );
 
@@ -60,7 +60,7 @@ procedure test_pc(
     pc_in                       : in integer;
     read_data_1_in              : in integer;
     read_data_2_in              : in integer;
-    expected_pc_source_addr     : in PC_addr_source_t;
+    expected_pc_source_address  : in PC_addr_source_t;
     expected_address            : in integer)
 is
 begin
