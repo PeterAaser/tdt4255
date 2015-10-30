@@ -37,13 +37,16 @@ architecture MultiCycleMIPS of MIPSProcessor is
     signal forward_a : Forward_t;
     signal forward_b : Forward_t;
     signal ex_read_data_2_forwarded : std_logic_vector(DATA_WIDTH-1 downto 0);
+
     -- pipeline stage_registers are named corresponding to the names in the architecture sketch
     -- E.g.: IF/ID -> id_, ID/EX -> ex_, etc.
     -- IF
+    signal if_stall : std_logic;
     
     -- ID
     signal id_instruction : instruction_t;
     signal id_pc : std_logic_vector(ADDR_WIDTH-1 downto 0);
+    signal id_stall : std_logic;
     
     -- EX
     signal ex_control_signals : control_signals_t;
@@ -154,7 +157,15 @@ begin
         ex_read_data_2_forwarded => ex_read_data_2_forwarded
     );
     
+    hazard_detector: entity work.Hazard_detection
+    port map(
+        id_reg_a    => id_instruction.regs,
+        id_reg_b    => id_instruction.regt,
+        ex_reg_dest => ex_regd,
         
+        stall       => id_stall
+    );
+    
     forward: entity work.Forwarding
     port map(
         mem_regd => mem_write_reg,
@@ -166,15 +177,12 @@ begin
         forward_a => forward_a,
         forward_b => forward_b
     );
-    
+
     propagate_signals : process(clk)
     begin
         if(rising_edge(clk)) then
-            if(pc_address_src = pc_addr) then -- insert bubble if branch
-                 id_instruction <= make_instruction(imem_data_in);
-            else
-                 id_instruction <= make_instruction(x"00000020"); -- ADD $0, $0, $0 (NOP instr)
-            end if;
+
+            id_instruction <= make_instruction(imem_data_in);
             
             ex_extended_immediate <= std_logic_vector(resize(signed(id_instruction.immediate), 32));
             ex_funct <= id_instruction.funct;
