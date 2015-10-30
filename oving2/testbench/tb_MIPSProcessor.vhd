@@ -204,6 +204,91 @@ DataMem:			entity work.DualPortMem port map (
 			CheckDataWord(x"0000000E", 16);
 		end CheckDataMemory;
 		
+        
+        
+        
+        procedure FillInstructionMemory_dep1 is
+			constant TEST_INSTRS : integer := 7;
+			type InstrData is array (0 to TEST_INSTRS-1) of std_logic_vector(DATA_WIDTH-1 downto 0);
+			variable TestInstrData : InstrData := (
+                    make_itype_instruction(addi, 1, 0, 10),
+                    make_itype_instruction(addi, 1, 0, 20),
+                    make_itype_instruction(addi, 1, 0, 30),
+                    make_rtype_instruction(1, 1, 1, 0, add),
+                    make_rtype_instruction(2, 1, 2, 0, add),
+                    make_rtype_instruction(2, 1, 2, 0, add),
+                    make_rtype_instruction(3, 2, 2, 0, add)
+				);
+		begin
+			for i in 0 to TEST_INSTRS-1 loop
+				WriteInstructionWord(TestInstrData(i), to_unsigned(i, ADDR_WIDTH));
+			end loop;
+		end FillInstructionMemory_dep1;
+        
+        
+        
+        procedure FillInstructionMemory_jump1 is
+			constant TEST_INSTRS : integer := 12;
+			type InstrData is array (0 to TEST_INSTRS-1) of std_logic_vector(DATA_WIDTH-1 downto 0);
+			variable TestInstrData : InstrData := (
+                    make_itype_instruction(addi, 1, 0, 10),
+                    make_itype_instruction(addi, 1, 0, 20),
+                    make_itype_instruction(addi, 1, 0, 30),
+                    
+                    make_rtype_instruction(1, 1, 2, 0, add),
+                    make_jtype_instruction(jump, 6), -- label 1
+                    make_rtype_instruction(2, 2, 1, 0, add),
+                    
+                    -- label 1
+                    make_jtype_instruction(jump, 7), -- label 2
+                    
+                    -- label 2
+                    make_rtype_instruction(2, 1, 2, 0, add),
+                    make_jtype_instruction(jump, 10), -- label 3
+                    make_rtype_instruction(2, 1, 2, 0, add),
+                    
+                    -- label 3
+                    make_jtype_instruction(jump, 14), -- label 4
+                    make_rtype_instruction(3, 2, 2, 0, add)
+                    
+                    -- label 4
+
+				);
+		begin
+			for i in 0 to TEST_INSTRS-1 loop
+				WriteInstructionWord(TestInstrData(i), to_unsigned(i, ADDR_WIDTH));
+			end loop;
+		end FillInstructionMemory_jump1;
+        
+        
+        
+        procedure FillInstructionMemory_branch1 is
+			constant TEST_INSTRS : integer := 10;
+			type InstrData is array (0 to TEST_INSTRS-1) of std_logic_vector(DATA_WIDTH-1 downto 0);
+			variable TestInstrData : InstrData := (
+                    make_itype_instruction(addi, 1, 0, 10),
+                    make_itype_instruction(addi, 1, 0, 20),
+                    make_itype_instruction(addi, 1, 0, 30),
+                    
+                    make_rtype_instruction(1, 1, 2, 0, add),
+                    make_rtype_instruction(2, 2, 1, 0, add),
+                    
+                    make_itype_instruction(beq, 1, 2, 100),     -- fail     
+                    make_rtype_instruction(2, 1, 2, 0, add),           
+                    make_itype_instruction(beq, 1, 2, 100),     -- take label 1
+                    make_rtype_instruction(1, 1, 1, 0, add),
+                    
+                    -- label 1
+                    make_itype_instruction(bne, 1, 2, 100)     -- fail
+
+                    -- correct end address
+				);
+		begin
+			for i in 0 to TEST_INSTRS-1 loop
+				WriteInstructionWord(TestInstrData(i), to_unsigned(i, ADDR_WIDTH));
+			end loop;
+		end FillInstructionMemory_branch1;        
+        
    begin
       -- hold reset state for 100 ns
 		reset <= '1';

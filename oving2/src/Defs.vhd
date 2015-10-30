@@ -33,7 +33,7 @@ package Defs is
     );
 
     type op_t is (
-        jump, jal, beq, bne, sw, lw, lui, rtype
+        jump, jal, beq, bne, sw, lw, lui, rtype, addi
     );
 
     -- Enumerators for control signals
@@ -172,6 +172,7 @@ begin
         when "101011" => return sw;
         when "000000" => return rtype;
         when "001111" => return lui;
+        when "001000" => return addi;
         
         when others => return rtype;
     end case;
@@ -185,6 +186,7 @@ begin
         when lw  => return add;
         when sw  => return add;
         when lui => return sl16;
+        when addi=> return add;
         
         when others => return add;
     end case;
@@ -203,7 +205,6 @@ begin
     case op is
         when add =>     return "100000";
         when addu =>    return "100001";
-        when op_and =>  return "100100";
         when div =>     return "011010";
         when divu =>    return "011011";
         when jr =>      return "001000";
@@ -237,6 +238,7 @@ begin
         when sw     => return "101011";
         when rtype  => return "000000";
         when lui    => return "001111";
+        when addi   => return "001000";
         
         when others => return "000000";
     end case;
