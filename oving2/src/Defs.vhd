@@ -1,6 +1,7 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.all;
 use ieee.numeric_std.all;
+use ieee.std_logic_arith.conv_std_logic_vector;
 
 package Defs is
 -- subtype instruction_t is std_logic_vector(31 downto 0);
@@ -74,6 +75,26 @@ package Defs is
     -- Used in testbenches to make input saner.
     function test_get_funct_inverse ( op : ALU_op_t ) return funct_t;
     function test_get_op_inverse ( op : op_t ) return opcode_t;
+    
+    function make_rtype_instruction(
+        regs        : integer;
+        regt        : integer;
+        regd        : integer;
+        shamt       : integer;
+        funct       : ALU_op_t ) 
+        return std_logic_vector;
+        
+    function make_itype_instruction(
+        op          : op_t;
+        regs        : integer;
+        regt        : integer;
+        immediate   : integer)
+        return std_logic_vector;        
+
+    function make_jtype_instruction(
+        op          : op_t;
+        target      : integer)
+        return std_logic_vector; 
     
     -- Used in testbenches to make reporting somewhat less of a joke.
     function vec_string(v: std_logic_vector(31 downto 0)) return string;
@@ -225,5 +246,54 @@ function vec_string(v: std_logic_vector(31 downto 0)) return string is begin ret
 function op_string(op: op_t) return string is begin return op_t'image(op); end op_string;
 function ALU_op_string(ALU_op: ALU_op_t) return string is begin return ALU_op_t'image(ALU_op); end ALU_op_string;
 function bool_string(b: boolean) return string is begin return boolean'image(b); end bool_string;
+
+function make_rtype_instruction(
+    regs        : integer;
+    regt        : integer;
+    regd        : integer;
+    shamt       : integer;
+    funct       : ALU_op_t) return std_logic_vector 
+is
+    variable instr : std_logic_vector(31 downto 0);
+begin
+    instr(31 downto 26) := (others => '0');
+    instr(25 downto 21) := conv_std_logic_vector(regs,  5);
+    instr(20 downto 16) := conv_std_logic_vector(regt,  5);
+    instr(15 downto 11) := conv_std_logic_vector(regd,  5);
+    instr(10 downto  6) := conv_std_logic_vector(shamt, 5);
+    instr(5  downto  0) := test_get_funct_inverse(funct);
+    
+    return instr;
+end make_rtype_instruction;
+
+function make_itype_instruction(
+    op          : op_t;
+    regs        : integer;
+    regt        : integer;
+    immediate   : integer)
+    return std_logic_vector  
+is
+    variable instr : std_logic_vector(31 downto 0);
+begin
+    instr(31 downto 26) := test_get_op_inverse(op);
+    instr(25 downto 21) := conv_std_logic_vector(regs,  5);
+    instr(20 downto 16) := conv_std_logic_vector(regt,  5);
+    instr(15 downto 0 ) := conv_std_logic_vector(immediate,  16);
+
+    return instr;
+end make_itype_instruction;
+
+function make_jtype_instruction(
+    op          : op_t;
+    target      : integer)
+    return std_logic_vector  
+is
+    variable instr : std_logic_vector(31 downto 0);
+begin
+    instr(31 downto 26) := test_get_op_inverse(op);
+    instr(25 downto 0)  := conv_std_logic_vector(target,  26);
+
+    return instr;
+end make_jtype_instruction;
 
 end Defs;
