@@ -41,6 +41,7 @@ architecture MultiCycleMIPS of MIPSProcessor is
     -- ID
     signal id_instruction : instruction_t;
     signal id_pc : std_logic_vector(ADDR_WIDTH-1 downto 0);
+    signal id_stall : std_logic;
     
     -- EX
     signal ex_control_signals : control_signals_t;
@@ -145,7 +146,16 @@ begin
         Zero => mem_zero,
         result => mem_alu_result
     );
-
+    
+    hazard_detector: entity work.Hazard_detection
+    port map(
+        id_reg_a    => id_instruction.regs,
+        id_reg_b    => id_instruction.regt,
+        ex_reg_dest => ex_regd,
+        
+        stall       => id_stall
+    );
+    
     
     propagate_signals : process(clk)
     begin
