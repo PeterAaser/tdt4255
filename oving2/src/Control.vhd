@@ -2,11 +2,6 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use work.Defs.all;
 
--- Uncomment the following library declaration if using
--- arithmetic functions with Signed or Unsigned values                  
---use IEEE.NUMERIC_STD.ALL;
-
-
 entity Control is
     generic (
         DATA_WIDTH : integer := 32
@@ -17,12 +12,13 @@ entity Control is
         processor_enable      : in std_logic;
         instruction           : in instruction_t;
         
-        signal branch_hazard  : in std_logic;
-        signal data_hazard    : in std_logic;
+        control_hazard        : in std_logic;
+        data_hazard           : in std_logic;
          
         control_signals       : out control_signals_t
         );
 end Control;
+
 
 architecture Behavioral of Control is
     signal duplicate_instruction    : std_logic;
@@ -41,7 +37,7 @@ begin
         control_signals.RegWrite <= false;
         control_signals.op <= rtype;
         
-        if branch_hazard = '0' and duplicate_instruction = '0' then
+        if control_hazard = '0' and duplicate_instruction = '0' then
 
             case get_op(instruction.opcode) is
                 when rtype => -- R-Type

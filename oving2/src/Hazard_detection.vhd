@@ -11,8 +11,10 @@ use work.defs.all;
 -- which we will collect from the ex stage
 
 -- Once a collission is detected the following needs to happen:
---      EX stage becomes NOP
---      IM and ID stage is stalled such that we dont NOP a valid instruction
+--      ID overrides instruction in ID stage to NOP
+--      IM is stalled so the overriden instruction wont get lost
+
+-- The second hazard to consider is branch hazards, which happens whenver a branch is taken
 
 entity Hazard_detection is
     port (
@@ -20,7 +22,10 @@ entity Hazard_detection is
         id_reg_b          : in reg_t;
         ex_reg_dest       : in reg_t;
         
-        stall             : out std_logic
+        pc_address_src    : in PC_addr_source_t;
+        
+        control_hazard    : out std_logic;
+        data_hazard       : out std_logic
     );
 end Hazard_detection;
 
@@ -28,17 +33,25 @@ architecture Behavioral of Hazard_detection is
     signal bubble_control : control_signals_t;
 begin
 
-    do_lw_stall : process(id_reg_a, id_reg_b, ex_reg_dest)
+    detect_data_hazard : process(id_reg_a, id_reg_b, ex_reg_dest)
     begin
         
-        stall <= '0';
+        data_hazard <= '0';
         if id_reg_a = ex_reg_dest then
-            stall <= '1';
+            data_hazard <= '1';
         elsif id_reg_b = ex_reg_dest then
-            stall <= '1';
+            data_hazard <= '1';
         end if;
         
-    end process do_lw_stall;
+    end process detect_data_hazard;
+    
+    detect_control_hazard : process(pc_address_src)
+    begin
+        control_hazard <= '0';
+        if pc_address_src = branch_addr then
+            control_hazard <= '1';
+        end if;
+    end process detect_control_hazard;
     
 end Behavioral;
 
