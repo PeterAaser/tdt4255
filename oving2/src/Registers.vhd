@@ -21,17 +21,8 @@ end Registers;
 architecture Behavioral of Registers is
     type RegisterFileType is array(0 to 2**REG_ADDR_WIDTH-1) of std_logic_vector(DATA_WIDTH-1 downto 0);
     signal regFile : RegisterFileType;
-    signal write_reg_addr : std_logic_vector(REG_ADDR_WIDTH-1 downto 0);
-    signal write_data : std_logic_vector(DATA_WIDTH-1 downto 0);
 begin
-    data_mux: process(clk, MemToReg, ALUresult, dmem_data)
-    begin
-        if MemToReg = FROM_ALU then
-            write_data <= ALUResult;
-        else
-            write_data <= dmem_data;
-        end if;
-    end process;
+    
 
     process (clk, reset)
     begin
@@ -39,7 +30,13 @@ begin
             regFile <= (others => (others => '0'));
         elsif rising_edge(clk) then
             if RegWrite = true then
-                regFile(to_integer(unsigned(write_reg))) <= write_data;
+                report vec_string_5b(write_reg);
+                if MemToReg = FROM_ALU then
+                    report vec_string(ALUResult);
+                    regFile(to_integer(unsigned(write_reg))) <= ALUResult;
+                else
+                    regFile(to_integer(unsigned(write_reg))) <= dmem_data;
+                end if;
             end if;
         end if;
     end process;

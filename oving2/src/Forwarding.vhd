@@ -14,6 +14,7 @@ entity Forwarding is
         ex_regt         : in reg_t;
         mem_regwrite    : in RegWrite_t;
         wb_regwrite     : in RegWrite_t;
+        
         forward_a       : out Forward_t;
         forward_b       : out Forward_t
         );

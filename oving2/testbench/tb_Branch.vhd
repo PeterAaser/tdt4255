@@ -68,11 +68,16 @@ begin
     immediate           <= conv_std_logic_vector(immediate_in, 16);
     pc                  <= conv_std_logic_vector(pc_in, 8);
     read_data_1         <= conv_std_logic_vector(read_data_1_in, 32);
-    read_data_1         <= conv_std_logic_vector(read_data_2_in, 32);
+    read_data_2         <= conv_std_logic_vector(read_data_2_in, 32);
     wait for clk_period;
     
-    assert address_out = conv_std_logic_vector(expected_address, 8)
-        report "YOU FUCKED UP, NIGGA" & lf;
+    assert expected_pc_source_address = PC_address_src
+        report lf & lf & "BRANCH SOURCE MISMATCH" & lf &
+        "read 1 was " & vec_string(read_data_1) & lf &
+        "read 2 was " & vec_string(read_data_2) & lf &
+        "The operation was " & op_string(op_in) & lf &
+        "Expected result was " & pc_addr_source_t'image(expected_pc_source_address) & lf &
+        "Observed result was " & pc_addr_source_t'image(pc_address_src);
 
     
 end test_pc;
@@ -82,8 +87,8 @@ end test_pc;
         op <= test_get_op_inverse(rtype);
         wait for clk_period;
         
-        test_pc(jump, 171, 128, 12, 21, PC_addr, 171);
-        test_pc(beq, 18, 128, 4321, 1234, PC_addr, 128); -- what should expected address be?
+        test_pc(jump, 171, 128, 12, 21, Branch_addr, 171);
+        test_pc(beq, 18, 128, 4321, 1234, PC_addr, 128);
         test_pc(beq, 18, 128, 1234, 1234, Branch_addr, 18);
         
         assert false report "YOURE WINNER" severity failure;

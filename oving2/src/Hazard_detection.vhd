@@ -14,6 +14,8 @@ use work.defs.all;
 --      ID overrides instruction in ID stage to NOP
 --      IM is stalled so the overriden instruction wont get lost
 
+-- This is the only data hazard we will consider, since we expect the forwarder to solve other dependencies
+
 -- The second hazard to consider is branch hazards, which happens whenver a branch is taken
 
 entity Hazard_detection is
