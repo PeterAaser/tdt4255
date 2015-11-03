@@ -82,7 +82,7 @@ begin
     bubble_next : process(clk)
     begin
         duplicate_instruction <= '0';
-        if data_hazard then
+        if data_hazard = '1' then
             duplicate_instruction <= '1';
         end if;
     end process;
