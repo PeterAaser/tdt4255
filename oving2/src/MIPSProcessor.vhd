@@ -72,6 +72,10 @@ architecture MultiCycleMIPS of MIPSProcessor is
     signal wb_write_reg : reg_t;
     signal wb_alu_result : std_logic_vector(DATA_WIDTH-1 downto 0);
     
+    -- hazards
+    signal data_hazard : std_logic;
+    signal control_hazard : std_logic;
+    
 begin
 
     ex_read_data_1 <= tmp_ex_read_data_1;
@@ -87,7 +91,10 @@ begin
         processor_enable => processor_enable,
         instruction => id_instruction,
         
-        control_signals => ex_control_signals
+        control_signals => ex_control_signals,
+        
+        data_hazard     => data_hazard,
+        control_hazard   => control_hazard
     );
 
     program_counter: entity work.ProgramCounter
@@ -100,7 +107,8 @@ begin
         pc_address_src => pc_address_src,
         branch_address_in => branch_address,
         imem_address => imem_address,
-        incremented_address => id_pc
+        incremented_address => id_pc,
+        control_hazard => control_hazard
     );
     
     registers: entity work.Registers
@@ -159,11 +167,14 @@ begin
     
     hazard_detector: entity work.Hazard_detection
     port map(
-        id_reg_a    => id_instruction.regs,
-        id_reg_b    => id_instruction.regt,
-        ex_reg_dest => ex_regd,
+        id_reg_a            => id_instruction.regs,
+        id_reg_b            => id_instruction.regt,
+        ex_reg_dest         => ex_regd,
         
-        stall       => id_stall
+        pc_address_src      => pc_address_src,
+        
+        data_hazard         => data_hazard,
+        control_hazard      => control_hazard 
     );
     
     forward: entity work.Forwarding
