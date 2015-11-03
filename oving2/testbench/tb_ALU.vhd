@@ -11,9 +11,6 @@ end tb_ALU;
  
 architecture behavior OF tb_ALU IS 
  
- 
-
-    
 
   --  function str(n: data_t) return string is begin return integer'image(to_integer(n)); end str;  
  
@@ -23,25 +20,37 @@ architecture behavior OF tb_ALU IS
         read_data_2             : IN  std_logic_vector(31 downto 0);
         extended_immediate      : IN  std_logic_vector(31 downto 0);
         funct                   : IN  funct_t;
+        
+        forward_a               : IN forward_t;
+        forward_b               : IN forward_t;
+        wb_alu_result           : IN std_logic_vector(31 downto 0);
+        mem_alu_result          : IN std_logic_vector(31 downto 0);
+        
         op                      : IN  op_t;
         ALU_source              : IN  alu_source_t;
+        
         Zero                    : OUT  std_logic;
-        result                  : out  std_logic_vector(31 downto 0)
+        result                  : OUT  std_logic_vector(31 downto 0)
+        ex_read_data_2_forwarded: OUT  std_logic_vector(31 downto 0)
 );
     end component;
 
     --Inputs
-    signal clk                  : std_logic := '0';
     signal read_data_1          : std_logic_vector(31 downto 0) := (others => '0');
     signal read_data_2          : std_logic_vector(31 downto 0) := (others => '0');
     signal extended_immediate   : std_logic_vector(31 downto 0) := (others => '0');
     signal funct                : funct_t;
+    signal forward_a            : forward_t := REG;
+    signal forward_b            : forward_t := REG;
+    signal wb_alu_result        : std_logic_vector(31 downto 0) := (others => '0');
+    signal mem_alu_result        : std_logic_vector(31 downto 0) := (others => '0');
     signal op                   : op_t;
     signal ALU_source           : alu_source_t;
 
     --Outputs
     signal Zero                 : std_logic;
     signal result               : std_logic_vector(31 downto 0) := (others => '0');
+    signal ex_read_data_2_forwarded: std_logic_vector(31 downto 0) := (others => '0');
 
     constant clk_period         : time := 10 ns;
    
@@ -50,25 +59,20 @@ begin
  
 	-- Instantiate the Unit Under Test (UUT)
     uut: ALU port map(
-        clk                   => clk,
         read_data_1           => read_data_1,
         read_data_2           => read_data_2,
         extended_immediate    => extended_immediate,
         funct                 => funct,
+        forward_a             => forward_a,
+        forward_b             => forward_b,
+        wb_alu_result         => wb_alu_result,
+        mem_alu_result         => mem_alu_result,
         op                    => op,
         ALU_source            => ALU_source,
         Zero                  => Zero,
-        result                => result
+        result                => result,
+        ex_read_data_2_forwarded=>ex_read_data_2_forwarded
     );
-
-   -- Clock process definitions
-    clk_process :process
-    begin
-        clk <= '0';
-        wait for clk_period/2;
-        clk <= '1';
-        wait for clk_period/2;
-    end process;
 
 
     -- Stimulus process
