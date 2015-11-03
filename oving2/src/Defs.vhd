@@ -99,6 +99,7 @@ package Defs is
     
     -- Used in testbenches to make reporting somewhat less of a joke.
     function vec_string(v: std_logic_vector(31 downto 0)) return string;
+    function vec_string_5b(v: std_logic_vector(4 downto 0)) return string;
     function op_string(op: op_t) return string;
     function ALU_op_string(ALU_op: ALU_op_t) return string;
     function bool_string(b: boolean) return string;
@@ -246,6 +247,7 @@ begin
 end test_get_op_inverse;
 
 function vec_string(v: std_logic_vector(31 downto 0)) return string is begin return integer'image(to_integer(unsigned(v))); end vec_string;
+function vec_string_5b(v: std_logic_vector(4 downto 0)) return string is begin return integer'image(to_integer(unsigned(v))); end vec_string_5b;
 function op_string(op: op_t) return string is begin return op_t'image(op); end op_string;
 function ALU_op_string(ALU_op: ALU_op_t) return string is begin return ALU_op_t'image(ALU_op); end ALU_op_string;
 function bool_string(b: boolean) return string is begin return boolean'image(b); end bool_string;

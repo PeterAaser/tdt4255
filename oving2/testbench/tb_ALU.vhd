@@ -19,7 +19,6 @@ architecture behavior OF tb_ALU IS
  
     component alu
     port(
-        clk                     : IN  std_logic;
         read_data_1             : IN  std_logic_vector(31 downto 0);
         read_data_2             : IN  std_logic_vector(31 downto 0);
         extended_immediate      : IN  std_logic_vector(31 downto 0);
