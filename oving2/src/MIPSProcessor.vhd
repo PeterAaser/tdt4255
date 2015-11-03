@@ -63,6 +63,7 @@ architecture MultiCycleMIPS of MIPSProcessor is
     -- MEM
     signal mem_read_data_2 : std_logic_vector(DATA_WIDTH-1 downto 0);
     signal mem_alu_result : std_logic_vector(DATA_WIDTH-1 downto 0);
+    signal mem_alu_result_in : std_logic_vector(DATA_WIDTH-1 downto 0); -- needed to delay signal from alu_result to alu-forward mux. Creates combinatorical loop otherwise
     signal mem_zero : std_logic;
     signal mem_control_signals : control_signals_t;
     signal mem_write_reg : reg_t;
@@ -153,8 +154,8 @@ begin
         
         forward_a => forward_a,
         forward_b => forward_b,
-        wb_alu_result_in => wb_alu_result,
-        mem_alu_result_in => mem_alu_result,
+        wb_alu_result => wb_alu_result,
+        mem_alu_result => mem_alu_result_in,
         
         op => ex_control_signals.op,
         funct => ex_funct,
@@ -207,6 +208,7 @@ begin
             else
                 mem_write_reg <= ex_regd;
             end if;
+            mem_alu_result_in <= mem_alu_result;
             
             wb_control_signals <= mem_control_signals;
             wb_alu_result <= mem_alu_result;

@@ -24,7 +24,7 @@ architecture Behavioral of Control is
     signal duplicate_instruction    : std_logic;
 begin
 
-    update: process(instruction)
+    update: process(instruction, duplicate_instruction, control_hazard)
     begin
   
         control_signals.ALU_source <= REG2;
@@ -75,7 +75,7 @@ begin
         end if;
     end process;
     
-    bubble_next : process(clk)
+    bubble_next : process(clk, data_hazard)
     begin
         duplicate_instruction <= '0';
         if data_hazard = '1' then

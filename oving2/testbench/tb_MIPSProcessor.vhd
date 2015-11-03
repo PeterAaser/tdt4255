@@ -1,17 +1,8 @@
--- Part of TDT4255 Computer Design laboratory exercises
--- Group for Computer Architecture and Design
--- Department of Computer and Information Science
--- Norwegian University of Science and Technology
-
--- tb_MIPSProcessor.vhd
--- Testbench for the MIPSProcessor component
--- Instantiates data and instruction memory, fills them with some
--- test data, enables the processor, then checks the data memory
--- to see if the expected values have been written.
 
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 USE ieee.numeric_std.ALL;
+use work.defs.all;
  
 ENTITY tb_MIPSProcessor IS
 END tb_MIPSProcessor;
