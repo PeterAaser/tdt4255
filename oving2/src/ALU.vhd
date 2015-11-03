@@ -52,8 +52,6 @@ begin
                 s_operandA <= signed(wb_alu_result_in);
             when MEM =>
                 s_operandA <= signed(mem_alu_result_in);
-            when others =>
-                null;
         end case;
         
 --        case forward_b is
