@@ -32,7 +32,6 @@ begin
             if RegWrite = true then
                 report vec_string_5b(write_reg);
                 if MemToReg = FROM_ALU then
-                    report vec_string(ALUResult);
                     regFile(to_integer(unsigned(write_reg))) <= ALUResult;
                 else
                     regFile(to_integer(unsigned(write_reg))) <= dmem_data;
