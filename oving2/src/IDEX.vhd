@@ -18,8 +18,7 @@ entity IDEX is
            ReadData1_out        : out STD_LOGIC_VECTOR(DATA_WIDTH-1 downto 0);
            ReadData2_out        : out STD_LOGIC_VECTOR(DATA_WIDTH-1 downto 0);
            Immidiate_out        : out STD_LOGIC_VECTOR(DATA_WIDTH-1 downto 0);
-           RegT_out             : out reg_t;
-           RegD_out             : out reg_t
+           Reg_out             : out reg_t
    );
 end IDEX;
 
@@ -28,11 +27,15 @@ begin
     propagate : process(clk)
     begin
         if (rising_edge(clk)) then
+           ControlSignals_out <= ControlSignals_in;
            ReadData1_out <= ReadData1_in;
            ReadData2_out <= ReadData2_in;
            Immidiate_out <= std_logic_vector(resize(signed(Immidiate_in), 32));
-           RegT_out      <= RegT_in;
-           RegT_out      <= RegD_in;
+           if (ControlSignals_in.RegDst = REGT) then
+                Reg_out <= RegT_in;
+           else
+                Reg_out <= RegD_in;
+           end if;
        end if;
     end process;
 end Behavioral;
