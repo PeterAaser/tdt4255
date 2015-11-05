@@ -189,15 +189,6 @@ begin
         forward_b => forward_b
     );
 
-    ifid: entity work.IFID
-    generic map(
-        DATA_WIDTH => DATA_WIDTH
-    )
-    port map(
-        clk => clk,
-        imem_data_in => imem_data_in,
-        instruction => id_instruction
-    );
     
     idex: entity work.IDEX
     generic map(
@@ -247,6 +238,7 @@ begin
     propagate_signals : process(clk)
     begin
         if(rising_edge(clk)) then
+                
             
 --            ex_extended_immediate <= std_logic_vector(resize(signed(id_instruction.immediate), 32));
 --            ex_funct <= id_instruction.funct;
@@ -279,7 +271,7 @@ begin
     end process;
 
 
-
+    id_instruction <= make_instruction(imem_data_in);
     -- DMEM
     dmem_address <= mem_alu_result(7 downto 0);
     dmem_data_out <= mem_read_data_2;
