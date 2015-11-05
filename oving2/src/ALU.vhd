@@ -11,7 +11,7 @@ entity ALU is
            
            forward_a                : in forward_t := REG; -- control signal for forwarding muxes
            forward_b                : in forward_t := REG;
-           wb_alu_result            : in std_logic_vector(31 downto 0) := (others => '0'); -- forwarded values
+           wb_out_result            : in std_logic_vector(31 downto 0) := (others => '0'); -- forwarded values
            mem_alu_result           : in std_logic_vector(31 downto 0) := (others => '0');
            
            op                       : in op_t;          -- on the other hand this is an enumerated type.
@@ -40,7 +40,7 @@ begin
         end if;
     end process;
 
-	mux: process(forward_a, forward_b, read_data_1, read_data_2, ALU_source, mem_alu_result, wb_alu_result, extended_immediate)	
+	mux: process(forward_a, forward_b, read_data_1, read_data_2, ALU_source, mem_alu_result, wb_out_result, extended_immediate)	
         variable temp_ex_read: std_logic_vector(31 downto 0);
     begin
         
@@ -48,7 +48,7 @@ begin
             when REG =>
                 s_operandA <= signed(read_data_1);
             when WB =>
-                s_operandA <= signed(wb_alu_result);
+                s_operandA <= signed(wb_out_result);
             when MEM =>
                 s_operandA <= signed(mem_alu_result);
         end case;
@@ -58,8 +58,8 @@ begin
                 ex_read_data_2_forwarded <= read_data_2;
                 temp_ex_read := read_data_2;
             when WB =>
-                ex_read_data_2_forwarded <= wb_alu_result;
-                temp_ex_read := wb_alu_result;
+                ex_read_data_2_forwarded <= wb_out_result;
+                temp_ex_read := wb_out_result;
             when MEM =>
                 ex_read_data_2_forwarded <= mem_alu_result;
                 temp_ex_read := mem_alu_result;

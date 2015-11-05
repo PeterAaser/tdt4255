@@ -12,8 +12,7 @@ entity Registers is
         clk, reset                              : in std_logic;
         read_reg_1, read_reg_2, write_reg       : in reg_t;
         RegWrite                                : in RegWrite_t;
-        MemToReg                                : in MemtoReg_t;
-        ALUResult, dmem_data                    : in std_logic_vector(DATA_WIDTH-1 downto 0);
+        write_data                              : in std_logic_vector(DATA_WIDTH-1 downto 0);
         read_data_1, read_data_2                : out std_logic_vector(DATA_WIDTH-1 downto 0)
     );
 end Registers;
@@ -31,11 +30,7 @@ begin
         elsif rising_edge(clk) then
             if RegWrite = true then
                 report vec_string_5b(write_reg);
-                if MemToReg = FROM_ALU then
-                    regFile(to_integer(unsigned(write_reg))) <= ALUResult;
-                else
-                    regFile(to_integer(unsigned(write_reg))) <= dmem_data;
-                end if;
+                regFile(to_integer(unsigned(write_reg))) <= write_data;
             end if;
         end if;
     end process;

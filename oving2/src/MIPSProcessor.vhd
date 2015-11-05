@@ -72,6 +72,7 @@ architecture MultiCycleMIPS of MIPSProcessor is
     signal wb_control_signals : control_signals_t;
     signal wb_write_reg : reg_t;
     signal wb_alu_result : std_logic_vector(DATA_WIDTH-1 downto 0);
+    signal wb_out : std_logic_vector(DATA_WIDTH-1 downto 0);
     
     -- hazards
     signal data_hazard : std_logic;
@@ -122,9 +123,7 @@ begin
         read_reg_1 => id_instruction.regs,
         read_reg_2 => id_instruction.regt,
         write_reg => wb_write_reg,
-        ALUResult => wb_alu_result,
-        dmem_data => dmem_data_in,
-        MemToReg => wb_control_signals.MemToReg,
+        write_data => wb_out,
         RegWrite => wb_control_signals.RegWrite,
         read_data_1 => tmp_ex_read_data_1,
         read_data_2 => tmp_ex_read_data_2
@@ -154,7 +153,7 @@ begin
         
         forward_a => forward_a,
         forward_b => forward_b,
-        wb_alu_result => wb_alu_result,
+        wb_out_result => wb_out,
         mem_alu_result => mem_alu_result_in,
         
         op => ex_control_signals.op,
@@ -214,6 +213,16 @@ begin
             wb_alu_result <= mem_alu_result;
             wb_write_reg <= mem_write_reg;
          end if;
+         
+    end process;
+    
+    wb_mux: process(wb_control_signals.MemtoReg, wb_alu_result, dmem_data_in)
+    begin
+        if(wb_control_signals.MemtoReg = FROM_ALU) then
+            wb_out <= wb_alu_result;
+        else
+            wb_out <= dmem_data_in;
+        end if;
     end process;
 
 
