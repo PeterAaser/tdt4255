@@ -30,7 +30,7 @@ architecture behavior OF tb_ALU IS
         ALU_source              : IN  alu_source_t;
         
         Zero                    : OUT  std_logic;
-        result                  : OUT  std_logic_vector(31 downto 0)
+        result                  : OUT  std_logic_vector(31 downto 0);
         ex_read_data_2_forwarded: OUT  std_logic_vector(31 downto 0)
 );
     end component;

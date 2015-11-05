@@ -50,7 +50,7 @@ begin
             when WB =>
                 s_operandA <= signed(wb_alu_result);
             when MEM =>
-                s_operandA <= signed(mem_alu_result_in);
+                s_operandA <= signed(mem_alu_result);
         end case;
         
         case forward_b is
