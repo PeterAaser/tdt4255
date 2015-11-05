@@ -12,30 +12,31 @@ entity ProgramCounter is
         branch_address_in   : in std_logic_vector(ADDR_WIDTH-1 downto 0);
         control_hazard      : in std_logic;
         pc_address_src      : in PC_addr_source_t;
+		  processor_enable	 : in std_logic;
         
-        incremented_address : out std_logic_vector(ADDR_WIDTH-1 downto 0);
         imem_address        : out std_logic_vector(ADDR_WIDTH-1 downto 0)
     );
 end ProgramCounter;
 
 architecture Behavioral of ProgramCounter is
-    signal address : std_logic_vector(ADDR_WIDTH - 1 downto 0);
+    signal address : std_logic_vector(ADDR_WIDTH - 1 downto 0) := (others => '0');
 begin
     update: process(clk, reset, address)
     begin
         if reset = '1' then
             address <= (others => '0');
         elsif rising_edge(clk) then
-            if control_hazard = '0' then
-                if (pc_address_src = Branch_addr) then
-                    address <= branch_address_in;
-                else
-                    address <= std_logic_vector(unsigned(address) + 1);
-                end if;              
-            end if;
+				if processor_enable = '1' then
+					if control_hazard = '0' then
+						 if (pc_address_src = Branch_addr) then
+							  address <= branch_address_in;
+						 else
+							  address <= std_logic_vector(unsigned(address) + 1);
+						 end if;              
+					end if;
+				end if;
+				imem_address <= address;
         end if;
-        imem_address <= address;
-        incremented_address <= std_logic_vector(unsigned(address) + 1);
     end process;
     
 end Behavioral;

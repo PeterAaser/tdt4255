@@ -106,10 +106,10 @@ begin
     port map(
         reset => reset,
         clk => clk,
+		  processor_enable => processor_enable,
         pc_address_src => pc_address_src,
         branch_address_in => branch_address,
         imem_address => imem_address,
-        incremented_address => id_pc,
         control_hazard => control_hazard
     );
     
@@ -170,6 +170,7 @@ begin
         id_reg_a            => id_instruction.regs,
         id_reg_b            => id_instruction.regt,
         ex_reg_dest         => ex_regd,
+		  processor_enable 	 => processor_enable,
         
         pc_address_src      => pc_address_src,
         

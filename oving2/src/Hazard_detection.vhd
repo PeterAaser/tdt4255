@@ -23,6 +23,7 @@ entity Hazard_detection is
         id_reg_a          : in reg_t;
         id_reg_b          : in reg_t;
         ex_reg_dest       : in reg_t;
+		  processor_enable  : in std_logic;
         
         pc_address_src    : in PC_addr_source_t;
         
@@ -37,22 +38,30 @@ begin
 
     detect_data_hazard : process(id_reg_a, id_reg_b, ex_reg_dest)
     begin
-        
-        data_hazard <= '0';
-        if id_reg_a = ex_reg_dest then
-            data_hazard <= '1';
-        elsif id_reg_b = ex_reg_dest then
-            data_hazard <= '1';
-        end if;
+        if processor_enable = '1' then
+			  data_hazard <= '0';
+			  if id_reg_a = ex_reg_dest then
+					data_hazard <= '1';
+			  elsif id_reg_b = ex_reg_dest then
+					data_hazard <= '1';
+			  else
+					data_hazard <= '0';
+			  end if;
+		  end if;
         
     end process detect_data_hazard;
     
     detect_control_hazard : process(pc_address_src)
     begin
-        control_hazard <= '0';
-        if pc_address_src = branch_addr then
-            control_hazard <= '1';
-        end if;
+		  if processor_enable = '1' then
+			  control_hazard <= '0';
+			  if pc_address_src = branch_addr then
+					control_hazard <= '1';
+			  end if;
+		  else
+			  control_hazard <= '0';
+		  end if;
+		  
     end process detect_control_hazard;
     
 end Behavioral;
