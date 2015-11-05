@@ -57,8 +57,7 @@ architecture MultiCycleMIPS of MIPSProcessor is
     signal ex_read_data_2 : std_logic_vector(DATA_WIDTH-1 downto 0);
     signal tmp_ex_read_data_1 : std_logic_vector(DATA_WIDTH-1 downto 0);
     signal tmp_ex_read_data_2 : std_logic_vector(DATA_WIDTH-1 downto 0);
-    signal ex_regt : reg_t;
-    signal ex_regd : reg_t;
+    signal ex_reg : reg_t;
     
     -- MEM
     signal mem_read_data_2 : std_logic_vector(DATA_WIDTH-1 downto 0);
@@ -169,8 +168,8 @@ begin
     port map(
         id_reg_a            => id_instruction.regs,
         id_reg_b            => id_instruction.regt,
-        ex_reg_dest         => ex_regd,
-		  processor_enable 	 => processor_enable,
+        ex_reg_dest         => ex_reg,
+		processor_enable 	 => processor_enable,
         
         pc_address_src      => pc_address_src,
         
@@ -207,8 +206,7 @@ begin
         ReadData1_out       => ex_read_data_1,
         ReadData2_out       => ex_read_data_2,
         Immidiate_out       => ex_extended_immediate,
-        RegT_out            => ex_regt,
-        RegD_out            => ex_regd
+        Reg_out             => ex_reg
         );
     
     exmem: entity work.EXMEM
@@ -216,8 +214,7 @@ begin
         clk => clk,
         control_signals_in => ex_control_signals,
         ALUResult_in => alu_result,
-        RegT_in => ex_regt,
-        RegD_in => ex_regd,
+        Reg_in => ex_reg,
         ReadData2_in => ex_read_data_2_forwarded,
         control_signals_out => mem_control_signals,
         ALUResult_out => mem_alu_result,

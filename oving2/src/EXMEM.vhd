@@ -10,8 +10,7 @@ entity EXMEM is
     Port ( clk                  : in STD_LOGIC;
            control_signals_in   : in control_signals_t;
            ALUResult_in         : in STD_LOGIC_VECTOR(DATA_WIDTH-1 downto 0);
-           RegT_in              : in reg_t;
-           RegD_in              : in reg_t;
+           Reg_in              : in reg_t;
            ReadData2_in         : in STD_LOGIC_VECTOR(DATA_WIDTH-1 downto 0);
            
            control_signals_out  : out control_signals_t;
@@ -29,11 +28,7 @@ begin
         if (rising_edge(clk)) then
             control_signals_out <= control_signals_in;
             ALUResult_out       <= ALUResult_in;
-            if (control_signals_in.RegDst = REGT) then
-                Reg_out <= RegT_in;
-            else
-                Reg_out <= RegD_in;
-            end if;
+            Reg_out <= Reg_in;
             ReadData2_out <= ReadData2_in;
         end if;
     end process;
