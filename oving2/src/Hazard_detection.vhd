@@ -27,8 +27,8 @@ entity Hazard_detection is
         
         pc_address_src    : in PC_addr_source_t;
         
-        control_hazard    : out std_logic;
-        data_hazard       : out std_logic
+        control_hazard    : out std_logic := '0';
+        data_hazard       : out std_logic := '0'
     );
 end Hazard_detection;
 
