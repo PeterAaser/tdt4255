@@ -184,6 +184,7 @@ begin
     
     forward: entity work.Forwarding
     port map(
+        clk                 => clk,
         mem_regd            => mem_write_reg,
         wb_regd             => wb_write_reg,
         ex_regs             => ex_reg_s,
