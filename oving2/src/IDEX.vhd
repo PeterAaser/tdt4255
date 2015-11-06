@@ -8,6 +8,7 @@ entity IDEX is
         DATA_WIDTH : integer := 32
     );
     Port ( clk                  : in STD_LOGIC;
+           stall                : in STD_LOGIC;
            ControlSignals_in    : in control_signals_t;
            ReadData1_in         : in STD_LOGIC_VECTOR(DATA_WIDTH-1 downto 0);
            ReadData2_in         : in STD_LOGIC_VECTOR(DATA_WIDTH-1 downto 0);
@@ -26,7 +27,7 @@ architecture Behavioral of IDEX is
 begin
     propagate : process(clk)
     begin
-        if (rising_edge(clk)) then
+        if (rising_edge(clk) and stall = '0')then
            ControlSignals_out <= ControlSignals_in;
            ReadData1_out <= ReadData1_in;
            ReadData2_out <= ReadData2_in;

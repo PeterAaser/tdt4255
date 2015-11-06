@@ -169,7 +169,7 @@ begin
         id_reg_a            => id_instruction.regs,
         id_reg_b            => id_instruction.regt,
         ex_reg_dest         => ex_reg,
-		processor_enable 	 => processor_enable,
+		processor_enable 	=> processor_enable,
         
         pc_address_src      => pc_address_src,
         
@@ -179,14 +179,14 @@ begin
     
     forward: entity work.Forwarding
     port map(
-        mem_regd => mem_write_reg,
-        wb_regd => wb_write_reg,
-        ex_regs => id_instruction.regs,
-        ex_regt => id_instruction.regt,
-        mem_regwrite => mem_control_signals.RegWrite,
-        wb_regwrite => wb_control_signals.RegWrite,
-        forward_a => forward_a,
-        forward_b => forward_b
+        mem_regd            => mem_write_reg,
+        wb_regd             => wb_write_reg,
+        ex_regs             => id_instruction.regs,
+        ex_regt             => id_instruction.regt,
+        mem_regwrite        => mem_control_signals.RegWrite,
+        wb_regwrite         => wb_control_signals.RegWrite,
+        forward_a           => forward_a,
+        forward_b           => forward_b
     );
 
     
@@ -196,6 +196,7 @@ begin
     )
     port map(
         clk => clk,
+        stall               => data_hazard.
         ControlSignals_in   => tmp_control_signals,
         ReadData1_in        => tmp_ex_read_data_1,
         ReadData2_in        => tmp_ex_read_data_2,
@@ -212,53 +213,28 @@ begin
     exmem: entity work.EXMEM
     port map(
         clk => clk,
-        control_signals_in => ex_control_signals,
-        ALUResult_in => alu_result,
-        Reg_in => ex_reg,
-        ReadData2_in => ex_read_data_2_forwarded,
+        stall               => data_hazard.
+        control_signals_in  => ex_control_signals,
+        ALUResult_in        => alu_result,
+        Reg_in              => ex_reg,
+        ReadData2_in        => ex_read_data_2_forwarded,
         control_signals_out => mem_control_signals,
-        ALUResult_out => mem_alu_result,
-        Reg_out => mem_write_reg,
-        ReadData2_out => mem_read_data_2
+        ALUResult_out       => mem_alu_result,
+        Reg_out             => mem_write_reg,
+        ReadData2_out       => mem_read_data_2
         );
     
     memwb: entity work.MEMWB
     port map(
         clk => clk,
-        control_signals_in => mem_control_signals,
-        ALUResult_in => mem_alu_result,
-        Reg_in => mem_write_reg,
+        control_signals_in  => mem_control_signals,
+        ALUResult_in        => mem_alu_result,
+        Reg_in              => mem_write_reg,
         control_signals_out => wb_control_signals,
-        ALUResult_out => wb_alu_result,
-        Reg_out => wb_write_reg
+        ALUResult_out       => wb_alu_result,
+        Reg_out             => wb_write_reg
     );
-    
-    propagate_signals : process(clk)
-    begin
-        if(rising_edge(clk)) then
-                
-            
---            ex_extended_immediate <= std_logic_vector(resize(signed(id_instruction.immediate), 32));
---            ex_funct <= id_instruction.funct;
---            ex_regt <= id_instruction.regt;
---            ex_regd <= id_instruction.regd;
---            
---            mem_control_signals <= ex_control_signals;
---            mem_read_data_2 <= ex_read_data_2_forwarded;
---            if (ex_control_signals.RegDst = REGT) then
---                mem_write_reg <= ex_regt;
---            else
---                mem_write_reg <= ex_regd;
---            end if;
---            mem_alu_result_in <= mem_alu_result;
---            
---            wb_control_signals <= mem_control_signals;
---            wb_alu_result <= mem_alu_result;
---            wb_write_reg <= mem_write_reg;
-         end if;
-         
-    end process;
-    
+       
     wb_mux: process(wb_control_signals.MemtoReg, wb_alu_result, dmem_data_in)
     begin
         if(wb_control_signals.MemtoReg = FROM_ALU) then
