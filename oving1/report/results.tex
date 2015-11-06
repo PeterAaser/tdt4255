@@ -14,5 +14,11 @@ The fetch stage is done in one clock period, while the execute stage is done in 
     \label{fig:waves}
 \end{figure}
 
+\begin{figure}[h!]
+    \includegraphics[width=\linewidth]{img/hostcomm.jpg}
+    \caption{A screenshot of the hostcomm utility after allowing our processor to execute a simple program.}
+    \label{fig:hostcomm}
+\end{figure}
+
 To explore how our design mapped out to an actual circuit we explored the generated RTL produced by xilinx in order to see how different the resulting RTL was from our ideal RTL.
 Some interesting results include how for instance the synthesizing tool chose to use two different functional units for addition and subtraction, rather than the expected classic method of using an inverter and carry in in order to do subtraction on an adder.
