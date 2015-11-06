@@ -37,15 +37,14 @@ architecture MultiCycleMIPS of MIPSProcessor is
     signal forward_a : Forward_t;
     signal forward_b : Forward_t;
     signal ex_read_data_2_forwarded : std_logic_vector(DATA_WIDTH-1 downto 0);
-
-    -- pipeline stage_registers are named corresponding to the names in the architecture sketch
-    -- E.g.: IF/ID -> id_, ID/EX -> ex_, etc.
+    
     -- IF
     signal if_stall : std_logic;
+    signal if_instruction : instruction_t;
+    signal if_pc : std_logic_vector(ADDR_WIDTH-1 downto 0);
     
     -- ID
     signal id_instruction : instruction_t;
-    signal id_pc : std_logic_vector(ADDR_WIDTH-1 downto 0);
     signal id_stall : std_logic;
     
     -- EX
@@ -94,7 +93,7 @@ begin
         
         control_signals => tmp_control_signals,
         
-        data_hazard     => data_hazard,
+        data_hazard      => data_hazard,
         control_hazard   => control_hazard
     );
 
@@ -105,11 +104,22 @@ begin
     port map(
         reset => reset,
         clk => clk,
-		  processor_enable => processor_enable,
+		processor_enable => processor_enable,
         pc_address_src => pc_address_src,
         branch_address_in => branch_address,
-        imem_address => imem_address,
-        control_hazard => control_hazard
+        if_pc => if_pc,
+        data_hazard => data_hazard
+    );
+    
+    ifid_inst: entity work.IFID
+    generic map(
+        DATA_WIDTH => DATA_WIDTH
+    )
+    port map(
+        clk => clk,
+        instruction_halt => data_hazard,
+        if_instruction => if_instruction,
+        id_instruction => id_instruction
     );
     
     registers: entity work.Registers
@@ -136,7 +146,7 @@ begin
     port map(
         op                  => id_instruction.opcode,
         immediate           => id_instruction.immediate,
-        pc                  => id_pc,
+        pc                  => if_pc,
         read_data_1         => ex_read_data_1,
         read_data_2         => ex_read_data_2,
         
@@ -169,7 +179,8 @@ begin
         id_reg_a            => id_instruction.regs,
         id_reg_b            => id_instruction.regt,
         ex_reg_dest         => ex_reg,
-		processor_enable 	 => processor_enable,
+		processor_enable 	=> processor_enable,
+        ex_op               => ex_control_signals.op,
         
         pc_address_src      => pc_address_src,
         
@@ -233,32 +244,6 @@ begin
         Reg_out => wb_write_reg
     );
     
-    propagate_signals : process(clk)
-    begin
-        if(rising_edge(clk)) then
-                
-            
---            ex_extended_immediate <= std_logic_vector(resize(signed(id_instruction.immediate), 32));
---            ex_funct <= id_instruction.funct;
---            ex_regt <= id_instruction.regt;
---            ex_regd <= id_instruction.regd;
---            
---            mem_control_signals <= ex_control_signals;
---            mem_read_data_2 <= ex_read_data_2_forwarded;
---            if (ex_control_signals.RegDst = REGT) then
---                mem_write_reg <= ex_regt;
---            else
---                mem_write_reg <= ex_regd;
---            end if;
---            mem_alu_result_in <= mem_alu_result;
---            
---            wb_control_signals <= mem_control_signals;
---            wb_alu_result <= mem_alu_result;
---            wb_write_reg <= mem_write_reg;
-         end if;
-         
-    end process;
-    
     wb_mux: process(wb_control_signals.MemtoReg, wb_alu_result, dmem_data_in)
     begin
         if(wb_control_signals.MemtoReg = FROM_ALU) then
@@ -268,8 +253,13 @@ begin
         end if;
     end process;
 
-
-    id_instruction <= make_instruction(imem_data_in);
+    update_imem : process(if_pc, data_hazard) is
+    begin
+        if data_hazard = '0' then
+            imem_address <= if_pc;
+        end if;
+    end process;
+    if_instruction <= make_instruction(imem_data_in);
     -- DMEM
     dmem_address <= mem_alu_result(7 downto 0);
     dmem_data_out <= mem_read_data_2;

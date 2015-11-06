@@ -23,11 +23,12 @@ entity Hazard_detection is
         id_reg_a          : in reg_t;
         id_reg_b          : in reg_t;
         ex_reg_dest       : in reg_t;
-		  processor_enable  : in std_logic;
+        processor_enable  : in std_logic;
+        ex_op             : in op_t;
         
         pc_address_src    : in PC_addr_source_t;
         
-        control_hazard    : out std_logic := '0';
+        control_hazard    : out std_logic;
         data_hazard       : out std_logic := '0'
     );
 end Hazard_detection;
@@ -36,19 +37,15 @@ architecture Behavioral of Hazard_detection is
     signal bubble_control : control_signals_t;
 begin
 
-    detect_data_hazard : process(id_reg_a, id_reg_b, ex_reg_dest)
+    detect_data_hazard : process(id_reg_a, id_reg_b, ex_reg_dest, ex_op)
     begin
         if processor_enable = '1' then
-			  data_hazard <= '0';
-			  if id_reg_a = ex_reg_dest then
-					data_hazard <= '1';
-			  elsif id_reg_b = ex_reg_dest then
+			  if (id_reg_a = ex_reg_dest or id_reg_b = ex_reg_dest) and ex_op = lw then
 					data_hazard <= '1';
 			  else
 					data_hazard <= '0';
 			  end if;
 		  end if;
-        
     end process detect_data_hazard;
     
     detect_control_hazard : process(pc_address_src)

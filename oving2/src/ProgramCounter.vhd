@@ -10,11 +10,11 @@ entity ProgramCounter is
     port (
         clk, reset          : in std_logic;
         branch_address_in   : in std_logic_vector(ADDR_WIDTH-1 downto 0);
-        control_hazard      : in std_logic;
+        data_hazard         : in std_logic;
         pc_address_src      : in PC_addr_source_t;
-		  processor_enable	 : in std_logic;
+		processor_enable	: in std_logic;
         
-        imem_address        : out std_logic_vector(ADDR_WIDTH-1 downto 0)
+        if_pc               : out std_logic_vector(ADDR_WIDTH-1 downto 0)
     );
 end ProgramCounter;
 
@@ -27,15 +27,16 @@ begin
             address <= (others => '0');
         elsif rising_edge(clk) then
 				if processor_enable = '1' then
-					if control_hazard = '0' then
+					if data_hazard = '0' then
+                         if_pc <= address;
 						 if (pc_address_src = Branch_addr) then
 							  address <= branch_address_in;
 						 else
 							  address <= std_logic_vector(unsigned(address) + 1);
-						 end if;              
+						 end if;
 					end if;
 				end if;
-				imem_address <= address;
+				
         end if;
     end process;
     
