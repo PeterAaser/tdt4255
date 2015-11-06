@@ -26,7 +26,7 @@ architecture Behavioral of EXMEM is
 begin
     propagate : process(clk)
     begin
-        if (rising_edge(clk) and stall = '0') then
+        if (rising_edge(clk)) then --and stall = '0') then
             control_signals_out <= control_signals_in;
             ALUResult_out       <= ALUResult_in;
             Reg_out <= Reg_in;

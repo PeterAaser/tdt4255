@@ -56,7 +56,10 @@ architecture MultiCycleMIPS of MIPSProcessor is
     signal ex_read_data_2 : std_logic_vector(DATA_WIDTH-1 downto 0);
     signal tmp_ex_read_data_1 : std_logic_vector(DATA_WIDTH-1 downto 0);
     signal tmp_ex_read_data_2 : std_logic_vector(DATA_WIDTH-1 downto 0);
-    signal ex_reg : reg_t;
+    signal ex_reg_s     : reg_t;
+    signal ex_reg_t     : reg_t;
+    signal ex_reg_d     : reg_t;
+    signal ex_reg_mux   : reg_t;
     
     -- MEM
     signal mem_read_data_2 : std_logic_vector(DATA_WIDTH-1 downto 0);
@@ -108,18 +111,7 @@ begin
         pc_address_src => pc_address_src,
         branch_address_in => branch_address,
         if_pc => if_pc,
-        data_hazard => data_hazard
-    );
-    
-    ifid_inst: entity work.IFID
-    generic map(
-        DATA_WIDTH => DATA_WIDTH
-    )
-    port map(
-        clk => clk,
-        instruction_halt => data_hazard,
-        if_instruction => if_instruction,
-        id_instruction => id_instruction
+        stall => data_hazard
     );
     
     registers: entity work.Registers
@@ -129,6 +121,7 @@ begin
     port map(
         clk => clk,
         reset => reset,
+        processor_enable => processor_enable,
         read_reg_1 => id_instruction.regs,
         read_reg_2 => id_instruction.regt,
         write_reg => wb_write_reg,
@@ -176,9 +169,10 @@ begin
     
     hazard_detector: entity work.Hazard_detection
     port map(
+        clk                 => clk,
         id_reg_a            => id_instruction.regs,
         id_reg_b            => id_instruction.regt,
-        ex_reg_dest         => ex_reg,
+        ex_reg_dest         => ex_reg_d,
 		processor_enable 	=> processor_enable,
         ex_op               => ex_control_signals.op,
         
@@ -192,14 +186,24 @@ begin
     port map(
         mem_regd            => mem_write_reg,
         wb_regd             => wb_write_reg,
-        ex_regs             => id_instruction.regs,
-        ex_regt             => id_instruction.regt,
+        ex_regs             => ex_reg_s,
+        ex_regt             => ex_reg_t,
         mem_regwrite        => mem_control_signals.RegWrite,
         wb_regwrite         => wb_control_signals.RegWrite,
         forward_a           => forward_a,
         forward_b           => forward_b
     );
-
+    
+    ifid_inst: entity work.IFID
+    generic map(
+        DATA_WIDTH => DATA_WIDTH
+    )
+    port map(
+        clk => clk,
+        stall => data_hazard,
+        instruction_in => if_instruction,
+        instruction_out => id_instruction
+    );
     
     idex: entity work.IDEX
     generic map(
@@ -207,27 +211,33 @@ begin
     )
     port map(
         clk => clk,
-        stall               => data_hazard.
+        stall               => data_hazard,
         ControlSignals_in   => tmp_control_signals,
         ReadData1_in        => tmp_ex_read_data_1,
         ReadData2_in        => tmp_ex_read_data_2,
         Immidiate_in        => id_instruction.immediate,
+        RegS_in             => id_instruction.regs,
         RegT_in             => id_instruction.regt,
         RegD_in             => id_instruction.regd,
+        Funct_in            => id_instruction.funct,
         ControlSignals_out  => ex_control_signals,
         ReadData1_out       => ex_read_data_1,
         ReadData2_out       => ex_read_data_2,
         Immidiate_out       => ex_extended_immediate,
-        Reg_out             => ex_reg
+        RegS_out            => ex_reg_s,
+        RegT_out            => ex_reg_t,
+        RegD_out            => ex_reg_d,
+        RegMux              => ex_reg_mux,
+        Funct_out           => ex_funct
         );
     
     exmem: entity work.EXMEM
     port map(
         clk => clk,
-        stall               => data_hazard.
+        stall               => data_hazard,
         control_signals_in  => ex_control_signals,
         ALUResult_in        => alu_result,
-        Reg_in              => ex_reg,
+        Reg_in              => ex_reg_mux,
         ReadData2_in        => ex_read_data_2_forwarded,
         control_signals_out => mem_control_signals,
         ALUResult_out       => mem_alu_result,
@@ -261,6 +271,7 @@ begin
             imem_address <= if_pc;
         end if;
     end process;
+    
     if_instruction <= make_instruction(imem_data_in);
     -- DMEM
     dmem_address <= mem_alu_result(7 downto 0);

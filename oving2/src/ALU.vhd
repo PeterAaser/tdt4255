@@ -7,7 +7,7 @@ entity ALU is
     Port ( read_data_1              : in std_logic_vector (31 downto 0);
            read_data_2              : in std_logic_vector (31 downto 0);
            extended_immediate       : in std_logic_vector(31 downto 0);
-           funct                    : in funct_t;       -- this is a bit vector whose function must be looked up
+           funct                    : in funct_t;
            
            forward_a                : in forward_t := REG; -- control signal for forwarding muxes
            forward_b                : in forward_t := REG;
@@ -34,7 +34,7 @@ begin
 	alu_control: process(op, extended_immediate)	
     begin
 		if op = rtype then
-            ALU_op <= get_funct(extended_immediate(20 downto 15));
+            ALU_op <= get_funct(funct);
         else
 			ALU_op <= get_op_funct(op);
         end if;

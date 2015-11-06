@@ -20,6 +20,7 @@ use work.defs.all;
 
 entity Hazard_detection is
     port (
+        clk               : in std_logic;
         id_reg_a          : in reg_t;
         id_reg_b          : in reg_t;
         ex_reg_dest       : in reg_t;
@@ -28,38 +29,44 @@ entity Hazard_detection is
         
         pc_address_src    : in PC_addr_source_t;
         
-        control_hazard    : out std_logic;
+        control_hazard    : out std_logic := '0';
         data_hazard       : out std_logic := '0'
     );
 end Hazard_detection;
 
 architecture Behavioral of Hazard_detection is
     signal bubble_control : control_signals_t;
+    signal internal_data_hazard : std_logic := '0';
 begin
 
-    detect_data_hazard : process(id_reg_a, id_reg_b, ex_reg_dest, ex_op)
+    detect_data_hazard : process(clk, id_reg_a, id_reg_b, ex_reg_dest, ex_op)
     begin
-        if processor_enable = '1' then
+        if processor_enable = '1' and rising_edge(clk) then
 			  if (id_reg_a = ex_reg_dest or id_reg_b = ex_reg_dest) and ex_op = lw then
-					data_hazard <= '1';
+					internal_data_hazard <= '1';
 			  else
-					data_hazard <= '0';
+					internal_data_hazard <= '0';
 			  end if;
+              if internal_data_hazard = '1' then
+                data_hazard <= '1';
+              else
+                data_hazard <= '0';
+              end if;
 		  end if;
     end process detect_data_hazard;
     
-    detect_control_hazard : process(pc_address_src)
-    begin
-		  if processor_enable = '1' then
-			  control_hazard <= '0';
-			  if pc_address_src = branch_addr then
-					control_hazard <= '1';
-			  end if;
-		  else
-			  control_hazard <= '0';
-		  end if;
-		  
-    end process detect_control_hazard;
+--    detect_control_hazard : process(clk, pc_address_src)
+--    begin
+--		  if processor_enable = '1' and rising_edge(clk) then
+--			  control_hazard <= '0';
+--			  if pc_address_src = branch_addr then
+--					control_hazard <= '1';
+--			  end if;
+--		  else
+--			  control_hazard <= '0';
+--		  end if;
+--		  
+--    end process detect_control_hazard;
     
 end Behavioral;
 

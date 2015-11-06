@@ -26,18 +26,15 @@ begin
     update: process(mem_regd, wb_regd, ex_regs, ex_regt, mem_regwrite, wb_regwrite)
     begin
         if ( mem_regwrite and (mem_regd /= b"00000")) then
-            if(mem_regd = ex_regs) then forward_a <= MEM; else forward_a <= REG; end if; -- 1a
-            if(mem_regd = ex_regt) then forward_b <= MEM; else forward_b <= REG; end if; -- 1b
-       
-        elsif ( wb_regwrite and (wb_regd /= b"00000")) then
-            if(wb_regd = ex_regs) then forward_a <= WB; else forward_a <= REG; end if;   -- 2a
-            if(wb_regd = ex_regt) then forward_b <= WB; else forward_b <= REG; end if;   -- 2b
-        
-        else
-            forward_a <= REG;
-            forward_b <= REG;
-            
+            if(mem_regd = ex_regs) then forward_a <= MEM; end if; -- 1a
+            if(mem_regd = ex_regt) then forward_b <= MEM; end if; -- 1b
         end if;
+
+        if ( wb_regwrite and (wb_regd /= b"00000") and not (mem_regwrite and (mem_regd /= b"00000"))) then
+            if(mem_regd /= ex_regs and wb_regd = ex_regs) then forward_a <= WB; end if;   -- 2a
+            if(mem_regd /= ex_regt and wb_regd = ex_regt) then forward_b <= WB; end if;   -- 2b
+        end if;
+
     end process;
 
 end Behavioral;
