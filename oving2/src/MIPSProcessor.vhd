@@ -268,10 +268,12 @@ begin
         end if;
     end process;
 
-    update_imem : process(if_pc, data_hazard) is
+    update_imem : process(if_pc, data_hazard, pc_address_src) is
     begin
         if data_hazard = '0' then
             imem_address <= if_pc;
+        elsif pc_address_src = BRANCH_ADDR then
+            imem_address <= branch_address;
         end if;
     end process;
     
