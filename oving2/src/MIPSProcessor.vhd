@@ -46,6 +46,7 @@ architecture MultiCycleMIPS of MIPSProcessor is
     -- ID
     signal id_instruction : instruction_t;
     signal id_stall : std_logic;
+    signal id_pc : std_logic_vector(ADDR_WIDTH - 1 downto 0);
     
     -- EX
     signal ex_control_signals : control_signals_t;
@@ -139,9 +140,9 @@ begin
     port map(
         op                  => id_instruction.opcode,
         immediate           => id_instruction.immediate,
-        pc                  => if_pc,
-        read_data_1         => ex_read_data_1,
-        read_data_2         => ex_read_data_2,
+        pc                  => id_pc,
+        read_data_1         => tmp_ex_read_data_1,
+        read_data_2         => tmp_ex_read_data_2,
         
         pc_address_src      => pc_address_src,
         address_out         => branch_address
@@ -202,7 +203,9 @@ begin
         clk => clk,
         stall => data_hazard,
         instruction_in => if_instruction,
-        instruction_out => id_instruction
+        instruction_out => id_instruction,
+        pc_in => if_pc,
+        pc_out => id_pc
     );
     
     idex: entity work.IDEX

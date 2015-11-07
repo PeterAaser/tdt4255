@@ -36,6 +36,7 @@ end Hazard_detection;
 
 architecture Behavioral of Hazard_detection is
     signal bubble_control : control_signals_t;
+    
 begin
 
     detect_data_hazard : process(clk, id_reg_a, id_reg_b, ex_reg_dest, ex_op, processor_enable)
@@ -49,16 +50,15 @@ begin
 		  end if;
     end process detect_data_hazard;
     
-    detect_control_hazard : process(clk, pc_address_src)
+    detect_control_hazard : process(pc_address_src)
     begin
-		  if processor_enable = '1' and rising_edge(clk) then
-			  if pc_address_src = BRANCH_ADDR then
-					control_hazard <= '1';
-              else
+        if processor_enable = '1' then
+            if pc_address_src = BRANCH_ADDR then
+                control_hazard <= '1';
+            else
                 control_hazard <= '0';
-			  end if;
-		  end if;
-		  
+			end if;
+		end if;  
     end process detect_control_hazard;
     
 end Behavioral;
