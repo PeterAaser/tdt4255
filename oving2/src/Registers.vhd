@@ -28,14 +28,16 @@ begin
     begin
         if reset = '1' then
             regFile <= (others => (others => '0'));
-        elsif rising_edge(clk) and processor_enable = '1' then
+        elsif processor_enable = '1' then
             if RegWrite = true then
                 regFile(to_integer(unsigned(write_reg))) <= write_data;
             end if;
-        end if;
+        end if;  
+        read_data_1 <= regFile(to_integer(unsigned(read_reg_1)));
+        read_data_2 <= regFile(to_integer(unsigned(read_reg_2)));
     end process;
 
-    read_data_1 <= regFile(to_integer(unsigned(read_reg_1)));
-    read_data_2 <= regFile(to_integer(unsigned(read_reg_2)));
+    
+
 end Behavioral;
 

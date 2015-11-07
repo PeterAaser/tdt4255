@@ -28,11 +28,12 @@ begin
         elsif rising_edge(clk) then
 				if processor_enable = '1' then
 					if stall = '0' then
-                         if_pc <= address;
 						 if (pc_address_src = Branch_addr) then
-							  address <= branch_address_in;
+							  if_pc <= branch_address_in;
+                              address <= std_logic_vector(unsigned(branch_address_in) + 1);
 						 else
 							  address <= std_logic_vector(unsigned(address) + 1);
+                              if_pc <= address;
 						 end if;
 					end if;
 				end if;

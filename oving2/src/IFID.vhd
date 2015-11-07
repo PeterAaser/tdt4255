@@ -13,7 +13,7 @@ entity IFID is
         DATA_WIDTH : integer := 32
     );
     port (
-        clk, stall          : in std_logic := '0';
+        clk, stall          : in std_logic;
         instruction_in      : in instruction_t;
         instruction_out     : out instruction_t
     );
@@ -21,7 +21,7 @@ end IFID;
 
 architecture Behavioral of IFID is
 begin
-    update: process(clk, stall, instruction_in)
+    update: process(clk)
     begin
         if rising_edge(clk) and stall = '0' then
             instruction_out <= instruction_in;

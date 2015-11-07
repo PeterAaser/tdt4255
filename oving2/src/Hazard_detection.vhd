@@ -36,37 +36,30 @@ end Hazard_detection;
 
 architecture Behavioral of Hazard_detection is
     signal bubble_control : control_signals_t;
-    signal internal_data_hazard : std_logic := '0';
 begin
 
-    detect_data_hazard : process(clk, id_reg_a, id_reg_b, ex_reg_dest, ex_op)
+    detect_data_hazard : process(clk, id_reg_a, id_reg_b, ex_reg_dest, ex_op, processor_enable)
     begin
         if processor_enable = '1' and rising_edge(clk) then
 			  if (id_reg_a = ex_reg_dest or id_reg_b = ex_reg_dest) and ex_op = lw then
-					internal_data_hazard <= '1';
+					data_hazard <= '1';
 			  else
-					internal_data_hazard <= '0';
+					data_hazard <= '0';
 			  end if;
-              if internal_data_hazard = '1' then
-                data_hazard <= '1';
-              else
-                data_hazard <= '0';
-              end if;
 		  end if;
     end process detect_data_hazard;
     
---    detect_control_hazard : process(clk, pc_address_src)
---    begin
---		  if processor_enable = '1' and rising_edge(clk) then
---			  control_hazard <= '0';
---			  if pc_address_src = branch_addr then
---					control_hazard <= '1';
---			  end if;
---		  else
---			  control_hazard <= '0';
---		  end if;
---		  
---    end process detect_control_hazard;
+    detect_control_hazard : process(clk, pc_address_src)
+    begin
+		  if processor_enable = '1' and rising_edge(clk) then
+			  if pc_address_src = BRANCH_ADDR then
+					control_hazard <= '1';
+              else
+                control_hazard <= '0';
+			  end if;
+		  end if;
+		  
+    end process detect_control_hazard;
     
 end Behavioral;
 
