@@ -16,7 +16,11 @@
          </top_modules>
       </db_ref>
    </db_ref_list>
-   <WVObjectSize size="16" />
+   <WVObjectSize size="20" />
+   <wvobject fp_name="/tb_mipsprocessor/clk" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
    <wvobject fp_name="/tb_mipsprocessor/reset" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">reset</obj_property>
       <obj_property name="ObjectShortName">reset</obj_property>
@@ -38,11 +42,6 @@
       <wvobject fp_name="/tb_mipsprocessor/Processor/ifid_inst/stall" type="logic" db_ref_id="1">
          <obj_property name="ElementShortName">stall</obj_property>
          <obj_property name="ObjectShortName">stall</obj_property>
-      </wvobject>
-      <wvobject fp_name="/tb_mipsprocessor/Processor/ifid_inst/instruction_in" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">instruction_in</obj_property>
-         <obj_property name="ObjectShortName">instruction_in</obj_property>
-         <obj_property name="Radix">HEXRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/tb_mipsprocessor/Processor/ifid_inst/instruction_out" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">instruction_out</obj_property>
@@ -387,10 +386,6 @@
          <obj_property name="ObjectShortName">result[31:0]</obj_property>
          <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
       </wvobject>
-      <wvobject fp_name="/tb_mipsprocessor/Processor/alu/alu_op" type="other" db_ref_id="1">
-         <obj_property name="ElementShortName">alu_op</obj_property>
-         <obj_property name="ObjectShortName">alu_op</obj_property>
-      </wvobject>
       <wvobject fp_name="/tb_mipsprocessor/Processor/alu/funct" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">funct[5:0]</obj_property>
          <obj_property name="ObjectShortName">funct[5:0]</obj_property>
@@ -431,6 +426,10 @@
          <obj_property name="ElementShortName">forward_b</obj_property>
          <obj_property name="ObjectShortName">forward_b</obj_property>
       </wvobject>
+   </wvobject>
+   <wvobject fp_name="/tb_mipsprocessor/Processor/alu/alu_op" type="other" db_ref_id="1">
+      <obj_property name="ElementShortName">alu_op</obj_property>
+      <obj_property name="ObjectShortName">alu_op</obj_property>
    </wvobject>
    <wvobject fp_name="/tb_mipsprocessor/Processor/hazard_detector/data_hazard" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">data_hazard</obj_property>
@@ -494,6 +493,20 @@
          <obj_property name="label">addr_width</obj_property>
       </wvobject>
    </wvobject>
+   <wvobject fp_name="/tb_mipsprocessor/Processor/if_instruction.immediate" type="array" db_ref_id="1">
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="ElementShortName">.immediate</obj_property>
+      <obj_property name="ObjectShortName">if_instruction.immediate</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <obj_property name="label">if imm</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_mipsprocessor/Processor/id_instruction.immediate" type="array" db_ref_id="1">
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="ElementShortName">.immediate</obj_property>
+      <obj_property name="ObjectShortName">id_instruction.immediate</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <obj_property name="label">id imm</obj_property>
+   </wvobject>
    <wvobject fp_name="group148" type="group">
       <obj_property name="label">idctrl</obj_property>
       <obj_property name="DisplayName">label</obj_property>
@@ -535,6 +548,11 @@
       <wvobject fp_name="/tb_mipsprocessor/Processor/idex/controlsignals_out.memwrite" type="other" db_ref_id="1">
          <obj_property name="ElementShortName">.memwrite</obj_property>
          <obj_property name="ObjectShortName">controlsignals_out.memwrite</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_mipsprocessor/Processor/idex/immidiate_in" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">immidiate_in[15:0]</obj_property>
+         <obj_property name="ObjectShortName">immidiate_in[15:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
    </wvobject>
    <wvobject fp_name="group126" type="group">
