@@ -12,7 +12,7 @@ entity IFID is
     );
     port (
         clk, stall          : in std_logic;
-        imem_data_in        : in std_logic_vector(INSTR_WIDTH - 1 downto 0);
+        instruction_in        : in instruction_t;
         imem_address        : out std_logic_vector(ADDR_WIDTH - 1 downto 0);
 
         instruction_out     : out instruction_t;
@@ -23,11 +23,13 @@ end IFID;
 
 architecture Behavioral of IFID is
 begin
-    update : process(clk)
+    update : process(clk, stall)
     begin
         if rising_edge(clk) and stall = '0' then
             pc_out <= pc_in;
+            instruction_out <= instruction_in;
         end if;
+        
     end process;
     
     fetch : process(pc_in, stall)
@@ -37,7 +39,8 @@ begin
         end if;
     end process;
     
-    instruction_out <= make_instruction(imem_data_in);
+    
+
     
 end Behavioral;
 

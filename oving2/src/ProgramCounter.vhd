@@ -1,5 +1,5 @@
 library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
+                use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 use work.Defs.all;
 
@@ -21,7 +21,7 @@ end ProgramCounter;
 architecture Behavioral of ProgramCounter is
     signal address : std_logic_vector(ADDR_WIDTH - 1 downto 0) := (others => '0');
 begin
-    update: process(clk, reset, address)
+    update_address: process(clk, reset)
     begin
         if reset = '1' then
             address <= (others => '0');
@@ -30,17 +30,24 @@ begin
         if processor_enable = '1' then
             if stall = '0' then
                 if rising_edge(clk) then
-                    if_pc <= branch_address_in;
                     if (pc_address_src = Branch_addr) then
-                        address <= std_logic_vector(unsigned(branch_address_in) + 1);
+                        address <= std_logic_vector(unsigned(branch_address_in) );
                     else
                         address <= std_logic_vector(unsigned(address) + 1);
-                        if_pc <= address;
                     end if;
                 end if;
             end if;
         end if;
         
+    end process;
+    
+    update_pc: process(branch_address_in, pc_address_src, address)
+    begin
+        if pc_address_src = BRANCH_ADDR then
+            if_pc <= std_logic_vector(signed(branch_address_in)-1);
+        else
+            if_pc <= std_logic_vector(signed(address)-1);
+        end if;
     end process;
 end Behavioral;
 

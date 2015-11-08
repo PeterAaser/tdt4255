@@ -213,7 +213,7 @@ begin
         stall => data_hazard,
         
         imem_address => imem_address,
-        imem_data_in => imem_data_in,
+        instruction_in => if_instruction,
         
         instruction_out => id_instruction,
         pc_in => if_pc,
@@ -282,6 +282,7 @@ begin
 
 
     -- DMEM
+    if_instruction <= make_instruction(imem_data_in);
     dmem_address <= mem_alu_result(7 downto 0);
     dmem_data_out <= mem_read_data_2;
 

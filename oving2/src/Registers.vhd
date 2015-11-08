@@ -24,7 +24,7 @@ architecture Behavioral of Registers is
 begin
     
 
-    process (clk, reset, write_data)
+    process (reset, write_data, read_reg_1, read_reg_2)
     begin
         if reset = '1' then
             regFile <= (others => (others => '0'));
@@ -33,11 +33,11 @@ begin
                 regFile(to_integer(unsigned(write_reg))) <= write_data;
             end if;
         end if;  
-        read_data_1 <= regFile(to_integer(unsigned(read_reg_1)));
-        read_data_2 <= regFile(to_integer(unsigned(read_reg_2)));
+
     end process;
 
-    
+    read_data_1 <= regFile(to_integer(unsigned(read_reg_1)));
+    read_data_2 <= regFile(to_integer(unsigned(read_reg_2)));
 
 end Behavioral;
 
