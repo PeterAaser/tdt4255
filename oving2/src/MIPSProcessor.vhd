@@ -194,6 +194,15 @@ begin
         forward_a           => forward_a,
         forward_b           => forward_b
     );
+
+--    update_imem : process(if_pc, data_hazard, pc_address_src) is
+--    begin
+--        if data_hazard = '0' then
+--            imem_address <= if_pc;
+--        elsif pc_address_src = BRANCH_ADDR then
+--            imem_address <= branch_address;
+--        end if;
+--    end process;
     
     ifid_inst: entity work.IFID
     generic map(
@@ -202,7 +211,10 @@ begin
     port map(
         clk => clk,
         stall => data_hazard,
-        instruction_in => if_instruction,
+        
+        imem_address => imem_address,
+        imem_data_in => imem_data_in,
+        
         instruction_out => id_instruction,
         pc_in => if_pc,
         pc_out => id_pc
@@ -268,16 +280,7 @@ begin
         end if;
     end process;
 
-    update_imem : process(if_pc, data_hazard, pc_address_src) is
-    begin
-        if data_hazard = '0' then
-            imem_address <= if_pc;
-        elsif pc_address_src = BRANCH_ADDR then
-            imem_address <= branch_address;
-        end if;
-    end process;
-    
-    if_instruction <= make_instruction(imem_data_in);
+
     -- DMEM
     dmem_address <= mem_alu_result(7 downto 0);
     dmem_data_out <= mem_read_data_2;
