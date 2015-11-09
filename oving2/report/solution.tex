@@ -3,4 +3,34 @@ This Chapter will explain the details of the implementation, and our methodology
 
 
 \section{Methodology}
+As this exercise is to improve the single-cycle version of the MIPS-processor. It was natural to use the design from Exercise 1 \ref{ex1} as a starting point.
+The new components needed to realize a pipelined designed were sketched out on paper. We used a bottom up approach, designing the new modules first, and integrated them to the system as they completed.
 
+\section{Implementation}
+Figure \ref{toplevel} shows all major components in the system. 
+The Data Memory was provided in the exercise.
+The components that were implemented in Exercise 1, and improved to support multi-cycle operation is as follows:
+
+\begin{description}
+  \item[Control] \hfill \\
+  The control unit takes the opcode of an instruction, and sets the appropriate control signals. The statefulness that was needed in the single-cycle version has been removed, and the unit is now stateless.  
+  \item[Program counter (PC)] \hfill \\
+  The program counter keeps track off the address to the next instruction to be executed. If there is a branch, the PC will receive the branch address from the Branch unit. The PC may stall, if there is a control hazard.
+  \item[ALU] \hfill \\
+  The heart of the processor, the ALU performs an operation issued by the control unit and outputs a result along with a zero signal. This module has been updated to support forwarded data.
+  \item[Registers] \hfill \\
+  The register bank is the short term memory of the architecture, feeding operands to the ALU, and recieving data which may be stored based on control signals.
+\end{description}
+
+To make the processor pipelined, we need to introduce a number of new modules.
+
+\begin{description}
+  \item[Branch] \hfill \\
+  If the instruction is a branch or a jump, this module calculates the address, and passes it forth to the PC module. The difference from the single-cycle version is that this  branch calculation is now performed in a separate unit, instead of beeing a part of the ALU. The advantage is that the branch target is now known in the ID-stage, instead of the EX-stage 
+  \item[Forwarder] \hfill \\
+  In a pipelined processor, if a instruction is dependant on the preceeding instruction's result, we would need to wait for the result to propagate through the pipeline before the current instruction can execute. This is called a Data hazard. Some data hazard can be resolved by forwarding. It is the forwarders task to check if data can be forwarded, and if possible, do so.
+  \item[Hazard detection] \hfill \\
+  In some cases, data forwarding is not possible. In these cases we need to stall the pipeline. The Hazard detector sends a signal to the PC if a stall is required.
+  \item[Pipeline registers] \hfill \\
+  SOON
+\end{description}
