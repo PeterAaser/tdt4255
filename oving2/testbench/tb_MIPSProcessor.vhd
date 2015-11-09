@@ -141,6 +141,12 @@ DataMem:			entity work.DualPortMem port map (
 				WriteInstructionWord(TestInstrData(i), to_unsigned(i, ADDR_WIDTH));
 			end loop;
 		end FillInstructionMemory;
+        
+        procedure FillInstructionMemorySingleInstruction is
+			variable TestInstrData : std_logic_vector(DATA_WIDTH-1 downto 0) := X"8C010001"; --lw $1, 1($0)		/$1 = 2
+		begin
+            WriteInstructionWord(TestInstrData, to_unsigned(0, ADDR_WIDTH));
+		end FillInstructionMemorySingleInstruction;
 		
 		-- helper procedures for filling data memory
 	 	procedure WriteDataWord(

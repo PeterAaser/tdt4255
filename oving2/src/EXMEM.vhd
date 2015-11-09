@@ -8,6 +8,7 @@ entity EXMEM is
         DATA_WIDTH : integer := 32
     );
     Port ( clk                  : in STD_LOGIC;
+           stall                : in STD_LOGIC;
            control_signals_in   : in control_signals_t;
            ALUResult_in         : in STD_LOGIC_VECTOR(DATA_WIDTH-1 downto 0);
            Reg_in              : in reg_t;
@@ -25,7 +26,7 @@ architecture Behavioral of EXMEM is
 begin
     propagate : process(clk)
     begin
-        if (rising_edge(clk)) then
+        if (rising_edge(clk)) then --and stall = '0') then
             control_signals_out <= control_signals_in;
             ALUResult_out       <= ALUResult_in;
             Reg_out <= Reg_in;

@@ -18,14 +18,11 @@ ARCHITECTURE behavior OF tb_Registers IS
     --Inputs
     signal clk : std_logic := '0';
     signal reset : std_logic := '0';
-    signal read_reg_1 : std_logic_vector(ADDR_WIDTH-1 downto 0) := "00000";
-    signal read_reg_2 : std_logic_vector(ADDR_WIDTH-1 downto 0) := "00000";
-    signal write_reg : std_logic_vector(ADDR_WIDTH-1 downto 0) := "00000";
+    signal read_reg_1 : reg_t;
+    signal read_reg_2 : reg_t;
+    signal write_reg : reg_t;
+    signal write_data : std_logic_vector(DATA_WIDTH-1 downto 0);
     signal RegWrite : boolean := false;
-    signal MemToReg : memtoreg_t := FROM_MEM;
-    signal ALUResult : std_logic_vector(DATA_WIDTH-1 downto 0) := x"00000000";
-    signal dmem_data : std_logic_vector(DATA_WIDTH-1 downto 0) := x"00000000";
-
  	--Outputs
     signal read_data_1 : std_logic_vector(DATA_WIDTH-1 downto 0);
     signal read_data_2 : std_logic_vector(DATA_WIDTH-1 downto 0);
@@ -42,10 +39,8 @@ BEGIN
         read_reg_1 => read_reg_1,
         read_reg_2 => read_reg_2,
         write_reg => write_reg,
+        write_data => write_data,
         RegWrite => RegWrite,
-        MemToReg => MemToReg,
-        ALUResult => ALUResult,
-        dmem_data => dmem_data,
         read_data_1 => read_data_1,
         read_data_2 => read_data_2
     );
@@ -70,8 +65,7 @@ BEGIN
         wait for clk_period;
         reset <= '0';
         -- Write to r1 from alu result
-        MemToReg <= FROM_ALU;
-        ALUResult <= x"DEADBEEF";
+        write_data <= x"DEADBEEF";
         RegWrite <= true;
         write_reg <= "00001";
         wait for clk_period;

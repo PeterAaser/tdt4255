@@ -74,8 +74,6 @@ oving1/xlnx_auto_0_xdb/
 *.csv
 *.txt
 *.xml
-*.xml
-*.wcfg
 *.asy
 *.ncf
 *.sym

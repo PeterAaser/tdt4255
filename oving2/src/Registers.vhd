@@ -9,7 +9,8 @@ entity Registers is
         REG_ADDR_WIDTH : natural := 5
     );
     port (
-        clk, reset                              : in std_logic;
+        clk, reset, processor_enable            : in std_logic;
+        stall                                   : in std_logic := '0';
         read_reg_1, read_reg_2, write_reg       : in reg_t;
         RegWrite                                : in RegWrite_t;
         write_data                              : in std_logic_vector(DATA_WIDTH-1 downto 0);
@@ -23,19 +24,20 @@ architecture Behavioral of Registers is
 begin
     
 
-    process (clk, reset)
+    process (reset, write_data, read_reg_1, read_reg_2)
     begin
         if reset = '1' then
             regFile <= (others => (others => '0'));
-        elsif rising_edge(clk) then
+        elsif processor_enable = '1' then
             if RegWrite = true then
-                report vec_string_5b(write_reg);
                 regFile(to_integer(unsigned(write_reg))) <= write_data;
             end if;
-        end if;
+        end if;  
+
     end process;
 
     read_data_1 <= regFile(to_integer(unsigned(read_reg_1)));
     read_data_2 <= regFile(to_integer(unsigned(read_reg_2)));
+
 end Behavioral;
 

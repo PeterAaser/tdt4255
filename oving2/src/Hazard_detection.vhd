@@ -20,10 +20,12 @@ use work.defs.all;
 
 entity Hazard_detection is
     port (
+        clk               : in std_logic;
         id_reg_a          : in reg_t;
         id_reg_b          : in reg_t;
         ex_reg_dest       : in reg_t;
-		  processor_enable  : in std_logic;
+        processor_enable  : in std_logic;
+        ex_op             : in op_t;
         
         pc_address_src    : in PC_addr_source_t;
         
@@ -34,34 +36,29 @@ end Hazard_detection;
 
 architecture Behavioral of Hazard_detection is
     signal bubble_control : control_signals_t;
+    
 begin
 
-    detect_data_hazard : process(id_reg_a, id_reg_b, ex_reg_dest)
+    detect_data_hazard : process(clk, id_reg_a, id_reg_b, ex_reg_dest, ex_op, processor_enable)
     begin
-        if processor_enable = '1' then
-			  data_hazard <= '0';
-			  if id_reg_a = ex_reg_dest then
-					data_hazard <= '1';
-			  elsif id_reg_b = ex_reg_dest then
+        if processor_enable = '1' and rising_edge(clk) then
+			  if (id_reg_a = ex_reg_dest or id_reg_b = ex_reg_dest) and ex_op = lw then
 					data_hazard <= '1';
 			  else
 					data_hazard <= '0';
 			  end if;
 		  end if;
-        
     end process detect_data_hazard;
     
     detect_control_hazard : process(pc_address_src)
     begin
-		  if processor_enable = '1' then
-			  control_hazard <= '0';
-			  if pc_address_src = branch_addr then
-					control_hazard <= '1';
-			  end if;
-		  else
-			  control_hazard <= '0';
-		  end if;
-		  
+        if processor_enable = '1' then
+            if pc_address_src = BRANCH_ADDR then
+                control_hazard <= '1';
+            else
+                control_hazard <= '0';
+			end if;
+		end if;  
     end process detect_control_hazard;
     
 end Behavioral;
