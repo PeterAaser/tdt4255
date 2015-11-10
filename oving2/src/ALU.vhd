@@ -17,7 +17,6 @@ entity ALU is
            op                       : in op_t;          -- on the other hand this is an enumerated type.
            ALU_source               : in ALU_source_t;
            
-           Zero                     : out  std_logic;
            result                   : out  std_logic_vector (31 downto 0) := (others => '0');
            ex_read_data_2_forwarded : out  std_logic_vector (31 downto 0) := (others => '0')
          );
@@ -31,7 +30,7 @@ architecture Behavioral of ALU is
     signal s_result:    signed (31 downto 0) := (others => '0');
 begin
 
-	alu_control: process(op, extended_immediate)	
+	alu_control: process(op, extended_immediate, funct)	
     begin
 		if op = rtype then
             ALU_op <= get_funct(funct);
@@ -92,12 +91,6 @@ begin
 			when SL16=>     s_result   <= s_operandB(15 downto 0) & x"0000";
 			when others=>   s_result   <= x"00000000";
 		end case;
-                
-        if s_result = 0 then
-            zero <= '1';
-        else 
-            zero <= '0';
-        end if;
     
 	end process;
     
