@@ -12,7 +12,7 @@ entity IFID is
     );
     port (
         clk, stall          : in std_logic;
-        instruction_in        : in instruction_t;
+        instruction_in      : in instruction_t;
         imem_address        : out std_logic_vector(ADDR_WIDTH - 1 downto 0);
 
         instruction_out     : out instruction_t;
