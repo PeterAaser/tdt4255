@@ -224,7 +224,7 @@ begin
         when op_sra =>  return "000011";
         when sub =>     return "100010";
         when subu =>    return "100011";
-        when others =>  return "000000";
+        when others =>  return "100000"; -- UH OH!
     end case;
 end test_get_funct_inverse;
 
@@ -253,9 +253,9 @@ function bool_string(b: boolean) return string is begin return boolean'image(b);
 function fw_string(fw: forward_t) return string is begin return forward_t'image(fw); end fw_string;
 
 function make_rtype_instruction(
-    regs        : integer;
-    regt        : integer;
     regd        : integer;
+    regt        : integer;
+    regs        : integer;
     shamt       : integer;
     funct       : ALU_op_t) return std_logic_vector 
 is
@@ -273,8 +273,8 @@ end make_rtype_instruction;
 
 function make_itype_instruction(
     op          : op_t;
-    regs        : integer;
     regt        : integer;
+    regs        : integer;
     immediate   : integer)
     return std_logic_vector  
 is
