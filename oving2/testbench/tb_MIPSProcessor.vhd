@@ -199,6 +199,7 @@ DataMem:			entity work.DualPortMem port map (
 			CheckDataWord(x"0005FFEE", 13);
 			CheckDataWord(x"00000008", 15);
 			CheckDataWord(x"0000000E", 16);
+            CheckDataWord(x"00000000", 18);
 		end CheckDataMemory;
 		
         
