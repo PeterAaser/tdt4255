@@ -64,6 +64,10 @@ Some instructions requires an immediate value. If this is the case, the ALU Src 
 \subsection{Registers}
 
 \subsection{Branch}
+Detecting branches early is important for a pipelined processor, since each instruction fetched after a branch is potentially wrong.
+To detect branches as early as possible we have a branch unit which reads register data as soon as a branch instruction is detected at the ID stage.
+When a branch instruction is detected the branch unit calculates the next address and sets the PC address source to read from the branch unit.
+Likewise, on a jump instruction the branch unit sends the immediate value of the instruction to the PC.
 
 \subsection{Forwarder}
 \label{section:Forwarder}
@@ -81,6 +85,16 @@ In the case where an instruction in the ID stage uses data from the destination 
 This is nescessary because the instruction relies on data that cannot be forwarded once it reaches the execute stage, but is not updated in the register file before the instruction that needs it has already read the old value from the register file.
 
 \subsection{Hazard detection}
+When the forwarder is unable to provide the data needed in the execute stage we have a data hazard. In our design the only source of data hazards are load words where the next operation reads data from the load word instructions destination register. 
+This causes a hazard because it takes one cycle to retrieve memory, which unlike an ALU result does not make the data instantly available. 
+To detect these hazards the hazard detector compares the destination register of the operation in the execute stage with the source registers of the operation in ID stage.
+When there is a match, and the operation in execute stage is a load operation, the hazard detector issues a data hazard warning, which the rest of the system must respond to accordingly.
+In addition to data hazards, when a branch is taken or a jump is performed, it is up to the hazard detector to warn the rest of the system.
+When the branch unit sets the pc address source signal to read a branch address the hazard detector issues a control hazard warning.
 
 \subsection{Pipeline registers}
+The state of the processor is held in the state registers between each stage. Apart from these registers the only state in the processor is held in the program counter, register file, data memory and instruction memory.
+
+
+
 
