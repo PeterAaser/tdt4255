@@ -372,6 +372,7 @@ DataMem:			entity work.DualPortMem port map (
 		
 		-- check the results
 		
+		-- CheckDataMemory;
         CheckDataMemory;
 		-- CheckDataMemory_dep1;
 		-- CheckDataMemory_jump1;
