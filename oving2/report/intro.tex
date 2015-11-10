@@ -3,7 +3,7 @@ This Chapter briefly introduces the exercise and how we chose to approach it.
 
 \section{Exercise 1}
 
-As the work underlying this report ties closely to the work we did in the previous exercise.
+The work underlying this report ties closely to the work we did in the previous exercise.
 Throughout this report said work is often referenced.
 Details that pertain more closely to exercise 1 are omitted from this report, and as such, the reader should consult our report from the previous exercise \cite{ex1report} for additional details.
 
@@ -16,12 +16,15 @@ In this exercise, the goal is to extend and optimize the implementation to impro
 This is to be done by modifying the datapath into a pipeline.
 Pipeline registers are to be introduced to keep track of an instructions state between pipeline stages.
 The control module will also have to be modified to support pipelined processing.
-Pipelined processing introduces data and control hazard, so it is also required to implement systems for dealing with this.
+Pipelined processing introduces data and control hazards, so it is also required to implement systems for dealing with this.
 As with the previous exercise, our implementation is to be verified both in software simulation as well as running on the FPGA developer kit in the lab (ITV-458).
 
 
 \section{Approach}
 
 As suggested in the compendium \cite{compendium}, we chose to build upon our architecture from exercise 1.
-As we did last time, we started by making architecture level sketches of the changes that had to be made to the data-/controlpaths before we started writing VHDL code.
-Having planned our next moves while sketching, we started implementing the modified design in VHDL and verifying it with gradually more complex testbenches.
+Similarily to last time, we started by making architecture level sketches of the changes that had to be made to the data-/controlpaths.
+Having planned our next moves while sketching, we started implementing the modified design in VHDL.
+We began by introducing pipeline registers to our datapath, followed by removing state from the control module and implementing new modules like a forwarder and a hazard detector.
+After wiring everything together in the MIPSProcessor-module, we spent a lot of time making sure signals propagate correctly through the pipeline as well as testing that all hazards are handled.
+
