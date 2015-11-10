@@ -250,28 +250,28 @@ DataMem:			entity work.DualPortMem port map (
 			constant TEST_INSTRS : integer := 15;
 			type InstrData is array (0 to TEST_INSTRS-1) of std_logic_vector(DATA_WIDTH-1 downto 0);
 			variable TestInstrData : InstrData := (
-                    make_itype_instruction(addi, 3, 0, 1),								-- 0
+                    make_itype_instruction(addi, 1, 0, 1),								-- 0
                     make_itype_instruction(addi, 2, 0, 2),								-- 1
-                    make_itype_instruction(addi, 1, 0, 3),								-- 2
+                    make_itype_instruction(addi, 3, 0, 3),								-- 2
                     
-                    make_rtype_instruction(1, 1, 2, 0, add),	-- r1 <- 5				-- 3
+                    make_rtype_instruction(1, 1, 2, 0, add),	-- r1 <- 3				-- 3
                     make_jtype_instruction(jump, 7), 			-- jump to 7			-- 4
-                    make_rtype_instruction(2, 2, 1, 0, add),	-- skipped (r2 <- 5)	-- 5
+                    make_rtype_instruction(2, 0, 0, 0, add),	-- skipped (r2 <- 0)	-- 5
                     
                     -- label 1
-                    make_jtype_instruction(jump, 7), 			-- jump to 7			-- 6
+                    make_jtype_instruction(jump, 100), 			-- skipped				-- 6
                     
                     -- label 2
-                    make_rtype_instruction(2, 1, 2, 0, add),	-- r2 <- 7				-- 7
+                    make_rtype_instruction(2, 2, 2, 0, add),	-- r2 <- 4				-- 7
                     make_jtype_instruction(jump, 12), 			-- jump to 12			-- 8
-                    make_rtype_instruction(2, 1, 2, 0, add),	-- skipped (r2 <- 12)	-- 9
+                    make_rtype_instruction(4, 0, 0, 0, add),	-- skipped (r2 <- 8)	-- 9
                     
                     -- label 3
                     make_jtype_instruction(jump, 14),									-- 10
                     make_rtype_instruction(3, 2, 2, 0, add),	-- skipped				-- 11
                     
                     -- label 4
-					make_rtype_instruction(3, 2, 2, 0, add),	-- r3 <- 14				-- 12
+					make_rtype_instruction(3, 2, 2, 0, add),	-- r3 <- 10				-- 12
 					make_itype_instruction(sw, 3, 0, 1),	  							-- 13
 					make_itype_instruction(beq, 0, 0, -1)								-- 14
 
@@ -352,7 +352,6 @@ DataMem:			entity work.DualPortMem port map (
 		processor_enable <= '0';
 		-- fill instruction and data mems with test data
 		
-        
         FillInstructionMemory;
         -- FillInstructionMemory_dep1;
         -- FillInstructionMemory_jump1;

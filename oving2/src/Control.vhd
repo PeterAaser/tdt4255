@@ -14,17 +14,18 @@ entity Control is
         
         control_hazard        : in std_logic;
         data_hazard           : in std_logic;
-         
+		
+		nop_branch			  : out std_logic; 
         control_signals       : out control_signals_t
         );
 end Control;
 
 
 architecture Behavioral of Control is
-    signal duplicate_instruction    : std_logic;
+    signal spurious_instruction    : std_logic;
 begin
 
-    update: process(instruction, duplicate_instruction, control_hazard, data_hazard)
+    update: process(instruction, spurious_instruction, control_hazard, data_hazard)
     begin
   
         control_signals.ALU_source <= REG2;
@@ -37,7 +38,7 @@ begin
         control_signals.RegWrite <= false;
         control_signals.op <= rtype;
         
-        if duplicate_instruction = '0' and data_hazard = '0' then
+        if spurious_instruction = '0' and data_hazard = '0' then
 
             case get_op(instruction.opcode) is
                 when rtype => -- R-Type
@@ -83,13 +84,14 @@ begin
     bubble_next : process(clk, data_hazard, control_hazard)
     begin
         if(rising_edge(clk)) then
-            duplicate_instruction <= '0';
+            spurious_instruction <= '0';
             --if data_hazard = '1' then
-            --    duplicate_instruction <= '1';
+            --    spurious_instruction <= '1';
             --end if;
             if control_hazard = '1' then
-                duplicate_instruction <= '1';
+                spurious_instruction <= '1';
             end if;
+			nop_branch <= spurious_instruction;
         end if;
     end process;
 

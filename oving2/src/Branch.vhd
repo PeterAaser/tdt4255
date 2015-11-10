@@ -14,6 +14,7 @@ entity Branch is
         pc              : in std_logic_vector(ADDR_WIDTH-1 downto 0);
         read_data_1     : in std_logic_vector(DATA_WIDTH-1 downto 0);
         read_data_2     : in std_logic_vector(DATA_WIDTH-1 downto 0);
+		nop_branch		: in std_logic;
         
         pc_address_src  : out PC_addr_source_t;
         address_out     : out std_logic_vector(ADDR_WIDTH-1 downto 0)
