@@ -25,9 +25,7 @@ begin
     begin
         if reset = '1' then
             address <= (others => '0');
-        end if;
-        
-        if processor_enable = '1' then
+        elsif processor_enable = '1' then
             if stall = '0' then
                 if rising_edge(clk) then
                     if (pc_address_src = Branch_addr) then

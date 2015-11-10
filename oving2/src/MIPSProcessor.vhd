@@ -163,7 +163,6 @@ begin
         funct => ex_funct,
         ALU_source => ex_control_signals.ALU_source,
         
-        Zero => mem_zero,
         result => alu_result,
         ex_read_data_2_forwarded => ex_read_data_2_forwarded
     );

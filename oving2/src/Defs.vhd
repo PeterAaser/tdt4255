@@ -100,6 +100,7 @@ package Defs is
     function op_string(op: op_t) return string;
     function ALU_op_string(ALU_op: ALU_op_t) return string;
     function bool_string(b: boolean) return string;
+    function fw_string(fw: forward_t) return string;
     
   
 end package Defs;
@@ -248,6 +249,7 @@ function vec_string_5b(v: std_logic_vector(4 downto 0)) return string is begin r
 function op_string(op: op_t) return string is begin return op_t'image(op); end op_string;
 function ALU_op_string(ALU_op: ALU_op_t) return string is begin return ALU_op_t'image(ALU_op); end ALU_op_string;
 function bool_string(b: boolean) return string is begin return boolean'image(b); end bool_string;
+function fw_string(fw: forward_t) return string is begin return forward_t'image(fw); end fw_string;
 
 function make_rtype_instruction(
     regs        : integer;
