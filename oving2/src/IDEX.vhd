@@ -11,7 +11,10 @@ entity IDEX is
            stall                : in STD_LOGIC;
            ControlSignals_in    : in control_signals_t;
            ReadData1_in         : in STD_LOGIC_VECTOR(DATA_WIDTH-1 downto 0);
+           ForwardData1         : in Forward_t;
            ReadData2_in         : in STD_LOGIC_VECTOR(DATA_WIDTH-1 downto 0);
+           ForwardData2         : in Forward_t;
+           ForwardedData_in     : in STD_LOGIC_VECTOR(DATA_WIDTH-1 downto 0);
            Immidiate_in         : in immediate_t;
            RegS_in              : in reg_t;
            RegT_in              : in reg_t;
@@ -40,8 +43,16 @@ begin
             else
                 ControlSignals_out <= ControlSignals_in;
             end if;
-            ReadData1_out <= ReadData1_in;
-            ReadData2_out <= ReadData2_in;
+            if ForwardData1 = WB then
+                ReadData1_out <= ForwardedData_in;
+            else
+                ReadData1_out <= ReadData1_in;
+            end if;
+            if ForwardData2 = WB then
+                ReadData2_out <= ForwardedData_in;
+            else
+                ReadData2_out <= ReadData2_in;
+            end if;
             Immidiate_out <= std_logic_vector(resize(signed(Immidiate_in), 32));
             if (ControlSignals_in.RegDst = REGT) then
                 RegMux  <= RegT_in;

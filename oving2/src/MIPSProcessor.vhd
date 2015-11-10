@@ -1,12 +1,10 @@
-                    -- Part of TDT4255 Computer Design laboratory exercises
+-- Part of TDT4255 Computer Design laboratory exercises
 -- Group for Computer Architecture and Design
 -- Department of Computer and Information Science
 -- Norwegian University of Science and Technology
 
 -- MIPSProcessor.vhd
 -- The MIPS processor component to be used in Exercise 1 and 2.
-
--- TODO replace the architecture DummyArch with a working Behavioral
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
@@ -34,8 +32,11 @@ architecture MultiCycleMIPS of MIPSProcessor is
     signal pc_address_src : pc_addr_source_t;
     signal branch_address : std_logic_vector(ADDR_WIDTH-1 downto 0);
     
-    signal forward_a : Forward_t;
-    signal forward_b : Forward_t;
+    -- Forward
+    signal forward_id_a : Forward_t;
+    signal forward_id_b : Forward_t;
+    signal forward_ex_a : Forward_t;
+    signal forward_ex_b : Forward_t;
     signal ex_read_data_2_forwarded : std_logic_vector(DATA_WIDTH-1 downto 0);
     
     -- IF
@@ -47,6 +48,9 @@ architecture MultiCycleMIPS of MIPSProcessor is
     signal id_instruction : instruction_t;
     signal id_stall : std_logic;
     signal id_pc : std_logic_vector(ADDR_WIDTH - 1 downto 0);
+    signal id_read_data_1: std_logic_vector(DATA_WIDTH-1 downto 0);
+    signal id_read_data_2: std_logic_vector(DATA_WIDTH-1 downto 0);
+    
     
     -- EX
     signal ex_control_signals : control_signals_t;
@@ -55,8 +59,6 @@ architecture MultiCycleMIPS of MIPSProcessor is
     signal ex_extended_immediate : std_logic_vector(DATA_WIDTH-1 downto 0); 
     signal ex_read_data_1 : std_logic_vector(DATA_WIDTH-1 downto 0);
     signal ex_read_data_2 : std_logic_vector(DATA_WIDTH-1 downto 0);
-    signal tmp_ex_read_data_1 : std_logic_vector(DATA_WIDTH-1 downto 0);
-    signal tmp_ex_read_data_2 : std_logic_vector(DATA_WIDTH-1 downto 0);
     signal ex_reg_s     : reg_t;
     signal ex_reg_t     : reg_t;
     signal ex_reg_d     : reg_t;
@@ -82,9 +84,6 @@ architecture MultiCycleMIPS of MIPSProcessor is
 	signal nop_branch : std_logic;
     
 begin
-
-    --ex_read_data_1 <= tmp_ex_read_data_1;
-    --ex_read_data_2 <= tmp_ex_read_data_2;
     
     control: entity work.Control
     generic map(
@@ -130,8 +129,8 @@ begin
         write_reg => wb_write_reg,
         write_data => wb_out,
         RegWrite => wb_control_signals.RegWrite,
-        read_data_1 => tmp_ex_read_data_1,
-        read_data_2 => tmp_ex_read_data_2
+        read_data_1 => id_read_data_1,
+        read_data_2 => id_read_data_2
     );
     
     branch: entity work.Branch
@@ -143,9 +142,11 @@ begin
         op                  => id_instruction.opcode,
         immediate           => id_instruction.immediate,
         pc                  => id_pc,
-        read_data_1         => tmp_ex_read_data_1,
-        read_data_2         => tmp_ex_read_data_2,
+
 		nop_branch			=> nop_branch,
+
+        read_data_1         => id_read_data_1,
+        read_data_2         => id_read_data_2,
         
         pc_address_src      => pc_address_src,
         address_out         => branch_address
@@ -157,8 +158,8 @@ begin
         read_data_2 => ex_read_data_2,
         extended_immediate => ex_extended_immediate,
         
-        forward_a => forward_a,
-        forward_b => forward_b,
+        forward_a => forward_ex_a,
+        forward_b => forward_ex_b,
         wb_out_result => wb_out,
         mem_alu_result => mem_alu_result,
         
@@ -189,22 +190,17 @@ begin
     port map(
         mem_regd            => mem_write_reg,
         wb_regd             => wb_write_reg,
+        id_regs             => id_instruction.regs,
+        id_regt             => id_instruction.regt,
         ex_regs             => ex_reg_s,
         ex_regt             => ex_reg_t,
         mem_regwrite        => mem_control_signals.RegWrite,
         wb_regwrite         => wb_control_signals.RegWrite,
-        forward_a           => forward_a,
-        forward_b           => forward_b
+        forward_id_a           => forward_id_a,
+        forward_id_b           => forward_id_b,
+        forward_ex_a           => forward_ex_a,
+        forward_ex_b           => forward_ex_b
     );
-
---    update_imem : process(if_pc, data_hazard, pc_address_src) is
---    begin
---        if data_hazard = '0' then
---            imem_address <= if_pc;
---        elsif pc_address_src = BRANCH_ADDR then
---            imem_address <= branch_address;
---        end if;
---    end process;
     
     ifid_inst: entity work.IFID
     generic map(
@@ -230,8 +226,11 @@ begin
         clk => clk,
         stall               => data_hazard,
         ControlSignals_in   => tmp_control_signals,
-        ReadData1_in        => tmp_ex_read_data_1,
-        ReadData2_in        => tmp_ex_read_data_2,
+        ReadData1_in        => id_read_data_1,
+        ReadData2_in        => id_read_data_2,
+        ForwardedData_in    => wb_out,
+        ForwardData1        => forward_id_a,
+        ForwardData2        => forward_id_b,
         Immidiate_in        => id_instruction.immediate,
         RegS_in             => id_instruction.regs,
         RegT_in             => id_instruction.regt,

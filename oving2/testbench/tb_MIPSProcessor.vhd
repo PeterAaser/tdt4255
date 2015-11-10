@@ -199,6 +199,7 @@ DataMem:			entity work.DualPortMem port map (
 			CheckDataWord(x"0005FFEE", 13);
 			CheckDataWord(x"00000008", 15);
 			CheckDataWord(x"0000000E", 16);
+            CheckDataWord(x"00000000", 18);
 		end CheckDataMemory;
 		
 		procedure CheckDataMemory_dep1 is
@@ -353,8 +354,8 @@ DataMem:			entity work.DualPortMem port map (
 		
         
         -- FillInstructionMemory;
-        -- FillInstructionMemory_dep1;
-        FillInstructionMemory_jump1;
+        FillInstructionMemory_dep1;
+        -- FillInstructionMemory_jump1;
         -- FillInstructionMemory_branch1;
         -- FillInstructionMemory_lwbubble;
 		
@@ -373,8 +374,8 @@ DataMem:			entity work.DualPortMem port map (
 		-- check the results
 		
 		-- CheckDataMemory;
-		-- CheckDataMemory_dep1;
-		CheckDataMemory_jump1;
+		CheckDataMemory_dep1;
+		-- CheckDataMemory_jump1;
 		-- CheckDataMemory_branch1;
 
       wait;

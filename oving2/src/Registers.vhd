@@ -28,7 +28,7 @@ begin
     begin
         if reset = '1' then
             regFile <= (others => (others => '0'));
-        elsif clk = '1' and processor_enable = '1' then
+        elsif rising_edge(clk) and processor_enable = '1' then
             if RegWrite = true then
                 regFile(to_integer(unsigned(write_reg))) <= write_data;
             end if;
