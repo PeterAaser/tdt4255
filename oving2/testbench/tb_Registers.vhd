@@ -18,6 +18,7 @@ ARCHITECTURE behavior OF tb_Registers IS
     --Inputs
     signal clk : std_logic := '0';
     signal reset : std_logic := '0';
+    signal processor_enable : std_logic := '0';
     signal read_reg_1 : reg_t;
     signal read_reg_2 : reg_t;
     signal write_reg : reg_t;
@@ -36,6 +37,7 @@ BEGIN
     uut: entity work.Registers port map(
         clk => clk,
         reset => reset,
+        processor_enable => processor_enable,
         read_reg_1 => read_reg_1,
         read_reg_2 => read_reg_2,
         write_reg => write_reg,
@@ -61,18 +63,21 @@ BEGIN
         -- reset
         wait for clk_period/2;
         reset <= '1';
+        processor_enable <= '1';
         -- Prep for write
         wait for clk_period;
         reset <= '0';
+        read_reg_1 <= "00001";
+        assert read_data_1 = x"00000000";
+        wait for clk_period;
         -- Write to r1 from alu result
         write_data <= x"DEADBEEF";
         RegWrite <= true;
         write_reg <= "00001";
-        wait for clk_period;
         read_reg_1 <= "00001";
-        RegWrite <= false;
-        wait for clk_period;
+        wait for clk_period; 
         assert read_data_1 = x"DEADBEEF";
+        RegWrite <= false;
         -- insert stimulus here 
         wait;
    end process;

@@ -24,11 +24,11 @@ architecture Behavioral of Registers is
 begin
     
 
-    process (reset, write_data, read_reg_1, read_reg_2)
+    process (clk, reset, write_data, read_reg_1, read_reg_2, write_reg, processor_enable)
     begin
         if reset = '1' then
             regFile <= (others => (others => '0'));
-        elsif processor_enable = '1' then
+        elsif rising_edge(clk) and processor_enable = '1' then
             if RegWrite = true then
                 regFile(to_integer(unsigned(write_reg))) <= write_data;
             end if;

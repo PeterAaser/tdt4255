@@ -35,10 +35,7 @@ package Defs is
     type op_t is (
         jump, jal, beq, bne, sw, lw, lui, rtype, addi
     );
-
-    -- Enumerators for control signals
-    -- e[name] denotes enumerated name, because strings are not allowed and types share namespac
-    -- with subtypes (WHAT THE FUCK!=?==)
+    
     type instruction_format_t is (R_TYPE, I_TYPE, J_TYPE);
 
     type ALU_source_t is (REG2, INSTR);
@@ -78,9 +75,9 @@ package Defs is
     function test_get_op_inverse ( op : op_t ) return opcode_t;
     
     function make_rtype_instruction(
+        regd        : integer;
         regs        : integer;
         regt        : integer;
-        regd        : integer;
         shamt       : integer;
         funct       : ALU_op_t ) 
         return std_logic_vector;
@@ -103,6 +100,7 @@ package Defs is
     function op_string(op: op_t) return string;
     function ALU_op_string(ALU_op: ALU_op_t) return string;
     function bool_string(b: boolean) return string;
+    function fw_string(fw: forward_t) return string;
     
   
 end package Defs;
@@ -217,6 +215,7 @@ begin
         when multu =>   return "011001";
         when op_nor =>  return "100111";
         when op_xor =>  return "100110";
+        when op_and =>  return "100100";
         when op_or =>   return "100101";
         when slt =>     return "101010";
         when op_sltu => return "101011";
@@ -225,7 +224,7 @@ begin
         when op_sra =>  return "000011";
         when sub =>     return "100010";
         when subu =>    return "100011";
-        when others =>  return "000000";
+        when others =>  return "100000"; -- UH OH!
     end case;
 end test_get_funct_inverse;
 
@@ -251,11 +250,12 @@ function vec_string_5b(v: std_logic_vector(4 downto 0)) return string is begin r
 function op_string(op: op_t) return string is begin return op_t'image(op); end op_string;
 function ALU_op_string(ALU_op: ALU_op_t) return string is begin return ALU_op_t'image(ALU_op); end ALU_op_string;
 function bool_string(b: boolean) return string is begin return boolean'image(b); end bool_string;
+function fw_string(fw: forward_t) return string is begin return forward_t'image(fw); end fw_string;
 
 function make_rtype_instruction(
+    regd        : integer;
     regs        : integer;
     regt        : integer;
-    regd        : integer;
     shamt       : integer;
     funct       : ALU_op_t) return std_logic_vector 
 is
