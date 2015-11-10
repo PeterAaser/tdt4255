@@ -68,6 +68,11 @@ begin
                     control_signals.op <= lui;
                     control_signals.RegWrite <= true;
                     control_signals.ALU_source <= INSTR;
+					 
+				when addi =>
+					control_signals.op <= addi;
+					control_signals.RegWrite <= true;
+					control_signals.ALU_source <= INSTR;
 
                 when others =>
                     null;
