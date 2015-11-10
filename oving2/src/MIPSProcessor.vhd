@@ -79,6 +79,7 @@ architecture MultiCycleMIPS of MIPSProcessor is
     -- hazards
     signal data_hazard : std_logic;
     signal control_hazard : std_logic;
+	signal nop_branch : std_logic;
     
 begin
 
@@ -98,7 +99,8 @@ begin
         control_signals => tmp_control_signals,
         
         data_hazard      => data_hazard,
-        control_hazard   => control_hazard
+        control_hazard   => control_hazard,
+		nop_branch 		 => nop_branch
     );
 
     program_counter: entity work.ProgramCounter
@@ -143,6 +145,7 @@ begin
         pc                  => id_pc,
         read_data_1         => tmp_ex_read_data_1,
         read_data_2         => tmp_ex_read_data_2,
+		nop_branch			=> nop_branch,
         
         pc_address_src      => pc_address_src,
         address_out         => branch_address
