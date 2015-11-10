@@ -24,7 +24,7 @@ architecture Behavioral of Registers is
 begin
     
 
-    process (clk, reset, write_data, read_reg_1, read_reg_2, write_reg)
+    process (clk, reset, write_data, read_reg_1, read_reg_2, write_reg, processor_enable)
     begin
         if reset = '1' then
             regFile <= (others => (others => '0'));

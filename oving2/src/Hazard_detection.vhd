@@ -47,7 +47,7 @@ begin
 		  end if;
     end process detect_data_hazard;
     
-    detect_control_hazard : process(pc_address_src)
+    detect_control_hazard : process(pc_address_src, processor_enable)
     begin
         if processor_enable = '1' then
             if pc_address_src = BRANCH_ADDR then

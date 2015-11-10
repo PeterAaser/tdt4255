@@ -2,8 +2,9 @@
 
 By expanding the microarchitecture from Exercise 1 \cite{compendium} with a forwarder, pipeline registers, hazard detection and improved ALU, PC and control modules, we succeeded in implementing a pipelined, multi-cycle, MIPS-like processor.
 Each component was tested with individual testbenches.
-The system as a whole was tested using an end-to-end testbench, as well as by uploading the bitfile to an FPGA in the lab and verifying correctness using the \texttt{hostcomm} utility.
-We succeeded in implementing support for the instructions listed as requirements in the exercise description.
+The processor (MIPSProcessor-module) was tested with a testbench including instruction and data memory.
+In this way, reading of instructions and writing of data can be simulated and verified.
+We also uploaded the bitfile to an FPGA in the lab and verified correctness using the \texttt{hostcomm} utility.
 
 \section{Testing in ISim}
 Testsbenches for the all modules except the pipeline registers were written and run is ISim. 
@@ -13,6 +14,7 @@ When the system had been tested thoroughly in ISim, a bitfile was generated, and
 
 \begin{figure}[h!]
     \includegraphics[width=\linewidth]{img/hostcomm_result.png}
-    \caption{A screenshot of the hostcomm utility after allowing our processor to execute a the test program.}
+    \caption{A screenshot of the hostcomm utility after allowing our processor to execute a test program.}
     \label{fig:hostcomm}
 \end{figure}
+
