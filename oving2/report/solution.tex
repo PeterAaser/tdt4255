@@ -15,9 +15,9 @@ The components that were implemented in Exercise 1, and improved to support mult
   \item[Control] \hfill \\
   The control unit takes the opcode of an instruction, and sets the appropriate control signals. The statefulness that was needed in the single-cycle version has been removed, and the unit is now stateless.  
   \item[Program counter (PC)] \hfill \\
-  The program counter keeps track off the address to the next instruction to be executed. If there is a branch, the PC will receive the branch address from the Branch unit. The PC may stall, if there is a control hazard.
+  The program counter keeps track of the address to the next instruction to be executed. If there is a branch, the PC will receive the branch address from the Branch unit. The PC may stall, if there is a control hazard.
   \item[ALU] \hfill \\
-  The heart of the processor, the ALU performs an operation issued by the control unit and outputs a result along with a zero signal. This module has been updated to support forwarded data.
+  The heart of the processor, the ALU performs an operation issued by the control unit and outputs the result. This module has been updated to support forwarded data.
   \item[Registers] \hfill \\
   The register bank is the short term memory of the architecture, feeding operands to the ALU, and receiving data which may be stored based on control signals.
 \end{description}
@@ -28,11 +28,11 @@ To make the processor pipelined, we need to introduce a number of new modules.
   \item[Branch] \hfill \\
   If the instruction is a branch or a jump, this module calculates the address, and passes it forth to the PC module. The difference from the single-cycle version is that this  branch calculation is now performed in a separate unit, instead of beeing a part of the ALU. The advantage is that the branch target is now known in the ID-stage, instead of the EX-stage 
   \item[Forwarder] \hfill \\
-  In a pipelined processor, if a instruction is dependant on the preceding instruction's result, we would need to wait for the result to propagate through the pipeline before the current instruction can execute. This is called a Data hazard. Some data hazard can be resolved by forwarding. It is the forwarders task to check if data can be forwarded, and if possible, do so.
+  In a pipelined processor, if a instruction is dependant on the preceding instruction's result, we would need to wait for the result to propagate through the pipeline before the current instruction can execute. This is called a Data hazard. Some data hazards can be resolved by forwarding. It is the forwarders task to check if data can be forwarded, and if possible, do so.
   \item[Hazard detection] \hfill \\
   In some cases, data forwarding is not possible. In these cases we need to stall the pipeline. The Hazard detector sends a signal to the PC if a stall is required.
   \item[Pipeline registers] \hfill \\
-  Every stage of the pipeline is operating on different instructions. This means that the data and control signal for an instruction must be contained within the current pipeline stage. To achieve this, we insert registers between the stages. To keep the pipeline moving, the data is propagated forward on the rising clock edge. 
+  Every stage of the pipeline is operating on different instructions. This means that the data and control signals for an instruction must be contained within the current pipeline stage. To achieve this, we insert registers between the stages. To keep the pipeline moving, the data is propagated forward on the rising clock edge. 
 \end{description}
 
 \begin{figure}[h!]
@@ -52,8 +52,11 @@ The core of the ALU, depicted as "ALU" in Figure \ref{fig:ALU}, remains very sim
 The rest of Figure \ref{fig:ALU} shows the muxing of the possible operands. This addition to the ALU module enable us to use results from further down the pipeline, which has not yet been written to the registers.
 
 A separate unit, the Forwarder (explained in Subsection \ref{section:Forwarder}) calculates if forwarding is possible. The ALU receives two control signals from this unit, the Forward A and Forward B.
-Based on these vectors either the register-, mem- or wb data is used as an operand.
+Based on these vectors either the register-, mem- or \textbf{wb data?} is used as an operand.
+
 Some instructions requires an immediate value. If this is the case, the ALU Src signal will select the immediate signal over the previously muxed signal.
+
+\textbf{Forwarded Read Data?}
 
 
 \begin{figure}[h!]
@@ -67,7 +70,7 @@ Some instructions requires an immediate value. If this is the case, the ALU Src 
 \subsection{Branch}
 Detecting branches early is important for a pipelined processor, since each instruction fetched after a branch is potentially wrong.
 To detect branches as early as possible we have a branch unit which reads register data as soon as a branch instruction is detected at the ID stage.
-When a branch instruction is detected the branch unit calculates the next address and sets the PC address source to read from the branch unit.
+When a branch instruction is detected the branch unit calculates the target address and sets the PC address source to read from the branch unit.
 Likewise, on a jump instruction the branch unit sends the immediate value of the instruction to the PC.
 
 \subsection{Forwarder}
@@ -75,10 +78,10 @@ Likewise, on a jump instruction the branch unit sends the immediate value of the
 
 \subsection{Hazard detection}
 When the forwarder is unable to provide the data needed in the execute stage we have a data hazard. In our design the only source of data hazards are load words where the next operation reads data from the load word instructions destination register. 
-This causes a hazard because it takes one cycle to retrieve memory, which unlike an ALU result does not make the data instantly available. 
+This causes a hazard because it takes one cycle to retrieve memory, which unlike an ALU result does not make the data \textbf{instantly?} available. 
 To detect these hazards the hazard detector compares the destination register of the operation in the execute stage with the source registers of the operation in ID stage.
 When there is a match, and the operation in execute stage is a load operation, the hazard detector issues a data hazard warning, which the rest of the system must respond to accordingly.
 In addition to data hazards, when a branch is taken or a jump is performed, it is up to the hazard detector to warn the rest of the system.
-When the branch unit sets the pc address source signal to read a branch address the hazard detector issues a control hazard warning.
+When the branch unit sets the pc address source signal to read a branch address, the hazard detector issues a control hazard warning.
 
 \subsection{Pipeline registers}
