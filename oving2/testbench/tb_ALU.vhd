@@ -23,7 +23,7 @@ architecture behavior OF tb_ALU IS
         
         forward_a               : IN forward_t;
         forward_b               : IN forward_t;
-        wb_alu_result           : IN std_logic_vector(31 downto 0);
+        wb_out_result           : IN std_logic_vector(31 downto 0);
         mem_alu_result          : IN std_logic_vector(31 downto 0);
         
         op                      : IN  op_t;
@@ -42,7 +42,7 @@ architecture behavior OF tb_ALU IS
     signal funct                : funct_t;
     signal forward_a            : forward_t := REG;
     signal forward_b            : forward_t := REG;
-    signal wb_alu_result        : std_logic_vector(31 downto 0) := (others => '0');
+    signal wb_out_result        : std_logic_vector(31 downto 0) := (others => '0');
     signal mem_alu_result        : std_logic_vector(31 downto 0) := (others => '0');
     signal op                   : op_t;
     signal ALU_source           : alu_source_t;
@@ -65,7 +65,7 @@ begin
         funct                 => funct,
         forward_a             => forward_a,
         forward_b             => forward_b,
-        wb_alu_result         => wb_alu_result,
+        wb_out_result         => wb_out_result,
         mem_alu_result         => mem_alu_result,
         op                    => op,
         ALU_source            => ALU_source,
