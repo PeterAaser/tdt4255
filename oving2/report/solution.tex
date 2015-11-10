@@ -7,7 +7,7 @@ As this exercise is to improve the single-cycle version of the MIPS-processor. I
 The new components needed to realize a pipelined designed were sketched out on paper. We used a bottom up approach, designing the new modules first, and integrated them to the system as they completed.
 
 \section{Implementation}
-Figure \ref{toplevel} shows all major components in the system. 
+Figure \ref{fig:toplevel} shows all major components in the system. 
 The Data memory and Instruction memory was provided in the exercise.
 The components that were implemented in Exercise 1, and improved to support multi-cycle operation is as follows:
 
@@ -34,6 +34,13 @@ To make the processor pipelined, we need to introduce a number of new modules.
   \item[Pipeline registers] \hfill \\
   Every stage of the pipeline is operating on different instructions. This means that the data and control signal for an instruction must be contained within the current pipeline stage. To achieve this, we insert registers between the stages. To keep the pipeline moving, the data is propagated forward on the rising clock edge. 
 \end{description}
+
+\begin{figure}[h!]
+    \includegraphics[width=\linewidth]{img/toplel.png}
+    \caption{RTL Schematic of the system. Some parts has been left out to avoid clutter.}
+    \label{fig:toplevel}
+\end{figure}
+
 
 \subsection{Control}
 
