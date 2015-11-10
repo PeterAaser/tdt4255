@@ -48,12 +48,9 @@ BEGIN
 
    stim_proc: process
    begin		
-      -- hold reset state for 100 ns.
-      wait for clk_period;
-
-      -- insert stimulus here 
-      
+      wait for clk_period/2;
       reset <= '1';
+      pc_address_src <= PC_ADDR;
       wait for clk_period;
       reset <= '0';
       

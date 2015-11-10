@@ -75,9 +75,7 @@ BEGIN
         RegWrite <= true;
         write_reg <= "00001";
         read_reg_1 <= "00001";
-        -- Our requirement is that data is available on the out bus before the next cycle.
-        -- Since there is some mux delay, perfectly simultaneous write/read is impossible.
-        wait for clk_period/2; 
+        wait for clk_period; 
         assert read_data_1 = x"DEADBEEF";
         RegWrite <= false;
         -- insert stimulus here 

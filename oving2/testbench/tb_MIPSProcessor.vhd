@@ -352,7 +352,6 @@ DataMem:			entity work.DualPortMem port map (
 		processor_enable <= '0';
 		-- fill instruction and data mems with test data
 		
-        
         FillInstructionMemory;
         -- FillInstructionMemory_dep1;
         -- FillInstructionMemory_jump1;
@@ -373,7 +372,8 @@ DataMem:			entity work.DualPortMem port map (
 		
 		-- check the results
 		
-		CheckDataMemory;
+		-- CheckDataMemory;
+        CheckDataMemory;
 		-- CheckDataMemory_dep1;
 		-- CheckDataMemory_jump1;
 		-- CheckDataMemory_branch1;

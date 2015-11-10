@@ -21,7 +21,7 @@ end ProgramCounter;
 architecture Behavioral of ProgramCounter is
     signal address : std_logic_vector(ADDR_WIDTH - 1 downto 0) := (others => '0');
 begin
-    update_address: process(clk, reset)
+    update_address: process(clk, reset, processor_enable, stall)
     begin
         if reset = '1' then
             address <= (others => '0');
@@ -29,7 +29,7 @@ begin
             if stall = '0' then
                 if rising_edge(clk) then
                     if (pc_address_src = Branch_addr) then
-                        address <= std_logic_vector(unsigned(branch_address_in) );
+                        address <= std_logic_vector(unsigned(branch_address_in)+1);
                     else
                         address <= std_logic_vector(unsigned(address) + 1);
                     end if;
@@ -42,7 +42,7 @@ begin
     update_pc: process(branch_address_in, pc_address_src, address)
     begin
         if pc_address_src = BRANCH_ADDR then
-            if_pc <= std_logic_vector(signed(branch_address_in)-1);
+            if_pc <= std_logic_vector(signed(branch_address_in));
         else
             if_pc <= std_logic_vector(signed(address)-1);
         end if;
