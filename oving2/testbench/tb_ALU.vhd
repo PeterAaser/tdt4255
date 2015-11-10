@@ -126,21 +126,100 @@ begin
         report "====== Test starting ======";
         
         report "Testing unforwarded operations";
-        -- signature: op, func, alusrc, a source, b source, wb data, mem data, read a, read b, immediate, expected result
-        test_op(rtype,  add,    REG2,   REG,  REG,  10,  10,  2,  3,  0,  5);
-        test_op(rtype,  add,    REG2,   REG,  REG,  10,  10,  9,  7,  10,  16);
+        --		 op 		func 			alusrc, srca  srcb  wb	mem  r1  r2  imm    expected result
+        test_op(rtype,  add,    		REG2,   REG,  REG,  10,  10,  2,  3,  0,    5);
+        test_op(rtype,  add,    		REG2,   REG,  REG,  10,  10,  9,  7,  10,   16);
+        test_op(rtype,  sub,    		REG2,   REG,  REG,  10,  10,  9,  7,  10,   2);
+        test_op(rtype,  sub,    		REG2,   REG,  REG,  10,  10,  1,  13, 10,  -12);
+        test_op(rtype,  slt,    		REG2,   REG,  REG,  10,  10,  15, 5,  10,   0);
+        test_op(rtype,  slt,    		REG2,   REG,  REG,  10,  11,  0,  3,  10,   1);
+        test_op(rtype,  op_or,    	REG2,   REG,  REG,  10,  10,  1,  2,  1,    3);
+        test_op(rtype,  op_and,     REG2,   REG,  REG,  10,  10,  10, 15, 6,    10);        
         
-        test_op(rtype,  sub,    REG2,   REG,  REG,  10,  10,  9,  7,  10,  2);
-        test_op(rtype,  sub,    REG2,   REG,  REG,  10,  10,  1,  13,  10,  16);
-
-        test_op(rtype,  slt,    REG2,   REG,  REG,  10,  10,  15,  5,  10,  1);
-        test_op(rtype,  slt,    REG2,   REG,  REG,  10,  10,  0,  3,  10,  0);
         
-        test_op(rtype,  op_or,    REG2,   REG,  REG,  10,  10,  15,  2,  1,  3);
-        test_op(rtype,  op_and,    REG2,   REG,  REG,  10,  10,  0,  5,  6,  5);        
+        report "Testing mem forwarded operations";
+        --		 op 		func 			alusrc, srca  srcb  wb	mem  r1  r2  imm    expected result
+        test_op(rtype,  add,    		REG2,   MEM,  REG,  2,  11,  1,  3,  0,     14);
+        test_op(rtype,  add,    		REG2,   MEM,  REG,  3,  13,  1,  7,  0,  	  20); 
+        test_op(rtype,  sub,    		REG2,   MEM,  REG,  4,  7,   1,  7,  0,     0);
+        test_op(rtype,  sub,    		REG2,   MEM,  REG,  5,  11,  1,  13, 0,    -2);
+        test_op(rtype,  slt,    		REG2,   MEM,  REG,  6,  7,   1,  5,  0,     0);
+        test_op(rtype,  slt,    		REG2,   MEM,  REG,  7,  19,  1,  20, 0,     1);
+        test_op(rtype,  op_or,    	REG2,   MEM,  REG,  8,  2,   1,  3,  0,     3);
+        test_op(rtype,  op_and,    	REG2,   MEM,  REG,  9,  41,  1,  26, 0,     8);
         
-        -- read_data_1
+		  --		 op 		func 			alusrc, srca  srcb  wb	mem  r1  r2  imm    expected result
+		  test_op(rtype,  add,    		REG2,   MEM,  MEM,  2,  11,  1,  3,  0,     22);
+        test_op(rtype,  add,    		REG2,   MEM,  MEM,  3,  13,  1,  7,  0,     26);
+        test_op(rtype,  sub,    		REG2,   MEM,  MEM,  4,  7,   1,  7,  0,     0);
+        test_op(rtype,  sub,    		REG2,   MEM,  MEM,  5,  11,  1,  13, 0,     0);
+        test_op(rtype,  slt,    		REG2,   MEM,  MEM,  6,  7,   1,  5,  0,     0);
+        test_op(rtype,  slt,    		REG2,   MEM,  MEM,  7,  19,  1,  20, 0,     0);
+        test_op(rtype,  op_or,    	REG2,   MEM,  MEM,  8,  2,   1,  3,  0,     2);
+        test_op(rtype,  op_and,    	REG2,   MEM,  MEM,  9,  41,  1,  26, 0,     41);
+		  
+		  --		 op 		func 			alusrc, srca  srcb  wb	mem  r1  r2  imm    expected result
+		  test_op(rtype,  add,    		REG2,   REG,  MEM,  10, 0,   1,  3,  0,     1);
+        test_op(rtype,  add,    		REG2,   REG,  MEM,  10, 10,  1,  7,  0,     11);
+        test_op(rtype,  sub,    		REG2,   REG,  MEM,  10, 7,   1,  7,  0,    -6);
+        test_op(rtype,  sub,    		REG2,   REG,  MEM,  10, 11,  12, 13, 0,     1);
+        test_op(rtype,  slt,    		REG2,   REG,  MEM,  10, 7,   1,  5,  0,     1);
+        test_op(rtype,  slt,    		REG2,   REG,  MEM,  10, 19,  1,  20, 0,     1);
+        test_op(rtype,  op_or,    	REG2,   REG,  MEM,  10, 2,   3,  1,  0,     3);
+        test_op(rtype,  op_and,    	REG2,   REG,  MEM,  10, 41,  26, 1,  0,     8);
+		  
+		  report "Testing wb forwarded operations";
+        --		 op 		func 			alusrc, srca  srcb  wb	mem  r1  r2  imm    expected result
+        test_op(rtype,  add,    		REG2,    WB,  REG,  2,  11,  1,  3,  0,     5);
+        test_op(rtype,  add,    		REG2,    WB,  REG,  3,  13,  4,  7,  0,  	  10); 
+        test_op(rtype,  sub,    		REG2,    WB,  REG,  4,  7,   6,  7,  0,    -3);
+        test_op(rtype,  sub,    		REG2,    WB,  REG,  5,  11,  3,  13, 0,    -8);
+        test_op(rtype,  slt,    		REG2,    WB,  REG,  6,  7,   8,  5,  0,     0);
+        test_op(rtype,  slt,    		REG2,    WB,  REG,  7,  19,  4,  20, 0,     1);
+        test_op(rtype,  op_or,    	REG2,    WB,  REG,  4,  2,   1,  3,  0,     7);
+        test_op(rtype,  op_and,    	REG2,    WB,  REG,  41, 4,   5,  26, 0,     8);
         
+		  --		 op 		func 			alusrc, srca  srcb  wb	mem  r1  r2  imm    expected result
+		  test_op(rtype,  add,    		REG2,    WB,   WB,  2,  11,  1,  3,  0,     4);
+        test_op(rtype,  add,    		REG2,    WB,   WB,  3,  13,  1,  7,  0,     6);
+        test_op(rtype,  sub,    		REG2,    WB,   WB,  4,  7,   1,  7,  0,     0);
+        test_op(rtype,  sub,    		REG2,    WB,   WB,  5,  11,  1,  13, 0,     0);
+        test_op(rtype,  slt,    		REG2,    WB,   WB,  6,  7,   1,  5,  0,     0);
+        test_op(rtype,  slt,    		REG2,    WB,   WB,  7,  19,  1,  20, 0,     0);
+        test_op(rtype,  op_or,    	REG2,    WB,   WB,  8,  2,   1,  3,  0,     8);
+        test_op(rtype,  op_and,    	REG2,    WB,   WB,  9,  41,  1,  26, 0,     9);
+		  
+		  --		 op 		func 			alusrc, srca  srcb  wb	mem  r1  r2  imm    expected result
+		  test_op(rtype,  add,    		REG2,   REG,   WB,  10, 0,   1,  3,  0,     11);
+        test_op(rtype,  add,    		REG2,   REG,   WB,  10, 10,  7,  1,  0,     17);
+        test_op(rtype,  sub,    		REG2,   REG,   WB,  10, 7,   1,  7,  0,    -9);
+        test_op(rtype,  sub,    		REG2,   REG,   WB,  10, 11,  12, 13, 0,     2);
+        test_op(rtype,  slt,    		REG2,   REG,   WB,  10, 7,   1,  5,  0,     1);
+        test_op(rtype,  slt,    		REG2,   REG,   WB,  10, 19,  1,  20, 0,     1);
+        test_op(rtype,  op_or,    	REG2,   REG,   WB,   2, 2,   3,  1,  0,     3);
+        test_op(rtype,  op_and,    	REG2,   REG,   WB,  41, 41,  26, 26, 0,     8);
+		  
+		  report "Testing wb and mem forwarded operations";
+		  --		 op 		func 			alusrc, srca  srcb  wb	mem  r1  r2  imm    expected result
+		  test_op(rtype,  add,    		REG2,    MEM,  WB,  2,  11,  1,  3,  0,     13);
+        test_op(rtype,  add,    		REG2,    MEM,  WB,  3,  13,  1,  7,  0,     16);
+        test_op(rtype,  sub,    		REG2,    MEM,  WB,  4,  7,   1,  7,  0,     3);
+        test_op(rtype,  sub,    		REG2,    MEM,  WB,  5,  11,  1,  13, 0,     6);
+        test_op(rtype,  slt,    		REG2,    MEM,  WB,  6,  7,   1,  5,  0,     0);
+        test_op(rtype,  slt,    		REG2,    MEM,  WB,  7,  19,  1,  20, 0,     0);
+        test_op(rtype,  op_or,    	REG2,    MEM,  WB,  8,  2,   1,  3,  0,     10);
+        test_op(rtype,  op_and,    	REG2,    MEM,  WB,  26, 41,  1,  26, 0,     8);
+		  
+		  --		 op 		func 			alusrc, srca  srcb  wb	mem  r1  r2  imm    expected result
+		  test_op(rtype,  add,    		REG2,    WB,  MEM,  10, 0,   1,  3,  0,     10);
+        test_op(rtype,  add,    		REG2,    WB,  MEM,  10, 10,  7,  1,  0,     20);
+        test_op(rtype,  sub,    		REG2,    WB,  MEM,  10, 7,   1,  7,  0,     3);
+        test_op(rtype,  sub,    		REG2,    WB,  MEM,  10, 11,  12, 13, 0,    -1);
+        test_op(rtype,  slt,    		REG2,    WB,  MEM,  10, 7,   1,  5,  0,     0);
+        test_op(rtype,  slt,    		REG2,    WB,  MEM,  10, 19,  1,  20, 0,     1);
+        test_op(rtype,  op_or,    	REG2,    WB,  MEM,   8, 2,   3,  1,  0,     10);
+        test_op(rtype,  op_and,    	REG2,    WB,  MEM,  26, 41,  26, 26, 0,     8);
+		  
         assert false report "YOURE WINNER" severity failure;
      
         wait;
