@@ -35,10 +35,7 @@ package Defs is
     type op_t is (
         jump, jal, beq, bne, sw, lw, lui, rtype, addi
     );
-
-    -- Enumerators for control signals
-    -- e[name] denotes enumerated name, because strings are not allowed and types share namespac
-    -- with subtypes (WHAT THE FUCK!=?==)
+    
     type instruction_format_t is (R_TYPE, I_TYPE, J_TYPE);
 
     type ALU_source_t is (REG2, INSTR);
