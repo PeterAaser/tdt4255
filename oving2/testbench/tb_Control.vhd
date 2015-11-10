@@ -10,18 +10,12 @@ architecture behavior of tb_Control is
     signal clk : std_logic := '0';
     signal reset : std_logic := '0';
     signal processor_enable : std_logic := '0';
-    signal instruction : std_logic_vector(31 downto 0) := x"00000000";
-
+    signal instruction : instruction_t;
+    signal control_hazard : std_logic := '0';
+    signal data_hazard : std_logic := '0';
+    
     -- Outputs
-    signal RegDst : std_logic;
-    signal Branch : std_logic;
-    signal Jump : std_logic;
-    signal MemToReg : std_logic;
-    signal ALUOp : std_logic_vector(1 downto 0);
-    signal MemWrite : std_logic;
-    signal ALUSrc : std_logic;
-    signal RegWrite : std_logic;
-    signal PCWrite : std_logic;
+    signal control_signals : control_signals_t;
 
     -- Clock
     constant clk_period : time := 10 ns;
@@ -33,15 +27,9 @@ begin
         reset => reset,
         processor_enable => processor_enable,
         instruction => instruction,
-        RegDst => RegDst,
-        Branch => Branch,
-        Jump => Jump,
-        MemToReg => MemToReg,
-        ALUOp => ALUOp,
-        MemWrite => MemWrite,
-        ALUSrc => ALUSrc,
-        RegWrite => RegWrite,
-        PCWrite => PCWrite
+        control_hazard => control_hazard,
+        data_hazard => data_hazard,
+        control_signals => control_signals
     );
 
     clk_process: process
@@ -62,58 +50,84 @@ begin
         processor_enable <= '1';
         wait for clk_period;
         -- R-Type
-        instruction <= x"00000000";
-        wait for clk_period;
-        assert RegDst = '1';
-        assert Branch = '0';
-        assert MemToReg = '0';
-        assert Jump = '0';
-        assert ALUOp = "00";
-        assert MemWrite = '0';
-        assert ALUSrc = '0';
-        assert RegWrite = '1';
+        instruction <= make_instruction(x"00000000");
+        wait for clk_period/2;
+        assert control_signals.ALU_source = REG2;
+        assert control_signals.RegDst = REGD;
+        assert control_signals.MemtoReg = FROM_ALU;
+        assert control_signals.Branch = false;
+        assert control_signals.Jump = false;
+        assert control_signals.MemWrite = false;
+        assert control_signals.RegWrite = true;
+        assert control_signals.op = rtype;
+        wait for clk_period/2;
         -- beq
-        instruction <= x"10000000";
-        wait for clk_period;
-        assert Branch = '1';
-        assert Jump = '0';
-        assert ALUOp = "10";
-        assert MemWrite = '0';
-        assert ALUSrc = '0';
+        instruction <= make_instruction(x"10000000");
+        wait for clk_period/2;
+        assert control_signals.Branch = true;
+        assert control_signals.op = beq;
+        wait for clk_period/2;
         -- LW
-        instruction <= x"8C000000";
-        wait for clk_period;
-        assert MemToReg = '1';
-        assert Branch = '0';
-        assert Jump = '0';
-        assert ALUOp = "01";
-        assert MemWrite = '0';
-        assert ALUSrc = '1';
-        assert RegWrite = '1';
+        instruction <= make_instruction(x"8C000000");
+        wait for clk_period/2;
+        assert control_signals.MemtoReg = FROM_MEM;
+        assert control_signals.op = lw;
+        assert control_signals.ALU_source = INSTR;
+        assert control_signals.RegWrite = true;
+        wait for clk_period/2;
         -- SW
-        instruction <= x"AC000000";
-        wait for clk_period;
-        assert Branch = '0';
-        assert Jump = '0';
-        assert ALUOp = "01";
-        assert ALUSrc = '1';
-        assert MemWrite = '1';
-        assert RegWrite = '0';
-        wait for clk_period*2;
+        instruction <= make_instruction(x"AC000000");
+        wait for clk_period/2;
+        assert control_signals.op = sw;
+        assert control_signals.ALU_source = INSTR;
+        assert control_signals.MemWrite = true;
+        wait for clk_period/2;
         -- J
-        instruction <= x"08000000";
-        wait for clk_period;
-        assert Jump = '1';
-        assert MemWrite = '0';
+        instruction <= make_instruction(x"08000000");
+        wait for clk_period/2;
+        assert control_signals.Jump = true;
+        assert control_signals.op = jump;
+        wait for clk_period/2;
         -- LUI
-        instruction <= x"3C000000";
-        wait for clk_period;
-        assert ALUOp = "11";
-        assert RegWrite = '1';
-        assert ALUSrc = '1';
-        assert MemToReg = '0';
-        assert RegDst = '0';
-        assert MemWrite = '0';
+        instruction <= make_instruction(x"3C000000");
+        wait for clk_period/2;
+        assert control_signals.op = lui;
+        assert control_signals.RegWrite = true;
+        assert control_signals.ALU_source = INSTR;
+        wait for clk_period/2;
+        -- Control hazard
+        instruction <= make_instruction(x"AC000000");
+        control_hazard <= '1';
+        wait for clk_period/2;
+        assert control_signals.ALU_source = REG2;
+        assert control_signals.RegDst = REGT;
+        assert control_signals.MemtoReg = FROM_ALU;
+        assert control_signals.Branch = false;
+        assert control_signals.Jump = false;
+        assert control_signals.MemWrite = false;
+        assert control_signals.RegWrite = false;
+        assert control_signals.op = rtype;
+        wait for clk_period/2;
+        -- LUI to verify data_hazard reset
+        instruction <= make_instruction(x"3C000000");
+        control_hazard <= '0';
+        wait for clk_period/2;
+        assert control_signals.op = lui;
+        assert control_signals.RegWrite = true;
+        assert control_signals.ALU_source = INSTR;
+        wait for clk_period/2;
+        -- Data hazard
+        instruction <= make_instruction(x"3C000000");
+        data_hazard <= '1';
+        wait for clk_period/2;
+        assert control_signals.ALU_source = REG2;
+        assert control_signals.RegDst = REGT;
+        assert control_signals.MemtoReg = FROM_ALU;
+        assert control_signals.Branch = false;
+        assert control_signals.Jump = false;
+        assert control_signals.MemWrite = false;
+        assert control_signals.RegWrite = false;
+        assert control_signals.op = rtype;
         wait;
     end process;
 end;
