@@ -215,6 +215,7 @@ begin
         when multu =>   return "011001";
         when op_nor =>  return "100111";
         when op_xor =>  return "100110";
+        when op_and =>  return "100100";
         when op_or =>   return "100101";
         when slt =>     return "101010";
         when op_sltu => return "101011";
