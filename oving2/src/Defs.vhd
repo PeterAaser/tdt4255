@@ -75,9 +75,9 @@ package Defs is
     function test_get_op_inverse ( op : op_t ) return opcode_t;
     
     function make_rtype_instruction(
+        regd        : integer;
         regs        : integer;
         regt        : integer;
-        regd        : integer;
         shamt       : integer;
         funct       : ALU_op_t ) 
         return std_logic_vector;
@@ -254,8 +254,8 @@ function fw_string(fw: forward_t) return string is begin return forward_t'image(
 
 function make_rtype_instruction(
     regd        : integer;
-    regt        : integer;
     regs        : integer;
+    regt        : integer;
     shamt       : integer;
     funct       : ALU_op_t) return std_logic_vector 
 is
@@ -273,8 +273,8 @@ end make_rtype_instruction;
 
 function make_itype_instruction(
     op          : op_t;
-    regt        : integer;
     regs        : integer;
+    regt        : integer;
     immediate   : integer)
     return std_logic_vector  
 is
