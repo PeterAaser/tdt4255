@@ -8,7 +8,6 @@ entity EXMEM is
         DATA_WIDTH : integer := 32
     );
     Port ( clk                  : in STD_LOGIC;
-           stall                : in STD_LOGIC;
            control_signals_in   : in control_signals_t;
            ALUResult_in         : in STD_LOGIC_VECTOR(DATA_WIDTH-1 downto 0);
            Reg_in              : in reg_t;
