@@ -5,7 +5,7 @@ We implemented a 5-stage pipeline, with the following stages; Instruction Fetch,
 To allow for proper flow of data and control signals, we implemented pipeline registers between each stage.
 Each clock cycle, a new instruction enters the pipeline and a completed one exits.
 In pipelined architectures, data and control hazards have to be dealt with.
-To solve these problems, we implemented a hazard detector and a forwarding unit, as well as support for instruction \textbf{bubbling?}.
+To solve these problems, we implemented a hazard detector and a forwarding unit.
 
 To verify our design, we wrote/updated testbenches for all modules in the processor (ALU, Registers, Program Counter, Branching Unit, Hazard Detector, etc.).
 We also wrote a testbench for the processor as a whole, verifying that the pipeline works as intended when filled with instructions.

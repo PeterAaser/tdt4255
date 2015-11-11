@@ -64,9 +64,9 @@ We removed all logic relating to calculating branch targets.
 The branching unit (section \ref{sec:branch}) is responsible for this, the PC simply receives branch targets when a branch is taken.
 
 \subsection{ALU}
-The core of the ALU, depicted as "ALU" in Figure \ref{fig:ALU}, remains very similar to the implementation of Exercise 1 \cite{ex1report}. It takes two operands, and a control signal vector, named "ALU op". This signal decides what operation that will be performed on the two operands. The result is available on the ALU Result signal vector shortly after.
+The core of the ALU, depicted as "ALU" in Figure \ref{fig:alu}, remains very similar to the implementation of Exercise 1 \cite{ex1report}. It takes two operands, and a control signal vector, named "ALU op". This signal decides what operation that will be performed on the two operands. The result is available on the ALU Result signal vector shortly after.
 
-The rest of Figure \ref{fig:ALU} shows the muxing of the possible operands. This addition to the ALU module enable us to use results from further down the pipeline, which has not yet been written to the registers.
+The rest of Figure \ref{fig:alu} shows the muxing of the possible operands. This addition to the ALU module enable us to use results from further down the pipeline, which has not yet been written to the registers.
 
 A separate unit, the Forwarder (explained in Subsection \ref{section:Forwarder}) calculates if forwarding is possible. The ALU receives two control signals from this unit, the Forward A and Forward B.
 Based on these signals, the data used as an operand comes from one of these three sources:
@@ -82,7 +82,7 @@ The final signal we need to mention in this section is the Forward Read Data 2. 
 
 \begin{figure}[h!]
     \includegraphics[width=\linewidth]{img/alu.png}
-    \caption{rtl schematic of the alu}
+    \caption{RTL schematic of the ALU}
     \label{fig:alu}
 \end{figure}
 
