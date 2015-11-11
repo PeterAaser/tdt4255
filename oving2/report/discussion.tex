@@ -2,9 +2,13 @@
 
 While we managed to complete the exercise and implement a fully functioning pipelined processor, we were surprised at the amount of work needed.
 The idea of transitioning from the implementation from the previous exercise to a pipelined one by introducing pipeline registers and modifying the control path, seems simple enough.
-While introducing and wiring up the major changes in the system is easy enough, pipelining introduces a lot of subtle potential bugs and hazards.
+While introducing and wiring up the major changes in the system is fairly straight forward, pipelining introduces a lot of subtle potential bugs and hazards.
 These hazards are hard to predict before actually encountering them.
 They are also hard to test in single-module testbenches (e.g.: tb\_ALU, tb\_ProgramCounter, etc.), as they are often due to the interaction between the modules in different stages as well as the registers in between.
 
-We were eager to implement support for more instructions, but as the deadline drew near and new bugs and subtle errors in our basic pipeline implementation kept cropping up, we decided against spending time on additional instructions.
+For this exercise, we were slightly better prepared in terms of VHDL and Xilinx toolchain knowledge.
+Despite this, we still had to spend quite some time fixing warnings and inconsistencies between the design we had in mind when writing VHDL and what Xilinx inferred during synthezis.
+VHDL/Xilinx seems to fall in the category of easy to grasp, hard to master.
+
+We were eager to implement support for more instructions, but as the deadline drew near and new bugs and subtle errors in our basic pipeline implementation kept cropping up, we decided against spending time on that.
 A branch predictor and support for som degree of superscalarity were among the features we considered adding to improve performance.

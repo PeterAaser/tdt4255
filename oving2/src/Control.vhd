@@ -8,14 +8,10 @@ entity Control is
         );
     port (
         clk                   : in std_logic;
-        reset                 : in std_logic;
-        processor_enable      : in std_logic;
         instruction           : in instruction_t;
-        
         control_hazard        : in std_logic;
         data_hazard           : in std_logic;
-		
-		nop_branch			  : out std_logic; 
+
         control_signals       : out control_signals_t
         );
 end Control;
@@ -32,8 +28,6 @@ begin
         control_signals.RegDst <= REGT;
         control_signals.MemtoReg <= FROM_ALU;
 
-        control_signals.branch <= false;
-        control_signals.jump <= false;
         control_signals.MemWrite <= false;
         control_signals.RegWrite <= false;
         control_signals.op <= rtype;
@@ -47,7 +41,6 @@ begin
                     control_signals.op <= rtype;
                     
                 when beq => -- beq
-                    control_signals.branch <= true;
                     control_signals.op <= beq;
                     
                 when lw => -- LW
@@ -62,7 +55,6 @@ begin
                     control_signals.MemWrite <= true;
 
                 when jump => --J
-                    control_signals.jump <= true;
                     control_signals.op <= jump;
                     
                 when lui => --lui
@@ -85,13 +77,9 @@ begin
     begin
         if(rising_edge(clk)) then
             spurious_instruction <= '0';
-            --if data_hazard = '1' then
-            --    spurious_instruction <= '1';
-            --end if;
             if control_hazard = '1' then
                 spurious_instruction <= '1';
             end if;
-			nop_branch <= spurious_instruction;
         end if;
     end process;
 

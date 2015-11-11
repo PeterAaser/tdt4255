@@ -57,8 +57,6 @@ package Defs is
             MemWrite : MemWrite_t;
             ALU_source : ALU_source_t;
             op : op_t;
-            branch : branch_t;
-            jump : jump_t;
 
         end record;
 
