@@ -43,6 +43,11 @@ To make the processor pipelined, we need to introduce a number of new modules.
 
 
 \subsection{Control}
+In addition to issuing control signals based on the decoded op, the control unit is now also responsible for removing instructions that should not be performed, either because the processor has taken a branch or because it is waiting for one of its operands in the case of load word.
+To render an instruction harmless the control unit sets the reg write and mem write signals to false, ensuring that it cannot alter the state of the program and that the forwarder wont use its result.
+In case of a control hazard, the control must remember this in a special register so that it may remove the next instruction. 
+In the case of a data hazard it is enough to render the current instruction harmless since it will be issued again on the next cycle, thus no spurious instruction has been issued, only unsatisfiable ones.
+
 
 \subsection{PC}
 
@@ -75,6 +80,18 @@ Likewise, on a jump instruction the branch unit sends the immediate value of the
 
 \subsection{Forwarder}
 \label{section:Forwarder}
+The forwarder, as described in the ALU section, overrides registe reads when more recent data is available further down the pipeline.
+The task of the forwarder is to check, for both operands, whether either of the operands reads data from the destination register of an operation further down the pipeline.
+First the source register for both of the source register (or, in case of i-format instructions, the source register) of the operation in the execute stage is compared with the destination register of the operation currently in mem stage. 
+If either operand in execute stage reads from the destination register of the operation currently at the mem stage, the forwarder forwards this data in place of the register data.
+If an operand is not found as the result in the mem stage, the forwarder checks the WB stage.
+As with the mem stage, if a source register at the execute stage is similar to a destination register in the wb stage it is selected as operand source by the forwarder. 
+This ensures that in the case where the same destination register is used both in the mem stage and the wb stage the most recent one will be chosen.
+Note that the forwarder checks forwarding for each source register independently, allowing an instruction to use any combination of reg, mem and wb as its source registers.
+In our design this ensures that all dependencies are taken care of except for the case when an instruction is dependant on a result from a load operation which takes an extra cycle before being available at the MEM stage.
+In addition to forwarding data for the execute stage the forwarder has one more task:
+In the case where an instruction in the ID stage uses data from the destination register of the operation in the WB stage the job of the forwarder is to select the write data signal instead of the register read signal.
+This is nescessary because the instruction relies on data that cannot be forwarded once it reaches the execute stage, but is not updated in the register file before the instruction that needs it has already read the old value from the register file.
 
 \subsection{Hazard detection}
 When the forwarder is unable to provide the data needed in the execute stage we have a data hazard. In our design the only source of data hazards are load words where the next operation reads data from the load word instructions destination register. 
