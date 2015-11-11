@@ -23,8 +23,4 @@ As with the previous exercise, our implementation is to be verified both in soft
 \section{Approach}
 
 As suggested in the compendium \cite{compendium}, we chose to build upon our architecture from exercise 1.
-Similarily to last time, we started by making architecture level sketches of the changes that had to be made to the data-/controlpaths.
-Having planned our next moves while sketching, we started implementing the modified design in VHDL.
-We began by introducing pipeline registers to our datapath, followed by removing state from the control module and implementing new modules like a forwarder and a hazard detector.
-After wiring everything together in the MIPSProcessor-module, we spent a lot of time making sure signals propagate correctly through the pipeline as well as testing that all hazards are handled. \textbf{We did this then this and this?}
-
+We followed the workflow suggested in the compendium; sketch, implement, test, repeat.
