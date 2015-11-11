@@ -7,10 +7,13 @@ This way, reading of instructions and writing of data can be simulated and verif
 We also uploaded the bitfile to an FPGA in the lab and verified correctness using the \texttt{hostcomm} utility.
 
 \section{Testing in ISim}
-Testsbenches for the all modules except the pipeline registers were written and run is ISim. 
+Testsbenches for the all modules except the pipeline registers were written and run in ISim. 
 
 \section{Testing on the FPGA}
-When the system had been tested thoroughly in ISim, a bitfile was generated, and uploaded to an FPGA, via Hostcomm. The FPGA's instruction memory is loaded with the code in Listing \ref{lst:testcode}. Figure \ref{fig:hostcomm} shows the result of a successful execution on our design. The correctness of the implementation is ensured by comparing the data memory loaded from the FPGA, after it has run for a short time, with the comments in Listing \ref{lst:testcode} that states "Saving value ...".
+When the system had been tested thoroughly in ISim, a bitfile was generated, and uploaded to an FPGA via Hostcomm.
+The FPGA's instruction memory was then loaded with the code in Listing \ref{lst:testcode}.
+Figure \ref{fig:hostcomm} shows the result of a successful execution using our design.
+The correctness of the implementation is ensured by comparing the data memory loaded from the FPGA, after it has run for a short time, with the comments in Listing \ref{lst:testcode} that states "Saving value ...".
 
 \begin{figure}[h!]
     \includegraphics[width=\linewidth]{img/hostcomm_result.png}

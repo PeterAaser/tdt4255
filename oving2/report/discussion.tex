@@ -9,6 +9,9 @@ They are also hard to test in single-module testbenches (e.g.: tb\_ALU, tb\_Prog
 For this exercise, we were slightly better prepared in terms of VHDL and Xilinx toolchain knowledge.
 Despite this, we still had to spend quite some time fixing warnings and inconsistencies between the design we had in mind when writing VHDL and what Xilinx inferred during synthezis.
 VHDL/Xilinx seems to fall in the category of easy to grasp, hard to master.
+Our completed process still produces some warnings, many of which relate to control signals that are unconnected.
+This is simply because some pipeline registers receive entire \texttt{control\_signal\_ts} and propagate only select subsignals further down the pipeline.
+Due to time constraints, we did not spend time refactoring this.
 
 We were eager to implement support for more instructions, but as the deadline drew near and new bugs and subtle errors in our basic pipeline implementation kept cropping up, we decided against spending time on that.
 A branch predictor and support for som degree of superscalarity were among the features we considered adding to improve performance.
