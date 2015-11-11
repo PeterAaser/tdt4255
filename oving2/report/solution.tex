@@ -57,11 +57,16 @@ The core of the ALU, depicted as "ALU" in Figure \ref{fig:ALU}, remains very sim
 The rest of Figure \ref{fig:ALU} shows the muxing of the possible operands. This addition to the ALU module enable us to use results from further down the pipeline, which has not yet been written to the registers.
 
 A separate unit, the Forwarder (explained in Subsection \ref{section:Forwarder}) calculates if forwarding is possible. The ALU receives two control signals from this unit, the Forward A and Forward B.
-Based on these vectors either the register-, mem- or \textbf{wb data?} is used as an operand.
-
+Based on these signals, the data used as an operand comes from one of these three sources:
+\begin{itemize}
+\item ReadData1/2, which is data from the register.
+\item MEMData, which is the result from the previous ALU operation (named MEM after the stage it origins).
+\item WBData, which is data from the write back stage, that either is data loaded from Data memory or the ALU result from two cycles ago.
+\end{itemize}
+ 
 Some instructions requires an immediate value. If this is the case, the ALU Src signal will select the immediate signal over the previously muxed signal.
 
-\textbf{Forwarded Read Data?}
+The final signal we need to mention in this section is the Forward Read Data 2. When a store operation is performed, the ALU is used to calculate the address. The data to be stored may come from any of the sources listed above, and thus the data must be forwarded to the mem stage. Operand B receives the immediate, needed to calculate the address.
 
 
 \begin{figure}[h!]
