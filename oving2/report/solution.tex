@@ -100,7 +100,7 @@ Likewise, on a jump instruction the branch unit sends the immediate value of the
 
 \subsection{Forwarder}
 \label{section:Forwarder}
-The forwarder, as described in the ALU section, overrides registe reads when more recent data is available further down the pipeline.
+The forwarder, as described in the ALU section, overrides register reads when more recent data is available further down the pipeline.
 The task of the forwarder is to check, for both operands, whether either of the operands reads data from the destination register of an operation further down the pipeline.
 First the source register for both of the source register (or, in case of i-format instructions, the source register) of the operation in the execute stage is compared with the destination register of the operation currently in mem stage. 
 If either operand in execute stage reads from the destination register of the operation currently at the mem stage, the forwarder forwards this data in place of the register data.
