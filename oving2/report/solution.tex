@@ -37,19 +37,31 @@ To make the processor pipelined, we need to introduce a number of new modules.
 
 \begin{figure}[h!]
     \includegraphics[width=\linewidth]{img/toplel.png}
-    \caption{RTL Schematic of the system. Some parts has been left out to avoid clutter.}
+    \caption{RTL Schematic of the system. Some parts have been left out to avoid clutter.}
     \label{fig:toplevel}
 \end{figure}
 
 
 \subsection{Control}
-In addition to issuing control signals based on the decoded op, the control unit is now also responsible for removing instructions that should not be performed, either because the processor has taken a branch or because it is waiting for one of its operands in the case of load word.
-To render an instruction harmless the control unit sets the reg write and mem write signals to false, ensuring that it cannot alter the state of the program and that the forwarder wont use its result.
+As illustrated in figure \ref{fig:control}, the control unit performs a simple mapping between instructions and control signals.
+The major change in this unit, compared to the one implemented in the previous exercise, is that it is a (mostly) combinatorial circuit, with very little notion of state.
+In addition to issuing control signals based on the decoded opcode, the control unit is now also responsible for removing instructions that should not be performed, either because the processor has taken a branch or because it is waiting for one of its operands in the case of load word.
+To render an instruction harmless the control unit sets the register write and memory write signals to false, ensuring that the instruction will not alter the state of the program and that the forwarder will not use its result.
 In case of a control hazard, the control must remember this in a special register so that it may remove the next instruction. 
 In the case of a data hazard it is enough to render the current instruction harmless since it will be issued again on the next cycle, thus no spurious instruction has been issued, only unsatisfiable ones.
 
+\begin{figure}[h!]
+    \includegraphics[width=\linewidth]{img/Control.png}
+    \caption{RTL schematic of the control unit}
+    \label{fig:control}
+\end{figure}
 
 \subsection{PC}
+
+The program counter has been simplified slightly compared to exercise 1.
+Its only job now, is to increment the counter by one each cycle.
+We removed all logic relating to calculating branch targets.
+The branching unit (section \ref{sec:branch}) is responsible for this, the PC simply receives branch targets when a branch is taken.
 
 \subsection{ALU}
 The core of the ALU, depicted as "ALU" in Figure \ref{fig:ALU}, remains very similar to the implementation of Exercise 1 \cite{ex1report}. It takes two operands, and a control signal vector, named "ALU op". This signal decides what operation that will be performed on the two operands. The result is available on the ALU Result signal vector shortly after.
@@ -70,14 +82,15 @@ The final signal we need to mention in this section is the Forward Read Data 2. 
 
 
 \begin{figure}[h!]
-    \includegraphics[width=\linewidth]{img/ALU.png}
-    \caption{RTL Schematic of the ALU}
-    \label{fig:ALU}
+    \includegraphics[width=\linewidth]{img/alu.png}
+    \caption{rtl schematic of the alu}
+    \label{fig:alu}
 \end{figure}
 
 \subsection{Registers}
 
 \subsection{Branch}
+\label{sec:branch}
 Detecting branches early is important for a pipelined processor, since each instruction fetched after a branch is potentially wrong.
 To detect branches as early as possible we have a branch unit which reads register data as soon as a branch instruction is detected at the ID stage.
 When a branch instruction is detected the branch unit calculates the target address and sets the PC address source to read from the branch unit.
@@ -107,3 +120,24 @@ In addition to data hazards, when a branch is taken or a jump is performed, it i
 When the branch unit sets the pc address source signal to read a branch address, the hazard detector issues a control hazard warning.
 
 \subsection{Pipeline registers}
+Apart from the register file, the state of the system is held in pipeline registers. In fig:TODO these are shown as pillars.
+Signals which are stored in these pipeline registers are depicted as perforated lines, signifying that it takes a cycle before the signal is driven on the opposite side of the register.
+In the pipeline registers we not only want to propagate the execution of an instruction, but also the control data that governs it, shown as the blue modules at the top of each pipeline register.
+Making sure execution state is only held in pipeline registers has another benefit, making it easier to deal with hazards that may occur, as described in the next section.
+
+\subsection{Handling hazards}
+We have described where hazards occur, and the nescessary components to handling them, but we have not yet stated how.
+The two hazards we face in our design are control hazards and data hazards, each being handled separately.
+
+\subsubsection{Data hazards}
+In the sequence diagram in fig:HAZARD we show an unhandled hazard. When a load word is issued the following instruction which depends on the destination register cannot read from the data memory output, shown as a red arrow.
+Since the dependency cannot be satisfied by the forwarder the add instruction instead reads whatever is output by the datamemory from the previous instruction.
+To stop this from happening we must stall the first of the add instructions as shown in fig:HANDLED.
+In order to stall an instruction we stop all the pipeline register upstream of the unsatisfiable instruction from updating. 
+By stopping the pipeline registers from updating the unsatisfiable instruction will be issued again next cycle when it is satisfiable.
+In addition to ensuring the instruction is issued again next cycle we make sure the current incarnation of the instruction is rendered harmless.
+This is done by setting the control signals regwrite and memwrite to false, which ensures it cannot change the state of the processor.
+
+\subsubsection{Control hazards}
+The second hazard we face occurs when a branch or jump occurs.
+

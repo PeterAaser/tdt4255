@@ -38,13 +38,17 @@ begin
 
     detect_data_hazard : process(clk, id_reg_a, id_reg_b, ex_reg_dest, ex_op, processor_enable)
     begin
-        if processor_enable = '1' and rising_edge(clk) then
-			  if (id_reg_a = ex_reg_dest or id_reg_b = ex_reg_dest) and ex_op = lw then
-					data_hazard <= '1';
-			  else
-					data_hazard <= '0';
-			  end if;
-		  end if;
+        if rising_edge(clk) then
+            if processor_enable = '1' then
+                  if (id_reg_a = ex_reg_dest or id_reg_b = ex_reg_dest) and ex_op = lw then
+                        data_hazard <= '1';
+                  else
+                        data_hazard <= '0';
+                  end if;
+              else
+                    data_hazard <= 'X';
+              end if;
+          end if;
     end process detect_data_hazard;
     
     detect_control_hazard : process(pc_address_src, processor_enable)
@@ -55,6 +59,8 @@ begin
             else
                 control_hazard <= '0';
 			end if;
+        else
+            control_hazard <= 'X';
 		end if;  
     end process detect_control_hazard;
     

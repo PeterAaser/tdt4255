@@ -81,7 +81,6 @@ architecture MultiCycleMIPS of MIPSProcessor is
     -- hazards
     signal data_hazard : std_logic;
     signal control_hazard : std_logic;
-	signal nop_branch : std_logic;
     
 begin
     
@@ -91,15 +90,12 @@ begin
     )
     port map(
         clk => clk,
-        reset => reset,
-        processor_enable => processor_enable,
         instruction => id_instruction,
         
         control_signals => tmp_control_signals,
         
         data_hazard      => data_hazard,
-        control_hazard   => control_hazard,
-		nop_branch 		 => nop_branch
+        control_hazard   => control_hazard
     );
 
     program_counter: entity work.ProgramCounter
@@ -142,8 +138,6 @@ begin
         op                  => id_instruction.opcode,
         immediate           => id_instruction.immediate,
         pc                  => id_pc,
-
-		nop_branch			=> nop_branch,
 
         read_data_1         => id_read_data_1,
         read_data_2         => id_read_data_2,
@@ -250,7 +244,6 @@ begin
     exmem: entity work.EXMEM
     port map(
         clk => clk,
-        stall               => data_hazard,
         control_signals_in  => ex_control_signals,
         ALUResult_in        => alu_result,
         Reg_in              => ex_reg_mux,
