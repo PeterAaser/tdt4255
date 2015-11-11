@@ -102,3 +102,24 @@ In addition to data hazards, when a branch is taken or a jump is performed, it i
 When the branch unit sets the pc address source signal to read a branch address, the hazard detector issues a control hazard warning.
 
 \subsection{Pipeline registers}
+Apart from the register file, the state of the system is held in pipeline registers. In fig:TODO these are shown as pillars.
+Signals which are stored in these pipeline registers are depicted as perforated lines, signifying that it takes a cycle before the signal is driven on the opposite side of the register.
+In the pipeline registers we not only want to propagate the execution of an instruction, but also the control data that governs it, shown as the blue modules at the top of each pipeline register.
+Making sure execution state is only held in pipeline registers has another benefit, making it easier to deal with hazards that may occur, as described in the next section.
+
+\subsection{Handling hazards}
+We have described where hazards occur, and the nescessary components to handling them, but we have not yet stated how.
+The two hazards we face in our design are control hazards and data hazards, each being handled separately.
+
+\subsubsection{Data hazards}
+In the sequence diagram in fig:HAZARD we show an unhandled hazard. When a load word is issued the following instruction which depends on the destination register cannot read from the data memory output, shown as a red arrow.
+Since the dependency cannot be satisfied by the forwarder the add instruction instead reads whatever is output by the datamemory from the previous instruction.
+To stop this from happening we must stall the first of the add instructions as shown in fig:HANDLED.
+In order to stall an instruction we stop all the pipeline register upstream of the unsatisfiable instruction from updating. 
+By stopping the pipeline registers from updating the unsatisfiable instruction will be issued again next cycle when it is satisfiable.
+In addition to ensuring the instruction is issued again next cycle we make sure the current incarnation of the instruction is rendered harmless.
+This is done by setting the control signals regwrite and memwrite to false, which ensures it cannot change the state of the processor.
+
+\subsubsection{Control hazards}
+The second hazard we face occurs when a branch or jump occurs.
+
