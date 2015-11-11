@@ -37,19 +37,31 @@ To make the processor pipelined, we need to introduce a number of new modules.
 
 \begin{figure}[h!]
     \includegraphics[width=\linewidth]{img/toplel.png}
-    \caption{RTL Schematic of the system. Some parts has been left out to avoid clutter.}
+    \caption{RTL Schematic of the system. Some parts have been left out to avoid clutter.}
     \label{fig:toplevel}
 \end{figure}
 
 
 \subsection{Control}
-In addition to issuing control signals based on the decoded op, the control unit is now also responsible for removing instructions that should not be performed, either because the processor has taken a branch or because it is waiting for one of its operands in the case of load word.
-To render an instruction harmless the control unit sets the reg write and mem write signals to false, ensuring that it cannot alter the state of the program and that the forwarder wont use its result.
+As illustrated in figure \ref{fig:control}, the control unit performs a simple mapping between instructions and control signals.
+The major change in this unit, compared to the one implemented in the previous exercise, is that it is a (mostly) combinatorial circuit, with very little notion of state.
+In addition to issuing control signals based on the decoded opcode, the control unit is now also responsible for removing instructions that should not be performed, either because the processor has taken a branch or because it is waiting for one of its operands in the case of load word.
+To render an instruction harmless the control unit sets the register write and memory write signals to false, ensuring that the instruction will not alter the state of the program and that the forwarder will not use its result.
 In case of a control hazard, the control must remember this in a special register so that it may remove the next instruction. 
 In the case of a data hazard it is enough to render the current instruction harmless since it will be issued again on the next cycle, thus no spurious instruction has been issued, only unsatisfiable ones.
 
+\begin{figure}[h!]
+    \includegraphics[width=\linewidth]{img/Control.png}
+    \caption{RTL schematic of the control unit}
+    \label{fig:control}
+\end{figure}
 
 \subsection{PC}
+
+The program counter has been simplified slightly compared to exercise 1.
+Its only job now, is to increment the counter by one each cycle.
+We removed all logic relating to calculating branch targets.
+The branching unit (section \ref{sec:branch}) is responsible for this, the PC simply receives branch targets when a branch is taken.
 
 \subsection{ALU}
 The core of the ALU, depicted as "ALU" in Figure \ref{fig:ALU}, remains very similar to the implementation of Exercise 1 \cite{ex1report}. It takes two operands, and a control signal vector, named "ALU op". This signal decides what operation that will be performed on the two operands. The result is available on the ALU Result signal vector shortly after.
@@ -65,14 +77,15 @@ Some instructions requires an immediate value. If this is the case, the ALU Src 
 
 
 \begin{figure}[h!]
-    \includegraphics[width=\linewidth]{img/ALU.png}
-    \caption{RTL Schematic of the ALU}
-    \label{fig:ALU}
+    \includegraphics[width=\linewidth]{img/alu.png}
+    \caption{rtl schematic of the alu}
+    \label{fig:alu}
 \end{figure}
 
 \subsection{Registers}
 
 \subsection{Branch}
+\label{sec:branch}
 Detecting branches early is important for a pipelined processor, since each instruction fetched after a branch is potentially wrong.
 To detect branches as early as possible we have a branch unit which reads register data as soon as a branch instruction is detected at the ID stage.
 When a branch instruction is detected the branch unit calculates the target address and sets the PC address source to read from the branch unit.
