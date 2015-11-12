@@ -67,7 +67,7 @@ The branching unit (section \ref{sec:branch}) is responsible for this, the PC si
 \subsection{ALU}
 The core of the ALU, depicted as "ALU" in Figure \ref{fig:alu}, remains very similar to the implementation of Exercise 1 \cite{ex1report}. It takes two operands, and a control signal vector, named "ALU op". This signal decides what operation that will be performed on the two operands. The result is available on the ALU Result signal vector shortly after.
 
-The rest of Figure \ref{fig:ALU} shows the muxing of the possible operands. This addition to the ALU module enable us to use results from further down the pipeline, which has not yet been written to the registers.
+The rest of Figure \ref{fig:alu} shows the muxing of the possible operands. This addition to the ALU module enable us to use results from further down the pipeline, which has not yet been written to the registers.
 
 A separate unit, the Forwarder (explained in Subsection \ref{section:Forwarder}) calculates if forwarding is possible. The ALU receives two control signals from this unit, the Forward A and Forward B.
 Based on these signals, the data used as an operand comes from one of these three sources:
@@ -82,8 +82,8 @@ Some instructions requires an immediate value. If this is the case, the ALU Src 
 The final signal we need to mention in this section is the Forward Read Data 2. When a store operation is performed, the ALU is used to calculate the address. The data to be stored may come from any of the sources listed above, and thus the data must be forwarded to the mem stage. Operand B receives the immediate, needed to calculate the address.
 
 \begin{figure}[h!]
-    \includegraphics[width=\linewidth]{img/ALU.png}
-    \caption{rtl schematic of the alu}
+    \includegraphics[width=\linewidth]{img/alu.png}
+    \caption{RTL schematic of the ALU}
     \label{fig:alu}
 \end{figure}
 
@@ -101,7 +101,7 @@ Likewise, on a jump instruction the branch unit sends the immediate value of the
 
 \subsection{Forwarder}
 \label{section:Forwarder}
-The forwarder, as described in the ALU section, overrides registe reads when more recent data is available further down the pipeline.
+The forwarder, as described in the ALU section, overrides register reads when more recent data is available further down the pipeline.
 The task of the forwarder is to check, for both operands, whether either of the operands reads data from the destination register of an operation further down the pipeline.
 First the source register for both of the source register (or, in case of i-format instructions, the source register) of the operation in the execute stage is compared with the destination register of the operation currently in mem stage. 
 If either operand in execute stage reads from the destination register of the operation currently at the mem stage, the forwarder forwards this data in place of the register data.
