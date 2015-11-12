@@ -1,10 +1,12 @@
 \chapter{Solution}
-This Chapter will explain the details of the implementation, and our methodology. We dive into each component for a thorough explanation, and RTL sketches for each.
+This Chapter will explain the details of the implementation, and our methodology. 
+We explain the nescessary components for a pipelined processor, and provide RTL schematics and sequence diagrams for components nescessary to facilitate pipelining.
 
 
 \section{Methodology}
 As this exercise is to improve the single-cycle version of the MIPS-processor. It was natural to use the design from Exercise 1 \cite{ex1report} as a starting point.
 The new components needed to realize a pipelined designed were sketched out on paper. We used a bottom up approach, designing the new modules first, and integrated them to the system as they completed.
+In order to test our implementation we created some programs specifically designed to provoke different bugs and errors in our design in addition to the more general handout test.
 
 \section{Implementation}
 Figure \ref{fig:toplevel} shows all major components in the system. 
@@ -57,14 +59,13 @@ In the case of a data hazard it is enough to render the current instruction harm
 \end{figure}
 
 \subsection{PC}
-
 The program counter has been simplified slightly compared to exercise 1.
 Its only job now, is to increment the counter by one each cycle.
 We removed all logic relating to calculating branch targets.
 The branching unit (section \ref{sec:branch}) is responsible for this, the PC simply receives branch targets when a branch is taken.
 
 \subsection{ALU}
-The core of the ALU, depicted as "ALU" in Figure \ref{fig:ALU}, remains very similar to the implementation of Exercise 1 \cite{ex1report}. It takes two operands, and a control signal vector, named "ALU op". This signal decides what operation that will be performed on the two operands. The result is available on the ALU Result signal vector shortly after.
+The core of the ALU, depicted as "ALU" in Figure \ref{fig:alu}, remains very similar to the implementation of Exercise 1 \cite{ex1report}. It takes two operands, and a control signal vector, named "ALU op". This signal decides what operation that will be performed on the two operands. The result is available on the ALU Result signal vector shortly after.
 
 The rest of Figure \ref{fig:ALU} shows the muxing of the possible operands. This addition to the ALU module enable us to use results from further down the pipeline, which has not yet been written to the registers.
 
@@ -81,7 +82,7 @@ Some instructions requires an immediate value. If this is the case, the ALU Src 
 The final signal we need to mention in this section is the Forward Read Data 2. When a store operation is performed, the ALU is used to calculate the address. The data to be stored may come from any of the sources listed above, and thus the data must be forwarded to the mem stage. Operand B receives the immediate, needed to calculate the address.
 
 \begin{figure}[h!]
-    \includegraphics[width=\linewidth]{img/alu.png}
+    \includegraphics[width=\linewidth]{img/ALU.png}
     \caption{rtl schematic of the alu}
     \label{fig:alu}
 \end{figure}
@@ -108,7 +109,7 @@ If an operand is not found as the result in the mem stage, the forwarder checks 
 As with the mem stage, if a source register at the execute stage is similar to a destination register in the wb stage it is selected as operand source by the forwarder. 
 This ensures that in the case where the same destination register is used both in the mem stage and the wb stage the most recent one will be chosen.
 Note that the forwarder checks forwarding for each source register independently, allowing an instruction to use any combination of reg, mem and wb as its source registers.
-In our design this ensures that all dependencies are taken care of except for the case when an instruction is dependant on a result from a load operation which takes an extra cycle before being available at the MEM stage.\\
+In our design this ensures that all dependencies are taken care of except for the case when an instruction is dependant on a result from a load operation which takes an extra cycle before being available at the MEM stage.\\ \\
 In addition to forwarding data for the execute stage the forwarder has one more task:
 In the case where an instruction in the ID stage uses data from the destination register of the operation in the WB stage the job of the forwarder is to select the write data signal instead of the register read signal.
 This is nescessary because the instruction relies on data that cannot be forwarded once it reaches the execute stage, but is not updated in the register file before the instruction that needs it has already read the old value from the register file.
@@ -122,7 +123,7 @@ In addition to data hazards, when a branch is taken or a jump is performed, it i
 When the branch unit sets the pc address source signal to read a branch address, the hazard detector issues a control hazard warning.
 
 \subsection{Pipeline registers}
-Apart from the register file, the state of the system is held in pipeline registers. In fig:TODO these are shown as pillars.
+Apart from the register file, the state of the system is held in pipeline registers. In \ref{fig:toplel} these are shown as pillars.
 Signals which are stored in these pipeline registers are depicted as perforated lines, signifying that it takes a cycle before the signal is driven on the opposite side of the register.
 In the pipeline registers we not only want to propagate the execution of an instruction, but also the control data that governs it, shown as the blue modules at the top of each pipeline register.
 Making sure execution state is only held in pipeline registers has another benefit, making it easier to deal with hazards that may occur, as described in the next section.
@@ -133,14 +134,14 @@ The two hazards we face in our design are control hazards and data hazards, each
 
 \begin{figure}[h!]
     \includegraphics[width=\linewidth]{img/lw_hazard.png}
-    \caption{A sequence diagram showing why we cannot satisfy an instruction dependent on a load word}
+    \caption{A sequence diagram showing why we cannot satisfy an instruction dependent on a load word. The red arrow indicates that the forwarder provides invalid data.}
     \label{fig:hazard1}
 \end{figure}
 
 \subsubsection{Data hazards}
 In the sequence diagram in \ref{fig:hazard1} we show an unhandled hazard. When a load word is issued the following instruction which depends on the destination register cannot read from the data memory output, shown as a red arrow.
 Since the dependency cannot be satisfied by the forwarder the add instruction instead reads whatever is output by the datamemory from the previous instruction.
-To stop this from happening we must stall the first of the add instructions as shown in \ref{fig:hazard1} 
+To stop this from happening we must stall the first of the add instructions as shown in \ref{fig:hazard2} 
 In order to stall an instruction we stop all the pipeline register upstream of the unsatisfiable instruction from updating. 
 By stopping the pipeline registers from updating the unsatisfiable instruction will be issued again next cycle when it is satisfiable.
 In addition to ensuring the instruction is issued again next cycle we make sure the current incarnation of the instruction is rendered harmless.
