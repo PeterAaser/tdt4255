@@ -62,7 +62,7 @@ In the case of a data hazard it is enough to render the current instruction harm
 The program counter has been simplified slightly compared to exercise 1.
 Its only job now, is to increment the counter by one each cycle.
 We removed all logic relating to calculating branch targets.
-The branching unit (section \ref{sec:branch}) is responsible for this, the PC simply receives branch targets when a branch is taken.
+The branching unit (Section \ref{sec:branch}) is responsible for this, the PC simply receives branch targets when a branch is taken.
 
 \subsection{ALU}
 The core of the ALU, depicted as "ALU" in Figure \ref{fig:alu}, remains very similar to the implementation of Exercise 1 \cite{ex1report}. It takes two operands, and a control signal vector, named "ALU op". This signal decides what operation that will be performed on the two operands. The result is available on the ALU Result signal vector shortly after.
@@ -103,19 +103,19 @@ Likewise, on a jump instruction the branch unit sends the immediate value of the
 \label{section:Forwarder}
 The forwarder, as described in the ALU section, overrides register reads when more recent data is available further down the pipeline.
 The task of the forwarder is to check, for both operands, whether either of the operands reads data from the destination register of an operation further down the pipeline.
-First the source register for both of the source register (or, in case of i-format instructions, the source register) of the operation in the execute stage is compared with the destination register of the operation currently in mem stage. 
-If either operand in execute stage reads from the destination register of the operation currently at the mem stage, the forwarder forwards this data in place of the register data.
+First the source register for both of the source registers (or, in case of i-format instructions, the source register) of the operation in the execute stage is compared with the destination register of the operation currently in mem stage. 
+If either operand in execute stage reads from the destination register of the operation currently at the mem stage, the forwarder \textbf{TODO:}forwards this data in place of the register data.
 If an operand is not found as the result in the mem stage, the forwarder checks the WB stage.\\
 As with the mem stage, if a source register at the execute stage is similar to a destination register in the wb stage it is selected as operand source by the forwarder. 
 This ensures that in the case where the same destination register is used both in the mem stage and the wb stage the most recent one will be chosen.
 Note that the forwarder checks forwarding for each source register independently, allowing an instruction to use any combination of reg, mem and wb as its source registers.
 In our design this ensures that all dependencies are taken care of except for the case when an instruction is dependant on a result from a load operation which takes an extra cycle before being available at the MEM stage.\\ \\
-In addition to forwarding data for the execute stage the forwarder has one more task:
+In addition to\textbf{TODO:} forwarding data for the execute stage the forwarder has one more task:
 In the case where an instruction in the ID stage uses data from the destination register of the operation in the WB stage the job of the forwarder is to select the write data signal instead of the register read signal.
 This is nescessary because the instruction relies on data that cannot be forwarded once it reaches the execute stage, but is not updated in the register file before the instruction that needs it has already read the old value from the register file.
 
 \subsection{Hazard detection}
-When the forwarder is unable to provide the data needed in the execute stage we have a data hazard. In our design the only source of data hazards are load words where the next operation reads data from the load word instructions destination register. 
+\textbf{TODO:} When the forwarder is unable to provide the data needed in the execute stage we have a data hazard. In our design the only source of data hazards are load words where the next operation reads data from the load word instructions destination register. 
 This causes a hazard because it takes one cycle to retrieve memory, which unlike an ALU result does not make the data available when the instruction is in the memory stage. 
 To detect these hazards the hazard detector compares the destination register of the operation in the execute stage with the source registers of the operation in ID stage.
 When there is a match, and the operation in execute stage is a load operation, the hazard detector issues a data hazard warning, which the rest of the system must respond to accordingly.
@@ -123,7 +123,7 @@ In addition to data hazards, when a branch is taken or a jump is performed, it i
 When the branch unit sets the pc address source signal to read a branch address, the hazard detector issues a control hazard warning.
 
 \subsection{Pipeline registers}
-Apart from the register file, the state of the system is held in pipeline registers. In \ref{fig:toplel} these are shown as pillars.
+Apart from the register file, the state of the system is held in pipeline registers. In Figure \ref{fig:toplevel} these are shown as pillars.
 Signals which are stored in these pipeline registers are depicted as perforated lines, signifying that it takes a cycle before the signal is driven on the opposite side of the register.
 In the pipeline registers we not only want to propagate the execution of an instruction, but also the control data that governs it, shown as the blue modules at the top of each pipeline register.
 Making sure execution state is only held in pipeline registers has another benefit, making it easier to deal with hazards that may occur, as described in the next section.
@@ -139,11 +139,11 @@ The two hazards we face in our design are control hazards and data hazards, each
 \end{figure}
 
 \subsubsection{Data hazards}
-In the sequence diagram in \ref{fig:hazard1} we show an unhandled hazard. When a load word is issued the following instruction which depends on the destination register cannot read from the data memory output, shown as a red arrow.
+In the sequence diagram in Figure \ref{fig:hazard1} we show an unhandled hazard. When a load word is issued the following instruction which depends on the destination register cannot read from the data memory output, shown as a red arrow.
 Since the dependency cannot be satisfied by the forwarder the add instruction instead reads whatever is output by the datamemory from the previous instruction.
-To stop this from happening we must stall the first of the add instructions as shown in \ref{fig:hazard2} 
+To stop this from happening we must stall the first of the add instructions as shown in Figure \ref{fig:hazard2} 
 In order to stall an instruction we stop all the pipeline register upstream of the unsatisfiable instruction from updating. 
-By stopping the pipeline registers from updating the unsatisfiable instruction will be issued again next cycle when it is satisfiable.
+By stopping the pipeline registers from updating, the unsatisfiable instruction will be issued again next cycle when it is satisfiable.
 In addition to ensuring the instruction is issued again next cycle we make sure the current incarnation of the instruction is rendered harmless.
 This is done by setting the control signals regwrite and memwrite to false, which ensures it cannot change the state of the processor.
 
@@ -154,7 +154,7 @@ This is done by setting the control signals regwrite and memwrite to false, whic
 \end{figure}
 
 \subsubsection{Control hazards}
-The second hazard we face occurs when a branch or jump occurs. \ref{fig:ctrl1} shows what happens when a branch is taken.
+The second hazard we face, occurs when a branch or jump occurs. Figure \ref{fig:ctrl1} shows what happens when a branch is taken.
 As soon as a branch is detected at the ID stage the program counter is updated, however by the time the branch is detected a new instruction has already been fetched, shown in red in the figure.
 When a control hazard is detected it is therefore the job of the control unit to render the next instruction harmless by inserting a nop in place of the next instruction that arrives.
 
