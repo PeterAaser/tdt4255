@@ -123,7 +123,7 @@ In addition to data hazards, when a branch is taken or a jump is performed, it i
 When the branch unit sets the pc address source signal to read a branch address, the hazard detector issues a control hazard warning.
 
 \subsection{Pipeline registers}
-Apart from the register file, the state of the system is held in pipeline registers. In \ref{fig:toplel} these are shown as pillars.
+Apart from the register file, the state of the system is held in pipeline registers. In \ref{fig:toplevel} these are shown as pillars.
 Signals which are stored in these pipeline registers are depicted as perforated lines, signifying that it takes a cycle before the signal is driven on the opposite side of the register.
 In the pipeline registers we not only want to propagate the execution of an instruction, but also the control data that governs it, shown as the blue modules at the top of each pipeline register.
 Making sure execution state is only held in pipeline registers has another benefit, making it easier to deal with hazards that may occur, as described in the next section.
