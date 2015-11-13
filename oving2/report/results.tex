@@ -8,6 +8,10 @@ We also uploaded the bitfile to an FPGA in the lab and verified correctness usin
 
 \section{Testing in ISim}
 Testsbenches for the all modules except the pipeline registers were written and run in ISim. 
+In order to test how the system worked when put together we wrote several tests designed to provoke errors. 
+In our final implementation not all of these tests pass, our design still fail on some of our tests:
+Our jump and branch tests exhibits some errors in updating the program counter, which leads to wrong results.
+With more time we believe we could have fixed this issue, and that it is not an underlying flaw in the design.
 
 \section{Testing on the FPGA}
 When the system had been tested thoroughly in ISim, a bitfile was generated, and uploaded to an FPGA via Hostcomm.
